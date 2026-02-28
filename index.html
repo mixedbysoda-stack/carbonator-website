@@ -1751,7 +1751,7 @@
                 <p class="hero-brand">Carbinated Audio</p>
 
                 <div class="hero-buttons">
-                    <a href="#" class="btn-download">
+                    <a href="#" class="btn-download" onclick="openDemoGate(event)">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
                             <polyline points="7 10 12 15 17 10"/>
@@ -2206,10 +2206,10 @@
                         <li><span class="check">&check;</span> All 5 DSP flavors</li>
                         <li><span class="check">&check;</span> Full plugin UI</li>
                         <li><span class="check">&check;</span> VST3, AU, AAX, Standalone</li>
-                        <li><span class="cross">&times;</span> <span style="opacity:0.5;">Audio output silenced every 30s</span></li>
+                        <li><span class="cross">&times;</span> <span style="opacity:0.5;">Audio muted 10s every 60s</span></li>
                         <li><span class="cross">&times;</span> <span style="opacity:0.5;">No offline rendering</span></li>
                     </ul>
-                    <a href="#" class="pricing-btn pricing-btn-outline">Download Free Trial</a>
+                    <a href="#" class="pricing-btn pricing-btn-outline" onclick="openDemoGate(event)">Download Free Trial</a>
                 </div>
 
                 <!-- Full License -->
@@ -2993,5 +2993,203 @@
         requestAnimationFrame(frame);
     })();
     </script>
+    <!-- Demo Download Gate Modal -->
+    <style>
+        .demo-gate-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 10000;
+            align-items: center;
+            justify-content: center;
+        }
+        .demo-gate-overlay.active { display: flex; }
+
+        .demo-gate {
+            background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg-card-darker) 100%);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 420px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+            animation: gateSlideIn 0.3s ease-out;
+        }
+        @keyframes gateSlideIn {
+            from { opacity: 0; transform: translateY(20px) scale(0.97); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .demo-gate-close {
+            position: absolute;
+            top: 14px;
+            right: 18px;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 22px;
+            cursor: pointer;
+            line-height: 1;
+        }
+        .demo-gate-close:hover { color: var(--text-primary); }
+
+        .demo-gate h3 {
+            font-size: 22px;
+            font-weight: 700;
+            margin: 0 0 6px;
+            color: var(--text-primary);
+        }
+        .demo-gate p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin: 0 0 24px;
+        }
+
+        .demo-gate-input {
+            width: 100%;
+            padding: 14px 16px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-size: 15px;
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.2s;
+            box-sizing: border-box;
+        }
+        .demo-gate-input::placeholder { color: var(--text-muted); }
+        .demo-gate-input:focus { border-color: var(--orange); }
+
+        .demo-gate-submit {
+            width: 100%;
+            margin-top: 14px;
+            padding: 14px;
+            border-radius: 10px;
+            border: none;
+            background: linear-gradient(135deg, var(--orange), var(--red));
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            transition: opacity 0.2s, transform 0.1s;
+        }
+        .demo-gate-submit:hover { opacity: 0.9; }
+        .demo-gate-submit:active { transform: scale(0.98); }
+
+        .demo-gate-error {
+            color: var(--red);
+            font-size: 13px;
+            margin-top: 8px;
+            min-height: 18px;
+        }
+
+        .demo-gate-fine {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 16px;
+        }
+    </style>
+
+    <div class="demo-gate-overlay" id="demoGateOverlay">
+        <div class="demo-gate">
+            <button class="demo-gate-close" onclick="closeDemoGate()">&times;</button>
+            <h3>Get the Free Demo</h3>
+            <p>Enter your email or phone number to unlock the download.</p>
+            <form id="demoGateForm" onsubmit="return submitDemoGate(event)">
+                <input type="text" class="demo-gate-input" id="demoGateContact"
+                       placeholder="Email or phone number" autocomplete="email" required>
+                <div class="demo-gate-error" id="demoGateError"></div>
+                <button type="submit" class="demo-gate-submit">Download Now</button>
+            </form>
+            <div class="demo-gate-fine">No spam. We'll only notify you about Carbonator updates.</div>
+        </div>
+    </div>
+
+    <script>
+    function openDemoGate(e) {
+        e.preventDefault();
+        document.getElementById('demoGateOverlay').classList.add('active');
+        setTimeout(() => document.getElementById('demoGateContact').focus(), 100);
+    }
+
+    function closeDemoGate() {
+        document.getElementById('demoGateOverlay').classList.remove('active');
+        document.getElementById('demoGateError').textContent = '';
+    }
+
+    // Close on overlay click (outside modal)
+    document.getElementById('demoGateOverlay').addEventListener('click', function(e) {
+        if (e.target === this) closeDemoGate();
+    });
+
+    function submitDemoGate(e) {
+        e.preventDefault();
+        const contact = document.getElementById('demoGateContact').value.trim();
+        const errorEl = document.getElementById('demoGateError');
+
+        // Basic validation: email or phone
+        const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const phoneRe = /^[\d\s\-\+\(\)]{7,}$/;
+
+        if (!emailRe.test(contact) && !phoneRe.test(contact)) {
+            errorEl.textContent = 'Please enter a valid email or phone number.';
+            return false;
+        }
+
+        errorEl.textContent = '';
+
+        // Disable button while submitting
+        const btn = document.querySelector('.demo-gate-submit');
+        btn.textContent = 'Sending...';
+        btn.disabled = true;
+
+        // Send lead to Google Sheets via hidden iframe form (bypasses CORS entirely)
+        var iframe = document.createElement('iframe');
+        iframe.name = 'leadFrame';
+        iframe.style.display = 'none';
+        document.body.appendChild(iframe);
+
+        var form = document.createElement('form');
+        form.method = 'POST';
+        form.action = 'https://script.google.com/macros/s/AKfycbzsIhbwCs4N1fRLyQ3P4BTdXMtSw4HdZK3q2G7XGBtk5w48XQjf8iPC56ERqo_Bapfa/exec';
+        form.target = 'leadFrame';
+
+        var input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'contact';
+        input.value = contact;
+        form.appendChild(input);
+
+        document.body.appendChild(form);
+        form.submit();
+        document.body.removeChild(form);
+
+        // Clean up iframe after submission
+        setTimeout(function() {
+            document.body.removeChild(iframe);
+        }, 5000);
+
+        // Close modal and trigger download
+        closeDemoGate();
+        btn.textContent = 'Download Now';
+        btn.disabled = false;
+
+        var a = document.createElement('a');
+        a.href = 'Carbonator DEMO.zip';
+        a.download = '';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+
+        return false;
+    }
+    </script>
+
 </body>
 </html>
