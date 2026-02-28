@@ -45,7 +45,7 @@ exports.handler = async (event) => {
       const resend = new Resend(process.env.RESEND_API_KEY);
 
       await resend.emails.send({
-        from: "Carbinated Audio <orders@carbinatedaudio.com>",
+        from: "Carbinated Audio <onboarding@resend.dev>",
         to: email,
         subject: "Your Carbonator Download Links",
         html: buildEmail({ email, amountPaid, orderId }),
