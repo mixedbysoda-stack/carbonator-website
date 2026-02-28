@@ -96,82 +96,13 @@
             color: #fff;
             position: relative;
             user-select: none;
+            display: inline-block;
         }
 
-        .nav-logo-text::after,
-        .nav-logo-text::before {
-            content: attr(data-text);
-            position: absolute;
-            top: 0;
-            color: #fff;
-            overflow: hidden;
-            clip-path: inset(0 0 0 0);
-            font-family: 'Pacifico', cursive;
-            font-size: 20px;
-            font-weight: 400;
-            letter-spacing: 0.5px;
-        }
-
-        .nav-logo-text::after {
-            left: 2px;
-            text-shadow: -3px 0 #ff3366;
-            background: rgba(13, 10, 26, 0.8);
-            animation: glitch-after 3s infinite linear alternate-reverse;
-        }
-
-        .nav-logo-text::before {
-            left: -2px;
-            text-shadow: 3px 0 #cc33ff;
-            background: rgba(13, 10, 26, 0.8);
-            animation: glitch-before 2s infinite linear alternate-reverse;
-        }
-
-        @keyframes glitch-after {
-            0% { clip-path: inset(20% 0 50% 0); }
-            5% { clip-path: inset(10% 0 60% 0); }
-            10% { clip-path: inset(15% 0 55% 0); }
-            15% { clip-path: inset(25% 0 35% 0); }
-            20% { clip-path: inset(30% 0 40% 0); }
-            25% { clip-path: inset(40% 0 20% 0); }
-            30% { clip-path: inset(10% 0 60% 0); }
-            35% { clip-path: inset(15% 0 55% 0); }
-            40% { clip-path: inset(25% 0 35% 0); }
-            45% { clip-path: inset(30% 0 40% 0); }
-            50% { clip-path: inset(20% 0 50% 0); }
-            55% { clip-path: inset(10% 0 60% 0); }
-            60% { clip-path: inset(15% 0 55% 0); }
-            65% { clip-path: inset(25% 0 35% 0); }
-            70% { clip-path: inset(30% 0 40% 0); }
-            75% { clip-path: inset(40% 0 20% 0); }
-            80% { clip-path: inset(20% 0 50% 0); }
-            85% { clip-path: inset(10% 0 60% 0); }
-            90% { clip-path: inset(15% 0 55% 0); }
-            95% { clip-path: inset(25% 0 35% 0); }
-            100% { clip-path: inset(30% 0 40% 0); }
-        }
-
-        @keyframes glitch-before {
-            0% { clip-path: inset(30% 0 40% 0); }
-            5% { clip-path: inset(25% 0 35% 0); }
-            10% { clip-path: inset(15% 0 55% 0); }
-            15% { clip-path: inset(10% 0 60% 0); }
-            20% { clip-path: inset(20% 0 50% 0); }
-            25% { clip-path: inset(40% 0 20% 0); }
-            30% { clip-path: inset(30% 0 40% 0); }
-            35% { clip-path: inset(25% 0 35% 0); }
-            40% { clip-path: inset(15% 0 55% 0); }
-            45% { clip-path: inset(10% 0 60% 0); }
-            50% { clip-path: inset(30% 0 40% 0); }
-            55% { clip-path: inset(25% 0 35% 0); }
-            60% { clip-path: inset(15% 0 55% 0); }
-            65% { clip-path: inset(10% 0 60% 0); }
-            70% { clip-path: inset(20% 0 50% 0); }
-            75% { clip-path: inset(40% 0 20% 0); }
-            80% { clip-path: inset(30% 0 40% 0); }
-            85% { clip-path: inset(25% 0 35% 0); }
-            90% { clip-path: inset(15% 0 55% 0); }
-            95% { clip-path: inset(10% 0 60% 0); }
-            100% { clip-path: inset(20% 0 50% 0); }
+        .nav-logo-text .shuffle-char {
+            display: inline-block;
+            min-width: 0.3em;
+            transition: none;
         }
 
         .nav-links {
@@ -1719,7 +1650,7 @@
         <!-- Navigation -->
         <nav>
             <a href="#" class="nav-logo">
-                <span class="nav-logo-text" data-text="Carbinated Audio">Carbinated Audio</span>
+                <span class="nav-logo-text" id="shuffleText" data-text="Carbinated Audio">Carbinated Audio</span>
             </a>
             <div class="nav-links">
                 <a href="#features">Features</a>
@@ -3020,6 +2951,45 @@
         requestAnimationFrame(frame);
     })();
     </script>
+
+    <!-- Shuffle Text Animation -->
+    <script>
+    (function() {
+        var el = document.getElementById('shuffleText');
+        if (!el) return;
+        var originalText = el.getAttribute('data-text');
+        var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+        var iterations = 0;
+        var interval = null;
+
+        function shuffle() {
+            if (interval) clearInterval(interval);
+            iterations = 0;
+            interval = setInterval(function() {
+                el.textContent = originalText.split('').map(function(ch, i) {
+                    if (ch === ' ') return ' ';
+                    if (i < iterations) return originalText[i];
+                    return chars[Math.floor(Math.random() * chars.length)];
+                }).join('');
+                iterations += 1 / 2;
+                if (iterations >= originalText.length) {
+                    clearInterval(interval);
+                    el.textContent = originalText;
+                }
+            }, 30);
+        }
+
+        // Play on page load
+        shuffle();
+
+        // Replay on hover
+        el.addEventListener('mouseenter', shuffle);
+
+        // Replay on touch
+        el.addEventListener('touchstart', shuffle);
+    })();
+    </script>
+
     <!-- Demo Download Gate Modal -->
     <style>
         .demo-gate-overlay {
