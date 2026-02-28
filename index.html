@@ -2049,7 +2049,7 @@
                     </div>
 
                     <div class="demo-time">
-                        <span class="demo-time-text" id="demoTimeText">0:00 / 0:15</span>
+                        <span class="demo-time-text" id="demoTimeText">0:00 / 0:44</span>
                         <span class="demo-time-text" id="demoWetLabel">50% Wet</span>
                     </div>
                 </div>
@@ -2601,7 +2601,7 @@
             let animFrame;
             let currentFlavor = 'cola';
             let dryWaveData = [], wetWaveData = [];
-            const DURATION = 15;
+            const DURATION = 44;
             const SAMPLES = 200;
 
             // Audio file paths
@@ -2762,7 +2762,7 @@
 
                 const current = Math.floor(progress * DURATION);
                 const sec = current % 60;
-                timeText.textContent = `0:${sec < 10 ? '0' + sec : sec} / 0:15`;
+                timeText.textContent = `0:${sec < 10 ? '0' + sec : sec} / 0:44`;
             }
 
             function animate(time) {
