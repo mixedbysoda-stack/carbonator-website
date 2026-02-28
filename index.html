@@ -2617,16 +2617,36 @@
             // Cache loaded buffers
             const bufferCache = {};
 
+            // Raw fetch cache (ArrayBuffers) — works before AudioContext exists
+            const rawCache = {};
+
             function initAudioCtx() {
                 if (!audioCtx) {
                     audioCtx = new (window.AudioContext || window.webkitAudioContext)();
                 }
+                // iOS Safari requires resume inside a user gesture
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+            }
+
+            async function prefetchAudio(url) {
+                if (rawCache[url]) return;
+                const resp = await fetch(url);
+                rawCache[url] = await resp.arrayBuffer();
             }
 
             async function loadAudio(url) {
                 if (bufferCache[url]) return bufferCache[url];
-                const resp = await fetch(url);
-                const arrayBuf = await resp.arrayBuffer();
+                initAudioCtx();
+                // Use prefetched data if available, otherwise fetch now
+                let arrayBuf = rawCache[url];
+                if (!arrayBuf) {
+                    const resp = await fetch(url);
+                    arrayBuf = await resp.arrayBuffer();
+                }
+                // decodeAudioData consumes the buffer, so remove from raw cache
+                delete rawCache[url];
                 const decoded = await audioCtx.decodeAudioData(arrayBuf);
                 bufferCache[url] = decoded;
                 return decoded;
@@ -2649,7 +2669,6 @@
             }
 
             async function loadFlavor(flavor) {
-                initAudioCtx();
                 currentFlavor = flavor;
                 dryBuffer = await loadAudio(audioFiles.dry);
                 wetBuffer = await loadAudio(audioFiles[flavor]);
@@ -2775,7 +2794,7 @@
             }
             animFrame = requestAnimationFrame(animate);
 
-            // Play/Pause
+            // Play/Pause — must create/resume AudioContext inside user gesture for mobile
             playBtn.addEventListener('click', async () => {
                 initAudioCtx();
                 if (!dryBuffer) await loadFlavor(currentFlavor);
@@ -2787,7 +2806,7 @@
                     isPlaying = false;
                     playIcon.innerHTML = '<polygon points="5,3 19,12 5,21"/>';
                 } else {
-                    // Play
+                    // Play — ensure AudioContext is running (iOS requires this per gesture)
                     if (audioCtx.state === 'suspended') await audioCtx.resume();
                     startPlayback(pauseOffset);
                     isPlaying = true;
@@ -2796,19 +2815,33 @@
                 playBtn.classList.toggle('playing', isPlaying);
             });
 
-            // Seek on waveform click
-            waveContainer.addEventListener('click', (e) => {
+            // Seek on waveform click/tap
+            function seekFromEvent(container, e) {
+                const rect = container.getBoundingClientRect();
+                const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                const seekPos = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
+                pauseOffset = seekPos * DURATION;
+                progress = seekPos;
+                if (isPlaying) startPlayback(pauseOffset);
+            }
+
+            waveContainer.addEventListener('click', (e) => seekFromEvent(waveContainer, e));
+            waveContainer.addEventListener('touchend', (e) => {
+                e.preventDefault();
                 const rect = waveContainer.getBoundingClientRect();
-                const seekPos = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+                const clientX = e.changedTouches[0].clientX;
+                const seekPos = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
                 pauseOffset = seekPos * DURATION;
                 progress = seekPos;
                 if (isPlaying) startPlayback(pauseOffset);
             });
 
-            // Seek on progress bar click
-            progressBar.addEventListener('click', (e) => {
+            progressBar.addEventListener('click', (e) => seekFromEvent(progressBar, e));
+            progressBar.addEventListener('touchend', (e) => {
+                e.preventDefault();
                 const rect = progressBar.getBoundingClientRect();
-                const seekPos = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+                const clientX = e.changedTouches[0].clientX;
+                const seekPos = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
                 pauseOffset = seekPos * DURATION;
                 progress = seekPos;
                 if (isPlaying) startPlayback(pauseOffset);
@@ -2836,8 +2869,10 @@
                 });
             });
 
-            // Preload cola on page load
-            loadFlavor('cola').catch(() => {});
+            // Prefetch audio files on page load (just downloads, no AudioContext needed)
+            // Decoding happens on first user tap when AudioContext is available
+            prefetchAudio(audioFiles.dry).catch(() => {});
+            prefetchAudio(audioFiles.cola).catch(() => {});
         })();
 
         // Sync plugin flavor dropdown with flavor tabs
