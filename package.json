@@ -1,0 +1,10 @@
+{
+  "name": "carbonator-website",
+  "version": "2.2.0",
+  "private": true,
+  "description": "Carbonator plugin website — Carbinated Audio",
+  "dependencies": {
+    "stripe": "^14.0.0",
+    "resend": "^3.0.0"
+  }
+}
