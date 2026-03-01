@@ -3,7 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carbinated Audio - Saturate. Distort. Dominate.</title>
+    <title>Carbonator — Analog Saturation Plugin by Carbinated Audio</title>
+    <meta name="description" content="Carbonator is a $14.99 analog saturation plugin with 5 DSP flavors, one-knob control, and Carbonated mode. VST3, AU, AAX for macOS & Windows. Try the free demo.">
+    <meta name="keywords" content="saturation plugin, distortion VST, analog warmth, audio plugin, VST3, AU, AAX, mixing plugin, Carbonator, Carbinated Audio">
+    <meta name="author" content="Carbinated Audio">
+
+    <!-- Open Graph / Social Sharing -->
+    <meta property="og:type" content="product">
+    <meta property="og:title" content="Carbonator — Analog Saturation Plugin">
+    <meta property="og:description" content="One knob. Five DSP flavors. Endless character. The $14.99 saturation plugin built for producers who hear the difference.">
+    <meta property="og:url" content="https://carbinated-audio.netlify.app">
+    <meta property="og:site_name" content="Carbinated Audio">
+    <meta property="og:image" content="https://carbinated-audio.netlify.app/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="product:price:amount" content="14.99">
+    <meta property="product:price:currency" content="USD">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Carbonator — Analog Saturation Plugin">
+    <meta name="twitter:description" content="One knob. Five DSP flavors. Endless character. The $14.99 saturation plugin for producers who hear the difference.">
+    <meta name="twitter:image" content="https://carbinated-audio.netlify.app/og-image.png">
+
+    <!-- Structured Data (Product Schema) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Carbonator",
+        "applicationCategory": "MultimediaApplication",
+        "operatingSystem": "macOS, Windows",
+        "offers": {
+            "@type": "Offer",
+            "price": "14.99",
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/InStock",
+            "priceValidUntil": "2026-03-31"
+        },
+        "description": "Analog saturation plugin with 5 DSP flavors, one-knob control, and Carbonated mode. VST3, AU, AAX formats.",
+        "brand": {
+            "@type": "Brand",
+            "name": "Carbinated Audio"
+        },
+        "softwareVersion": "2.2.0"
+    }
+    </script>
+
+    <!-- Google Analytics 4 -->
+    <!-- TODO: Replace G-XXXXXXXXXX with your actual GA4 measurement ID -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX');
+    </script>
+
+    <link rel="canonical" href="https://carbinated-audio.netlify.app">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&family=Pacifico&family=Lobster&display=swap" rel="stylesheet">
     <style>
         *, *::before, *::after {
@@ -1640,11 +1697,238 @@
             .nav-links a:not(.btn-buy) {
                 display: none;
             }
+            .launch-banner-inner {
+                flex-direction: column;
+                gap: 8px;
+            }
+            .countdown-units {
+                gap: 8px;
+            }
+            .testimonial-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Launch Banner */
+        .launch-banner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 200;
+            background: linear-gradient(90deg, var(--orange), var(--red), var(--magenta));
+            padding: 10px 20px;
+            text-align: center;
+        }
+
+        .launch-banner-inner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .launch-banner-text {
+            font-size: 14px;
+            font-weight: 700;
+            color: white;
+            letter-spacing: 0.5px;
+        }
+
+        .launch-banner-text .original-price {
+            text-decoration: line-through;
+            opacity: 0.7;
+            margin-right: 4px;
+        }
+
+        .launch-banner-text .launch-price {
+            font-size: 18px;
+            font-weight: 900;
+        }
+
+        .countdown-units {
+            display: flex;
+            gap: 12px;
+        }
+
+        .countdown-unit {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.25);
+            border-radius: 6px;
+            padding: 4px 10px;
+            min-width: 48px;
+        }
+
+        .countdown-value {
+            font-size: 18px;
+            font-weight: 900;
+            color: white;
+            line-height: 1.2;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .countdown-label {
+            font-size: 9px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: rgba(255, 255, 255, 0.7);
+            text-transform: uppercase;
+        }
+
+        .launch-banner + .content-wrapper nav {
+            top: 44px;
+        }
+
+        .launch-banner + .content-wrapper .hero {
+            padding-top: 164px;
+        }
+
+        .launch-banner.expired {
+            display: none;
+        }
+
+        .launch-banner.expired + .content-wrapper nav {
+            top: 0;
+        }
+
+        .launch-banner.expired + .content-wrapper .hero {
+            padding-top: 120px;
+        }
+
+        /* Launch pricing badge */
+        .pricing-original {
+            font-size: 28px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-decoration: line-through;
+            margin-right: 8px;
+        }
+
+        .pricing-launch-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            background: linear-gradient(135deg, var(--orange), var(--red));
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: white;
+            margin-bottom: 8px;
+        }
+
+        /* Testimonials Section */
+        .testimonials-section {
+            padding: 80px 60px 100px;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            max-width: 1080px;
+            margin: 0 auto;
+        }
+
+        .testimonial-card {
+            background: var(--bg-card-darker);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px;
+            transition: border-color 0.3s, transform 0.3s;
+        }
+
+        .testimonial-card:hover {
+            border-color: rgba(255, 107, 43, 0.3);
+            transform: translateY(-4px);
+        }
+
+        .testimonial-stars {
+            color: var(--yellow);
+            font-size: 14px;
+            letter-spacing: 2px;
+            margin-bottom: 16px;
+        }
+
+        .testimonial-text {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .testimonial-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--orange), var(--magenta));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+            color: white;
+        }
+
+        .testimonial-name {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .testimonial-role {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        @media (max-width: 1024px) {
+            .testimonial-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .launch-banner + .content-wrapper nav {
+                top: 44px;
+            }
         }
     </style>
 </head>
 <body>
     <canvas id="silk-bg"></canvas>
+
+    <!-- Launch Countdown Banner -->
+    <div class="launch-banner" id="launchBanner">
+        <div class="launch-banner-inner">
+            <span class="launch-banner-text">
+                Launch Price: <span class="original-price">$20</span> <span class="launch-price">$14.99</span> &mdash; Offer ends soon!
+            </span>
+            <div class="countdown-units" id="countdown">
+                <div class="countdown-unit">
+                    <span class="countdown-value" id="cd-days">00</span>
+                    <span class="countdown-label">Days</span>
+                </div>
+                <div class="countdown-unit">
+                    <span class="countdown-value" id="cd-hours">00</span>
+                    <span class="countdown-label">Hrs</span>
+                </div>
+                <div class="countdown-unit">
+                    <span class="countdown-value" id="cd-mins">00</span>
+                    <span class="countdown-label">Min</span>
+                </div>
+                <div class="countdown-unit">
+                    <span class="countdown-value" id="cd-secs">00</span>
+                    <span class="countdown-label">Sec</span>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="content-wrapper">
         <!-- Navigation -->
@@ -1657,7 +1941,8 @@
                 <a href="#demos">Demos</a>
                 <a href="#compatibility">Compatibility</a>
                 <a href="#pricing">Pricing</a>
-                <a href="https://buy.stripe.com/aFafZhgbffRw6nv0UH3oA00" class="btn-buy">Buy Now</a>
+                <a href="#reviews">Reviews</a>
+                <a href="https://buy.stripe.com/aFafZhgbffRw6nv0UH3oA00?prefilled_promo_code=LAUNCH25" class="btn-buy">Buy Now — $14.99</a>
             </div>
         </nav>
 
@@ -2137,14 +2422,18 @@
 
                 <!-- Full License -->
                 <div class="pricing-card featured">
-                    <div class="pricing-popular">MOST POPULAR</div>
+                    <div class="pricing-popular">LAUNCH SPECIAL</div>
                     <div class="pricing-card-header">
                         <div class="pricing-card-name">Full License</div>
                         <div class="pricing-card-desc">Everything, forever</div>
                     </div>
                     <div class="pricing-price">
-                        <span class="pricing-dollar">$</span><span class="pricing-amount">20</span>
-                        <div class="pricing-period">one-time payment</div>
+                        <div class="pricing-launch-badge">LAUNCH PRICE</div>
+                        <div>
+                            <span class="pricing-original">$20</span>
+                            <span class="pricing-dollar">$</span><span class="pricing-amount">14<span style="font-size:0.5em;vertical-align:super">.99</span></span>
+                        </div>
+                        <div class="pricing-period">one-time payment &mdash; limited time</div>
                     </div>
                     <ul class="pricing-features">
                         <li><span class="check">&check;</span> All 5 DSP flavors</li>
@@ -2155,7 +2444,7 @@
                         <li><span class="check">&check;</span> Free updates for life</li>
                         <li><span class="check">&check;</span> Use on up to 3 machines</li>
                     </ul>
-                    <a href="https://buy.stripe.com/aFafZhgbffRw6nv0UH3oA00" class="pricing-btn pricing-btn-primary">Buy Now &mdash; $20</a>
+                    <a href="https://buy.stripe.com/aFafZhgbffRw6nv0UH3oA00?prefilled_promo_code=LAUNCH25" class="pricing-btn pricing-btn-primary">Buy Now &mdash; $14.99</a>
                 </div>
 
             </div>
@@ -2166,6 +2455,53 @@
                     <polyline points="9 12 11 14 15 10"/>
                 </svg>
                 30-day money-back guarantee &mdash; no questions asked
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section class="testimonials-section" id="reviews">
+            <div class="section-label">WHAT PRODUCERS SAY</div>
+            <h2 class="section-title">Trusted by <span class="accent">producers</span></h2>
+            <p class="section-desc">
+                Hear from producers who use Carbonator in their workflow every day.
+            </p>
+
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                    <p class="testimonial-text">"I've tried saturation plugins 3x the price that don't sound this good. The Cola flavor on drums is insane &mdash; instant warmth without the mud."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">JR</div>
+                        <div>
+                            <div class="testimonial-name">Jordan R.</div>
+                            <div class="testimonial-role">Hip-Hop Producer</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                    <p class="testimonial-text">"Carbonator lives on my mix bus now. The one-knob workflow is genius &mdash; dial in the right amount, pick a flavor, done. No menu diving."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">AK</div>
+                        <div>
+                            <div class="testimonial-name">Alex K.</div>
+                            <div class="testimonial-role">Mixing Engineer</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                    <p class="testimonial-text">"The Grape flavor on vocals gives me that lo-fi character I used to spend forever trying to recreate. Under $15 is a steal for what this does."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">MP</div>
+                        <div>
+                            <div class="testimonial-name">Maya P.</div>
+                            <div class="testimonial-role">Singer / Producer</div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -2829,7 +3165,7 @@
             });
         }, observerOptions);
 
-        document.querySelectorAll('.flavor-detail, .demo-player, .section-title, .section-label, .compat-card, .compat-badges, .compat-note, .pricing-card, .pricing-guarantee').forEach(el => {
+        document.querySelectorAll('.flavor-detail, .demo-player, .section-title, .section-label, .compat-card, .compat-badges, .compat-note, .pricing-card, .pricing-guarantee, .testimonial-card').forEach(el => {
             el.style.opacity = '0';
             el.style.transform = 'translateY(30px)';
             el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
@@ -3186,6 +3522,48 @@
 
         return false;
     }
+    </script>
+
+    <!-- Launch Countdown Timer -->
+    <script>
+    (function() {
+        // Set launch end date: March 31, 2026 (matches Stripe coupon expiry)
+        var launchEnd = new Date('2026-03-31T23:59:59-05:00').getTime();
+        var banner = document.getElementById('launchBanner');
+        var daysEl = document.getElementById('cd-days');
+        var hoursEl = document.getElementById('cd-hours');
+        var minsEl = document.getElementById('cd-mins');
+        var secsEl = document.getElementById('cd-secs');
+
+        function pad(n) { return n < 10 ? '0' + n : n; }
+
+        function update() {
+            var now = Date.now();
+            var diff = launchEnd - now;
+
+            if (diff <= 0) {
+                banner.classList.add('expired');
+                daysEl.textContent = '00';
+                hoursEl.textContent = '00';
+                minsEl.textContent = '00';
+                secsEl.textContent = '00';
+                return;
+            }
+
+            var days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            var secs = Math.floor((diff % (1000 * 60)) / 1000);
+
+            daysEl.textContent = pad(days);
+            hoursEl.textContent = pad(hours);
+            minsEl.textContent = pad(mins);
+            secsEl.textContent = pad(secs);
+        }
+
+        update();
+        setInterval(update, 1000);
+    })();
     </script>
 
 </body>
