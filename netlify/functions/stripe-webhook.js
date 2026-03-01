@@ -113,7 +113,7 @@ function buildEmail({ email, amountPaid, orderId }) {
                 <tr>
                   <td align="center">
                     <a href="${DOWNLOAD_URLS.windows}" style="display:inline-block;padding:14px 32px;background:linear-gradient(135deg,#ff6b2b,#ff8c42);color:#ffffff;text-decoration:none;border-radius:8px;font-size:16px;font-weight:600;">
-                      Download for Windows (.exe)
+                      Download for Windows (.zip)
                     </a>
                   </td>
                 </tr>
@@ -150,7 +150,7 @@ function buildEmail({ email, amountPaid, orderId }) {
               <h2 style="color:#ffffff;font-size:16px;margin:0 0 12px;">Quick Start</h2>
               <ol style="color:#a09bb5;font-size:14px;padding-left:20px;margin:0;">
                 <li style="margin-bottom:8px;"><strong style="color:#ffffff;">macOS:</strong> Open the .pkg installer and choose your formats (VST3, AU, AAX, Standalone).</li>
-                <li style="margin-bottom:8px;"><strong style="color:#ffffff;">Windows:</strong> Run the .exe installer. VST3 goes to <code style="background:rgba(255,255,255,0.08);padding:2px 6px;border-radius:4px;">C:\\Program Files\\Common Files\\VST3\\</code></li>
+                <li style="margin-bottom:8px;"><strong style="color:#ffffff;">Windows:</strong> Extract the .zip and copy the VST3 plugin to <code style="background:rgba(255,255,255,0.08);padding:2px 6px;border-radius:4px;">C:\\Program Files\\Common Files\\VST3\\</code></li>
                 <li style="margin-bottom:8px;"><strong style="color:#ffffff;">Rescan plugins</strong> in your DAW, then drop Carbonator on a track.</li>
               </ol>
             </td>
