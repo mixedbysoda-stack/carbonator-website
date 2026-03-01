@@ -95,6 +95,20 @@
             line-height: 1.6;
         }
 
+        /* Fix gradient text clipping on italic/bold characters */
+        [style*="background-clip"],
+        .hero-title .brand-name,
+        .hero-title .line-2,
+        .hero-title .line-3,
+        .stat-value,
+        .section-title .accent,
+        .pricing-card.featured .pricing-amount {
+            padding-left: 0.05em;
+            padding-right: 0.1em;
+            -webkit-box-decoration-break: clone;
+            box-decoration-break: clone;
+        }
+
         /* Silk WebGL background */
         #silk-bg {
             position: fixed;
