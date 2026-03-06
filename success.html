@@ -303,6 +303,68 @@
             text-decoration: underline;
         }
 
+        /* --- License Key Section --- */
+        .license-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px 24px;
+            margin-bottom: 32px;
+            text-align: center;
+        }
+
+        .license-section h2 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .license-key-box {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 14px 16px;
+            margin-bottom: 12px;
+        }
+
+        .license-key-box code {
+            flex: 1;
+            font-family: 'JetBrains Mono', 'Courier New', monospace;
+            font-size: 12px;
+            color: var(--orange-light);
+            letter-spacing: 0.5px;
+            word-break: break-all;
+            text-align: left;
+            user-select: all;
+        }
+
+        .copy-btn {
+            flex-shrink: 0;
+            padding: 8px 16px;
+            background: linear-gradient(135deg, var(--orange), var(--orange-light));
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .copy-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 12px rgba(255, 107, 43, 0.3);
+        }
+
+        .license-note {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
         @media (max-width: 600px) {
             .download-grid {
                 grid-template-columns: 1fr;
@@ -333,6 +395,15 @@
             <div class="brand">Carbinated Audio</div>
             <h1>Thank you for buying <span class="accent">Carbonator</span></h1>
             <p class="subtitle">Your purchase is complete. Download your plugin below.</p>
+
+            <div class="license-section" id="license-section" style="display: none;">
+                <h2>Your License Key</h2>
+                <div class="license-key-box">
+                    <code id="license-key-text"></code>
+                    <button class="copy-btn" id="copy-key-btn">Copy</button>
+                </div>
+                <p class="license-note">Paste this key into the Carbonator plugin to activate it. Each key works on up to 3 machines.</p>
+            </div>
 
             <div class="download-section">
                 <h2 id="download-heading">Download Carbonator</h2>
@@ -454,6 +525,20 @@
                     document.getElementById('win-download').href = data.downloads.windows;
                     document.getElementById('download-heading').textContent =
                         `Download Carbonator v${data.version}`;
+
+                    // Show license key if available
+                    if (data.license_key) {
+                        document.getElementById('license-key-text').textContent = data.license_key;
+                        document.getElementById('license-section').style.display = 'block';
+                        document.getElementById('copy-key-btn').addEventListener('click', function() {
+                            navigator.clipboard.writeText(data.license_key).then(function() {
+                                document.getElementById('copy-key-btn').textContent = 'Copied!';
+                                setTimeout(function() {
+                                    document.getElementById('copy-key-btn').textContent = 'Copy';
+                                }, 2000);
+                            });
+                        });
+                    }
 
                     showState(stateVerified);
                 } else {

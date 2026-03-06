@@ -1,6 +1,10 @@
 const Stripe = require("stripe");
 const { Resend } = require("resend");
-const { VERSION, DOWNLOAD_URLS } = require("./config");
+const {
+  VERSION,
+  DOWNLOAD_URLS,
+  generateActivationKey,
+} = require("./config");
 
 exports.handler = async (event) => {
   if (event.httpMethod !== "POST") {
@@ -36,6 +40,22 @@ exports.handler = async (event) => {
       return { statusCode: 200, body: "No email — skipped" };
     }
 
+    // Generate deterministic license key
+    const licenseSecret = process.env.CARBONATOR_LICENSE_SECRET;
+    let licenseKey = session.metadata?.license_key;
+
+    if (!licenseKey && licenseSecret) {
+      licenseKey = generateActivationKey(email, session.created, licenseSecret);
+      // Store key in session metadata for verify-session to retrieve
+      try {
+        await stripe.checkout.sessions.update(session.id, {
+          metadata: { license_key: licenseKey },
+        });
+      } catch (err) {
+        console.error("Failed to store license key in session:", err.message);
+      }
+    }
+
     const amountPaid = session.amount_total
       ? `$${(session.amount_total / 100).toFixed(2)}`
       : "$20.00";
@@ -47,8 +67,8 @@ exports.handler = async (event) => {
       await resend.emails.send({
         from: "Carbinated Audio <onboarding@resend.dev>",
         to: email,
-        subject: "Your Carbonator Download Links",
-        html: buildEmail({ email, amountPaid, orderId }),
+        subject: "Your Carbonator License Key & Download Links",
+        html: buildEmail({ email, amountPaid, orderId, licenseKey }),
       });
 
       console.log(`Delivery email sent to ${email}`);
@@ -62,7 +82,20 @@ exports.handler = async (event) => {
   return { statusCode: 200, body: "OK" };
 };
 
-function buildEmail({ email, amountPaid, orderId }) {
+function buildEmail({ email, amountPaid, orderId, licenseKey }) {
+  const licenseSection = licenseKey
+    ? `
+              <!-- License Key -->
+              <h2 style="color:#ffffff;font-size:18px;margin:0 0 12px;text-align:center;">Your License Key</h2>
+              <div style="background:#0d0a1a;padding:16px;border-radius:8px;border:1px solid #2a2440;text-align:center;margin-bottom:8px;">
+                <code style="font-size:13px;color:#ff8c42;letter-spacing:0.5px;word-break:break-all;font-family:'Courier New',Courier,monospace;">${licenseKey}</code>
+              </div>
+              <p style="color:#a09bb5;font-size:13px;text-align:center;margin:0 0 32px;">
+                Paste this key into the Carbonator plugin to activate it.<br>Each key works on up to 3 machines.
+              </p>
+    `
+    : "";
+
   return `
 <!DOCTYPE html>
 <html>
@@ -100,6 +133,8 @@ function buildEmail({ email, amountPaid, orderId }) {
 
               <h1 style="color:#ffffff;font-size:24px;text-align:center;margin:0 0 8px;">Thank you for your purchase!</h1>
               <p style="color:#a09bb5;font-size:16px;text-align:center;margin:0 0 32px;">Your Carbonator v${VERSION} download links are below.</p>
+
+              ${licenseSection}
 
               <!-- Download Buttons -->
               <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:32px;">
@@ -151,6 +186,7 @@ function buildEmail({ email, amountPaid, orderId }) {
               <ol style="color:#a09bb5;font-size:14px;padding-left:20px;margin:0;">
                 <li style="margin-bottom:8px;"><strong style="color:#ffffff;">macOS:</strong> Open the .pkg installer and choose your formats (VST3, AU, AAX, Standalone).</li>
                 <li style="margin-bottom:8px;"><strong style="color:#ffffff;">Windows:</strong> Extract the .zip and copy the VST3 plugin to <code style="background:rgba(255,255,255,0.08);padding:2px 6px;border-radius:4px;">C:\\Program Files\\Common Files\\VST3\\</code></li>
+                <li style="margin-bottom:8px;"><strong style="color:#ffffff;">Activate:</strong> Open the plugin, paste your license key, and click Activate.</li>
                 <li style="margin-bottom:8px;"><strong style="color:#ffffff;">Rescan plugins</strong> in your DAW, then drop Carbonator on a track.</li>
               </ol>
             </td>

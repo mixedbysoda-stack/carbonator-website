@@ -4,26 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carbonator — Analog Saturation Plugin by Carbinated Audio</title>
-    <meta name="description" content="Carbonator is a $14.99 analog saturation plugin with 5 DSP flavors, one-knob control, and Carbonated mode. VST3, AU, AAX for macOS & Windows. Try the free demo.">
+    <meta name="description" content="Carbonator is a $20 analog saturation plugin with 5 DSP flavors, one-knob control, and Carbonated mode. VST3, AU, AAX for macOS & Windows. Try the free demo.">
     <meta name="keywords" content="saturation plugin, distortion VST, analog warmth, audio plugin, VST3, AU, AAX, mixing plugin, Carbonator, Carbinated Audio">
     <meta name="author" content="Carbinated Audio">
 
     <!-- Open Graph / Social Sharing -->
     <meta property="og:type" content="product">
     <meta property="og:title" content="Carbonator — Analog Saturation Plugin">
-    <meta property="og:description" content="One knob. Five DSP flavors. Endless character. The $14.99 saturation plugin built for producers who hear the difference.">
+    <meta property="og:description" content="One knob. Five DSP flavors. Endless character. The $20 saturation plugin built for producers who hear the difference.">
     <meta property="og:url" content="https://carbinated-audio.netlify.app">
     <meta property="og:site_name" content="Carbinated Audio">
     <meta property="og:image" content="https://carbinated-audio.netlify.app/og-image.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="product:price:amount" content="14.99">
+    <meta property="product:price:amount" content="20.00">
     <meta property="product:price:currency" content="USD">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Carbonator — Analog Saturation Plugin">
-    <meta name="twitter:description" content="One knob. Five DSP flavors. Endless character. The $14.99 saturation plugin for producers who hear the difference.">
+    <meta name="twitter:description" content="One knob. Five DSP flavors. Endless character. The $20 saturation plugin for producers who hear the difference.">
     <meta name="twitter:image" content="https://carbinated-audio.netlify.app/og-image.png">
 
     <!-- Structured Data (Product Schema) -->
@@ -36,7 +36,7 @@
         "operatingSystem": "macOS, Windows",
         "offers": {
             "@type": "Offer",
-            "price": "14.99",
+            "price": "20.00",
             "priceCurrency": "USD",
             "availability": "https://schema.org/InStock",
             "priceValidUntil": "2026-03-31"
@@ -1888,6 +1888,138 @@
                 grid-template-columns: 1fr 1fr;
             }
         }
+
+        /* ====== INTERACTIVE EFFECTS ====== */
+
+        /* Click Sparks Canvas */
+        #click-sparks {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            pointer-events: none;
+        }
+
+        /* Spotlight glow on cards */
+        .spotlight-card {
+            position: relative;
+            overflow: hidden;
+        }
+        .spotlight-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+            z-index: 1;
+            background: radial-gradient(circle at var(--spot-x, 50%) var(--spot-y, 50%), rgba(255, 107, 43, 0.18), transparent 65%);
+        }
+        .spotlight-card:hover::before {
+            opacity: 1;
+        }
+        .spotlight-card > * {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* 3D Tilt on plugin mockup */
+        .plugin-mockup {
+            transition: transform 0.15s ease-out, box-shadow 0.3s ease;
+            transform-style: preserve-3d;
+            perspective: 800px;
+        }
+
+        /* Magnetic buttons */
+        .magnetic-btn {
+            transition: transform 0.2s ease-out;
+        }
+
+        /* Hero text reveal */
+        .hero-animate {
+            opacity: 0 !important;
+            transform: translateY(40px) !important;
+            transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        }
+        .hero-animate.revealed {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+        }
+
+        /* Floating particles */
+        #hero-particles {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+        .hero {
+            position: relative;
+        }
+        .hero > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Staggered scroll reveals */
+        .scroll-reveal {
+            opacity: 0 !important;
+            transform: translateY(40px) !important;
+            transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        }
+        .scroll-reveal.revealed {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+        }
+
+        /* Subtle glowing border animation on featured pricing card */
+        .pricing-card.featured::after {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: -1px;
+            right: -1px;
+            bottom: -1px;
+            background: conic-gradient(from var(--border-angle, 0deg), rgba(255,107,43,0.4), rgba(255,51,102,0.2), rgba(204,51,255,0.15), rgba(255,107,43,0.4));
+            border-radius: 21px;
+            z-index: -1;
+            animation: rotateBorder 6s linear infinite;
+        }
+        @keyframes rotateBorder {
+            to { --border-angle: 360deg; }
+        }
+        @property --border-angle {
+            syntax: '<angle>';
+            initial-value: 0deg;
+            inherits: false;
+        }
+
+        /* Ripple effect on buttons */
+        .btn-download, .btn-secondary, .pricing-btn {
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(0);
+            animation: ripple 0.6s ease-out;
+            pointer-events: none;
+        }
+        @keyframes ripple {
+            to { transform: scale(4); opacity: 0; }
+        }
+
+        /* Parallax floating elements */
+        .version-badge {
+            animation: floatBadge 3s ease-in-out infinite;
+        }
+        @keyframes floatBadge {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+
     </style>
 </head>
 <body>
@@ -1898,7 +2030,7 @@
         <div class="launch-banner" id="launchBanner">
             <div class="launch-banner-inner">
                 <span class="launch-banner-text">
-                    Launch Price: <span class="original-price">$20</span> <span class="launch-price">$14.99</span> &mdash; Offer ends soon!
+                    Sale: <span class="original-price">$35</span> <span class="launch-price">$20</span> &mdash; Offer ends soon!
                 </span>
                 <div class="countdown-units" id="countdown">
                     <div class="countdown-unit">
@@ -1932,12 +2064,13 @@
                 <a href="#compatibility">Compatibility</a>
                 <a href="#pricing">Pricing</a>
                 <a href="#reviews">Reviews</a>
-                <a href="https://buy.stripe.com/aFafZhgbffRw6nv0UH3oA00?prefilled_promo_code=LAUNCH25" class="btn-buy">Buy Now — $14.99</a>
+                <a href="https://buy.stripe.com/aFafZhgbffRw6nv0UH3oA00" class="btn-buy">Buy Now — $20</a>
             </div>
         </nav>
 
         <!-- Hero Section -->
         <section class="hero">
+            <canvas id="hero-particles"></canvas>
             <div class="hero-left">
 
                 <div class="hero-title">
@@ -1953,7 +2086,7 @@
                 <p class="hero-brand">Carbinated Audio</p>
 
                 <div class="hero-buttons">
-                    <a href="#" class="btn-download" onclick="openDemoGate(event)">
+                    <a href="#" class="btn-download magnetic-btn" onclick="openDemoGate(event)">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
                             <polyline points="7 10 12 15 17 10"/>
@@ -1961,7 +2094,7 @@
                         </svg>
                         Download Free Trial
                     </a>
-                    <a href="https://www.instagram.com/reel/DVUP9ozDwVb/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank" rel="noopener" class="btn-secondary">Watch Demo</a>
+                    <a href="https://www.instagram.com/reel/DVUP9ozDwVb/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank" rel="noopener" class="btn-secondary magnetic-btn">Watch Demo</a>
                 </div>
 
                 <div class="hero-stats">
@@ -2307,7 +2440,7 @@
 
             <div class="compat-grid">
                 <!-- DAWs -->
-                <div class="compat-card">
+                <div class="compat-card spotlight-card">
                     <div class="compat-card-icon daw">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
@@ -2327,7 +2460,7 @@
                 </div>
 
                 <!-- Formats -->
-                <div class="compat-card">
+                <div class="compat-card spotlight-card">
                     <div class="compat-card-icon format">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
@@ -2351,7 +2484,7 @@
                 </div>
 
                 <!-- System Requirements -->
-                <div class="compat-card">
+                <div class="compat-card spotlight-card">
                     <div class="compat-card-icon os">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/>
@@ -2412,16 +2545,16 @@
 
                 <!-- Full License -->
                 <div class="pricing-card featured">
-                    <div class="pricing-popular">LAUNCH SPECIAL</div>
+                    <div class="pricing-popular">SALE</div>
                     <div class="pricing-card-header">
                         <div class="pricing-card-name">Full License</div>
                         <div class="pricing-card-desc">Everything, forever</div>
                     </div>
                     <div class="pricing-price">
-                        <div class="pricing-launch-badge">LAUNCH PRICE</div>
+                        <div class="pricing-launch-badge">SALE PRICE</div>
                         <div>
-                            <span class="pricing-original">$20</span>
-                            <span class="pricing-dollar">$</span><span class="pricing-amount">14<span style="font-size:0.5em;vertical-align:super">.99</span></span>
+                            <span class="pricing-original">$35</span>
+                            <span class="pricing-dollar">$</span><span class="pricing-amount">20</span>
                         </div>
                         <div class="pricing-period">one-time payment &mdash; limited time</div>
                     </div>
@@ -2434,7 +2567,7 @@
                         <li><span class="check">&check;</span> Free updates for life</li>
                         <li><span class="check">&check;</span> Use on up to 3 machines</li>
                     </ul>
-                    <a href="https://buy.stripe.com/aFafZhgbffRw6nv0UH3oA00?prefilled_promo_code=LAUNCH25" class="pricing-btn pricing-btn-primary">Buy Now &mdash; $14.99</a>
+                    <a href="https://buy.stripe.com/aFafZhgbffRw6nv0UH3oA00" class="pricing-btn pricing-btn-primary">Buy Now &mdash; $20</a>
                 </div>
 
             </div>
@@ -2457,7 +2590,7 @@
             </p>
 
             <div class="testimonial-grid">
-                <div class="testimonial-card">
+                <div class="testimonial-card spotlight-card">
                     <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
                     <p class="testimonial-text">"I've tried saturation plugins 3x the price that don't sound this good. The Cola flavor on drums is insane &mdash; instant warmth without the mud."</p>
                     <div class="testimonial-author">
@@ -2469,7 +2602,7 @@
                     </div>
                 </div>
 
-                <div class="testimonial-card">
+                <div class="testimonial-card spotlight-card">
                     <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
                     <p class="testimonial-text">"Carbonator lives on my mix bus now. The one-knob workflow is genius &mdash; dial in the right amount, pick a flavor, done. No menu diving."</p>
                     <div class="testimonial-author">
@@ -2481,7 +2614,7 @@
                     </div>
                 </div>
 
-                <div class="testimonial-card">
+                <div class="testimonial-card spotlight-card">
                     <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
                     <p class="testimonial-text">"The Grape flavor on vocals gives me that lo-fi character I used to spend forever trying to recreate. Under $15 is a steal for what this does."</p>
                     <div class="testimonial-author">
@@ -3144,23 +3277,37 @@
             });
         });
 
-        // Animate elements on scroll
-        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
+        // ========================================
+        // Staggered Scroll Reveal
+        // ========================================
+        (function() {
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const delay = entry.target.dataset.revealDelay || 0;
+                        setTimeout(() => entry.target.classList.add('revealed'), delay);
+                        revealObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
 
-        document.querySelectorAll('.flavor-detail, .demo-player, .section-title, .section-label, .compat-card, .compat-badges, .compat-note, .pricing-card, .pricing-guarantee, .testimonial-card').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(30px)';
-            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            observer.observe(el);
-        });
+            // Group elements by parent to stagger siblings
+            const groups = {};
+            document.querySelectorAll('.flavor-detail, .demo-player, .section-title, .section-label, .section-desc, .compat-card, .compat-badges, .compat-note, .pricing-card, .pricing-guarantee, .testimonial-card, .flavor-tabs, .demo-flavor-tabs, .compat-badge').forEach(el => {
+                el.classList.add('scroll-reveal');
+                const parent = el.parentElement;
+                const key = parent ? (parent.id || parent.className) : 'root';
+                if (!groups[key]) groups[key] = [];
+                groups[key].push(el);
+            });
+
+            Object.values(groups).forEach(group => {
+                group.forEach((el, i) => {
+                    el.dataset.revealDelay = i * 100;
+                    revealObserver.observe(el);
+                });
+            });
+        })();
     </script>
 
     <!-- Silk WebGL Background (ported from ReactBits) -->
@@ -3512,6 +3659,314 @@
 
         return false;
     }
+    </script>
+
+    <!-- Click Sparks Canvas -->
+    <canvas id="click-sparks"></canvas>
+
+    <!-- ====== INTERACTIVE EFFECTS ====== -->
+    <script>
+    // ========================================
+    // 1. Click Sparks (inspired by ReactBits ClickSpark)
+    // ========================================
+    (function() {
+        const canvas = document.getElementById('click-sparks');
+        const ctx = canvas.getContext('2d');
+        const sparks = [];
+        const SPARK_COUNT = 8;
+        const DURATION = 500;
+        const RADIUS = 40;
+        const SPARK_SIZE = 16;
+        const colors = ['#ff6b2b', '#ff3366', '#cc33ff', '#ffd700', '#ff8c42'];
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resize();
+        window.addEventListener('resize', resize);
+
+        document.addEventListener('click', (e) => {
+            const now = performance.now();
+            for (let i = 0; i < SPARK_COUNT; i++) {
+                sparks.push({
+                    x: e.clientX,
+                    y: e.clientY,
+                    angle: (2 * Math.PI * i) / SPARK_COUNT + (Math.random() - 0.5) * 0.3,
+                    startTime: now,
+                    color: colors[Math.floor(Math.random() * colors.length)]
+                });
+            }
+        });
+
+        function draw(timestamp) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = sparks.length - 1; i >= 0; i--) {
+                const s = sparks[i];
+                const elapsed = timestamp - s.startTime;
+                if (elapsed >= DURATION) { sparks.splice(i, 1); continue; }
+                const progress = elapsed / DURATION;
+                const ease = progress * (2 - progress);
+                const dist = ease * RADIUS * 3;
+                const len = SPARK_SIZE * (1 - progress);
+                const alpha = 1 - progress;
+                const x1 = s.x + dist * Math.cos(s.angle);
+                const y1 = s.y + dist * Math.sin(s.angle);
+                const x2 = s.x + (dist + len) * Math.cos(s.angle);
+                const y2 = s.y + (dist + len) * Math.sin(s.angle);
+                ctx.strokeStyle = s.color;
+                ctx.globalAlpha = alpha;
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.moveTo(x1, y1);
+                ctx.lineTo(x2, y2);
+                ctx.stroke();
+            }
+            ctx.globalAlpha = 1;
+            requestAnimationFrame(draw);
+        }
+        requestAnimationFrame(draw);
+    })();
+
+    // ========================================
+    // 2. Spotlight Cards (inspired by ReactBits SpotlightCard)
+    // ========================================
+    (function() {
+        document.querySelectorAll('.spotlight-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = ((e.clientX - rect.left) / rect.width * 100);
+                const y = ((e.clientY - rect.top) / rect.height * 100);
+                card.style.setProperty('--spot-x', x + '%');
+                card.style.setProperty('--spot-y', y + '%');
+            });
+        });
+    })();
+
+    // ========================================
+    // 3. 3D Tilt on Plugin Mockup (inspired by ReactBits TiltedCard)
+    // ========================================
+    (function() {
+        const mockup = document.getElementById('pluginMockup');
+        if (!mockup) return;
+        const maxTilt = 12;
+
+        mockup.addEventListener('mousemove', (e) => {
+            const rect = mockup.getBoundingClientRect();
+            const x = (e.clientX - rect.left) / rect.width;
+            const y = (e.clientY - rect.top) / rect.height;
+            const tiltX = (0.5 - y) * maxTilt;
+            const tiltY = (x - 0.5) * maxTilt;
+            mockup.style.transform = `perspective(800px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale3d(1.02, 1.02, 1.02)`;
+        });
+
+        mockup.addEventListener('mouseleave', () => {
+            mockup.style.transform = 'perspective(800px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+        });
+    })();
+
+    // ========================================
+    // 4. Animated Counters (count up on scroll)
+    // ========================================
+    (function() {
+        const stats = document.querySelectorAll('.stat-value');
+        let counted = false;
+
+        function animateCounter(el, target, suffix, duration) {
+            const start = performance.now();
+            const isFloat = target % 1 !== 0;
+            function step(now) {
+                const elapsed = now - start;
+                const progress = Math.min(elapsed / duration, 1);
+                const ease = 1 - Math.pow(1 - progress, 3);
+                const current = ease * target;
+                if (isFloat) {
+                    el.textContent = current.toFixed(1) + suffix;
+                } else {
+                    el.textContent = Math.floor(current).toLocaleString() + suffix;
+                }
+                if (progress < 1) requestAnimationFrame(step);
+            }
+            requestAnimationFrame(step);
+        }
+
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !counted) {
+                    counted = true;
+                    stats.forEach((el, i) => {
+                        const text = el.textContent.trim();
+                        const num = parseFloat(text.replace(/[^0-9.]/g, ''));
+                        const suffix = text.replace(/[0-9.,]/g, '');
+                        el.textContent = '0' + suffix;
+                        setTimeout(() => animateCounter(el, num, suffix, 1500), i * 200);
+                    });
+                }
+            });
+        }, { threshold: 0.5 });
+
+        if (stats.length) counterObserver.observe(stats[0].closest('.hero-stats'));
+    })();
+
+    // ========================================
+    // 5. Magnetic Buttons
+    // ========================================
+    (function() {
+        document.querySelectorAll('.magnetic-btn').forEach(btn => {
+            btn.addEventListener('mousemove', (e) => {
+                const rect = btn.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                btn.style.transform = `translate(${x * 0.15}px, ${y * 0.15}px)`;
+            });
+            btn.addEventListener('mouseleave', () => {
+                btn.style.transform = 'translate(0, 0)';
+            });
+        });
+    })();
+
+    // ========================================
+    // 6. Hero Text Staggered Reveal
+    // ========================================
+    (function() {
+        const elements = [
+            ...document.querySelectorAll('.hero-title .brand-name, .hero-title .line'),
+            document.querySelector('.hero-desc'),
+            document.querySelector('.hero-brand'),
+            document.querySelector('.hero-buttons'),
+            document.querySelector('.hero-stats')
+        ].filter(Boolean);
+
+        // Add the hidden class first, then reveal with stagger
+        elements.forEach(el => el.classList.add('hero-animate'));
+        // Force reflow so the initial state paints before transitions kick in
+        void document.body.offsetHeight;
+        elements.forEach((el, i) => {
+            setTimeout(() => el.classList.add('revealed'), 300 + i * 180);
+        });
+    })();
+
+    // ========================================
+    // 7. Floating Particles in Hero
+    // ========================================
+    (function() {
+        const canvas = document.getElementById('hero-particles');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        const particles = [];
+        const COUNT = 40;
+
+        function resize() {
+            const hero = canvas.parentElement;
+            canvas.width = hero.offsetWidth;
+            canvas.height = hero.offsetHeight;
+        }
+        resize();
+        window.addEventListener('resize', resize);
+
+        for (let i = 0; i < COUNT; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                r: Math.random() * 2 + 0.5,
+                vx: (Math.random() - 0.5) * 0.3,
+                vy: (Math.random() - 0.5) * 0.3,
+                alpha: Math.random() * 0.4 + 0.1,
+                color: ['#ff6b2b', '#ff3366', '#cc33ff', '#ffd700'][Math.floor(Math.random() * 4)]
+            });
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.x += p.vx;
+                p.y += p.vy;
+                if (p.x < 0) p.x = canvas.width;
+                if (p.x > canvas.width) p.x = 0;
+                if (p.y < 0) p.y = canvas.height;
+                if (p.y > canvas.height) p.y = 0;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                ctx.fillStyle = p.color;
+                ctx.globalAlpha = p.alpha;
+                ctx.fill();
+            });
+
+            // Draw connecting lines between close particles
+            ctx.strokeStyle = 'rgba(255, 107, 43, 0.06)';
+            ctx.lineWidth = 0.5;
+            ctx.globalAlpha = 1;
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 120) {
+                        ctx.globalAlpha = (1 - dist / 120) * 0.15;
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+            ctx.globalAlpha = 1;
+            requestAnimationFrame(draw);
+        }
+        requestAnimationFrame(draw);
+    })();
+
+    // ========================================
+    // 8. Button Ripple Effect
+    // ========================================
+    (function() {
+        document.querySelectorAll('.btn-download, .btn-secondary, .pricing-btn, .flavor-tab, .demo-flavor-tab').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                const ripple = document.createElement('span');
+                ripple.classList.add('btn-ripple');
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
+                ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
+                this.appendChild(ripple);
+                ripple.addEventListener('animationend', () => ripple.remove());
+            });
+        });
+    })();
+
+    // ========================================
+    // 9. Nav Scroll Shrink
+    // ========================================
+    (function() {
+        const nav = document.querySelector('nav');
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            if (scrollY > 100) {
+                nav.style.padding = '10px 40px';
+                nav.style.borderBottom = '1px solid rgba(255, 107, 43, 0.15)';
+            } else {
+                nav.style.padding = '16px 40px';
+                nav.style.borderBottom = '1px solid rgba(255, 255, 255, 0.05)';
+            }
+            lastScroll = scrollY;
+        }, { passive: true });
+    })();
+
+    // ========================================
+    // 10. Smooth Parallax on Hero Mockup
+    // ========================================
+    (function() {
+        const mockup = document.querySelector('.hero-right');
+        if (!mockup) return;
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            if (scrollY < window.innerHeight) {
+                mockup.style.transform = `translateY(${scrollY * 0.08}px)`;
+            }
+        }, { passive: true });
+    })();
     </script>
 
     <!-- Launch Countdown Timer -->
