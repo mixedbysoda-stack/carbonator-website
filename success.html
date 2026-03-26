@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thank You — Carbonator by Carbinated Audio</title>
+    <title>Thank You — Carbonator by Carbonated Audio</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Pacifico&family=Lobster&display=swap" rel="stylesheet">
     <style>
         *, *::before, *::after {
@@ -365,12 +365,85 @@
             margin: 0;
         }
 
+        /* --- Referral Section --- */
+        .referral-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px 24px;
+            margin-bottom: 32px;
+            text-align: center;
+        }
+
+        .referral-section h2 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .referral-desc {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+
+        .referral-link-box {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin-bottom: 16px;
+        }
+
+        .referral-link-box code {
+            flex: 1;
+            font-family: 'JetBrains Mono', 'Courier New', monospace;
+            font-size: 13px;
+            color: var(--orange-light);
+            text-align: left;
+            word-break: break-all;
+            user-select: all;
+        }
+
+        .share-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .share-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid var(--border);
+            background: rgba(255,255,255,0.04);
+            color: var(--text-primary);
+        }
+
+        .share-btn:hover {
+            border-color: var(--orange);
+            background: rgba(255,107,43,0.08);
+        }
+
         @media (max-width: 600px) {
             .download-grid {
                 grid-template-columns: 1fr;
             }
             h1 {
                 font-size: 28px;
+            }
+            .share-buttons {
+                flex-direction: column;
             }
         }
     </style>
@@ -392,7 +465,7 @@
                 </svg>
             </div>
 
-            <div class="brand">Carbinated Audio</div>
+            <div class="brand">Carbonated Audio</div>
             <h1>Thank you for buying <span class="accent">Carbonator</span></h1>
             <p class="subtitle">Your purchase is complete. Download your plugin below.</p>
 
@@ -461,9 +534,29 @@
                 </div>
             </div>
 
-            <p class="receipt-note">A receipt and download links have been sent to your email. If you need help, contact us at support@carbinatedaudio.com</p>
+            <!-- Referral + Share Section -->
+            <div class="referral-section" id="referral-section" style="display:none;">
+                <h2>Know a producer who'd love this?</h2>
+                <p class="referral-desc">Share your referral link. When someone buys through it, we'll track it — referral rewards coming soon.</p>
+                <div class="referral-link-box">
+                    <code id="referral-link-text"></code>
+                    <button class="copy-btn" id="copy-ref-btn">Copy</button>
+                </div>
+                <div class="share-buttons">
+                    <a href="#" id="share-twitter" target="_blank" rel="noopener" class="share-btn share-twitter">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                        Post on X
+                    </a>
+                    <button class="share-btn share-copy" id="share-copy-link">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                        Copy Link
+                    </button>
+                </div>
+            </div>
 
-            <a href="index.html" class="back-link">&larr; Back to Carbinated Audio</a>
+            <p class="receipt-note">A receipt and download links have been sent to your email. If you need help, contact us at support@carbonatedaudio.com</p>
+
+            <a href="index.html" class="back-link">&larr; Back to Carbonated Audio</a>
         </div>
 
         <!-- STATE 3: Error — payment not verified -->
@@ -476,11 +569,11 @@
                 </svg>
             </div>
 
-            <div class="brand">Carbinated Audio</div>
+            <div class="brand">Carbonated Audio</div>
             <h1>Payment <span class="accent">Not Verified</span></h1>
-            <p class="error-message" id="error-detail">We couldn't verify your purchase. If you just completed payment, please wait a moment and refresh the page. If the issue persists, contact support@carbinatedaudio.com with your order details.</p>
+            <p class="error-message" id="error-detail">We couldn't verify your purchase. If you just completed payment, please wait a moment and refresh the page. If the issue persists, contact support@carbonatedaudio.com with your order details.</p>
 
-            <a href="index.html" class="back-link">&larr; Back to Carbinated Audio</a>
+            <a href="index.html" class="back-link">&larr; Back to Carbonated Audio</a>
         </div>
 
     </div>
@@ -540,13 +633,50 @@
                         });
                     }
 
+                    // Generate and show referral link
+                    if (data.email) {
+                        try {
+                            const refRes = await fetch(`/.netlify/functions/referral?action=generate&email=${encodeURIComponent(data.email)}`);
+                            const refData = await refRes.json();
+                            if (refData.ref_code) {
+                                const refUrl = `https://carbonatedaudio.com?ref=${refData.ref_code}`;
+                                document.getElementById('referral-link-text').textContent = refUrl;
+                                document.getElementById('referral-section').style.display = 'block';
+
+                                document.getElementById('copy-ref-btn').addEventListener('click', function() {
+                                    navigator.clipboard.writeText(refUrl).then(function() {
+                                        document.getElementById('copy-ref-btn').textContent = 'Copied!';
+                                        setTimeout(function() {
+                                            document.getElementById('copy-ref-btn').textContent = 'Copy';
+                                        }, 2000);
+                                    });
+                                });
+
+                                const tweetText = encodeURIComponent('Just copped Carbonator \u2014 5 saturation flavors, one knob, $20. The Lemon-Lime is wild. Try the free demo:');
+                                document.getElementById('share-twitter').href = `https://twitter.com/intent/tweet?text=${tweetText}&url=${encodeURIComponent(refUrl)}`;
+
+                                document.getElementById('share-copy-link').addEventListener('click', function() {
+                                    navigator.clipboard.writeText(refUrl).then(function() {
+                                        this.querySelector('svg + *') || (this.textContent = 'Copied!');
+                                        document.getElementById('share-copy-link').innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Copied!';
+                                        setTimeout(function() {
+                                            document.getElementById('share-copy-link').innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy Link';
+                                        }, 2000);
+                                    });
+                                });
+                            }
+                        } catch (refErr) {
+                            console.error('Referral generation failed:', refErr);
+                        }
+                    }
+
                     showState(stateVerified);
                 } else {
                     showError(data.error || 'Payment could not be verified.');
                 }
             } catch (err) {
                 console.error('Verification failed:', err);
-                showError('Something went wrong verifying your purchase. Please refresh the page or contact support@carbinatedaudio.com');
+                showError('Something went wrong verifying your purchase. Please refresh the page or contact support@carbonatedaudio.com');
             }
         })();
     </script>

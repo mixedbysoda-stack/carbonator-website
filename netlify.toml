@@ -4,3 +4,13 @@
 
 [functions]
   node_bundler = "esbuild"
+
+# Run drip emails daily at 10am UTC (6am ET)
+[functions."drip-day3"]
+  schedule = "0 10 * * *"
+
+[functions."drip-day7"]
+  schedule = "0 10 * * *"
+
+[functions."review-request"]
+  schedule = "0 10 * * *"

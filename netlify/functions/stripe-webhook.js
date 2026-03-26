@@ -1,10 +1,12 @@
 const Stripe = require("stripe");
 const { Resend } = require("resend");
+const { getStore } = require("@netlify/blobs");
 const {
   VERSION,
   DOWNLOAD_URLS,
   generateActivationKey,
 } = require("./config");
+const { generateRefCode } = require("./referral");
 
 exports.handler = async (event) => {
   if (event.httpMethod !== "POST") {
@@ -65,10 +67,10 @@ exports.handler = async (event) => {
       const resend = new Resend(process.env.RESEND_API_KEY);
 
       await resend.emails.send({
-        from: "Carbinated Audio <onboarding@resend.dev>",
+        from: "Carbonated Audio <hello@carbonatedaudio.com>",
         to: email,
         subject: "Your Carbonator License Key & Download Links",
-        html: buildEmail({ email, amountPaid, orderId, licenseKey }),
+        html: buildEmail({ email, amountPaid, orderId, licenseKey, refCode: generateRefCode(email) }),
       });
 
       console.log(`Delivery email sent to ${email}`);
@@ -77,12 +79,26 @@ exports.handler = async (event) => {
       // Don't return 500 — Stripe would retry the webhook
       return { statusCode: 200, body: "Email send failed" };
     }
+
+    // Store buyer for review-request drip
+    try {
+      const buyerStore = getStore("buyers");
+      await buyerStore.setJSON(`buyer_${email}`, {
+        email,
+        purchased_at: new Date().toISOString(),
+        amount: amountPaid,
+        order_id: orderId,
+      });
+    } catch (err) {
+      console.error("Failed to store buyer:", err.message);
+    }
   }
 
   return { statusCode: 200, body: "OK" };
 };
 
-function buildEmail({ email, amountPaid, orderId, licenseKey }) {
+function buildEmail({ email, amountPaid, orderId, licenseKey, refCode }) {
+  const refLink = `https://carbonatedaudio.com/.netlify/functions/referral?action=track&ref=${refCode}`;
   const licenseSection = licenseKey
     ? `
               <!-- License Key -->
@@ -112,7 +128,7 @@ function buildEmail({ email, amountPaid, orderId, licenseKey }) {
           <!-- Header -->
           <tr>
             <td align="center" style="padding-bottom:32px;">
-              <span style="font-size:28px;font-weight:800;color:#ffffff;">Carbinated Audio</span>
+              <span style="font-size:28px;font-weight:800;color:#ffffff;">Carbonated Audio</span>
             </td>
           </tr>
 
@@ -189,6 +205,18 @@ function buildEmail({ email, amountPaid, orderId, licenseKey }) {
                 <li style="margin-bottom:8px;"><strong style="color:#ffffff;">Activate:</strong> Open the plugin, paste your license key, and click Activate.</li>
                 <li style="margin-bottom:8px;"><strong style="color:#ffffff;">Rescan plugins</strong> in your DAW, then drop Carbonator on a track.</li>
               </ol>
+
+              <!-- Referral Section -->
+              <hr style="border:none;border-top:1px solid #2a2440;margin:24px 0;">
+              <h2 style="color:#ffffff;font-size:16px;margin:0 0 12px;">Share Carbonator, earn credit</h2>
+              <p style="color:#a09bb5;font-size:14px;line-height:1.6;margin:0 0 16px;">
+                Know a producer who'd love Carbonator? Share your personal referral link. When someone buys through it, you'll get a free copy of our next plugin.
+              </p>
+              <div style="background:#0d0a1a;padding:12px 16px;border-radius:8px;border:1px solid #2a2440;text-align:center;margin-bottom:8px;">
+                <a href="${refLink}" style="color:#ff8c42;font-size:13px;word-break:break-all;text-decoration:none;">${refLink}</a>
+              </div>
+              <p style="color:#6b6580;font-size:12px;text-align:center;margin:0;">Copy this link and share it anywhere.</p>
+
             </td>
           </tr>
 
@@ -196,10 +224,10 @@ function buildEmail({ email, amountPaid, orderId, licenseKey }) {
           <tr>
             <td align="center" style="padding-top:32px;">
               <p style="color:#6b6580;font-size:12px;margin:0;">
-                Need help? Reply to this email or contact support@carbinatedaudio.com
+                Need help? Reply to this email or contact support@carbonatedaudio.com
               </p>
               <p style="color:#6b6580;font-size:12px;margin:8px 0 0;">
-                &copy; ${new Date().getFullYear()} Carbinated Audio
+                &copy; ${new Date().getFullYear()} Carbonated Audio
               </p>
             </td>
           </tr>

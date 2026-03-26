@@ -2,7 +2,7 @@
   "name": "carbonator-website",
   "version": "2.2.0",
   "private": true,
-  "description": "Carbonator plugin website — Carbinated Audio",
+  "description": "Carbonator plugin website — Carbonated Audio",
   "dependencies": {
     "@netlify/blobs": "^8.2.0",
     "resend": "^3.0.0",
