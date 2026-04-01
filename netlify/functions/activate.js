@@ -1,5 +1,5 @@
 const crypto = require("crypto");
-const { getStore } = require("@netlify/blobs");
+const { getBlobStore } = require("./lib/store");
 const { validateActivationKey } = require("./config");
 
 exports.handler = async (event) => {
@@ -78,7 +78,7 @@ exports.handler = async (event) => {
   }
 
   try {
-    const store = getStore("activations");
+    const store = getBlobStore("activations");
     let record = await store.get(keyClean, { type: "json" });
 
     if (!record) {

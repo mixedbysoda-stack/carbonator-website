@@ -1,4 +1,4 @@
-const { getStore } = require("@netlify/blobs");
+const { getBlobStore } = require("./lib/store");
 
 exports.handler = async (event) => {
   const headers = { "Content-Type": "application/json" };
@@ -12,7 +12,7 @@ exports.handler = async (event) => {
   }
 
   try {
-    const store = getStore("leads");
+    const store = getBlobStore("leads");
     let blobs = [];
     try {
       const result = await store.list();

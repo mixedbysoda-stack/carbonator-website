@@ -1,4 +1,4 @@
-const { getStore } = require("@netlify/blobs");
+const { getBlobStore } = require("./lib/store");
 const { Resend } = require("resend");
 const { VERSION } = require("./config");
 
@@ -37,7 +37,7 @@ exports.handler = async (event) => {
 
   // Save lead to Blobs (non-blocking — don't let this kill the email)
   try {
-    const store = getStore("leads");
+    const store = getBlobStore("leads");
     await store.setJSON(key, {
       contact,
       source,
@@ -62,7 +62,7 @@ exports.handler = async (event) => {
 
       // Update drip status
       try {
-        const store = getStore("leads");
+        const store = getBlobStore("leads");
         await store.setJSON(key, {
           contact,
           source,

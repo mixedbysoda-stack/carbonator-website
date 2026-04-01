@@ -2,7 +2,7 @@
 // GET ?action=track&ref=CODE — logs a referral click, redirects to homepage
 // GET ?action=stats&email=EMAIL&token=TOKEN — returns referral stats for a buyer
 
-const { getStore } = require("@netlify/blobs");
+const { getBlobStore } = require("./lib/store");
 const crypto = require("crypto");
 
 function generateRefCode(email) {
@@ -25,7 +25,7 @@ exports.handler = async (event) => {
 
     // Log the referral click
     try {
-      const store = getStore("referrals");
+      const store = getBlobStore("referrals");
       const existing = await store.get(`clicks_${refCode}`, { type: "json" }).catch(() => null);
       const clicks = existing ? existing.clicks + 1 : 1;
       await store.setJSON(`clicks_${refCode}`, {
@@ -60,7 +60,7 @@ exports.handler = async (event) => {
     const refCode = generateRefCode(email);
 
     try {
-      const store = getStore("referrals");
+      const store = getBlobStore("referrals");
       const clickData = await store.get(`clicks_${refCode}`, { type: "json" }).catch(() => null);
       const conversionData = await store.get(`conversions_${refCode}`, { type: "json" }).catch(() => null);
 

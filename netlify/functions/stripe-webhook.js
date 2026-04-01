@@ -1,6 +1,6 @@
 const Stripe = require("stripe");
 const { Resend } = require("resend");
-const { getStore } = require("@netlify/blobs");
+const { getBlobStore } = require("./lib/store");
 const {
   VERSION,
   DOWNLOAD_URLS,
@@ -82,7 +82,7 @@ exports.handler = async (event) => {
 
     // Store buyer for review-request drip
     try {
-      const buyerStore = getStore("buyers");
+      const buyerStore = getBlobStore("buyers");
       await buyerStore.setJSON(`buyer_${email}`, {
         email,
         purchased_at: new Date().toISOString(),

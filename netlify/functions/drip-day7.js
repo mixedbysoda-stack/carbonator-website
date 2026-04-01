@@ -2,7 +2,7 @@
 // Trigger: run via scheduled cron or manual invoke
 // Finds leads where email2 was sent 4+ days ago (7 days from signup) but no email3 yet
 
-const { getStore } = require("@netlify/blobs");
+const { getBlobStore } = require("./lib/store");
 const { Resend } = require("resend");
 
 const FROM_EMAIL = "Carbonated Audio <hello@carbonatedaudio.com>";
@@ -14,7 +14,7 @@ exports.handler = async () => {
   }
 
   const resend = new Resend(process.env.RESEND_API_KEY);
-  const store = getStore("leads");
+  const store = getBlobStore("leads");
   const { blobs } = await store.list();
 
   const now = Date.now();

@@ -2,7 +2,7 @@
 // Trigger: run via scheduled cron or manual invoke
 // Checks Stripe for purchases 7+ days old, sends review request if not already sent
 
-const { getStore } = require("@netlify/blobs");
+const { getBlobStore } = require("./lib/store");
 const { Resend } = require("resend");
 
 const FROM_EMAIL = "Carbonated Audio <hello@carbonatedaudio.com>";
@@ -13,10 +13,10 @@ exports.handler = async () => {
   }
 
   const resend = new Resend(process.env.RESEND_API_KEY);
-  const store = getStore("review-requests");
+  const store = getBlobStore("review-requests");
 
   // Use a simple list of buyer emails stored by stripe-webhook
-  const buyerStore = getStore("buyers");
+  const buyerStore = getBlobStore("buyers");
   let buyers;
   try {
     const { blobs } = await buyerStore.list();
