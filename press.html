@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Press Kit — Carbonated Audio</title>
+    <meta name="description" content="Press resources, brand assets, and review copies for Carbonator analog saturation plugin.">
+    <meta name="keywords" content="Carbonator press kit, Carbonated Audio press, saturation plugin press resources, Carbonator brand assets">
+    <meta name="author" content="Carbonated Audio">
+    <link rel="canonical" href="https://carbonatedaudio.com/press">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Press Kit — Carbonated Audio">
+    <meta property="og:description" content="Press resources, brand assets, and review copies for Carbonator analog saturation plugin.">
+    <meta property="og:url" content="https://carbonatedaudio.com/press">
+    <meta property="og:site_name" content="Carbonated Audio">
+    <meta property="og:image" content="https://carbonatedaudio.com/og-image.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Press Kit — Carbonated Audio">
+    <meta name="twitter:description" content="Press resources, brand assets, and review copies for Carbonator analog saturation plugin.">
+    <meta name="twitter:image" content="https://carbonatedaudio.com/og-image.png">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Carbonated Audio",
+        "url": "https://carbonatedaudio.com",
+        "description": "Audio plugin developer specializing in affordable saturation and harmonic processing effects.",
+        "logo": "https://carbonatedaudio.com/logo.png",
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "email": "hello@carbonatedaudio.com",
+            "contactType": "Press & Media"
+        },
+        "sameAs": [
+            "https://www.instagram.com/carbonatedaudio",
+            "https://github.com/mixedbysoda-stack/carbonator"
+        ]
+    }
+    </script>
+
+    <!-- GA4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z9L20HJ4M0"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-Z9L20HJ4M0');</script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg-primary: #0d0a1a;
+            --bg-secondary: #151025;
+            --bg-card: #1a1430;
+            --orange: #ff6b2b;
+            --orange-light: #ff8c42;
+            --pink: #ff3366;
+            --magenta: #cc33ff;
+            --green: #22c55e;
+            --text-primary: #ffffff;
+            --text-secondary: #a09bb5;
+            --text-muted: #6b6580;
+            --border: #2a2440;
+        }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 16px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(13, 10, 26, 0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .nav-logo-img {
+            height: 36px;
+            width: auto;
+            transition: filter 0.3s;
+        }
+        .nav-logo-img:hover {
+            filter: brightness(1.2);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .btn-buy {
+            padding: 12px 24px;
+            min-height: 44px;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .btn-buy:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            gap: 5px;
+            width: 44px;
+            height: 44px;
+            padding: 10px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            z-index: 201;
+        }
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--text-primary);
+            border-radius: 2px;
+            transition: transform 0.3s, opacity 0.3s;
+        }
+        .hamburger.active span:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+        }
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger.active span:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 199;
+            background: rgba(13, 10, 26, 0.97);
+            backdrop-filter: blur(20px);
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 80px 32px 32px;
+        }
+        .mobile-menu.active {
+            display: flex;
+        }
+        .mobile-menu a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: 600;
+            padding: 14px 24px;
+            border-radius: 12px;
+            transition: color 0.2s, background 0.2s;
+            width: 100%;
+            max-width: 300px;
+            text-align: center;
+        }
+        .mobile-menu a:hover, .mobile-menu a:active {
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.06);
+        }
+        .mobile-menu .mobile-menu-cta {
+            margin-top: 16px;
+            padding: 16px 32px;
+            background: linear-gradient(135deg, var(--orange), var(--pink));
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-weight: 700;
+        }
+
+        /* Page Layout */
+        .page-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        /* Hero */
+        .press-hero {
+            text-align: center;
+            padding: 80px 0 60px;
+        }
+        .press-hero h1 {
+            font-size: 48px;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--orange), var(--pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 12px;
+        }
+        .press-hero p {
+            font-size: 18px;
+            color: var(--text-secondary);
+        }
+
+        /* Sections */
+        .press-section {
+            padding: 48px 0;
+            border-top: 1px solid var(--border);
+        }
+        .press-section h2 {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 24px;
+        }
+        .press-section p, .press-section li {
+            color: var(--text-secondary);
+            font-size: 16px;
+            line-height: 1.7;
+        }
+
+        /* About */
+        .about-text {
+            max-width: 720px;
+        }
+
+        /* Key Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+        }
+        .stat-card .stat-value {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--orange);
+            margin-bottom: 4px;
+        }
+        .stat-card .stat-label {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        /* Press Coverage */
+        .press-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .press-list li {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 16px 24px;
+            transition: border-color 0.2s;
+        }
+        .press-list li:hover {
+            border-color: var(--orange);
+        }
+        .press-list a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .press-list a::after {
+            content: '\2197';
+            color: var(--text-muted);
+            font-size: 18px;
+            transition: color 0.2s;
+        }
+        .press-list a:hover::after {
+            color: var(--orange);
+        }
+        .press-outlet {
+            font-size: 13px;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        /* Testimonials */
+        .testimonial-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .testimonial-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 28px;
+        }
+        .testimonial-card blockquote {
+            font-size: 17px;
+            color: var(--text-primary);
+            font-style: italic;
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+        .testimonial-card blockquote::before {
+            content: '\201C';
+            color: var(--orange);
+            font-size: 28px;
+            font-weight: 700;
+            margin-right: 4px;
+        }
+        .testimonial-card .testimonial-author {
+            font-size: 14px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        /* Brand Assets */
+        .assets-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+        .asset-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+            transition: border-color 0.2s;
+        }
+        .asset-card:hover {
+            border-color: var(--orange);
+        }
+        .asset-icon {
+            font-size: 32px;
+            margin-bottom: 12px;
+        }
+        .asset-card h3 {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+        .asset-card p {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        /* Color Swatches */
+        .swatches-label {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+        .swatches {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .swatch {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+        .swatch-color {
+            width: 56px;
+            height: 56px;
+            border-radius: 12px;
+            border: 2px solid var(--border);
+        }
+        .swatch-hex {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-muted);
+            font-family: monospace;
+        }
+        .swatch-name {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        /* CTA */
+        .review-cta {
+            text-align: center;
+            padding: 60px 0;
+            border-top: 1px solid var(--border);
+        }
+        .review-cta h2 {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+        .review-cta p {
+            color: var(--text-secondary);
+            font-size: 16px;
+            margin-bottom: 28px;
+        }
+        .cta-button {
+            display: inline-block;
+            padding: 16px 40px;
+            background: linear-gradient(135deg, var(--orange), var(--pink));
+            color: white;
+            font-size: 16px;
+            font-weight: 700;
+            border-radius: 10px;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(255, 107, 43, 0.3);
+        }
+
+        /* Contact */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+        .contact-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+        }
+        .contact-card .contact-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+        .contact-card a {
+            color: var(--orange);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            transition: color 0.2s;
+        }
+        .contact-card a:hover {
+            color: var(--orange-light);
+        }
+        .contact-card span.contact-value {
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        /* Footer */
+        .site-footer {
+            border-top: 1px solid var(--border);
+            padding: 40px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-text {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer-links a {
+            font-size: 13px;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+            padding: 8px 4px;
+            min-height: 44px;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .footer-links a:hover {
+            color: var(--text-secondary);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .press-hero h1 {
+                font-size: 32px;
+            }
+            .page-wrapper {
+                padding: 0 20px;
+            }
+            nav {
+                padding: 16px 20px;
+            }
+            .nav-links {
+                display: none;
+            }
+            .hamburger {
+                display: flex;
+            }
+            .site-footer {
+                flex-direction: column;
+                gap: 16px;
+                padding: 32px 20px;
+                text-align: center;
+            }
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .swatches {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="/" class="nav-logo">
+            <img src="logo.png" alt="Carbonated Audio" class="nav-logo-img">
+        </a>
+        <div class="nav-links">
+            <a href="/#features">Features</a>
+            <a href="/#demos">Demos</a>
+            <a href="/#compatibility">Compatibility</a>
+            <a href="/#pricing">Pricing</a>
+            <a href="/#reviews">Reviews</a>
+            <a href="https://buy.stripe.com/aFafZhgbffRw6nv0UH3oA00" class="btn-buy">Get Carbonator — $20</a>
+        </div>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Open menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="/#features" class="mobile-nav-link">Features</a>
+        <a href="/#demos" class="mobile-nav-link">Demos</a>
+        <a href="/#compatibility" class="mobile-nav-link">Compatibility</a>
+        <a href="/#pricing" class="mobile-nav-link">Pricing</a>
+        <a href="/#reviews" class="mobile-nav-link">Reviews</a>
+        <a href="https://buy.stripe.com/aFafZhgbffRw6nv0UH3oA00" class="mobile-menu-cta">Get Carbonator — $20</a>
+    </div>
+
+    <div class="page-wrapper">
+
+        <!-- Hero -->
+        <section class="press-hero">
+            <h1>Press Kit</h1>
+            <p>Everything you need to cover Carbonator.</p>
+        </section>
+
+        <!-- About Carbonator -->
+        <section class="press-section">
+            <h2>About Carbonator</h2>
+            <div class="about-text">
+                <p>Carbonator is an analog saturation plugin by Carbonated Audio featuring five circuit-modeled saturation flavors: Cola, Cherry, Grape, Lemon-Lime, and Orange Cream. Each flavor delivers a distinct harmonic character — from subtle warmth to aggressive drive — controlled by a single Fizz knob.</p>
+                <p style="margin-top: 12px;">Priced at $20 one-time (no subscription), Carbonator includes lifetime updates and runs on every major DAW. Available as VST3, AU, AAX, and Standalone on macOS (including Apple Silicon) and Windows.</p>
+            </div>
+        </section>
+
+        <!-- Key Stats -->
+        <section class="press-section">
+            <h2>Key Stats</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value">$20</div>
+                    <div class="stat-label">One-time price (launch price — goes to $35 after April 30)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">5</div>
+                    <div class="stat-label">Saturation flavors (Cola, Cherry, Grape, Lemon-Lime, Orange Cream)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">4 Formats</div>
+                    <div class="stat-label">VST3, AU, AAX, Standalone</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">macOS + Windows</div>
+                    <div class="stat-label">Including Apple Silicon native</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">5 Countries</div>
+                    <div class="stat-label">Buyers from US, UK, Spain, Japan, Israel</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">Lifetime</div>
+                    <div class="stat-label">Free updates, no subscription</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Press Coverage -->
+        <section class="press-section">
+            <h2>Press Coverage</h2>
+            <ul class="press-list">
+                <li>
+                    <a href="https://www.audiopluginguy.com/news-carbinated-audio-releases-carbonator-an-analog-saturation-plugin/" target="_blank" rel="noopener">
+                        <span>Audio Plugin Guy <span class="press-outlet">— Feature</span></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://rekkerd.org/carbinated-audio-releases-carbonator-saturation-effect-plugin/" target="_blank" rel="noopener">
+                        <span>Rekkerd.org <span class="press-outlet">— Feature</span></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.kvraudio.com/product/carbonator-by-carbinated-audio" target="_blank" rel="noopener">
+                        <span>KVR Audio <span class="press-outlet">— Product Listing</span></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://audionewsroom.net/2026/03/carbonator-five-flavors-of-circuit-modeled-saturation.html" target="_blank" rel="noopener">
+                        <span>AudioNewsRoom <span class="press-outlet">— Feature</span></span>
+                    </a>
+                </li>
+            </ul>
+        </section>
+
+        <!-- Testimonials -->
+        <section class="press-section">
+            <h2>Testimonials</h2>
+            <div class="testimonial-list">
+                <div class="testimonial-card">
+                    <blockquote>The Lemon-Lime on my vocal chain is crazy. An absolute staple.</blockquote>
+                    <div class="testimonial-author">ZakMabry — Producer</div>
+                </div>
+                <div class="testimonial-card">
+                    <blockquote>Each flavor has a new texture you can't find using any other plugin.</blockquote>
+                    <div class="testimonial-author">Landsharkszn — Producer</div>
+                </div>
+                <div class="testimonial-card">
+                    <blockquote>Every preset sounds amazing. It's rare you find a plugin where you can load something up and it instantly sounds good.</blockquote>
+                    <div class="testimonial-author">Pradoproducedit — Producer</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Brand Assets -->
+        <section class="press-section">
+            <h2>Brand Assets</h2>
+            <div class="assets-grid">
+                <div class="asset-card">
+                    <div class="asset-icon">🎨</div>
+                    <h3>Logo (PNG)</h3>
+                    <p>High-res logo on transparent background</p>
+                </div>
+                <div class="asset-card">
+                    <div class="asset-icon">📸</div>
+                    <h3>Plugin Screenshots</h3>
+                    <p>UI screenshots of all 5 flavors</p>
+                </div>
+                <div class="asset-card">
+                    <div class="asset-icon">🎬</div>
+                    <h3>Product Video</h3>
+                    <p>Official demo and overview</p>
+                </div>
+            </div>
+            <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 32px;">Need assets? Email <a href="mailto:hello@carbonatedaudio.com" style="color: var(--orange); text-decoration: none;">hello@carbonatedaudio.com</a> and we will send them over.</p>
+
+            <div class="swatches-label">Brand Colors</div>
+            <div class="swatches">
+                <div class="swatch">
+                    <div class="swatch-color" style="background: #ff6b2b;"></div>
+                    <span class="swatch-hex">#ff6b2b</span>
+                    <span class="swatch-name">Orange</span>
+                </div>
+                <div class="swatch">
+                    <div class="swatch-color" style="background: #0d0a1a;"></div>
+                    <span class="swatch-hex">#0d0a1a</span>
+                    <span class="swatch-name">Dark BG</span>
+                </div>
+                <div class="swatch">
+                    <div class="swatch-color" style="background: #1a1430;"></div>
+                    <span class="swatch-hex">#1a1430</span>
+                    <span class="swatch-name">Card</span>
+                </div>
+                <div class="swatch">
+                    <div class="swatch-color" style="background: #ff3366;"></div>
+                    <span class="swatch-hex">#ff3366</span>
+                    <span class="swatch-name">Pink</span>
+                </div>
+                <div class="swatch">
+                    <div class="swatch-color" style="background: #cc33ff;"></div>
+                    <span class="swatch-hex">#cc33ff</span>
+                    <span class="swatch-name">Magenta</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Request a Review Copy -->
+        <section class="review-cta">
+            <h2>Request a Review Copy</h2>
+            <p>Writing about Carbonator? We will send you a full license — no strings attached.</p>
+            <a href="mailto:hello@carbonatedaudio.com?subject=Carbonator%20Review%20Copy%20Request" class="cta-button">Request Review Copy</a>
+        </section>
+
+        <!-- Contact -->
+        <section class="press-section" style="border-top: none; padding-top: 0;">
+            <h2>Contact</h2>
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <div class="contact-label">Email</div>
+                    <a href="mailto:hello@carbonatedaudio.com">hello@carbonatedaudio.com</a>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-label">Instagram</div>
+                    <a href="https://www.instagram.com/carbonatedaudio" target="_blank" rel="noopener">@carbonatedaudio</a>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-label">Website</div>
+                    <a href="https://carbonatedaudio.com">carbonatedaudio.com</a>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-left">
+            <span class="footer-text">&copy; 2026 Carbonated Audio. All rights reserved.</span>
+        </div>
+        <div class="footer-links">
+            <a href="/">Home</a>
+            <a href="#">Terms</a>
+            <a href="#">Privacy</a>
+            <a href="mailto:hello@carbonatedaudio.com">Contact</a>
+        </div>
+    </footer>
+
+    <script>
+    // Mobile hamburger menu
+    (function() {
+        var btn = document.getElementById('hamburgerBtn');
+        var menu = document.getElementById('mobileMenu');
+        if (!btn || !menu) return;
+        btn.addEventListener('click', function() {
+            btn.classList.toggle('active');
+            menu.classList.toggle('active');
+            document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : '';
+        });
+        menu.querySelectorAll('a').forEach(function(link) {
+            link.addEventListener('click', function() {
+                btn.classList.remove('active');
+                menu.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+    })();
+    </script>
+
+</body>
+</html>
