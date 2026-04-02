@@ -69,9 +69,45 @@
             background: var(--bg-primary);
             color: var(--text-primary);
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
-        /* Navigation */
+        /* ===== FLOATING PARTICLES ===== */
+        .particles-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: rgba(255, 107, 43, 0.3);
+            border-radius: 50%;
+            bottom: -10px;
+            animation: floatUp linear infinite;
+        }
+        .particle:nth-child(odd) {
+            background: rgba(255, 51, 102, 0.25);
+        }
+        .particle:nth-child(3n) {
+            background: rgba(204, 51, 255, 0.2);
+            width: 2px;
+            height: 2px;
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(0) translateX(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-110vh) translateX(40px); opacity: 0; }
+        }
+
+        /* ===== NAVIGATION ===== */
         nav {
             position: sticky;
             top: 0;
@@ -84,14 +120,12 @@
             backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
-
         .nav-logo {
             display: flex;
             align-items: center;
             gap: 10px;
             text-decoration: none;
         }
-
         .nav-logo-img {
             height: 36px;
             width: auto;
@@ -100,13 +134,11 @@
         .nav-logo-img:hover {
             filter: brightness(1.2);
         }
-
         .nav-links {
             display: flex;
             align-items: center;
             gap: 32px;
         }
-
         .nav-links a {
             color: var(--text-secondary);
             text-decoration: none;
@@ -114,11 +146,9 @@
             font-weight: 500;
             transition: color 0.2s;
         }
-
         .nav-links a:hover {
             color: var(--text-primary);
         }
-
         .btn-buy {
             padding: 12px 24px;
             min-height: 44px;
@@ -134,7 +164,6 @@
             display: inline-flex;
             align-items: center;
         }
-
         .btn-buy:hover {
             background: rgba(255, 255, 255, 0.1);
             border-color: rgba(255, 255, 255, 0.5);
@@ -171,7 +200,6 @@
         .hamburger.active span:nth-child(3) {
             transform: translateY(-7px) rotate(-45deg);
         }
-
         .mobile-menu {
             display: none;
             position: fixed;
@@ -216,36 +244,196 @@
             font-weight: 700;
         }
 
-        /* Page Layout */
+        /* ===== PAGE LAYOUT ===== */
         .page-wrapper {
             max-width: 900px;
             margin: 0 auto;
             padding: 0 40px;
+            position: relative;
+            z-index: 1;
         }
 
-        /* Hero */
+        /* ===== AURORA HERO BACKGROUND ===== */
         .press-hero {
             text-align: center;
-            padding: 80px 0 60px;
+            padding: 100px 0 80px;
+            position: relative;
+            overflow: hidden;
         }
-        .press-hero h1 {
-            font-size: 48px;
+        .aurora-container {
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .aurora-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.4;
+        }
+        .aurora-orb-1 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255, 107, 43, 0.4), transparent 70%);
+            top: 20%;
+            left: 30%;
+            animation: auroraFloat1 8s ease-in-out infinite;
+        }
+        .aurora-orb-2 {
+            width: 350px;
+            height: 350px;
+            background: radial-gradient(circle, rgba(255, 51, 102, 0.35), transparent 70%);
+            top: 40%;
+            right: 25%;
+            animation: auroraFloat2 10s ease-in-out infinite;
+        }
+        .aurora-orb-3 {
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(204, 51, 255, 0.3), transparent 70%);
+            bottom: 20%;
+            left: 40%;
+            animation: auroraFloat3 12s ease-in-out infinite;
+        }
+        @keyframes auroraFloat1 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(60px, -40px) scale(1.1); }
+            66% { transform: translate(-30px, 30px) scale(0.95); }
+        }
+        @keyframes auroraFloat2 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(-50px, 40px) scale(1.05); }
+            66% { transform: translate(40px, -20px) scale(0.9); }
+        }
+        @keyframes auroraFloat3 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(50px, -50px) scale(1.15); }
+        }
+
+        /* ===== GLITCH TEXT ===== */
+        .glitch-title {
+            font-size: 56px;
             font-weight: 900;
             background: linear-gradient(135deg, var(--orange), var(--pink));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin-bottom: 12px;
+            margin-bottom: 16px;
+            position: relative;
+            display: inline-block;
+            cursor: default;
+            z-index: 1;
         }
-        .press-hero p {
-            font-size: 18px;
-            color: var(--text-secondary);
+        .glitch-title::before,
+        .glitch-title::after {
+            content: 'Press Kit';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--orange), var(--pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            opacity: 0;
+            pointer-events: none;
+        }
+        .glitch-title:hover::before {
+            opacity: 0.8;
+            animation: glitch1 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+            text-shadow: -2px 0 cyan;
+            filter: drop-shadow(-2px 0 rgba(0, 255, 255, 0.5));
+        }
+        .glitch-title:hover::after {
+            opacity: 0.8;
+            animation: glitch2 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite reverse;
+            text-shadow: 2px 0 red;
+            filter: drop-shadow(2px 0 rgba(255, 0, 0, 0.5));
+        }
+        @keyframes glitch1 {
+            0% { clip-path: inset(40% 0 61% 0); transform: translate(-2px, -1px); }
+            20% { clip-path: inset(92% 0 1% 0); transform: translate(1px, 2px); }
+            40% { clip-path: inset(43% 0 1% 0); transform: translate(-1px, -1px); }
+            60% { clip-path: inset(25% 0 58% 0); transform: translate(2px, 1px); }
+            80% { clip-path: inset(54% 0 7% 0); transform: translate(-2px, 2px); }
+            100% { clip-path: inset(58% 0 43% 0); transform: translate(2px, -2px); }
+        }
+        @keyframes glitch2 {
+            0% { clip-path: inset(65% 0 13% 0); transform: translate(2px, 1px); }
+            20% { clip-path: inset(79% 0 14% 0); transform: translate(-2px, -1px); }
+            40% { clip-path: inset(12% 0 67% 0); transform: translate(1px, 2px); }
+            60% { clip-path: inset(55% 0 29% 0); transform: translate(-1px, -2px); }
+            80% { clip-path: inset(3% 0 81% 0); transform: translate(2px, 1px); }
+            100% { clip-path: inset(37% 0 52% 0); transform: translate(-2px, -1px); }
         }
 
-        /* Sections */
+        /* ===== SHINY TEXT ===== */
+        .shiny-text {
+            font-size: 19px;
+            color: var(--text-secondary);
+            position: relative;
+            z-index: 1;
+            background: linear-gradient(
+                90deg,
+                var(--text-secondary) 0%,
+                var(--text-secondary) 35%,
+                #ffffff 50%,
+                var(--text-secondary) 65%,
+                var(--text-secondary) 100%
+            );
+            background-size: 200% 100%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shineText 3s ease-in-out infinite;
+        }
+        @keyframes shineText {
+            0% { background-position: 100% 0; }
+            100% { background-position: -100% 0; }
+        }
+
+        /* ===== SECTION DIVIDERS ===== */
+        .section-divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--orange), var(--pink), var(--magenta), transparent);
+            border: none;
+            margin: 0;
+            opacity: 0.5;
+            animation: dividerPulse 3s ease-in-out infinite;
+        }
+        @keyframes dividerPulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.7; }
+        }
+
+        /* ===== SCROLL REVEAL ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .reveal-stagger {
+            opacity: 0;
+            transform: translateY(25px);
+            transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-stagger.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== SECTIONS ===== */
         .press-section {
-            padding: 48px 0;
-            border-top: 1px solid var(--border);
+            padding: 56px 0;
         }
         .press-section h2 {
             font-size: 28px;
@@ -258,12 +446,12 @@
             line-height: 1.7;
         }
 
-        /* About */
+        /* ===== ABOUT ===== */
         .about-text {
             max-width: 720px;
         }
 
-        /* Key Stats Grid */
+        /* ===== KEY STATS GRID ===== */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -274,19 +462,69 @@
             border: 1px solid var(--border);
             border-radius: 12px;
             padding: 24px;
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s;
+            cursor: default;
+        }
+        .stat-card:hover {
+            transform: scale(1.03);
+            box-shadow: 0 0 30px rgba(255, 107, 43, 0.15), 0 0 60px rgba(255, 107, 43, 0.05);
         }
         .stat-card .stat-value {
-            font-size: 24px;
+            font-size: 28px;
             font-weight: 800;
             color: var(--orange);
-            margin-bottom: 4px;
+            margin-bottom: 6px;
+            font-variant-numeric: tabular-nums;
         }
         .stat-card .stat-label {
             font-size: 14px;
             color: var(--text-secondary);
         }
 
-        /* Press Coverage */
+        /* ===== GLOW BORDER CARDS ===== */
+        .glow-card {
+            position: relative;
+            overflow: hidden;
+        }
+        .glow-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: conic-gradient(from var(--glow-angle, 0deg), transparent 0%, transparent 30%, var(--orange) 50%, transparent 70%, transparent 100%);
+            border-radius: inherit;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.4s;
+            animation: glowRotate 4s linear infinite;
+        }
+        .glow-card:hover::before {
+            opacity: 1;
+        }
+        .glow-card::after {
+            content: '';
+            position: absolute;
+            top: 1px;
+            left: 1px;
+            right: 1px;
+            bottom: 1px;
+            background: var(--bg-card);
+            border-radius: inherit;
+            z-index: -1;
+        }
+        @keyframes glowRotate {
+            0% { --glow-angle: 0deg; }
+            100% { --glow-angle: 360deg; }
+        }
+        @property --glow-angle {
+            syntax: '<angle>';
+            initial-value: 0deg;
+            inherits: false;
+        }
+
+        /* ===== PRESS COVERAGE ===== */
         .press-list {
             list-style: none;
             display: flex;
@@ -296,12 +534,39 @@
         .press-list li {
             background: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 16px 24px;
-            transition: border-color 0.2s;
+            border-radius: 12px;
+            padding: 18px 24px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
         }
-        .press-list li:hover {
-            border-color: var(--orange);
+        .press-list li::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: conic-gradient(from var(--glow-angle, 0deg), transparent 0%, transparent 25%, var(--orange) 50%, transparent 75%, transparent 100%);
+            border-radius: inherit;
+            z-index: 0;
+            opacity: 0;
+            transition: opacity 0.4s;
+            animation: glowRotate 4s linear infinite;
+        }
+        .press-list li:hover::before {
+            opacity: 1;
+        }
+        .press-list li::after {
+            content: '';
+            position: absolute;
+            top: 1px;
+            left: 1px;
+            right: 1px;
+            bottom: 1px;
+            background: var(--bg-card);
+            border-radius: inherit;
+            z-index: 0;
         }
         .press-list a {
             color: var(--text-primary);
@@ -311,15 +576,18 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: relative;
+            z-index: 1;
         }
-        .press-list a::after {
-            content: '\2197';
+        .press-list .press-arrow {
             color: var(--text-muted);
             font-size: 18px;
-            transition: color 0.2s;
+            transition: color 0.3s, transform 0.3s;
+            display: inline-block;
         }
-        .press-list a:hover::after {
+        .press-list li:hover .press-arrow {
             color: var(--orange);
+            transform: translate(4px, -2px);
         }
         .press-outlet {
             font-size: 13px;
@@ -327,7 +595,7 @@
             font-weight: 400;
         }
 
-        /* Testimonials */
+        /* ===== TESTIMONIALS ===== */
         .testimonial-list {
             display: flex;
             flex-direction: column;
@@ -338,6 +606,45 @@
             border: 1px solid var(--border);
             border-radius: 12px;
             padding: 28px;
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .testimonial-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: conic-gradient(from var(--glow-angle, 0deg), transparent 0%, transparent 30%, var(--pink) 50%, transparent 70%, transparent 100%);
+            border-radius: inherit;
+            z-index: 0;
+            opacity: 0;
+            transition: opacity 0.4s;
+            animation: glowRotate 5s linear infinite;
+        }
+        .testimonial-card:hover::before {
+            opacity: 1;
+        }
+        .testimonial-card::after {
+            content: '';
+            position: absolute;
+            top: 1px;
+            left: 1px;
+            right: 1px;
+            bottom: 1px;
+            background: var(--bg-card);
+            border-radius: inherit;
+            z-index: 0;
+        }
+        .testimonial-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(255, 51, 102, 0.1);
+        }
+        .testimonial-content {
+            position: relative;
+            z-index: 1;
         }
         .testimonial-card blockquote {
             font-size: 17px;
@@ -359,7 +666,7 @@
             font-weight: 600;
         }
 
-        /* Brand Assets */
+        /* ===== BRAND ASSETS ===== */
         .assets-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -370,16 +677,24 @@
             background: var(--bg-card);
             border: 1px solid var(--border);
             border-radius: 12px;
-            padding: 24px;
+            padding: 28px;
             text-align: center;
-            transition: border-color 0.2s;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s, box-shadow 0.3s;
+            cursor: default;
+            perspective: 600px;
         }
         .asset-card:hover {
             border-color: var(--orange);
+            box-shadow: 0 8px 30px rgba(255, 107, 43, 0.1);
         }
         .asset-icon {
-            font-size: 32px;
+            font-size: 36px;
             margin-bottom: 12px;
+            display: block;
+            transition: transform 0.3s;
+        }
+        .asset-card:hover .asset-icon {
+            transform: scale(1.15) rotateY(10deg);
         }
         .asset-card h3 {
             font-size: 15px;
@@ -391,7 +706,7 @@
             color: var(--text-muted);
         }
 
-        /* Color Swatches */
+        /* ===== COLOR SWATCHES ===== */
         .swatches-label {
             font-size: 16px;
             font-weight: 700;
@@ -399,7 +714,7 @@
         }
         .swatches {
             display: flex;
-            gap: 16px;
+            gap: 20px;
             flex-wrap: wrap;
         }
         .swatch {
@@ -407,29 +722,59 @@
             flex-direction: column;
             align-items: center;
             gap: 8px;
+            cursor: pointer;
+            position: relative;
         }
         .swatch-color {
-            width: 56px;
-            height: 56px;
-            border-radius: 12px;
+            width: 60px;
+            height: 60px;
+            border-radius: 14px;
             border: 2px solid var(--border);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s;
+        }
+        .swatch:hover .swatch-color {
+            transform: scale(1.15);
+            box-shadow: 0 4px 20px rgba(255, 107, 43, 0.2);
         }
         .swatch-hex {
             font-size: 12px;
             font-weight: 600;
             color: var(--text-muted);
-            font-family: monospace;
+            font-family: 'Inter', monospace;
+            transition: color 0.2s;
+        }
+        .swatch:hover .swatch-hex {
+            color: var(--text-primary);
         }
         .swatch-name {
             font-size: 11px;
             color: var(--text-muted);
         }
+        .swatch-tooltip {
+            position: absolute;
+            top: -32px;
+            left: 50%;
+            transform: translateX(-50%) translateY(4px);
+            background: var(--green);
+            color: #000;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s, transform 0.25s;
+        }
+        .swatch-tooltip.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
 
-        /* CTA */
+        /* ===== CTA ===== */
         .review-cta {
             text-align: center;
-            padding: 60px 0;
-            border-top: 1px solid var(--border);
+            padding: 70px 0;
         }
         .review-cta h2 {
             font-size: 32px;
@@ -439,25 +784,40 @@
         .review-cta p {
             color: var(--text-secondary);
             font-size: 16px;
-            margin-bottom: 28px;
+            margin-bottom: 32px;
         }
         .cta-button {
             display: inline-block;
-            padding: 16px 40px;
+            padding: 18px 48px;
             background: linear-gradient(135deg, var(--orange), var(--pink));
             color: white;
             font-size: 16px;
             font-weight: 700;
-            border-radius: 10px;
+            border-radius: 12px;
             text-decoration: none;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        .cta-button:hover::before {
+            left: 100%;
         }
         .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(255, 107, 43, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(255, 107, 43, 0.35);
         }
 
-        /* Contact */
+        /* ===== CONTACT ===== */
         .contact-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -468,6 +828,11 @@
             border: 1px solid var(--border);
             border-radius: 12px;
             padding: 24px;
+            transition: border-color 0.3s, transform 0.3s;
+        }
+        .contact-card:hover {
+            border-color: rgba(255, 107, 43, 0.3);
+            transform: translateY(-2px);
         }
         .contact-card .contact-label {
             font-size: 12px;
@@ -493,31 +858,29 @@
             font-size: 15px;
         }
 
-        /* Footer */
+        /* ===== FOOTER ===== */
         .site-footer {
             border-top: 1px solid var(--border);
             padding: 40px 60px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: relative;
+            z-index: 1;
         }
-
         .footer-left {
             display: flex;
             align-items: center;
             gap: 10px;
         }
-
         .footer-text {
             font-size: 13px;
             color: var(--text-muted);
         }
-
         .footer-links {
             display: flex;
             gap: 24px;
         }
-
         .footer-links a {
             font-size: 13px;
             color: var(--text-muted);
@@ -528,15 +891,17 @@
             display: inline-flex;
             align-items: center;
         }
-
         .footer-links a:hover {
             color: var(--text-secondary);
         }
 
-        /* Responsive */
+        /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
-            .press-hero h1 {
-                font-size: 32px;
+            .glitch-title {
+                font-size: 38px;
+            }
+            .shiny-text {
+                font-size: 16px;
             }
             .page-wrapper {
                 padding: 0 20px;
@@ -562,10 +927,58 @@
             .swatches {
                 justify-content: center;
             }
+            .press-hero {
+                padding: 70px 0 60px;
+            }
+            .aurora-orb {
+                filter: blur(60px);
+                opacity: 0.25;
+            }
+        }
+
+        /* ===== REDUCED MOTION ===== */
+        @media (prefers-reduced-motion: reduce) {
+            .particle,
+            .aurora-orb,
+            .glitch-title::before,
+            .glitch-title::after,
+            .shiny-text,
+            .section-divider,
+            .glow-card::before,
+            .press-list li::before,
+            .testimonial-card::before,
+            .cta-button::before {
+                animation: none !important;
+            }
+            .reveal,
+            .reveal-stagger {
+                opacity: 1 !important;
+                transform: none !important;
+                transition: none !important;
+            }
+            .stat-card:hover,
+            .testimonial-card:hover,
+            .asset-card:hover,
+            .contact-card:hover {
+                transform: none !important;
+            }
+            .swatch:hover .swatch-color {
+                transform: none !important;
+            }
+            .shiny-text {
+                background: none !important;
+                -webkit-text-fill-color: var(--text-secondary) !important;
+            }
+            .particles-container {
+                display: none !important;
+            }
         }
     </style>
 </head>
 <body>
+
+    <!-- Floating Particles -->
+    <div class="particles-container" id="particles" aria-hidden="true"></div>
 
     <!-- Navigation -->
     <nav>
@@ -600,12 +1013,18 @@
 
         <!-- Hero -->
         <section class="press-hero">
-            <h1>Press Kit</h1>
-            <p>Everything you need to cover Carbonator.</p>
+            <div class="aurora-container" aria-hidden="true">
+                <div class="aurora-orb aurora-orb-1"></div>
+                <div class="aurora-orb aurora-orb-2"></div>
+                <div class="aurora-orb aurora-orb-3"></div>
+            </div>
+            <h1 class="glitch-title">Press Kit</h1>
+            <p class="shiny-text">Everything you need to cover Carbonator.</p>
         </section>
 
         <!-- About Carbonator -->
-        <section class="press-section">
+        <div class="section-divider"></div>
+        <section class="press-section reveal">
             <h2>About Carbonator</h2>
             <div class="about-text">
                 <p>Carbonator is an analog saturation plugin by Carbonated Audio featuring five circuit-modeled saturation flavors: Cola, Cherry, Grape, Lemon-Lime, and Orange Cream. Each flavor delivers a distinct harmonic character — from subtle warmth to aggressive drive — controlled by a single Fizz knob.</p>
@@ -614,30 +1033,31 @@
         </section>
 
         <!-- Key Stats -->
-        <section class="press-section">
+        <div class="section-divider"></div>
+        <section class="press-section reveal">
             <h2>Key Stats</h2>
             <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-value">$20</div>
+                <div class="stat-card reveal-stagger">
+                    <div class="stat-value" data-countup="$" data-target="20">$0</div>
                     <div class="stat-label">One-time price (launch price — goes to $35 after April 30)</div>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-value">5</div>
+                <div class="stat-card reveal-stagger">
+                    <div class="stat-value" data-countup="" data-target="5">0</div>
                     <div class="stat-label">Saturation flavors (Cola, Cherry, Grape, Lemon-Lime, Orange Cream)</div>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-value">4 Formats</div>
+                <div class="stat-card reveal-stagger">
+                    <div class="stat-value" data-countup="" data-target="4" data-suffix=" Formats">0 Formats</div>
                     <div class="stat-label">VST3, AU, AAX, Standalone</div>
                 </div>
-                <div class="stat-card">
+                <div class="stat-card reveal-stagger">
                     <div class="stat-value">macOS + Windows</div>
                     <div class="stat-label">Including Apple Silicon native</div>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-value">5 Countries</div>
+                <div class="stat-card reveal-stagger">
+                    <div class="stat-value" data-countup="" data-target="5" data-suffix=" Countries">0 Countries</div>
                     <div class="stat-label">Buyers from US, UK, Spain, Japan, Israel</div>
                 </div>
-                <div class="stat-card">
+                <div class="stat-card reveal-stagger">
                     <div class="stat-value">Lifetime</div>
                     <div class="stat-label">Free updates, no subscription</div>
                 </div>
@@ -645,67 +1065,80 @@
         </section>
 
         <!-- Press Coverage -->
-        <section class="press-section">
+        <div class="section-divider"></div>
+        <section class="press-section reveal">
             <h2>Press Coverage</h2>
             <ul class="press-list">
-                <li>
+                <li class="reveal-stagger">
                     <a href="https://www.audiopluginguy.com/news-carbinated-audio-releases-carbonator-an-analog-saturation-plugin/" target="_blank" rel="noopener">
                         <span>Audio Plugin Guy <span class="press-outlet">— Feature</span></span>
+                        <span class="press-arrow">&#8599;</span>
                     </a>
                 </li>
-                <li>
+                <li class="reveal-stagger">
                     <a href="https://rekkerd.org/carbinated-audio-releases-carbonator-saturation-effect-plugin/" target="_blank" rel="noopener">
                         <span>Rekkerd.org <span class="press-outlet">— Feature</span></span>
+                        <span class="press-arrow">&#8599;</span>
                     </a>
                 </li>
-                <li>
+                <li class="reveal-stagger">
                     <a href="https://www.kvraudio.com/product/carbonator-by-carbinated-audio" target="_blank" rel="noopener">
                         <span>KVR Audio <span class="press-outlet">— Product Listing</span></span>
+                        <span class="press-arrow">&#8599;</span>
                     </a>
                 </li>
-                <li>
+                <li class="reveal-stagger">
                     <a href="https://audionewsroom.net/2026/03/carbonator-five-flavors-of-circuit-modeled-saturation.html" target="_blank" rel="noopener">
                         <span>AudioNewsRoom <span class="press-outlet">— Feature</span></span>
+                        <span class="press-arrow">&#8599;</span>
                     </a>
                 </li>
             </ul>
         </section>
 
         <!-- Testimonials -->
-        <section class="press-section">
+        <div class="section-divider"></div>
+        <section class="press-section reveal">
             <h2>Testimonials</h2>
             <div class="testimonial-list">
-                <div class="testimonial-card">
-                    <blockquote>The Lemon-Lime on my vocal chain is crazy. An absolute staple.</blockquote>
-                    <div class="testimonial-author">ZakMabry — Producer</div>
+                <div class="testimonial-card reveal-stagger">
+                    <div class="testimonial-content">
+                        <blockquote>The Lemon-Lime on my vocal chain is crazy. An absolute staple.</blockquote>
+                        <div class="testimonial-author">ZakMabry — Producer</div>
+                    </div>
                 </div>
-                <div class="testimonial-card">
-                    <blockquote>Each flavor has a new texture you can't find using any other plugin.</blockquote>
-                    <div class="testimonial-author">Landsharkszn — Producer</div>
+                <div class="testimonial-card reveal-stagger">
+                    <div class="testimonial-content">
+                        <blockquote>Each flavor has a new texture you can't find using any other plugin.</blockquote>
+                        <div class="testimonial-author">Landsharkszn — Producer</div>
+                    </div>
                 </div>
-                <div class="testimonial-card">
-                    <blockquote>Every preset sounds amazing. It's rare you find a plugin where you can load something up and it instantly sounds good.</blockquote>
-                    <div class="testimonial-author">Pradoproducedit — Producer</div>
+                <div class="testimonial-card reveal-stagger">
+                    <div class="testimonial-content">
+                        <blockquote>Every preset sounds amazing. It's rare you find a plugin where you can load something up and it instantly sounds good.</blockquote>
+                        <div class="testimonial-author">Pradoproducedit — Producer</div>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- Brand Assets -->
-        <section class="press-section">
+        <div class="section-divider"></div>
+        <section class="press-section reveal">
             <h2>Brand Assets</h2>
             <div class="assets-grid">
-                <div class="asset-card">
-                    <div class="asset-icon">🎨</div>
+                <div class="asset-card reveal-stagger">
+                    <span class="asset-icon">&#127912;</span>
                     <h3>Logo (PNG)</h3>
                     <p>High-res logo on transparent background</p>
                 </div>
-                <div class="asset-card">
-                    <div class="asset-icon">📸</div>
+                <div class="asset-card reveal-stagger">
+                    <span class="asset-icon">&#128248;</span>
                     <h3>Plugin Screenshots</h3>
                     <p>UI screenshots of all 5 flavors</p>
                 </div>
-                <div class="asset-card">
-                    <div class="asset-icon">🎬</div>
+                <div class="asset-card reveal-stagger">
+                    <span class="asset-icon">&#127916;</span>
                     <h3>Product Video</h3>
                     <p>Official demo and overview</p>
                 </div>
@@ -714,27 +1147,32 @@
 
             <div class="swatches-label">Brand Colors</div>
             <div class="swatches">
-                <div class="swatch">
+                <div class="swatch" data-hex="#ff6b2b" onclick="copySwatch(this)">
+                    <div class="swatch-tooltip">Copied!</div>
                     <div class="swatch-color" style="background: #ff6b2b;"></div>
                     <span class="swatch-hex">#ff6b2b</span>
                     <span class="swatch-name">Orange</span>
                 </div>
-                <div class="swatch">
+                <div class="swatch" data-hex="#0d0a1a" onclick="copySwatch(this)">
+                    <div class="swatch-tooltip">Copied!</div>
                     <div class="swatch-color" style="background: #0d0a1a;"></div>
                     <span class="swatch-hex">#0d0a1a</span>
                     <span class="swatch-name">Dark BG</span>
                 </div>
-                <div class="swatch">
+                <div class="swatch" data-hex="#1a1430" onclick="copySwatch(this)">
+                    <div class="swatch-tooltip">Copied!</div>
                     <div class="swatch-color" style="background: #1a1430;"></div>
                     <span class="swatch-hex">#1a1430</span>
                     <span class="swatch-name">Card</span>
                 </div>
-                <div class="swatch">
+                <div class="swatch" data-hex="#ff3366" onclick="copySwatch(this)">
+                    <div class="swatch-tooltip">Copied!</div>
                     <div class="swatch-color" style="background: #ff3366;"></div>
                     <span class="swatch-hex">#ff3366</span>
                     <span class="swatch-name">Pink</span>
                 </div>
-                <div class="swatch">
+                <div class="swatch" data-hex="#cc33ff" onclick="copySwatch(this)">
+                    <div class="swatch-tooltip">Copied!</div>
                     <div class="swatch-color" style="background: #cc33ff;"></div>
                     <span class="swatch-hex">#cc33ff</span>
                     <span class="swatch-name">Magenta</span>
@@ -743,25 +1181,26 @@
         </section>
 
         <!-- Request a Review Copy -->
-        <section class="review-cta">
+        <div class="section-divider"></div>
+        <section class="review-cta reveal">
             <h2>Request a Review Copy</h2>
             <p>Writing about Carbonator? We will send you a full license — no strings attached.</p>
-            <a href="mailto:hello@carbonatedaudio.com?subject=Carbonator%20Review%20Copy%20Request" class="cta-button">Request Review Copy</a>
+            <a href="mailto:hello@carbonatedaudio.com?subject=Carbonator%20Review%20Copy%20Request" class="cta-button" id="ctaButton">Request Review Copy</a>
         </section>
 
         <!-- Contact -->
-        <section class="press-section" style="border-top: none; padding-top: 0;">
+        <section class="press-section reveal" style="padding-top: 0;">
             <h2>Contact</h2>
             <div class="contact-grid">
-                <div class="contact-card">
+                <div class="contact-card reveal-stagger">
                     <div class="contact-label">Email</div>
                     <a href="mailto:hello@carbonatedaudio.com">hello@carbonatedaudio.com</a>
                 </div>
-                <div class="contact-card">
+                <div class="contact-card reveal-stagger">
                     <div class="contact-label">Instagram</div>
                     <a href="https://www.instagram.com/carbonatedaudio" target="_blank" rel="noopener">@carbonatedaudio</a>
                 </div>
-                <div class="contact-card">
+                <div class="contact-card reveal-stagger">
                     <div class="contact-label">Website</div>
                     <a href="https://carbonatedaudio.com">carbonatedaudio.com</a>
                 </div>
@@ -784,24 +1223,196 @@
     </footer>
 
     <script>
-    // Mobile hamburger menu
     (function() {
-        var btn = document.getElementById('hamburgerBtn');
-        var menu = document.getElementById('mobileMenu');
-        if (!btn || !menu) return;
-        btn.addEventListener('click', function() {
-            btn.classList.toggle('active');
-            menu.classList.toggle('active');
-            document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : '';
-        });
-        menu.querySelectorAll('a').forEach(function(link) {
-            link.addEventListener('click', function() {
-                btn.classList.remove('active');
-                menu.classList.remove('active');
-                document.body.style.overflow = '';
+        'use strict';
+
+        // ===== MOBILE HAMBURGER MENU =====
+        var hamburgerBtn = document.getElementById('hamburgerBtn');
+        var mobileMenu = document.getElementById('mobileMenu');
+        if (hamburgerBtn && mobileMenu) {
+            hamburgerBtn.addEventListener('click', function() {
+                hamburgerBtn.classList.toggle('active');
+                mobileMenu.classList.toggle('active');
+                document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
             });
-        });
+            mobileMenu.querySelectorAll('a').forEach(function(link) {
+                link.addEventListener('click', function() {
+                    hamburgerBtn.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+            });
+        }
+
+        // ===== FLOATING PARTICLES =====
+        var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (!prefersReduced) {
+            var particlesContainer = document.getElementById('particles');
+            var particleCount = 30;
+            for (var i = 0; i < particleCount; i++) {
+                var p = document.createElement('div');
+                p.className = 'particle';
+                p.style.left = (Math.random() * 100) + '%';
+                p.style.animationDuration = (12 + Math.random() * 20) + 's';
+                p.style.animationDelay = (Math.random() * 15) + 's';
+                p.style.opacity = (0.15 + Math.random() * 0.35);
+                particlesContainer.appendChild(p);
+            }
+        }
+
+        // ===== SCROLL REVEAL (IntersectionObserver) =====
+        var revealElements = document.querySelectorAll('.reveal');
+        var staggerElements = document.querySelectorAll('.reveal-stagger');
+
+        if ('IntersectionObserver' in window && !prefersReduced) {
+            var revealObserver = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('revealed');
+                        revealObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+            revealElements.forEach(function(el) {
+                revealObserver.observe(el);
+            });
+
+            var staggerObserver = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        // Find siblings and stagger
+                        var parent = entry.target.parentElement;
+                        var siblings = parent.querySelectorAll('.reveal-stagger');
+                        siblings.forEach(function(sib, idx) {
+                            setTimeout(function() {
+                                sib.classList.add('revealed');
+                            }, idx * 100);
+                        });
+                        siblings.forEach(function(sib) {
+                            staggerObserver.unobserve(sib);
+                        });
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+
+            staggerElements.forEach(function(el) {
+                staggerObserver.observe(el);
+            });
+        } else {
+            // Fallback: show everything
+            revealElements.forEach(function(el) { el.classList.add('revealed'); });
+            staggerElements.forEach(function(el) { el.classList.add('revealed'); });
+        }
+
+        // ===== COUNT-UP ANIMATION =====
+        var countUpElements = document.querySelectorAll('[data-countup]');
+        var countedUp = new Set();
+
+        if ('IntersectionObserver' in window && !prefersReduced) {
+            var countObserver = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting && !countedUp.has(entry.target)) {
+                        countedUp.add(entry.target);
+                        animateCountUp(entry.target);
+                        countObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.3 });
+
+            countUpElements.forEach(function(el) {
+                countObserver.observe(el);
+            });
+        } else {
+            // Show final values immediately
+            countUpElements.forEach(function(el) {
+                var prefix = el.getAttribute('data-countup') || '';
+                var target = parseInt(el.getAttribute('data-target'), 10);
+                var suffix = el.getAttribute('data-suffix') || '';
+                el.textContent = prefix + target + suffix;
+            });
+        }
+
+        function animateCountUp(el) {
+            var prefix = el.getAttribute('data-countup') || '';
+            var target = parseInt(el.getAttribute('data-target'), 10);
+            var suffix = el.getAttribute('data-suffix') || '';
+            var duration = 1200;
+            var startTime = null;
+
+            function step(timestamp) {
+                if (!startTime) startTime = timestamp;
+                var progress = Math.min((timestamp - startTime) / duration, 1);
+                // Ease out cubic
+                var eased = 1 - Math.pow(1 - progress, 3);
+                var current = Math.round(eased * target);
+                el.textContent = prefix + current + suffix;
+                if (progress < 1) {
+                    requestAnimationFrame(step);
+                }
+            }
+            requestAnimationFrame(step);
+        }
+
+        // ===== MAGNETIC CTA BUTTON =====
+        var ctaBtn = document.getElementById('ctaButton');
+        if (ctaBtn && !prefersReduced) {
+            ctaBtn.addEventListener('mousemove', function(e) {
+                var rect = ctaBtn.getBoundingClientRect();
+                var x = e.clientX - rect.left - rect.width / 2;
+                var y = e.clientY - rect.top - rect.height / 2;
+                ctaBtn.style.transform = 'translateY(-3px) translate(' + (x * 0.15) + 'px, ' + (y * 0.15) + 'px)';
+            });
+            ctaBtn.addEventListener('mouseleave', function() {
+                ctaBtn.style.transform = '';
+            });
+        }
+
+        // ===== ASSET CARD 3D TILT =====
+        var assetCards = document.querySelectorAll('.asset-card');
+        if (!prefersReduced) {
+            assetCards.forEach(function(card) {
+                card.addEventListener('mousemove', function(e) {
+                    var rect = card.getBoundingClientRect();
+                    var x = (e.clientX - rect.left) / rect.width - 0.5;
+                    var y = (e.clientY - rect.top) / rect.height - 0.5;
+                    card.style.transform = 'perspective(600px) rotateY(' + (x * 10) + 'deg) rotateX(' + (-y * 10) + 'deg) scale(1.03)';
+                });
+                card.addEventListener('mouseleave', function() {
+                    card.style.transform = '';
+                });
+            });
+        }
+
     })();
+
+    // ===== COPY SWATCH TO CLIPBOARD =====
+    function copySwatch(swatchEl) {
+        var hex = swatchEl.getAttribute('data-hex');
+        if (!hex) return;
+
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(hex);
+        } else {
+            // Fallback
+            var ta = document.createElement('textarea');
+            ta.value = hex;
+            ta.style.position = 'fixed';
+            ta.style.left = '-9999px';
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand('copy');
+            document.body.removeChild(ta);
+        }
+
+        var tooltip = swatchEl.querySelector('.swatch-tooltip');
+        if (tooltip) {
+            tooltip.classList.add('show');
+            setTimeout(function() {
+                tooltip.classList.remove('show');
+            }, 1200);
+        }
+    }
     </script>
 
 </body>
