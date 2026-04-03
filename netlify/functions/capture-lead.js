@@ -79,6 +79,28 @@ exports.handler = async (event) => {
     } catch (emailErr) {
       console.error("Welcome email failed:", emailErr.message);
     }
+
+    // Notify yourself about the new lead
+    try {
+      const resend = new Resend(process.env.RESEND_API_KEY);
+      await resend.emails.send({
+        from: FROM_EMAIL,
+        to: "mixedbysoda@gmail.com",
+        subject: `🔔 New Carbonator Lead: ${contact}`,
+        html: `
+          <div style="font-family:Arial,sans-serif;padding:20px;background:#0d0a1a;color:#fff;">
+            <h2 style="color:#ff6b2b;">New Lead Captured</h2>
+            <p><strong>Email:</strong> ${contact}</p>
+            <p><strong>Source:</strong> ${source}</p>
+            <p><strong>Time:</strong> ${now}</p>
+            <p><strong>IP:</strong> ${event.headers["x-forwarded-for"] || "unknown"}</p>
+            <hr style="border-color:#2a2440;">
+            <p style="color:#6b6580;font-size:12px;">This is an automated notification from your Carbonator lead capture system.</p>
+          </div>`,
+      });
+    } catch (notifyErr) {
+      console.error("Lead notification email failed:", notifyErr.message);
+    }
   }
 
   return {
