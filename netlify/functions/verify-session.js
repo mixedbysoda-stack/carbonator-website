@@ -2,6 +2,7 @@ const Stripe = require("stripe");
 const {
   VERSION,
   DOWNLOAD_URLS,
+  PRODUCTS,
   generateActivationKey,
 } = require("./config");
 
@@ -52,8 +53,11 @@ exports.handler = async (event) => {
     if (session.payment_status === "paid") {
       const email = session.customer_details?.email || null;
 
-      // Get or generate license key
-      const licenseSecret = process.env.CARBONATOR_LICENSE_SECRET;
+      // Detect product from session metadata or default to carbonator
+      const productId = session.metadata?.product || "carbonator";
+      const product = PRODUCTS[productId] || PRODUCTS.carbonator;
+      const licenseSecret = process.env[product.secretEnv];
+
       let licenseKey = session.metadata?.license_key || null;
 
       if (!licenseKey && licenseSecret && email) {
@@ -65,7 +69,7 @@ exports.handler = async (event) => {
         // Store for future retrievals
         try {
           await stripe.checkout.sessions.update(sessionId, {
-            metadata: { license_key: licenseKey },
+            metadata: { license_key: licenseKey, product: productId },
           });
         } catch (err) {
           console.error("Failed to store license key:", err.message);
@@ -77,8 +81,10 @@ exports.handler = async (event) => {
         headers,
         body: JSON.stringify({
           verified: true,
-          version: VERSION,
-          downloads: DOWNLOAD_URLS,
+          product: productId,
+          product_name: product.name,
+          version: product.version,
+          downloads: product.downloads,
           customer_email: email,
           license_key: licenseKey,
         }),

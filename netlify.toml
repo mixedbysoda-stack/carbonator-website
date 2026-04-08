@@ -14,3 +14,19 @@
 
 [functions."review-request"]
   schedule = "0 10 * * *"
+
+# Pretty URLs for product pages
+[[redirects]]
+  from = "/carbonator"
+  to = "/carbonator.html"
+  status = 200
+
+[[redirects]]
+  from = "/desipper"
+  to = "/desipper.html"
+  status = 200
+
+[[redirects]]
+  from = "/de-sipper"
+  to = "/desipper.html"
+  status = 301

@@ -49,15 +49,20 @@ exports.handler = async (event) => {
     console.error("Lead store error (non-fatal):", storeErr.message);
   }
 
-  // Send Email 1 immediately — welcome + download link + flavor tips
+  // Send Email 1 immediately — welcome + download link
+  const isDesipperLead = source && source.includes("desipper");
   if (process.env.RESEND_API_KEY) {
     try {
       const resend = new Resend(process.env.RESEND_API_KEY);
       await resend.emails.send({
         from: FROM_EMAIL,
         to: contact,
-        subject: "Your Carbonator Demo is ready 🎛️",
-        html: buildWelcomeEmail(contact),
+        subject: isDesipperLead
+          ? "Your De-Sipper Demo is ready 🎤"
+          : "Your Carbonator Demo is ready 🎛️",
+        html: isDesipperLead
+          ? buildDesipperWelcomeEmail(contact)
+          : buildWelcomeEmail(contact),
       });
 
       // Update drip status
@@ -86,7 +91,9 @@ exports.handler = async (event) => {
       await resend.emails.send({
         from: FROM_EMAIL,
         to: "mixedbysoda@gmail.com",
-        subject: `🔔 New Carbonator Lead: ${contact}`,
+        subject: isDesipperLead
+          ? `🔔 New De-Sipper Lead: ${contact}`
+          : `🔔 New Carbonator Lead: ${contact}`,
         html: `
           <div style="font-family:Arial,sans-serif;padding:20px;background:#0d0a1a;color:#fff;">
             <h2 style="color:#ff6b2b;">New Lead Captured</h2>
@@ -159,6 +166,59 @@ function buildWelcomeEmail(email) {
 
           <p style="color:#a09bb5;font-size:14px;margin:24px 0 0;text-align:center;">
             <em>Pro tip: try Carbonated mode — it blends all 5 flavors with a single knob.</em>
+          </p>
+
+        </td></tr>
+
+        <tr><td align="center" style="padding-top:32px;">
+          <p style="color:#6b6580;font-size:12px;margin:0;">
+            Questions? Just reply to this email.
+          </p>
+          <p style="color:#6b6580;font-size:12px;margin:8px 0 0;">
+            &copy; ${new Date().getFullYear()} Carbonated Audio &middot; <a href="https://carbonatedaudio.com" style="color:#6b6580;">carbonatedaudio.com</a>
+          </p>
+        </td></tr>
+
+      </table>
+    </td></tr>
+  </table>
+</body>
+</html>`;
+}
+
+function buildDesipperWelcomeEmail(email) {
+  return `
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
+<body style="margin:0;padding:0;background-color:#0d0a1a;font-family:Arial,Helvetica,sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#0d0a1a;padding:40px 20px;">
+    <tr><td align="center">
+      <table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;">
+
+        <tr><td align="center" style="padding-bottom:32px;">
+          <span style="font-size:28px;font-weight:800;color:#ffffff;">Carbonated Audio</span>
+        </td></tr>
+
+        <tr><td style="background-color:#1a1430;border-radius:16px;padding:40px 32px;">
+
+          <h1 style="color:#ffffff;font-size:24px;text-align:center;margin:0 0 8px;">Thanks for your interest in De-Sipper!</h1>
+          <p style="color:#a09bb5;font-size:16px;text-align:center;margin:0 0 32px;">The demo is coming soon. We'll email you the download link as soon as it's ready.</p>
+
+          <hr style="border:none;border-top:1px solid #2a2440;margin:0 0 24px;">
+
+          <h2 style="color:#ffffff;font-size:18px;margin:0 0 16px;">What De-Sipper does:</h2>
+          <table width="100%" cellpadding="0" cellspacing="0" style="font-size:14px;color:#a09bb5;">
+            <tr><td style="padding:6px 0;"><strong style="color:#00d4ff;">Transparent De-Essing</strong> — Tames harsh sibilance without killing your vocal's brightness.</td></tr>
+            <tr><td style="padding:6px 0;"><strong style="color:#00d4ff;">Split-Band Processing</strong> — Only touches the sibilant frequencies. Everything else passes through clean.</td></tr>
+            <tr><td style="padding:6px 0;"><strong style="color:#00d4ff;">Listen Mode</strong> — Solo exactly what's being removed so you can dial it in perfectly.</td></tr>
+            <tr><td style="padding:6px 0;"><strong style="color:#00d4ff;">Zero Latency</strong> — No lookahead delay. Works in real-time for tracking and mixing.</td></tr>
+          </table>
+
+          <hr style="border:none;border-top:1px solid #2a2440;margin:24px 0;">
+
+          <p style="color:#a09bb5;font-size:14px;margin:0;text-align:center;">
+            In the meantime, check out <a href="https://carbonatedaudio.com/carbonator" style="color:#ff6b2b;text-decoration:none;font-weight:600;">Carbonator</a> — our analog saturation plugin with 5 circuit-modeled flavors.
           </p>
 
         </td></tr>

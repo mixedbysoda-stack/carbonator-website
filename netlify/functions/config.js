@@ -8,6 +8,30 @@ const DOWNLOAD_URLS = {
   windows: `https://github.com/mixedbysoda-stack/carbonator/releases/download/v${VERSION}/Carbonator-Windows-Installer.zip`,
 };
 
+// Multi-product registry
+const PRODUCTS = {
+  carbonator: {
+    name: "Carbonator",
+    version: "2.2.0",
+    price: 20,
+    downloads: {
+      mac: `https://github.com/mixedbysoda-stack/carbonator/releases/download/v2.2.0/Carbonator-v2.2.0-Installer.pkg`,
+      windows: `https://github.com/mixedbysoda-stack/carbonator/releases/download/v2.2.0/Carbonator-Windows-Installer.zip`,
+    },
+    secretEnv: "CARBONATOR_LICENSE_SECRET",
+  },
+  desipper: {
+    name: "De-Sipper",
+    version: "1.0.0",
+    price: 15,
+    downloads: {
+      mac: `https://github.com/mixedbysoda-stack/desipper/releases/download/v1.0.0/DeSipper-macOS-Installer.pkg`,
+      windows: `https://github.com/mixedbysoda-stack/desipper/releases/download/v1.0.0/De-Sipper-v1.0.0-Windows-Installer.exe`,
+    },
+    secretEnv: "DESIPPER_LICENSE_SECRET",
+  },
+};
+
 /**
  * Generate a deterministic activation key from email + Stripe session timestamp.
  * Key = 32 bytes (64 hex chars): 16-byte email hash + 8-byte timestamp + 8-byte HMAC
@@ -64,6 +88,7 @@ function validateActivationKey(keyHex, secret) {
 module.exports = {
   VERSION,
   DOWNLOAD_URLS,
+  PRODUCTS,
   generateActivationKey,
   validateActivationKey,
 };

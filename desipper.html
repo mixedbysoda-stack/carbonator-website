@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>De-Sipper — Transparent De-Esser Plugin | Carbonated Audio</title>
+    <meta name="description" content="De-Sipper is a transparent de-esser plugin that tames harsh sibilance without killing your vocal's brightness. $15 one-time. VST3, AU, AAX for macOS & Windows.">
+    <meta name="keywords" content="de-esser plugin, sibilance removal, vocal processing, de-essing VST, audio plugin, VST3, AU, AAX, De-Sipper, Carbonated Audio">
+    <meta name="author" content="Carbonated Audio">
+
+    <!-- Open Graph / Social Sharing -->
+    <meta property="og:type" content="product">
+    <meta property="og:title" content="De-Sipper — Transparent De-Esser Plugin">
+    <meta property="og:description" content="Transparent de-essing that tames harsh frequencies without killing your vocal's natural brightness. $15 one-time purchase.">
+    <meta property="og:url" content="https://carbonatedaudio.com/desipper">
+    <meta property="og:site_name" content="Carbonated Audio">
+    <meta property="og:image" content="https://carbonatedaudio.com/desipper-screenshot.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="De-Sipper transparent de-esser plugin interface by Carbonated Audio">
+    <meta property="product:price:amount" content="15.00">
+    <meta property="product:price:currency" content="USD">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="De-Sipper — Transparent De-Esser Plugin">
+    <meta name="twitter:description" content="Transparent de-essing that tames harsh frequencies without killing your vocal's natural brightness. $15 one-time.">
+    <meta name="twitter:image" content="https://carbonatedaudio.com/desipper-screenshot.png">
+
+    <!-- Canonical -->
+    <link rel="canonical" href="https://carbonatedaudio.com/desipper">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "De-Sipper",
+        "alternateName": "De-Sipper De-Esser Plugin",
+        "applicationCategory": "MultimediaApplication",
+        "softwareVersion": "1.0.0",
+        "operatingSystem": ["macOS 10.13+", "Windows 10+"],
+        "description": "De-Sipper is a transparent de-esser plugin that removes harsh sibilance from vocals without artifacts or dullness. Available as VST3, AU, AAX on macOS and Windows. One-time $15 purchase.",
+        "url": "https://carbonatedaudio.com/desipper",
+        "image": "https://carbonatedaudio.com/desipper-screenshot.png",
+        "screenshot": "https://carbonatedaudio.com/desipper-screenshot.png",
+        "author": {
+            "@type": "Organization",
+            "name": "Carbonated Audio",
+            "url": "https://carbonatedaudio.com"
+        },
+        "brand": {
+            "@type": "Brand",
+            "name": "Carbonated Audio"
+        },
+        "offers": {
+            "@type": "Offer",
+            "url": "https://carbonatedaudio.com/desipper",
+            "price": "15.00",
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/InStock",
+            "priceValidUntil": "2027-12-31",
+            "seller": {
+                "@type": "Organization",
+                "name": "Carbonated Audio"
+            }
+        },
+        "featureList": [
+            "Intelligent sibilance detection",
+            "Adjustable threshold control",
+            "Listen mode for monitoring removed frequencies",
+            "Split-band processing",
+            "Real-time visual feedback",
+            "Zero-latency processing",
+            "VST3, AU, AAX, Standalone formats",
+            "macOS (Apple Silicon + Intel) and Windows",
+            "One-time $15 purchase",
+            "3 machine activations"
+        ],
+        "systemRequirements": "macOS 10.13+ (Apple Silicon and Intel) or Windows 10+. Compatible with Pro Tools, Logic Pro, Ableton Live, FL Studio, Studio One, Cubase, Reaper, and all major DAWs."
+    }
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Shared Styles -->
+    <link rel="stylesheet" href="/shared.css">
+
+    <!-- GA4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z9L20HJ4M0"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-Z9L20HJ4M0');
+    </script>
+
+    <style>
+        /* ========================================
+           De-Sipper — Page-Specific Styles
+           Cyan/Blue accent theme
+           ======================================== */
+
+        :root {
+            --accent: #00d4ff;
+            --accent-dark: #0066ff;
+            --accent-glow: rgba(0, 212, 255, 0.15);
+            --accent-border: rgba(0, 212, 255, 0.2);
+            --accent-border-hover: rgba(0, 212, 255, 0.4);
+        }
+
+        /* Override shared accent for this page */
+        .section-title .accent {
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* ---- Hero ---- */
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 120px 40px 80px;
+            position: relative;
+        }
+
+        .hero-title {
+            font-size: clamp(56px, 10vw, 96px);
+            font-weight: 900;
+            letter-spacing: -2px;
+            line-height: 1;
+            background: linear-gradient(135deg, #00d4ff, #0066ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 16px;
+        }
+
+        .hero-lines {
+            font-size: clamp(28px, 5vw, 48px);
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 24px;
+            color: var(--text-primary);
+        }
+
+        .hero-lines span {
+            display: block;
+        }
+
+        .hero-desc {
+            font-size: 18px;
+            color: var(--text-secondary);
+            max-width: 560px;
+            margin: 0 auto 8px;
+            line-height: 1.7;
+        }
+
+        .hero-byline {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 32px;
+            font-weight: 500;
+        }
+
+        .hero-screenshot {
+            max-width: 600px;
+            width: 100%;
+            border-radius: 16px;
+            margin-bottom: 40px;
+            box-shadow: 0 24px 80px rgba(0, 212, 255, 0.12), 0 0 0 1px rgba(0, 212, 255, 0.1);
+        }
+
+        .hero-ctas {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+
+        .btn-primary {
+            padding: 16px 32px;
+            min-height: 48px;
+            background: linear-gradient(135deg, #00d4ff, #0066ff);
+            border: none;
+            border-radius: 12px;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(0, 212, 255, 0.3);
+        }
+
+        .btn-secondary {
+            padding: 16px 32px;
+            min-height: 48px;
+            background: transparent;
+            border: 1px solid var(--accent-border);
+            border-radius: 12px;
+            color: var(--accent);
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent-border-hover);
+            background: rgba(0, 212, 255, 0.05);
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat-value {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .hero-stat-label {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        .hero-stat-divider {
+            width: 1px;
+            background: var(--border);
+            align-self: stretch;
+        }
+
+        /* ---- Features ---- */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: rgba(26, 20, 48, 0.6);
+            border: 1px solid var(--accent-border);
+            border-radius: 16px;
+            padding: 32px;
+            transition: border-color 0.3s, transform 0.2s;
+        }
+
+        .feature-card:hover {
+            border-color: var(--accent-border-hover);
+            transform: translateY(-2px);
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--accent-glow);
+            border-radius: 12px;
+        }
+
+        .feature-icon svg {
+            width: 24px;
+            height: 24px;
+            stroke: var(--accent);
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .feature-card h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .feature-card p {
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* ---- How It Works ---- */
+        .how-it-works {
+            background: rgba(21, 16, 37, 0.5);
+        }
+
+        .steps {
+            display: flex;
+            gap: 32px;
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .steps::before {
+            content: '';
+            position: absolute;
+            top: 40px;
+            left: calc(16.66% + 24px);
+            right: calc(16.66% + 24px);
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-dark));
+            opacity: 0.3;
+        }
+
+        .step {
+            flex: 1;
+            text-align: center;
+        }
+
+        .step-number {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+            color: #fff;
+            font-weight: 800;
+            font-size: 20px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .step h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .step p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* ---- Compatibility ---- */
+        .compat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .compat-card {
+            background: rgba(26, 20, 48, 0.6);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px;
+            text-align: center;
+        }
+
+        .compat-card h3 {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .compat-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+        }
+
+        .compat-badge {
+            background: var(--accent-glow);
+            border: 1px solid var(--accent-border);
+            border-radius: 8px;
+            padding: 6px 14px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--accent);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .compat-card p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* ---- Pricing ---- */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        .pricing-card {
+            background: rgba(26, 20, 48, 0.6);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 40px 32px;
+            text-align: center;
+            position: relative;
+            transition: border-color 0.3s;
+        }
+
+        .pricing-card.featured {
+            border-color: var(--accent);
+            box-shadow: 0 0 40px rgba(0, 212, 255, 0.08);
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+            color: #fff;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 4px 16px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .pricing-card h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .pricing-price {
+            font-size: 48px;
+            font-weight: 900;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .pricing-subtitle {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+
+        .pricing-features {
+            list-style: none;
+            text-align: left;
+            margin-bottom: 32px;
+        }
+
+        .pricing-features li {
+            padding: 8px 0;
+            font-size: 14px;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pricing-features li::before {
+            content: '';
+            width: 18px;
+            height: 18px;
+            min-width: 18px;
+            background: var(--accent-glow);
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2300d4ff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: 12px;
+        }
+
+        .btn-disabled {
+            padding: 16px 32px;
+            min-height: 48px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: var(--text-muted);
+            font-size: 16px;
+            font-weight: 600;
+            cursor: not-allowed;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .btn-pricing {
+            width: 100%;
+            justify-content: center;
+        }
+
+        /* ---- FAQ ---- */
+        .faq-list {
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid var(--border);
+        }
+
+        .faq-question {
+            width: 100%;
+            background: none;
+            border: none;
+            padding: 20px 0;
+            text-align: left;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            color: var(--text-primary);
+            font-size: 16px;
+            font-weight: 600;
+            font-family: inherit;
+            transition: color 0.2s;
+        }
+
+        .faq-question:hover {
+            color: var(--accent);
+        }
+
+        .faq-icon {
+            width: 24px;
+            height: 24px;
+            min-width: 24px;
+            position: relative;
+            transition: transform 0.3s;
+        }
+
+        .faq-icon::before,
+        .faq-icon::after {
+            content: '';
+            position: absolute;
+            background: var(--accent);
+            border-radius: 2px;
+            transition: transform 0.3s;
+        }
+
+        .faq-icon::before {
+            width: 14px;
+            height: 2px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .faq-icon::after {
+            width: 2px;
+            height: 14px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .faq-item.active .faq-icon::after {
+            transform: translate(-50%, -50%) rotate(90deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-answer-inner {
+            padding: 0 0 20px;
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* ---- Cross-Sell ---- */
+        .cross-sell {
+            text-align: center;
+            background: rgba(21, 16, 37, 0.5);
+        }
+
+        .cross-sell-label {
+            font-size: 14px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+            margin-bottom: 24px;
+        }
+
+        .cross-sell-card {
+            display: inline-flex;
+            align-items: center;
+            gap: 20px;
+            background: rgba(26, 20, 48, 0.6);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px 32px;
+            text-decoration: none;
+            transition: border-color 0.3s, transform 0.2s;
+        }
+
+        .cross-sell-card:hover {
+            border-color: rgba(255, 107, 43, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .cross-sell-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 12px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .cross-sell-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .cross-sell-info {
+            text-align: left;
+        }
+
+        .cross-sell-name {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .cross-sell-desc {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .cross-sell-price {
+            font-size: 14px;
+            color: #ff6b2b;
+            font-weight: 600;
+            margin-top: 4px;
+        }
+
+        /* ---- Responsive ---- */
+        @media (max-width: 768px) {
+            .hero {
+                padding: 100px 20px 60px;
+            }
+
+            .hero-screenshot {
+                max-width: 100%;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .steps {
+                flex-direction: column;
+                gap: 24px;
+            }
+
+            .steps::before {
+                display: none;
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+            }
+
+            .hero-stats {
+                gap: 24px;
+            }
+
+            .cross-sell-card {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .cross-sell-info {
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-ctas {
+                flex-direction: column;
+                width: 100%;
+                padding: 0 16px;
+            }
+
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .compat-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+            #silk-bg {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Silk WebGL Background -->
+    <canvas id="silk-bg"></canvas>
+
+    <div class="content-wrapper">
+
+        <!-- Navigation -->
+        <div id="site-nav" data-active="desipper"></div>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1 class="hero-title">De-Sipper</h1>
+            <div class="hero-lines">
+                <span>Stop fighting</span>
+                <span>your</span>
+                <span>sibilance.</span>
+            </div>
+            <p class="hero-desc">Transparent de-essing that tames harsh frequencies without killing your vocal's natural brightness. No artifacts. No compromise.</p>
+            <p class="hero-byline">by Carbonated Audio</p>
+            <img src="/desipper-screenshot.png" alt="De-Sipper plugin interface showing transparent de-esser controls" class="hero-screenshot" width="600" height="400" loading="eager">
+            <div class="hero-ctas">
+                <a href="#pricing" class="btn-primary">Get De-Sipper — $15</a>
+                <a href="#features" class="btn-secondary">See It In Action</a>
+            </div>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <div class="hero-stat-value">$15</div>
+                    <div class="hero-stat-label">One-Time</div>
+                </div>
+                <div class="hero-stat-divider"></div>
+                <div class="hero-stat">
+                    <div class="hero-stat-value">VST3 / AU / AAX</div>
+                    <div class="hero-stat-label">All Formats</div>
+                </div>
+                <div class="hero-stat-divider"></div>
+                <div class="hero-stat">
+                    <div class="hero-stat-value">macOS + Windows</div>
+                    <div class="hero-stat-label">Both Platforms</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features">
+            <h2 class="section-title">Precision <span class="accent">De-Essing</span></h2>
+            <div class="features-grid">
+
+                <!-- 1. Intelligent Detection -->
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+                    </div>
+                    <h3>Intelligent Detection</h3>
+                    <p>Advanced sibilance detection that locks onto harsh frequencies without touching the rest of your vocal.</p>
+                </div>
+
+                <!-- 2. Adjustable Threshold -->
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
+                    </div>
+                    <h3>Adjustable Threshold</h3>
+                    <p>Dial in exactly how much de-essing you need. From subtle smoothing to aggressive taming.</p>
+                </div>
+
+                <!-- 3. Listen Mode -->
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+                    </div>
+                    <h3>Listen Mode</h3>
+                    <p>Solo the sibilance being removed so you can hear exactly what De-Sipper is catching.</p>
+                </div>
+
+                <!-- 4. Split-Band Processing -->
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                    </div>
+                    <h3>Split-Band Processing</h3>
+                    <p>Only affects the sibilant frequency range. Everything else passes through untouched.</p>
+                </div>
+
+                <!-- 5. Visual Feedback -->
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/><rect x="4" y="2" width="16" height="20" rx="2" ry="2" fill="none"/></svg>
+                    </div>
+                    <h3>Visual Feedback</h3>
+                    <p>Real-time metering shows you exactly how much gain reduction is happening and where.</p>
+                </div>
+
+                <!-- 6. Zero Latency -->
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                    </div>
+                    <h3>Zero Latency</h3>
+                    <p>No lookahead delay. De-Sipper processes in real-time for seamless tracking and mixing.</p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- How It Works Section -->
+        <section class="how-it-works">
+            <h2 class="section-title">How It <span class="accent">Works</span></h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Insert on vocal</h3>
+                    <p>Drop De-Sipper on any vocal track as a VST3, AU, or AAX plugin.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Set your threshold</h3>
+                    <p>Adjust until sibilance is tamed but the vocal still sounds natural.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Done</h3>
+                    <p>Clean, de-essed vocals without artifacts or dullness.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Compatibility Section -->
+        <section id="compatibility">
+            <h2 class="section-title"><span class="accent">Compatibility</span></h2>
+            <div class="compat-grid">
+                <div class="compat-card">
+                    <h3>Formats</h3>
+                    <div class="compat-badges">
+                        <span class="compat-badge">VST3</span>
+                        <span class="compat-badge">AU</span>
+                        <span class="compat-badge">AAX</span>
+                        <span class="compat-badge">Standalone</span>
+                    </div>
+                </div>
+                <div class="compat-card">
+                    <h3>macOS</h3>
+                    <p>10.13+ (High Sierra and later)<br>Intel + Apple Silicon native</p>
+                </div>
+                <div class="compat-card">
+                    <h3>Windows</h3>
+                    <p>Windows 10+ (64-bit)</p>
+                </div>
+                <div class="compat-card">
+                    <h3>DAWs</h3>
+                    <p>Pro Tools, Logic Pro, Ableton Live, FL Studio, Studio One, Cubase, Reaper, and more</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing Section -->
+        <section id="pricing">
+            <h2 class="section-title">Simple <span class="accent">Pricing</span></h2>
+            <div class="pricing-grid">
+
+                <!-- Demo Card -->
+                <div class="pricing-card">
+                    <h3>Demo</h3>
+                    <div class="pricing-price">Free</div>
+                    <div class="pricing-subtitle">&nbsp;</div>
+                    <ul class="pricing-features">
+                        <li>All DSP features</li>
+                        <li>60s on / 10s mute cycle</li>
+                        <li>All plugin formats</li>
+                    </ul>
+                    <span class="btn-disabled">Coming Soon</span>
+                </div>
+
+                <!-- Full Version Card -->
+                <div class="pricing-card featured">
+                    <div class="pricing-badge">Launch Price</div>
+                    <h3>Full Version</h3>
+                    <div class="pricing-price">$15</div>
+                    <div class="pricing-subtitle">one-time purchase</div>
+                    <ul class="pricing-features">
+                        <li>Unlimited use</li>
+                        <li>All plugin formats</li>
+                        <li>3 machine activations</li>
+                        <li>Free updates</li>
+                        <li>Email support</li>
+                    </ul>
+                    <a href="#pricing" class="btn-primary btn-pricing">Get De-Sipper — $15</a>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faq">
+            <h2 class="section-title">Frequently <span class="accent">Asked</span></h2>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <button class="faq-question">What is De-Sipper?<span class="faq-icon"></span></button>
+                    <div class="faq-answer"><div class="faq-answer-inner">A transparent de-esser plugin that removes harsh sibilance from vocals. It uses split-band processing to target only the sibilant frequencies, leaving the rest of your vocal completely untouched.</div></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">What formats are supported?<span class="faq-icon"></span></button>
+                    <div class="faq-answer"><div class="faq-answer-inner">De-Sipper is available as VST3, AU, AAX, and Standalone on macOS. On Windows, it ships as VST3 and Standalone.</div></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">How many computers can I use it on?<span class="faq-icon"></span></button>
+                    <div class="faq-answer"><div class="faq-answer-inner">Up to 3 machines with one license. If you need to move an activation, just deactivate on the old machine and activate on the new one.</div></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">Is there a free trial?<span class="faq-icon"></span></button>
+                    <div class="faq-answer"><div class="faq-answer-inner">A demo version is coming soon. It will include all DSP features but with a periodic silence cycle (60 seconds on, 10 seconds muted) so you can fully evaluate De-Sipper before purchasing.</div></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">Does it work with Pro Tools?<span class="faq-icon"></span></button>
+                    <div class="faq-answer"><div class="faq-answer-inner">Yes, De-Sipper is available as an AAX plugin on macOS, fully compatible with Pro Tools.</div></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">Does it add latency?<span class="faq-icon"></span></button>
+                    <div class="faq-answer"><div class="faq-answer-inner">No. De-Sipper processes with zero latency — no lookahead buffer required. It works seamlessly for both tracking and mixing.</div></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">What's the refund policy?<span class="faq-icon"></span></button>
+                    <div class="faq-answer"><div class="faq-answer-inner">30-day money-back guarantee, no questions asked. If De-Sipper isn't right for you, just email us and we'll refund your purchase.</div></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">How do I install it?<span class="faq-icon"></span></button>
+                    <div class="faq-answer"><div class="faq-answer-inner">Download the installer, run it, and select which formats you want (VST3, AU, AAX, Standalone). Then rescan plugins in your DAW and De-Sipper will appear in your plugin list.</div></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cross-Sell Section -->
+        <section class="cross-sell">
+            <p class="cross-sell-label">From the makers of</p>
+            <a href="/carbonator" class="cross-sell-card">
+                <div class="cross-sell-icon">
+                    <img src="/logo.png" alt="Carbonator logo" width="56" height="56">
+                </div>
+                <div class="cross-sell-info">
+                    <div class="cross-sell-name">Carbonator</div>
+                    <div class="cross-sell-desc">Analog saturation plugin with 5 DSP flavors</div>
+                    <div class="cross-sell-price">$20 one-time</div>
+                </div>
+            </a>
+        </section>
+
+        <!-- Footer -->
+        <div id="site-footer"></div>
+
+    </div>
+
+    <!-- Shared Components -->
+    <script src="/components/nav.js"></script>
+    <script src="/components/footer.js"></script>
+
+    <!-- Silk WebGL Background (Cyan/Blue palette) -->
+    <script>
+    (function() {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+        const canvas = document.getElementById('silk-bg');
+        const gl = canvas.getContext('webgl');
+        if (!gl) return;
+
+        function resize() {
+            const dpr = Math.min(window.devicePixelRatio || 1, 2);
+            canvas.width = window.innerWidth * dpr;
+            canvas.height = window.innerHeight * dpr;
+            gl.viewport(0, 0, canvas.width, canvas.height);
+        }
+        resize();
+        window.addEventListener('resize', resize);
+
+        const vsSource = `
+            attribute vec2 aPosition;
+            varying vec2 vUv;
+            void main() {
+                vUv = aPosition * 0.5 + 0.5;
+                gl_Position = vec4(aPosition, 0.0, 1.0);
+            }
+        `;
+
+        const fsSource = `
+            precision mediump float;
+            varying vec2 vUv;
+            uniform float uTime;
+            uniform vec3 uColor;
+            uniform float uSpeed;
+            uniform float uScale;
+            uniform float uRotation;
+            uniform float uNoiseIntensity;
+
+            const float e = 2.71828182845904523536;
+
+            float noise(vec2 texCoord) {
+                float G = e;
+                vec2 r = (G * sin(G * texCoord));
+                return fract(r.x * r.y * (1.0 + texCoord.x));
+            }
+
+            vec2 rotateUvs(vec2 uv, float angle) {
+                float c = cos(angle);
+                float s = sin(angle);
+                mat2 rot = mat2(c, -s, s, c);
+                return rot * uv;
+            }
+
+            void main() {
+                float rnd = noise(gl_FragCoord.xy);
+                vec2 uv = rotateUvs(vUv * uScale, uRotation);
+                vec2 tex = uv * uScale;
+                float tOffset = uSpeed * uTime;
+
+                tex.y += 0.03 * sin(8.0 * tex.x - tOffset);
+
+                float pattern = 0.6 +
+                    0.4 * sin(5.0 * (tex.x + tex.y +
+                    cos(3.0 * tex.x + 5.0 * tex.y) +
+                    0.02 * tOffset) +
+                    sin(20.0 * (tex.x + tex.y - 0.1 * tOffset)));
+
+                vec4 col = vec4(uColor, 1.0) * vec4(vec3(pattern), 1.0) - rnd / 15.0 * uNoiseIntensity;
+                col.a = 1.0;
+                gl_FragColor = col;
+            }
+        `;
+
+        function compile(type, src) {
+            const s = gl.createShader(type);
+            gl.shaderSource(s, src);
+            gl.compileShader(s);
+            return s;
+        }
+
+        const prog = gl.createProgram();
+        gl.attachShader(prog, compile(gl.VERTEX_SHADER, vsSource));
+        gl.attachShader(prog, compile(gl.FRAGMENT_SHADER, fsSource));
+        gl.linkProgram(prog);
+        gl.useProgram(prog);
+
+        const buf = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+        const aPos = gl.getAttribLocation(prog, 'aPosition');
+        gl.enableVertexAttribArray(aPos);
+        gl.vertexAttribPointer(aPos, 2, gl.FLOAT, false, 0, 0);
+
+        const uTime = gl.getUniformLocation(prog, 'uTime');
+        const uColor = gl.getUniformLocation(prog, 'uColor');
+        const uSpeed = gl.getUniformLocation(prog, 'uSpeed');
+        const uScale = gl.getUniformLocation(prog, 'uScale');
+        const uRotation = gl.getUniformLocation(prog, 'uRotation');
+        const uNoise = gl.getUniformLocation(prog, 'uNoiseIntensity');
+
+        // Cyan/blue silk for De-Sipper theme
+        gl.uniform3f(uColor, 0.0, 0.12, 0.28);
+        gl.uniform1f(uSpeed, 5.0);
+        gl.uniform1f(uScale, 1.0);
+        gl.uniform1f(uRotation, 0.0);
+        gl.uniform1f(uNoise, 1.5);
+
+        let time = 0;
+        function frame() {
+            time += 0.0016;
+            gl.uniform1f(uTime, time);
+            gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+            requestAnimationFrame(frame);
+        }
+        requestAnimationFrame(frame);
+    })();
+    </script>
+
+    <!-- FAQ Accordion -->
+    <script>
+    (function() {
+        const items = document.querySelectorAll('.faq-item');
+        items.forEach(item => {
+            const btn = item.querySelector('.faq-question');
+            const answer = item.querySelector('.faq-answer');
+            btn.addEventListener('click', () => {
+                const isActive = item.classList.contains('active');
+                // Close all
+                items.forEach(i => {
+                    i.classList.remove('active');
+                    i.querySelector('.faq-answer').style.maxHeight = null;
+                });
+                // Open clicked if it wasn't active
+                if (!isActive) {
+                    item.classList.add('active');
+                    answer.style.maxHeight = answer.scrollHeight + 'px';
+                }
+            });
+        });
+    })();
+    </script>
+
+</body>
+</html>
