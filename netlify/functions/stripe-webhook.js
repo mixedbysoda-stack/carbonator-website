@@ -4,6 +4,7 @@ const { getBlobStore } = require("./lib/store");
 const {
   VERSION,
   DOWNLOAD_URLS,
+  PRODUCTS,
   generateActivationKey,
 } = require("./config");
 const { generateRefCode } = require("./referral");
@@ -42,8 +43,12 @@ exports.handler = async (event) => {
       return { statusCode: 200, body: "No email — skipped" };
     }
 
+    // Detect product from metadata or payment link metadata
+    const productId = session.metadata?.product || "carbonator";
+    const product = PRODUCTS[productId] || PRODUCTS.carbonator;
+    const licenseSecret = process.env[product.secretEnv];
+
     // Generate deterministic license key
-    const licenseSecret = process.env.CARBONATOR_LICENSE_SECRET;
     let licenseKey = session.metadata?.license_key;
 
     if (!licenseKey && licenseSecret) {
@@ -51,7 +56,7 @@ exports.handler = async (event) => {
       // Store key in session metadata for verify-session to retrieve
       try {
         await stripe.checkout.sessions.update(session.id, {
-          metadata: { license_key: licenseKey },
+          metadata: { license_key: licenseKey, product: productId },
         });
       } catch (err) {
         console.error("Failed to store license key in session:", err.message);
@@ -60,17 +65,23 @@ exports.handler = async (event) => {
 
     const amountPaid = session.amount_total
       ? `$${(session.amount_total / 100).toFixed(2)}`
-      : "$20.00";
+      : `$${product.price}.00`;
     const orderId = session.id;
 
     try {
       const resend = new Resend(process.env.RESEND_API_KEY);
 
+      const emailHtml = productId === "desipper"
+        ? buildDesipperEmail({ email, amountPaid, orderId, licenseKey, refCode: generateRefCode(email) })
+        : buildEmail({ email, amountPaid, orderId, licenseKey, refCode: generateRefCode(email) });
+
       await resend.emails.send({
         from: "Carbonated Audio <hello@carbonatedaudio.com>",
         to: email,
-        subject: "Your Carbonator License Key & Download Links",
-        html: buildEmail({ email, amountPaid, orderId, licenseKey, refCode: generateRefCode(email) }),
+        subject: productId === "desipper"
+          ? "Your De-Sipper License Key & Download Links"
+          : "Your Carbonator License Key & Download Links",
+        html: emailHtml,
       });
 
       console.log(`Delivery email sent to ${email}`);
@@ -235,6 +246,115 @@ function buildEmail({ email, amountPaid, orderId, licenseKey, refCode }) {
         </table>
       </td>
     </tr>
+  </table>
+</body>
+</html>`;
+}
+
+function buildDesipperEmail({ email, amountPaid, orderId, licenseKey, refCode }) {
+  const product = PRODUCTS.desipper;
+  const refLink = `https://carbonatedaudio.com/.netlify/functions/referral?action=track&ref=${refCode}`;
+  const licenseSection = licenseKey
+    ? `
+              <h2 style="color:#ffffff;font-size:18px;margin:0 0 12px;text-align:center;">Your License Key</h2>
+              <div style="background:#0d0a1a;padding:16px;border-radius:8px;border:1px solid #2a2440;text-align:center;margin-bottom:8px;">
+                <code style="font-size:13px;color:#00d4ff;letter-spacing:0.5px;word-break:break-all;font-family:'Courier New',Courier,monospace;">${licenseKey}</code>
+              </div>
+              <p style="color:#a09bb5;font-size:13px;text-align:center;margin:0 0 32px;">
+                Paste this key into the De-Sipper plugin to activate it.<br>Each key works on up to 3 machines.
+              </p>
+    `
+    : "";
+
+  return `
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
+<body style="margin:0;padding:0;background-color:#0d0a1a;font-family:Arial,Helvetica,sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#0d0a1a;padding:40px 20px;">
+    <tr><td align="center">
+      <table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;">
+
+        <tr><td align="center" style="padding-bottom:32px;">
+          <span style="font-size:28px;font-weight:800;color:#ffffff;">Carbonated Audio</span>
+        </td></tr>
+
+        <tr><td style="background-color:#1a1430;border-radius:16px;padding:40px 32px;">
+
+          <table width="100%" cellpadding="0" cellspacing="0">
+            <tr><td align="center" style="padding-bottom:24px;">
+              <div style="width:60px;height:60px;border-radius:50%;background-color:rgba(0,212,255,0.15);border:2px solid #00d4ff;line-height:60px;text-align:center;font-size:28px;">&#10003;</div>
+            </td></tr>
+          </table>
+
+          <h1 style="color:#ffffff;font-size:24px;text-align:center;margin:0 0 8px;">Thank you for your purchase!</h1>
+          <p style="color:#a09bb5;font-size:16px;text-align:center;margin:0 0 32px;">Your De-Sipper v${product.version} download links are below.</p>
+
+          ${licenseSection}
+
+          <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:32px;">
+            <tr><td align="center" style="padding-bottom:12px;">
+              <a href="${product.downloads.mac}" style="display:inline-block;padding:14px 32px;background:linear-gradient(135deg,#00d4ff,#0066ff);color:#ffffff;text-decoration:none;border-radius:8px;font-size:16px;font-weight:600;">
+                Download for macOS
+              </a>
+            </td></tr>
+            <tr><td align="center">
+              <a href="${product.downloads.windows}" style="display:inline-block;padding:14px 32px;background:linear-gradient(135deg,#00d4ff,#0066ff);color:#ffffff;text-decoration:none;border-radius:8px;font-size:16px;font-weight:600;">
+                Download for Windows (.exe)
+              </a>
+            </td></tr>
+          </table>
+
+          <hr style="border:none;border-top:1px solid #2a2440;margin:0 0 24px;">
+
+          <h2 style="color:#ffffff;font-size:16px;margin:0 0 16px;">Order Details</h2>
+          <table width="100%" cellpadding="0" cellspacing="0" style="font-size:14px;">
+            <tr>
+              <td style="color:#a09bb5;padding:4px 0;">Product</td>
+              <td style="color:#ffffff;text-align:right;padding:4px 0;">De-Sipper v${product.version}</td>
+            </tr>
+            <tr>
+              <td style="color:#a09bb5;padding:4px 0;">Amount</td>
+              <td style="color:#ffffff;text-align:right;padding:4px 0;">${amountPaid}</td>
+            </tr>
+            <tr>
+              <td style="color:#a09bb5;padding:4px 0;">Email</td>
+              <td style="color:#ffffff;text-align:right;padding:4px 0;">${email}</td>
+            </tr>
+            <tr>
+              <td style="color:#a09bb5;padding:4px 0;">Order ID</td>
+              <td style="color:#ffffff;text-align:right;padding:4px 0;font-size:11px;word-break:break-all;">${orderId}</td>
+            </tr>
+          </table>
+
+          <hr style="border:none;border-top:1px solid #2a2440;margin:24px 0;">
+
+          <h2 style="color:#ffffff;font-size:16px;margin:0 0 12px;">Quick Start</h2>
+          <ol style="color:#a09bb5;font-size:14px;padding-left:20px;margin:0;">
+            <li style="margin-bottom:8px;"><strong style="color:#ffffff;">macOS:</strong> Open the .pkg installer and choose your formats (VST3, AU, AAX, Standalone).</li>
+            <li style="margin-bottom:8px;"><strong style="color:#ffffff;">Windows:</strong> Run the installer — it places the VST3 in the standard plugin folder automatically.</li>
+            <li style="margin-bottom:8px;"><strong style="color:#ffffff;">Activate:</strong> Open De-Sipper in your DAW, paste your license key, and click Activate.</li>
+            <li style="margin-bottom:8px;"><strong style="color:#ffffff;">Rescan plugins</strong> in your DAW, then insert De-Sipper on a vocal track.</li>
+          </ol>
+
+          <hr style="border:none;border-top:1px solid #2a2440;margin:24px 0;">
+          <h2 style="color:#ffffff;font-size:16px;margin:0 0 12px;">Share De-Sipper, earn credit</h2>
+          <p style="color:#a09bb5;font-size:14px;line-height:1.6;margin:0 0 16px;">
+            Know a producer who'd love De-Sipper? Share your referral link. When someone buys through it, you'll get a free copy of our next plugin.
+          </p>
+          <div style="background:#0d0a1a;padding:12px 16px;border-radius:8px;border:1px solid #2a2440;text-align:center;margin-bottom:8px;">
+            <a href="${refLink}" style="color:#00d4ff;font-size:13px;word-break:break-all;text-decoration:none;">${refLink}</a>
+          </div>
+
+        </td></tr>
+
+        <tr><td align="center" style="padding-top:32px;">
+          <p style="color:#6b6580;font-size:12px;margin:0;">Need help? Reply to this email or contact support@carbonatedaudio.com</p>
+          <p style="color:#6b6580;font-size:12px;margin:8px 0 0;">&copy; ${new Date().getFullYear()} Carbonated Audio</p>
+        </td></tr>
+
+      </table>
+    </td></tr>
   </table>
 </body>
 </html>`;
