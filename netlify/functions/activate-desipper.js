@@ -83,6 +83,9 @@ exports.handler = async (event) => {
 
   const { key, machineID } = body;
 
+  // Debug logging — check what the plugin actually sends
+  console.log("ACTIVATE REQUEST:", JSON.stringify({ key, machineID, keyLength: (key || "").length, bodyRaw: event.body?.substring(0, 300) }));
+
   if (!key || !machineID) {
     return {
       statusCode: 400,
@@ -102,6 +105,7 @@ exports.handler = async (event) => {
   }
 
   const keyClean = key.replace(/-/g, "").toLowerCase();
+  console.log("KEY CLEAN:", keyClean, "LENGTH:", keyClean.length, "VALID:", validateActivationKey(keyClean, secret));
 
   if (!validateActivationKey(keyClean, secret)) {
     return {
