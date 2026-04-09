@@ -99,6 +99,11 @@
             text-align: center;
             padding: 120px 40px 80px;
             position: relative;
+            min-height: 85vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
 
         .hero-title {
@@ -124,28 +129,123 @@
             font-size: clamp(18px, 2.5vw, 24px);
             color: var(--text-secondary);
             font-weight: 500;
-            margin-bottom: 12px;
+            margin-bottom: 40px;
+            max-width: 600px;
         }
 
-        .hero-tagline {
-            font-size: 14px;
-            color: var(--text-muted);
+        .hero-buttons {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 56px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn-hero-ghost {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 32px;
+            min-height: 52px;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            text-decoration: none;
+            color: var(--text-primary);
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .btn-hero-ghost:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.45);
+        }
+
+        .btn-hero-solid {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 32px;
+            min-height: 52px;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 700;
+            text-decoration: none;
+            color: #fff;
+            background: linear-gradient(135deg, #cc33ff, #ff3366);
+            border: none;
+            transition: all 0.25s ease;
+            cursor: pointer;
+            box-shadow: 0 4px 24px rgba(204, 51, 255, 0.3);
+        }
+
+        .btn-hero-solid:hover {
+            box-shadow: 0 6px 32px rgba(204, 51, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .hero-stats {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat-value {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-primary);
             font-family: 'JetBrains Mono', monospace;
-            letter-spacing: 0.5px;
+        }
+
+        .hero-stat-divider {
+            width: 1px;
+            height: 28px;
+            background: var(--border);
         }
 
         /* ========================================
-           Products Grid
+           Section Typography
+           ======================================== */
+        .section-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--text-muted);
+            text-align: center;
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+
+        .section-desc {
+            font-size: 16px;
+            color: var(--text-secondary);
+            text-align: center;
+            max-width: 560px;
+            margin: -28px auto 48px;
+            line-height: 1.7;
+        }
+
+        /* ========================================
+           Product Showcase
            ======================================== */
         .products-section {
-            padding: 40px 60px 80px;
+            padding: 80px 60px 100px;
         }
 
         .products-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            grid-template-columns: repeat(2, 1fr);
             gap: 32px;
-            max-width: 900px;
+            max-width: 1040px;
             margin: 0 auto;
         }
 
@@ -154,7 +254,7 @@
             overflow: hidden;
             background: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: 16px;
+            border-radius: 20px;
             padding: 0;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
@@ -166,7 +266,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            border-radius: 16px;
+            border-radius: 20px;
             background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), var(--glow-color, rgba(255,107,43,0.12)), transparent 40%);
             opacity: 0;
             transition: opacity 0.4s ease;
@@ -179,24 +279,49 @@
         }
 
         .product-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            transform: translateY(-6px);
+            box-shadow: 0 24px 64px rgba(0, 0, 0, 0.4);
+        }
+
+        .product-card[data-accent="orange"] {
+            --glow-color: rgba(255, 107, 43, 0.15);
         }
 
         .product-card[data-accent="cyan"] {
-            --glow-color: rgba(0, 212, 255, 0.12);
+            --glow-color: rgba(0, 212, 255, 0.15);
+        }
+
+        .product-card-img-wrapper {
+            width: 100%;
+            height: 240px;
+            overflow: hidden;
+            border-bottom: 1px solid var(--border);
+            position: relative;
         }
 
         .product-card-img {
             width: 100%;
-            height: 220px;
+            height: 100%;
             object-fit: cover;
-            border-bottom: 1px solid var(--border);
             display: block;
         }
 
+        .product-card-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(ellipse at center, rgba(0, 212, 255, 0.12) 0%, var(--bg-card-darker) 70%);
+            font-size: 48px;
+            font-weight: 900;
+            color: var(--cyan);
+            letter-spacing: -1px;
+            text-shadow: 0 0 40px rgba(0, 212, 255, 0.4);
+        }
+
         .product-card-body {
-            padding: 28px;
+            padding: 32px;
             position: relative;
             z-index: 2;
         }
@@ -204,7 +329,7 @@
         .product-card-name {
             font-size: 28px;
             font-weight: 800;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
 
         .product-card-tagline {
@@ -214,6 +339,38 @@
             margin-bottom: 20px;
         }
 
+        .product-card-features {
+            list-style: none;
+            margin-bottom: 28px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .product-card-features li {
+            font-size: 14px;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .product-card-features li::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .product-card[data-accent="orange"] .product-card-features li::before {
+            background: var(--orange);
+        }
+
+        .product-card[data-accent="cyan"] .product-card-features li::before {
+            background: var(--cyan);
+        }
+
         .product-card-footer {
             display: flex;
             align-items: center;
@@ -221,8 +378,8 @@
         }
 
         .product-card-price {
-            font-size: 24px;
-            font-weight: 700;
+            font-size: 28px;
+            font-weight: 800;
             font-family: 'JetBrains Mono', monospace;
         }
 
@@ -230,14 +387,14 @@
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            padding: 10px 22px;
-            min-height: 44px;
-            border-radius: 10px;
+            padding: 12px 24px;
+            min-height: 48px;
+            border-radius: 12px;
             font-size: 14px;
             font-weight: 600;
             text-decoration: none;
             color: #fff;
-            transition: all 0.2s ease;
+            transition: all 0.25s ease;
         }
 
         .product-card-cta[data-color="orange"] {
@@ -245,7 +402,8 @@
         }
         .product-card-cta[data-color="orange"]:hover {
             background: var(--orange-light);
-            box-shadow: 0 4px 20px rgba(255, 107, 43, 0.4);
+            box-shadow: 0 4px 24px rgba(255, 107, 43, 0.4);
+            transform: translateY(-1px);
         }
 
         .product-card-cta[data-color="cyan"] {
@@ -254,7 +412,8 @@
         }
         .product-card-cta[data-color="cyan"]:hover {
             background: #33dfff;
-            box-shadow: 0 4px 20px rgba(0, 212, 255, 0.4);
+            box-shadow: 0 4px 24px rgba(0, 212, 255, 0.4);
+            transform: translateY(-1px);
         }
 
         .product-card-cta .arrow {
@@ -265,49 +424,77 @@
         }
 
         /* ========================================
-           Why Section
+           Testimonials
            ======================================== */
-        .why-section {
-            padding: 60px 60px 80px;
+        .testimonials-section {
+            padding: 80px 60px 100px;
         }
 
-        .why-grid {
+        .testimonial-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            grid-template-columns: repeat(2, 1fr);
             gap: 24px;
-            max-width: 960px;
+            max-width: 900px;
             margin: 0 auto;
         }
 
-        .why-card {
-            text-align: center;
-            padding: 36px 28px;
-            border-radius: 14px;
-            border: 1px solid var(--border);
+        .testimonial-card {
             background: var(--bg-card-darker);
-            transition: border-color 0.3s;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px;
+            transition: border-color 0.3s, transform 0.3s;
         }
 
-        .why-card:hover {
-            border-color: rgba(255, 255, 255, 0.1);
+        .testimonial-card:hover {
+            border-color: rgba(255, 107, 43, 0.3);
+            transform: translateY(-4px);
         }
 
-        .why-icon {
-            font-size: 32px;
+        .testimonial-stars {
+            color: var(--yellow);
+            font-size: 14px;
+            letter-spacing: 2px;
             margin-bottom: 16px;
-            display: block;
         }
 
-        .why-card h3 {
-            font-size: 17px;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-
-        .why-card p {
+        .testimonial-text {
             font-size: 14px;
             color: var(--text-secondary);
-            line-height: 1.6;
+            line-height: 1.7;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .testimonial-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--orange), var(--magenta));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .testimonial-name {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .testimonial-role {
+            font-size: 11px;
+            color: var(--text-muted);
         }
 
         /* ========================================
@@ -315,16 +502,7 @@
            ======================================== */
         .press-bar {
             text-align: center;
-            padding: 40px 40px 80px;
-            border-top: 1px solid var(--border);
-        }
-
-        .press-label {
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--text-muted);
-            margin-bottom: 24px;
+            padding: 48px 40px 64px;
         }
 
         .press-logos {
@@ -348,6 +526,331 @@
             color: var(--text-secondary);
         }
 
+        .press-dot {
+            color: var(--border);
+            font-size: 8px;
+        }
+
+        /* ========================================
+           Why Section
+           ======================================== */
+        .why-section {
+            padding: 80px 60px 100px;
+        }
+
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        .why-card {
+            text-align: center;
+            padding: 40px 28px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            background: var(--bg-card-darker);
+            transition: border-color 0.3s, transform 0.3s;
+        }
+
+        .why-card:hover {
+            border-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-4px);
+        }
+
+        .why-icon {
+            font-size: 36px;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .why-card h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .why-card p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* ========================================
+           Pricing Section
+           ======================================== */
+        .pricing-section {
+            padding: 80px 60px 100px;
+        }
+
+        .pricing-grid {
+            display: flex;
+            align-items: stretch;
+            justify-content: center;
+            gap: 24px;
+            max-width: 1080px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+        }
+
+        .pricing-card {
+            flex: 1;
+            max-width: 340px;
+            min-width: 280px;
+            background: var(--bg-card-darker);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 40px 32px;
+            position: relative;
+            transition: transform 0.3s, border-color 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-6px);
+        }
+
+        .pricing-card.featured {
+            border-color: rgba(204, 51, 255, 0.5);
+            background: linear-gradient(180deg, rgba(204, 51, 255, 0.06), var(--bg-card-darker) 40%);
+            box-shadow: 0 8px 40px rgba(204, 51, 255, 0.12), 0 0 60px rgba(204, 51, 255, 0.05);
+        }
+
+        .pricing-card.featured:hover {
+            box-shadow: 0 12px 50px rgba(204, 51, 255, 0.2), 0 0 80px rgba(204, 51, 255, 0.08);
+        }
+
+        /* Animated gradient border on featured card */
+        .pricing-card.featured::after {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: -1px;
+            right: -1px;
+            bottom: -1px;
+            background: conic-gradient(from var(--border-angle, 0deg), rgba(255,107,43,0.4), rgba(204,51,255,0.3), rgba(0,212,255,0.3), rgba(255,107,43,0.4));
+            border-radius: 21px;
+            z-index: -1;
+            animation: rotateBorder 6s linear infinite;
+        }
+
+        @keyframes rotateBorder {
+            to { --border-angle: 360deg; }
+        }
+
+        @property --border-angle {
+            syntax: '<angle>';
+            initial-value: 0deg;
+            inherits: false;
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 6px 20px;
+            background: linear-gradient(135deg, #cc33ff, #ff3366);
+            border-radius: 50px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            white-space: nowrap;
+            color: #fff;
+        }
+
+        .pricing-card-header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .pricing-card-name {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .pricing-card-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .pricing-price {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .pricing-dollar {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-secondary);
+            vertical-align: super;
+        }
+
+        .pricing-amount {
+            font-size: 60px;
+            font-weight: 900;
+            letter-spacing: -2px;
+            line-height: 1;
+        }
+
+        .pricing-card.featured .pricing-amount {
+            background: linear-gradient(135deg, var(--orange), #cc33ff, var(--cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            background-size: 200% 200%;
+            animation: gradientShift 8s ease infinite;
+        }
+
+        .pricing-original {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-decoration: line-through;
+            margin-right: 6px;
+        }
+
+        .pricing-period {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-top: 6px;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 32px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .pricing-features li {
+            font-size: 14px;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pricing-features li .check {
+            color: var(--text-muted);
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .pricing-btn {
+            display: block;
+            width: 100%;
+            padding: 14px 24px;
+            min-height: 52px;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 700;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.25s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .pricing-btn[data-color="orange"] {
+            background: var(--orange);
+            color: #fff;
+        }
+        .pricing-btn[data-color="orange"]:hover {
+            background: var(--orange-light);
+            box-shadow: 0 4px 24px rgba(255, 107, 43, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .pricing-btn[data-color="purple"] {
+            background: linear-gradient(135deg, #cc33ff, #ff3366);
+            color: #fff;
+            box-shadow: 0 4px 24px rgba(204, 51, 255, 0.3);
+        }
+        .pricing-btn[data-color="purple"]:hover {
+            box-shadow: 0 6px 32px rgba(204, 51, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .pricing-btn[data-color="cyan"] {
+            background: var(--cyan);
+            color: #0d0a1a;
+        }
+        .pricing-btn[data-color="cyan"]:hover {
+            background: #33dfff;
+            box-shadow: 0 4px 24px rgba(0, 212, 255, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .pricing-trust {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 13px;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .pricing-trust svg {
+            flex-shrink: 0;
+        }
+
+        /* ========================================
+           Final CTA
+           ======================================== */
+        .final-cta {
+            text-align: center;
+            padding: 100px 40px 120px;
+            position: relative;
+        }
+
+        .final-cta-title {
+            font-size: clamp(28px, 4vw, 42px);
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+
+        .final-cta-desc {
+            font-size: 17px;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            max-width: 480px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.7;
+        }
+
+        .final-cta-buttons {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* ========================================
+           Scroll Reveal
+           ======================================== */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .scroll-reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         /* ========================================
            Reduced Motion
            ======================================== */
@@ -355,14 +858,25 @@
             .hero-title {
                 animation: none;
             }
-            .product-card {
+            .product-card,
+            .pricing-card,
+            .testimonial-card,
+            .why-card {
                 transition: none;
             }
             .product-card-cta .arrow {
                 transition: none;
             }
+            .scroll-reveal {
+                opacity: 1;
+                transform: none;
+                transition: none;
+            }
             #silk-bg {
                 display: none;
+            }
+            .pricing-card.featured::after {
+                animation: none;
             }
         }
 
@@ -371,35 +885,109 @@
            ======================================== */
         @media (max-width: 1024px) {
             .products-section {
-                padding: 40px 20px 60px;
+                padding: 60px 20px 80px;
             }
             .why-section {
-                padding: 40px 20px 60px;
+                padding: 60px 20px 80px;
+            }
+            .pricing-section {
+                padding: 60px 20px 80px;
+            }
+            .testimonials-section {
+                padding: 60px 20px 80px;
+            }
+            .testimonial-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
 
         @media (max-width: 768px) {
             .hero {
                 padding: 80px 20px 60px;
+                min-height: 75vh;
             }
             .products-grid {
                 grid-template-columns: 1fr;
+                max-width: 480px;
+            }
+            .testimonial-grid {
+                grid-template-columns: 1fr;
+                max-width: 480px;
+            }
+            .why-grid {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+                margin: 0 auto;
+            }
+            .pricing-grid {
+                flex-direction: column;
+                align-items: center;
+            }
+            .pricing-card {
+                max-width: 400px;
+                width: 100%;
+            }
+            /* Reorder so Bundle appears first on mobile */
+            .pricing-card.featured {
+                order: -1;
             }
             .press-logos {
-                gap: 32px;
+                gap: 24px;
+            }
+            .hero-stats {
+                gap: 24px;
+            }
+            .section-title {
+                font-size: 28px;
             }
         }
 
-        @media (max-width: 640px) {
+        @media (max-width: 480px) {
             .hero {
                 padding: 60px 16px 40px;
+                min-height: auto;
+            }
+            .hero-subtitle {
+                font-size: 16px;
+            }
+            .hero-buttons {
+                flex-direction: column;
+                width: 100%;
+                max-width: 320px;
+            }
+            .hero-buttons a {
+                width: 100%;
+                text-align: center;
+                justify-content: center;
+            }
+            .hero-stats {
+                gap: 16px;
+            }
+            .hero-stat-value {
+                font-size: 13px;
             }
             .products-section,
-            .why-section {
-                padding: 32px 16px 48px;
+            .why-section,
+            .pricing-section,
+            .testimonials-section {
+                padding: 48px 16px 64px;
             }
             .press-bar {
-                padding: 32px 16px 60px;
+                padding: 32px 16px 48px;
+            }
+            .final-cta {
+                padding: 64px 16px 80px;
+            }
+            .final-cta-buttons {
+                flex-direction: column;
+                width: 100%;
+                max-width: 320px;
+                margin: 0 auto;
+            }
+            .final-cta-buttons a {
+                width: 100%;
+                text-align: center;
+                justify-content: center;
             }
         }
     </style>
@@ -411,22 +999,52 @@
         <!-- Nav -->
         <div id="site-nav" data-active="home"></div>
 
-        <!-- Hero -->
+        <!-- Section 1: Hero -->
         <section class="hero">
             <h1 class="hero-title">Carbonated Audio</h1>
             <p class="hero-subtitle">Audio plugins built for producers who hear the difference.</p>
-            <p class="hero-tagline">Crafted with obsessive detail. Priced without the markup.</p>
+            <div class="hero-buttons">
+                <a href="#products" class="btn-hero-ghost">Explore Plugins</a>
+                <a href="https://buy.stripe.com/14A3cv6AFeNs13b32P3oA02" class="btn-hero-solid">Get the Bundle &mdash; $30</a>
+            </div>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <span class="hero-stat-value">2 Plugins</span>
+                </div>
+                <div class="hero-stat-divider"></div>
+                <div class="hero-stat">
+                    <span class="hero-stat-value">$30 for Both</span>
+                </div>
+                <div class="hero-stat-divider"></div>
+                <div class="hero-stat">
+                    <span class="hero-stat-value">VST3 / AU / AAX</span>
+                </div>
+                <div class="hero-stat-divider"></div>
+                <div class="hero-stat">
+                    <span class="hero-stat-value">macOS + Windows</span>
+                </div>
+            </div>
         </section>
 
-        <!-- Products -->
-        <section class="products-section">
+        <!-- Section 2: Product Showcase -->
+        <section class="products-section" id="products">
+            <p class="section-label scroll-reveal">THE LINEUP</p>
+            <h2 class="section-title scroll-reveal">Two Plugins. One Mission.</h2>
             <div class="products-grid">
                 <!-- Carbonator -->
-                <div class="product-card" data-accent="orange">
-                    <img src="/og-image.png" alt="Carbonator — analog saturation plugin" class="product-card-img" loading="lazy">
+                <div class="product-card scroll-reveal" data-accent="orange">
+                    <div class="product-card-img-wrapper">
+                        <img src="/og-image.png" alt="Carbonator — analog saturation plugin" class="product-card-img" loading="lazy">
+                    </div>
                     <div class="product-card-body">
-                        <h2 class="product-card-name">Carbonator</h2>
+                        <h3 class="product-card-name">Carbonator</h3>
                         <p class="product-card-tagline">5 flavors of analog saturation. One knob. Endless character.</p>
+                        <ul class="product-card-features">
+                            <li>5 circuit-modeled saturation flavors</li>
+                            <li>One-knob Carbonated mode</li>
+                            <li>VST3, AU, AAX on macOS + Windows</li>
+                            <li>Zero latency, low CPU</li>
+                        </ul>
                         <div class="product-card-footer">
                             <span class="product-card-price">$20</span>
                             <a href="/carbonator" class="product-card-cta" data-color="orange">
@@ -437,11 +1055,19 @@
                 </div>
 
                 <!-- De-Sipper -->
-                <div class="product-card" data-accent="cyan">
-                    <img src="/desipper-screenshot.png" alt="De-Sipper — transparent de-esser plugin" class="product-card-img" loading="lazy">
+                <div class="product-card scroll-reveal" data-accent="cyan">
+                    <div class="product-card-img-wrapper">
+                        <div class="product-card-placeholder">De-Sipper</div>
+                    </div>
                     <div class="product-card-body">
-                        <h2 class="product-card-name">De-Sipper</h2>
+                        <h3 class="product-card-name">De-Sipper</h3>
                         <p class="product-card-tagline">Transparent de-essing that preserves your vocal character.</p>
+                        <ul class="product-card-features">
+                            <li>Surgical sibilance control</li>
+                            <li>Preserves vocal body and air</li>
+                            <li>Real-time frequency display</li>
+                            <li>Works on vocals, cymbals, and more</li>
+                        </ul>
                         <div class="product-card-footer">
                             <span class="product-card-price">$15</span>
                             <a href="/desipper" class="product-card-cta" data-color="cyan">
@@ -453,21 +1079,87 @@
             </div>
         </section>
 
-        <!-- Why Carbonated Audio -->
+        <!-- Section 3: Testimonials -->
+        <section class="testimonials-section" id="reviews">
+            <p class="section-label scroll-reveal">WHAT PRODUCERS ARE SAYING</p>
+            <h2 class="section-title scroll-reveal">Hear It From The Community</h2>
+            <div class="testimonial-grid">
+                <div class="testimonial-card scroll-reveal">
+                    <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                    <p class="testimonial-text">"The Lemon-Lime on my vocal chain is crazy. An absolute staple."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">Z</div>
+                        <div>
+                            <div class="testimonial-name">ZakMabry</div>
+                            <div class="testimonial-role">Producer</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card scroll-reveal">
+                    <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                    <p class="testimonial-text">"Each flavor has a new texture you can't find using any other plugin."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">L</div>
+                        <div>
+                            <div class="testimonial-name">Landsharkszn</div>
+                            <div class="testimonial-role">Producer</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card scroll-reveal">
+                    <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                    <p class="testimonial-text">"Every preset sounds amazing. It's rare you find a plugin where you can load something up and it instantly sounds good."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">P</div>
+                        <div>
+                            <div class="testimonial-name">Pradoproducedit</div>
+                            <div class="testimonial-role">Producer</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card scroll-reveal">
+                    <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                    <p class="testimonial-text">"You have a wonderful Carbonator plugin! I really like the SOUND!!!"</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">L</div>
+                        <div>
+                            <div class="testimonial-name">Leonid Fedorov</div>
+                            <div class="testimonial-role">Touring Artist, Israel</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Press Bar -->
+        <section class="press-bar scroll-reveal">
+            <p class="section-label">AS FEATURED ON</p>
+            <div class="press-logos">
+                <span class="press-name">Audio Plugin Guy</span>
+                <span class="press-dot">&bull;</span>
+                <span class="press-name">Rekkerd.org</span>
+                <span class="press-dot">&bull;</span>
+                <span class="press-name">KVR Audio</span>
+                <span class="press-dot">&bull;</span>
+                <span class="press-name">AudioNewsRoom</span>
+            </div>
+        </section>
+
+        <!-- Section 5: Why Carbonated Audio -->
         <section class="why-section">
-            <h2 class="section-title">Why <span class="accent">Carbonated Audio</span></h2>
+            <h2 class="section-title scroll-reveal">Why <span class="accent">Carbonated Audio</span></h2>
             <div class="why-grid">
-                <div class="why-card">
+                <div class="why-card scroll-reveal">
                     <span class="why-icon" aria-hidden="true">&#x221E;</span>
                     <h3>No Subscriptions</h3>
-                    <p>Buy once, own forever. No recurring fees.</p>
+                    <p>Buy once, own forever. No recurring fees, no iLok, no subscription fatigue.</p>
                 </div>
-                <div class="why-card">
+                <div class="why-card scroll-reveal">
                     <span class="why-icon" aria-hidden="true">&#x266B;</span>
                     <h3>Producer-First Design</h3>
-                    <p>Built by producers, for producers. Every control matters.</p>
+                    <p>Built by producers, for producers. Every control earns its place on the UI.</p>
                 </div>
-                <div class="why-card">
+                <div class="why-card scroll-reveal">
                     <span class="why-icon" aria-hidden="true">&#x25C8;</span>
                     <h3>Studio-Grade Quality</h3>
                     <p>Circuit-modeled DSP that stands up to plugins 10x the price.</p>
@@ -475,13 +1167,88 @@
             </div>
         </section>
 
-        <!-- Press Bar -->
-        <section class="press-bar">
-            <p class="press-label">As Featured On</p>
-            <div class="press-logos">
-                <span class="press-name">Audio Plugin Guy</span>
-                <span class="press-name">Rekkerd.org</span>
-                <span class="press-name">KVR Audio</span>
+        <!-- Section 6: Pricing -->
+        <section class="pricing-section" id="pricing">
+            <p class="section-label scroll-reveal">SIMPLE PRICING</p>
+            <h2 class="section-title scroll-reveal">Get the Full Toolkit</h2>
+            <p class="section-desc scroll-reveal">No subscriptions. No upsells. Pay once, own it forever.</p>
+            <div class="pricing-grid">
+                <!-- Carbonator -->
+                <div class="pricing-card scroll-reveal">
+                    <div class="pricing-card-header">
+                        <div class="pricing-card-name">Carbonator</div>
+                        <div class="pricing-card-desc">Analog saturation</div>
+                    </div>
+                    <div class="pricing-price">
+                        <span class="pricing-dollar">$</span><span class="pricing-amount">20</span>
+                        <div class="pricing-period">one-time payment</div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><span class="check">&#10003;</span> 5 saturation flavors</li>
+                        <li><span class="check">&#10003;</span> Carbonated mode</li>
+                        <li><span class="check">&#10003;</span> VST3, AU, AAX</li>
+                        <li><span class="check">&#10003;</span> macOS + Windows</li>
+                        <li><span class="check">&#10003;</span> Free updates</li>
+                    </ul>
+                    <a href="https://buy.stripe.com/aFafZhgbffRw6nv0UH3oA00" class="pricing-btn" data-color="orange">Get Carbonator</a>
+                </div>
+
+                <!-- Bundle (Featured) -->
+                <div class="pricing-card featured scroll-reveal">
+                    <span class="pricing-badge">BEST VALUE</span>
+                    <div class="pricing-card-header">
+                        <div class="pricing-card-name">The Bundle</div>
+                        <div class="pricing-card-desc">Both plugins, one price</div>
+                    </div>
+                    <div class="pricing-price">
+                        <span class="pricing-original">$35</span>
+                        <span class="pricing-dollar">$</span><span class="pricing-amount">30</span>
+                        <div class="pricing-period">one-time payment</div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><span class="check">&#10003;</span> Carbonator (full license)</li>
+                        <li><span class="check">&#10003;</span> De-Sipper (full license)</li>
+                        <li><span class="check">&#10003;</span> VST3, AU, AAX</li>
+                        <li><span class="check">&#10003;</span> macOS + Windows</li>
+                        <li><span class="check">&#10003;</span> Free updates for both</li>
+                        <li><span class="check">&#10003;</span> Save $5</li>
+                    </ul>
+                    <a href="https://buy.stripe.com/14A3cv6AFeNs13b32P3oA02" class="pricing-btn" data-color="purple">Get the Bundle &mdash; $30</a>
+                </div>
+
+                <!-- De-Sipper -->
+                <div class="pricing-card scroll-reveal">
+                    <div class="pricing-card-header">
+                        <div class="pricing-card-name">De-Sipper</div>
+                        <div class="pricing-card-desc">Transparent de-esser</div>
+                    </div>
+                    <div class="pricing-price">
+                        <span class="pricing-dollar">$</span><span class="pricing-amount">15</span>
+                        <div class="pricing-period">one-time payment</div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><span class="check">&#10003;</span> Surgical sibilance control</li>
+                        <li><span class="check">&#10003;</span> Real-time frequency display</li>
+                        <li><span class="check">&#10003;</span> VST3, AU, AAX</li>
+                        <li><span class="check">&#10003;</span> macOS + Windows</li>
+                        <li><span class="check">&#10003;</span> Free updates</li>
+                    </ul>
+                    <a href="https://buy.stripe.com/5kQ6oHbUZ9t8h298n93oA01" class="pricing-btn" data-color="cyan">Get De-Sipper</a>
+                </div>
+            </div>
+            <p class="pricing-trust scroll-reveal">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1L2 4v4c0 3.5 2.6 6.5 6 7.5 3.4-1 6-4 6-7.5V4L8 1z" stroke="#6b6580" stroke-width="1.2" fill="none"/><path d="M5.5 8L7 9.5 10.5 6" stroke="#6b6580" stroke-width="1.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Secure checkout via Stripe. Instant license delivery via email.
+            </p>
+        </section>
+
+        <!-- Section 7: Final CTA -->
+        <section class="final-cta">
+            <h2 class="final-cta-title scroll-reveal">Ready to level up your sound?</h2>
+            <p class="final-cta-desc scroll-reveal">Join producers already using Carbonated Audio in their workflow.</p>
+            <div class="final-cta-buttons scroll-reveal">
+                <a href="https://buy.stripe.com/14A3cv6AFeNs13b32P3oA02" class="btn-hero-solid">Get the Bundle &mdash; $30</a>
+                <a href="/carbonator" class="btn-hero-ghost">Try Carbonator Free</a>
             </div>
         </section>
 
@@ -502,6 +1269,49 @@
                 card.style.setProperty('--mouse-y', (e.clientY - rect.top) + 'px');
             });
         });
+    </script>
+
+    <!-- Scroll Reveal with IntersectionObserver -->
+    <script>
+    (function() {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, i) => {
+                if (entry.isIntersecting) {
+                    // Stagger siblings for grid items
+                    const parent = entry.target.parentElement;
+                    const siblings = parent ? Array.from(parent.querySelectorAll('.scroll-reveal')) : [];
+                    const index = siblings.indexOf(entry.target);
+                    const delay = index >= 0 ? index * 80 : 0;
+
+                    setTimeout(() => {
+                        entry.target.classList.add('revealed');
+                    }, delay);
+
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -40px 0px'
+        });
+
+        document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
+    })();
+    </script>
+
+    <!-- Smooth Scroll for anchor links -->
+    <script>
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+        link.addEventListener('click', (e) => {
+            const target = document.querySelector(link.getAttribute('href'));
+            if (target) {
+                e.preventDefault();
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
     </script>
 
     <!-- Silk WebGL Background -->
