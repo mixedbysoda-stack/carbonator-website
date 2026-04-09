@@ -482,7 +482,7 @@
             </div>
 
             <div class="brand">Carbonated Audio</div>
-            <h1>Thank you for buying <span class="accent">Carbonator</span></h1>
+            <h1>Thank you for buying <span class="accent" id="product-name-heading">Carbonator</span></h1>
             <p class="subtitle">Your purchase is complete. Download your plugin below.</p>
 
             <div class="license-section" id="license-section" style="display: none;">
@@ -491,7 +491,7 @@
                     <code id="license-key-text"></code>
                     <button class="copy-btn" id="copy-key-btn">Copy</button>
                 </div>
-                <p class="license-note">Paste this key into the Carbonator plugin to activate it. Each key works on up to 3 machines.</p>
+                <p class="license-note" id="license-note-text">Paste this key into the Carbonator plugin to activate it. Each key works on up to 3 machines.</p>
             </div>
 
             <div class="download-section">
@@ -637,8 +637,12 @@
                     // Populate download URLs from the server
                     document.getElementById('mac-download').href = data.downloads.mac;
                     document.getElementById('win-download').href = data.downloads.windows;
+                    const productName = data.product_name || 'Carbonator';
                     document.getElementById('download-heading').textContent =
-                        `Download Carbonator v${data.version}`;
+                        `Download ${productName} v${data.version}`;
+                    document.getElementById('product-name-heading').textContent = productName;
+                    document.getElementById('license-note-text').textContent =
+                        `Paste this key into the ${productName} plugin to activate it. Each key works on up to 3 machines.`;
 
                     // Show license key if available
                     if (data.license_key) {
@@ -673,7 +677,9 @@
                                     });
                                 });
 
-                                const tweetText = encodeURIComponent('Just copped Carbonator \u2014 5 saturation flavors, one knob, $20. The Lemon-Lime is wild. Try the free demo:');
+                                const tweetText = data.product === 'desipper'
+                                    ? encodeURIComponent('Just copped De-Sipper \u2014 surgical de-essing, $15. Try it:')
+                                    : encodeURIComponent('Just copped Carbonator \u2014 5 saturation flavors, one knob, $20. The Lemon-Lime is wild. Try the free demo:');
                                 document.getElementById('share-twitter').href = `https://twitter.com/intent/tweet?text=${tweetText}&url=${encodeURIComponent(refUrl)}`;
 
                                 document.getElementById('share-copy-link').addEventListener('click', function() {
