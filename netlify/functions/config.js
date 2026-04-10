@@ -30,6 +30,12 @@ const PRODUCTS = {
     },
     secretEnv: "DESIPPER_LICENSE_SECRET",
   },
+  bundle: {
+    name: "Carbonated Audio Bundle",
+    price: 30,
+    isBundle: true,
+    includes: ["carbonator", "desipper"],
+  },
 };
 
 /**
