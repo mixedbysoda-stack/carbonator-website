@@ -282,7 +282,7 @@ function buildEmail({ email, amountPaid, orderId, licenseKey, refCode }) {
           <tr>
             <td align="center" style="padding-top:32px;">
               <p style="color:#6b6580;font-size:12px;margin:0;">
-                Need help? Reply to this email or contact support@carbonatedaudio.com
+                Need help? Reply to this email or contact mixedbysoda@gmail.com
               </p>
               <p style="color:#6b6580;font-size:12px;margin:8px 0 0;">
                 &copy; ${new Date().getFullYear()} Carbonated Audio
@@ -396,7 +396,7 @@ function buildDesipperEmail({ email, amountPaid, orderId, licenseKey, refCode })
         </td></tr>
 
         <tr><td align="center" style="padding-top:32px;">
-          <p style="color:#6b6580;font-size:12px;margin:0;">Need help? Reply to this email or contact support@carbonatedaudio.com</p>
+          <p style="color:#6b6580;font-size:12px;margin:0;">Need help? Reply to this email or contact mixedbysoda@gmail.com</p>
           <p style="color:#6b6580;font-size:12px;margin:8px 0 0;">&copy; ${new Date().getFullYear()} Carbonated Audio</p>
         </td></tr>
 
@@ -487,7 +487,7 @@ function buildBundleEmail({ email, amountPaid, orderId, carbonatorKey, desipperK
         </td></tr>
 
         <tr><td align="center" style="padding-top:32px;">
-          <p style="color:#6b6580;font-size:12px;margin:0;">Need help? Reply to this email or contact support@carbonatedaudio.com</p>
+          <p style="color:#6b6580;font-size:12px;margin:0;">Need help? Reply to this email or contact mixedbysoda@gmail.com</p>
           <p style="color:#6b6580;font-size:12px;margin:8px 0 0;">&copy; ${new Date().getFullYear()} Carbonated Audio</p>
         </td></tr>
       </table>
