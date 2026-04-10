@@ -122,7 +122,7 @@
 
         /* ---- Hero ---- */
         .hero {
-            min-height: 90vh;
+            min-height: 75vh;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -514,23 +514,6 @@
             background-size: 12px;
         }
 
-        .btn-disabled {
-            padding: 16px 32px;
-            min-height: 48px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            color: var(--text-muted);
-            font-size: 16px;
-            font-weight: 600;
-            cursor: not-allowed;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-        }
-
         .btn-pricing {
             width: 100%;
             justify-content: center;
@@ -745,6 +728,105 @@
             }
         }
 
+        /* ---- Guarantee Line ---- */
+        .guarantee-line {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+            font-weight: 500;
+        }
+
+        /* ---- Press/Trust Bar ---- */
+        .press-bar {
+            text-align: center;
+            padding: 32px 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .press-bar-text {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .press-bar-outlets {
+            font-size: 15px;
+            color: var(--text-secondary);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        /* ---- Why Section ---- */
+        .why-section {
+            background: rgba(21, 16, 37, 0.5);
+        }
+
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .why-card {
+            background: rgba(26, 20, 48, 0.6);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 32px 24px;
+            text-align: center;
+            transition: border-color 0.3s;
+        }
+
+        .why-card:hover {
+            border-color: var(--accent-border-hover);
+        }
+
+        .why-icon {
+            margin-bottom: 16px;
+        }
+
+        .why-card h3 {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .why-card p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* ---- Pricing Single Card ---- */
+        .pricing-single {
+            grid-template-columns: 1fr !important;
+            max-width: 440px !important;
+        }
+
+        /* ---- Scroll Reveal ---- */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .scroll-reveal.visible {
+            opacity: 1;
+            transform: none;
+        }
+
+        /* ---- Responsive additions ---- */
+        @media (max-width: 768px) {
+            .why-grid {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+            }
+        }
+
         /* Reduced motion */
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after {
@@ -781,8 +863,9 @@
             <img src="/desipper-screenshot.png" alt="De-Sipper plugin interface showing transparent de-esser controls" class="hero-screenshot" width="600" height="400" loading="eager">
             <div class="hero-ctas">
                 <a href="https://buy.stripe.com/5kQ6oHbUZ9t8h298n93oA01" class="btn-primary">Get De-Sipper — $15</a>
-                <a href="#features" class="btn-secondary">See It In Action</a>
+                <a href="#features" class="btn-secondary">See Features</a>
             </div>
+            <p class="guarantee-line">&#128737; 30-day money-back guarantee. No questions asked.</p>
             <div class="hero-stats">
                 <div class="hero-stat">
                     <div class="hero-stat-value">$15</div>
@@ -799,6 +882,12 @@
                     <div class="hero-stat-label">Both Platforms</div>
                 </div>
             </div>
+        </section>
+
+        <!-- Press/Trust Bar -->
+        <section class="press-bar">
+            <p class="press-bar-text">From the makers of Carbonator — featured on:</p>
+            <p class="press-bar-outlets">Audio Plugin Guy &bull; Rekkerd.org &bull; KVR Audio &bull; AudioNewsRoom</p>
         </section>
 
         <!-- Features Section -->
@@ -913,23 +1002,38 @@
             </div>
         </section>
 
+        <!-- Why De-Sipper Section -->
+        <section class="why-section">
+            <h2 class="section-title">Why <span class="accent">De-Sipper</span></h2>
+            <div class="why-grid">
+                <div class="why-card">
+                    <div class="why-icon">
+                        <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                    </div>
+                    <h3>Transparent Processing</h3>
+                    <p>Unlike heavy-handed de-essers, De-Sipper preserves your vocal's natural brightness and character.</p>
+                </div>
+                <div class="why-card">
+                    <div class="why-icon">
+                        <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                    </div>
+                    <h3>From a Trusted Brand</h3>
+                    <p>Made by Carbonated Audio, featured on KVR Audio, Rekkerd.org, Audio Plugin Guy, and AudioNewsRoom.</p>
+                </div>
+                <div class="why-card">
+                    <div class="why-icon">
+                        <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M12 8v4l3 3"/></svg>
+                    </div>
+                    <h3>One-Time Purchase</h3>
+                    <p>Pay $15 once. No subscriptions, no iLok, no recurring fees. Free updates forever.</p>
+                </div>
+            </div>
+        </section>
+
         <!-- Pricing Section -->
         <section id="pricing">
             <h2 class="section-title">Simple <span class="accent">Pricing</span></h2>
-            <div class="pricing-grid">
-
-                <!-- Demo Card -->
-                <div class="pricing-card">
-                    <h3>Demo</h3>
-                    <div class="pricing-price">Free</div>
-                    <div class="pricing-subtitle">&nbsp;</div>
-                    <ul class="pricing-features">
-                        <li>All DSP features</li>
-                        <li>60s on / 10s mute cycle</li>
-                        <li>All plugin formats</li>
-                    </ul>
-                    <span class="btn-disabled">Coming Soon</span>
-                </div>
+            <div class="pricing-grid pricing-single">
 
                 <!-- Full Version Card -->
                 <div class="pricing-card featured">
@@ -945,6 +1049,7 @@
                         <li>Email support</li>
                     </ul>
                     <a href="https://buy.stripe.com/5kQ6oHbUZ9t8h298n93oA01" class="btn-primary btn-pricing">Get De-Sipper — $15</a>
+                    <p class="guarantee-line" style="margin-top: 16px;">&#128737; 30-day money-back guarantee. No questions asked.</p>
                 </div>
 
             </div>
@@ -998,7 +1103,7 @@
                 </div>
                 <div class="cross-sell-info">
                     <div class="cross-sell-name">Carbonator</div>
-                    <div class="cross-sell-desc">Analog saturation plugin with 5 DSP flavors</div>
+                    <div class="cross-sell-desc">Analog saturation with 5 unique flavors. Loved by producers worldwide. Press featured &amp; real testimonials.</div>
                     <div class="cross-sell-price">$20 one-time</div>
                 </div>
             </a>
@@ -1150,6 +1255,24 @@
                     answer.style.maxHeight = answer.scrollHeight + 'px';
                 }
             });
+        });
+    })();
+    </script>
+
+    <!-- Scroll Reveal Animations -->
+    <script>
+    (function() {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.classList.add('visible');
+                    observer.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.feature-card, .pricing-card, .cross-sell-card, .faq-item, .why-card, section > h2, .section-label').forEach(el => {
+            el.classList.add('scroll-reveal');
+            observer.observe(el);
         });
     })();
     </script>
