@@ -863,7 +863,7 @@
             <img src="/desipper-screenshot.png" alt="De-Sipper plugin interface showing transparent de-esser controls" class="hero-screenshot" width="600" height="400" loading="eager">
             <div class="hero-ctas">
                 <a href="https://buy.stripe.com/5kQ6oHbUZ9t8h298n93oA01" class="btn-primary">Get De-Sipper — $15</a>
-                <a href="https://github.com/mixedbysoda-stack/desipper/releases/download/v1.0.0-demo/DeSipper-Demo-v1.0.0-macOS.pkg" class="btn-secondary">Try Free Demo</a>
+                <a href="#" class="btn-secondary" onclick="openDemoGate(event)">Try Free Demo</a>
             </div>
             <p class="guarantee-line">&#128737; 30-day money-back guarantee. No questions asked.</p>
             <div class="hero-stats">
@@ -1049,7 +1049,7 @@
                         <li>Email support</li>
                     </ul>
                     <a href="https://buy.stripe.com/5kQ6oHbUZ9t8h298n93oA01" class="btn-primary btn-pricing">Get De-Sipper — $15</a>
-                    <a href="https://github.com/mixedbysoda-stack/desipper/releases/download/v1.0.0-demo/DeSipper-Demo-v1.0.0-macOS.pkg" class="btn-secondary" style="display:inline-block; margin-top:12px; text-align:center;">Try Free Demo</a>
+                    <a href="#" class="btn-secondary" style="display:inline-block; margin-top:12px; text-align:center;" onclick="openDemoGate(event)">Try Free Demo</a>
                     <p class="guarantee-line" style="margin-top: 16px;">&#128737; 30-day money-back guarantee. No questions asked.</p>
                 </div>
 
@@ -1074,7 +1074,7 @@
                 </div>
                 <div class="faq-item">
                     <button class="faq-question">Is there a free trial?<span class="faq-icon"></span></button>
-                    <div class="faq-answer"><div class="faq-answer-inner">Yes! <a href="https://github.com/mixedbysoda-stack/desipper/releases/download/v1.0.0-demo/DeSipper-Demo-v1.0.0-macOS.pkg" style="color:#22d3ee;">Download the free demo here.</a> It includes all DSP features with a periodic silence cycle (60 seconds on, 10 seconds muted) so you can fully evaluate De-Sipper before purchasing.</div></div>
+                    <div class="faq-answer"><div class="faq-answer-inner">Yes! <a href="#" onclick="openDemoGate(event)" style="color:#22d3ee;">Download the free demo here.</a> It includes all DSP features with a periodic silence cycle (60 seconds on, 10 seconds muted) so you can fully evaluate De-Sipper before purchasing.</div></div>
                 </div>
                 <div class="faq-item">
                     <button class="faq-question">Does it work with Pro Tools?<span class="faq-icon"></span></button>
@@ -1276,6 +1276,188 @@
             observer.observe(el);
         });
     })();
+    </script>
+
+    <!-- Demo Gate Modal -->
+    <style>
+    .demo-gate-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.75);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        z-index: 10000;
+        align-items: center;
+        justify-content: center;
+    }
+    .demo-gate-overlay.active { display: flex; }
+
+    .demo-gate {
+        background: linear-gradient(180deg, var(--bg-card) 0%, #0a0a12 100%);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        padding: 40px;
+        max-width: 420px;
+        width: 90%;
+        text-align: center;
+        position: relative;
+        animation: gateSlideIn 0.3s ease-out;
+    }
+    @keyframes gateSlideIn {
+        from { opacity: 0; transform: translateY(20px) scale(0.97); }
+        to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .demo-gate-close {
+        position: absolute;
+        top: 14px;
+        right: 18px;
+        background: none;
+        border: none;
+        color: var(--text-muted);
+        font-size: 22px;
+        cursor: pointer;
+        line-height: 1;
+    }
+    .demo-gate-close:hover { color: var(--text-primary); }
+
+    .demo-gate h3 {
+        font-size: 22px;
+        font-weight: 700;
+        margin: 0 0 6px;
+        color: var(--text-primary);
+    }
+    .demo-gate p {
+        font-size: 14px;
+        color: var(--text-secondary);
+        margin: 0 0 24px;
+    }
+
+    .demo-gate-input {
+        width: 100%;
+        padding: 14px 16px;
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        background: var(--bg-primary);
+        color: var(--text-primary);
+        font-size: 15px;
+        font-family: inherit;
+        outline: none;
+        transition: border-color 0.2s;
+        box-sizing: border-box;
+    }
+    .demo-gate-input::placeholder { color: var(--text-muted); }
+    .demo-gate-input:focus { border-color: var(--accent); }
+
+    .demo-gate-submit {
+        width: 100%;
+        margin-top: 14px;
+        padding: 14px;
+        border-radius: 10px;
+        border: none;
+        background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+        color: #fff;
+        font-size: 16px;
+        font-weight: 600;
+        font-family: inherit;
+        cursor: pointer;
+        transition: opacity 0.2s, transform 0.1s;
+    }
+    .demo-gate-submit:hover { opacity: 0.9; }
+    .demo-gate-submit:active { transform: scale(0.98); }
+
+    .demo-gate-error {
+        color: #ef4444;
+        font-size: 13px;
+        margin-top: 8px;
+        min-height: 18px;
+    }
+
+    .demo-gate-fine {
+        font-size: 12px;
+        color: var(--text-muted);
+        margin-top: 16px;
+    }
+    </style>
+
+    <div class="demo-gate-overlay" id="demoGateOverlay">
+        <div class="demo-gate">
+            <button class="demo-gate-close" onclick="closeDemoGate()">&times;</button>
+            <h3>Get the Free Demo</h3>
+            <p>Enter your email and we'll start the download.</p>
+            <form id="demoGateForm" onsubmit="return submitDemoGate(event)">
+                <input type="email" class="demo-gate-input" id="demoGateContact"
+                       placeholder="you@email.com" autocomplete="email" required>
+                <div class="demo-gate-error" id="demoGateError"></div>
+                <button type="submit" class="demo-gate-submit">Download Demo</button>
+            </form>
+            <div class="demo-gate-fine">No spam, ever. Just your download link and occasional updates from Carbonated Audio.</div>
+        </div>
+    </div>
+
+    <script>
+    function openDemoGate(e) {
+        e.preventDefault();
+        document.getElementById('demoGateOverlay').classList.add('active');
+        setTimeout(function() { document.getElementById('demoGateContact').focus(); }, 100);
+        if (typeof gtag === 'function') gtag('event', 'demo_gate_open', { event_category: 'engagement', event_label: 'desipper' });
+    }
+
+    function closeDemoGate() {
+        document.getElementById('demoGateOverlay').classList.remove('active');
+        document.getElementById('demoGateError').textContent = '';
+    }
+
+    document.getElementById('demoGateOverlay').addEventListener('click', function(e) {
+        if (e.target === this) closeDemoGate();
+    });
+
+    function submitDemoGate(e) {
+        e.preventDefault();
+        var contact = document.getElementById('demoGateContact').value.trim();
+        var errorEl = document.getElementById('demoGateError');
+        var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (!emailRe.test(contact)) {
+            errorEl.textContent = 'Please enter a valid email address.';
+            return false;
+        }
+
+        errorEl.textContent = '';
+
+        var btn = document.querySelector('.demo-gate-submit');
+        btn.textContent = 'Preparing download...';
+        btn.disabled = true;
+
+        if (typeof gtag === 'function') gtag('event', 'demo_download', { event_category: 'conversion', event_label: 'desipper-demo-gate' });
+
+        var refSource = new URLSearchParams(window.location.search).get('ref') || 'desipper-demo-gate';
+        fetch('/.netlify/functions/capture-lead', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ contact: contact, source: refSource })
+        }).catch(function() {});
+
+        fetch('https://script.google.com/macros/s/AKfycbw8jJUukfTXjT6wAA3RH2zG1Twp5oxCFDNFQiy3_sv7RHciDMZ05LTc8XCVc6eK8CnC/exec?contact=' + encodeURIComponent(contact), {
+            mode: 'no-cors'
+        }).catch(function() {});
+
+        setTimeout(function() {
+            closeDemoGate();
+            btn.textContent = 'Download Demo';
+            btn.disabled = false;
+
+            var a = document.createElement('a');
+            a.href = 'https://github.com/mixedbysoda-stack/desipper/releases/download/v1.0.0-demo/DeSipper-Demo-v1.0.0-macOS.pkg';
+            a.download = '';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }, 300);
+
+        return false;
+    }
     </script>
 
 </body>
