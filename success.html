@@ -697,6 +697,22 @@
                         }
                     }
 
+                    // GA4: fire purchase event
+                    var purchaseValue = data.product === 'desipper' ? 15 : data.product === 'bundle' ? 30 : 20;
+                    if (typeof gtag === 'function') {
+                        gtag('event', 'purchase', {
+                            currency: 'USD',
+                            value: purchaseValue,
+                            transaction_id: sessionId,
+                            items: [{
+                                item_id: data.product,
+                                item_name: data.product_name || 'Carbonator',
+                                price: purchaseValue,
+                                quantity: 1
+                            }]
+                        });
+                    }
+
                     showState(stateVerified);
                 } else {
                     showError(data.error || 'Payment could not be verified.');
