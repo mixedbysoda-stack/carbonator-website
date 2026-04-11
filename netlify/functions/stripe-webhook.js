@@ -118,16 +118,22 @@ exports.handler = async (event) => {
       try {
         const resend = new Resend(process.env.RESEND_API_KEY);
 
-        const emailHtml = productId === "desipper"
-          ? buildDesipperEmail({ email, amountPaid, orderId, licenseKey, refCode: generateRefCode(email) })
-          : buildEmail({ email, amountPaid, orderId, licenseKey, refCode: generateRefCode(email) });
+        let emailHtml, emailSubject;
+        if (productId === "desipper") {
+          emailHtml = buildDesipperEmail({ email, amountPaid, orderId, licenseKey, refCode: generateRefCode(email) });
+          emailSubject = "Your De-Sipper License Key & Download Links";
+        } else if (productId === "ontap") {
+          emailHtml = buildOnTapEmail({ email, amountPaid, orderId, licenseKey, refCode: generateRefCode(email) });
+          emailSubject = "Your On Tap License Key & Download Links";
+        } else {
+          emailHtml = buildEmail({ email, amountPaid, orderId, licenseKey, refCode: generateRefCode(email) });
+          emailSubject = "Your Carbonator License Key & Download Links";
+        }
 
         await resend.emails.send({
           from: "Carbonated Audio <hello@carbonatedaudio.com>",
           to: email,
-          subject: productId === "desipper"
-            ? "Your De-Sipper License Key & Download Links"
-            : "Your Carbonator License Key & Download Links",
+          subject: emailSubject,
           html: emailHtml,
         });
 
@@ -494,4 +500,113 @@ function buildBundleEmail({ email, amountPaid, orderId, carbonatorKey, desipperK
     </td></tr>
   </table>
 </body></html>`;
+}
+
+function buildOnTapEmail({ email, amountPaid, orderId, licenseKey, refCode }) {
+  const product = PRODUCTS.ontap;
+  const refLink = `https://carbonatedaudio.com/.netlify/functions/referral?action=track&ref=${refCode}`;
+  const licenseSection = licenseKey
+    ? `
+              <h2 style="color:#ffffff;font-size:18px;margin:0 0 12px;text-align:center;">Your License Key</h2>
+              <div style="background:#0d0a1a;padding:16px;border-radius:8px;border:1px solid #2a2440;text-align:center;margin-bottom:8px;">
+                <code style="font-size:13px;color:#ff6b2b;letter-spacing:0.5px;word-break:break-all;font-family:'Courier New',Courier,monospace;">${licenseKey}</code>
+              </div>
+              <p style="color:#a09bb5;font-size:13px;text-align:center;margin:0 0 32px;">
+                Paste this key into the On Tap plugin to activate it.<br>Each key works on up to 3 machines.
+              </p>
+    `
+    : "";
+
+  return `
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
+<body style="margin:0;padding:0;background-color:#0d0a1a;font-family:Arial,Helvetica,sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#0d0a1a;padding:40px 20px;">
+    <tr><td align="center">
+      <table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;">
+
+        <tr><td align="center" style="padding-bottom:32px;">
+          <span style="font-size:28px;font-weight:800;color:#ffffff;">Carbonated Audio</span>
+        </td></tr>
+
+        <tr><td style="background-color:#1a1430;border-radius:16px;padding:40px 32px;">
+
+          <table width="100%" cellpadding="0" cellspacing="0">
+            <tr><td align="center" style="padding-bottom:24px;">
+              <div style="width:60px;height:60px;border-radius:50%;background-color:rgba(255,107,43,0.15);border:2px solid #ff6b2b;line-height:60px;text-align:center;font-size:28px;">&#10003;</div>
+            </td></tr>
+          </table>
+
+          <h1 style="color:#ffffff;font-size:24px;text-align:center;margin:0 0 8px;">Thank you for your purchase!</h1>
+          <p style="color:#a09bb5;font-size:16px;text-align:center;margin:0 0 32px;">Your On Tap v${product.version} download links are below.</p>
+
+          ${licenseSection}
+
+          <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:32px;">
+            <tr><td align="center" style="padding-bottom:12px;">
+              <a href="${product.downloads.mac}" style="display:inline-block;padding:14px 32px;background:linear-gradient(135deg,#ff6b2b,#ff8c42);color:#ffffff;text-decoration:none;border-radius:8px;font-size:16px;font-weight:600;">
+                Download for macOS (.pkg)
+              </a>
+            </td></tr>
+            <tr><td align="center">
+              <a href="${product.downloads.windows}" style="display:inline-block;padding:14px 32px;background:linear-gradient(135deg,#ff6b2b,#ff8c42);color:#ffffff;text-decoration:none;border-radius:8px;font-size:16px;font-weight:600;">
+                Download for Windows (.zip)
+              </a>
+            </td></tr>
+          </table>
+
+          <hr style="border:none;border-top:1px solid #2a2440;margin:0 0 24px;">
+
+          <h2 style="color:#ffffff;font-size:16px;margin:0 0 16px;">Order Details</h2>
+          <table width="100%" cellpadding="0" cellspacing="0" style="font-size:14px;">
+            <tr>
+              <td style="color:#a09bb5;padding:4px 0;">Product</td>
+              <td style="color:#ffffff;text-align:right;padding:4px 0;">On Tap v${product.version}</td>
+            </tr>
+            <tr>
+              <td style="color:#a09bb5;padding:4px 0;">Amount</td>
+              <td style="color:#ffffff;text-align:right;padding:4px 0;">${amountPaid}</td>
+            </tr>
+            <tr>
+              <td style="color:#a09bb5;padding:4px 0;">Email</td>
+              <td style="color:#ffffff;text-align:right;padding:4px 0;">${email}</td>
+            </tr>
+            <tr>
+              <td style="color:#a09bb5;padding:4px 0;">Order ID</td>
+              <td style="color:#ffffff;text-align:right;padding:4px 0;font-size:11px;word-break:break-all;">${orderId}</td>
+            </tr>
+          </table>
+
+          <hr style="border:none;border-top:1px solid #2a2440;margin:24px 0;">
+
+          <h2 style="color:#ffffff;font-size:16px;margin:0 0 12px;">Quick Start</h2>
+          <ol style="color:#a09bb5;font-size:14px;padding-left:20px;margin:0;">
+            <li style="margin-bottom:8px;"><strong style="color:#ffffff;">macOS:</strong> Open the .pkg installer — it installs VST3, AU, and AAX automatically.</li>
+            <li style="margin-bottom:8px;"><strong style="color:#ffffff;">Windows:</strong> Run the installer or extract the .zip to your VST3 folder.</li>
+            <li style="margin-bottom:8px;"><strong style="color:#ffffff;">Activate:</strong> Open On Tap in your DAW, paste your license key, and click Activate.</li>
+            <li style="margin-bottom:8px;"><strong style="color:#ffffff;">Use it:</strong> Insert On Tap on your bass, synths, or pads. Pick a curve and adjust the mix.</li>
+          </ol>
+
+          <hr style="border:none;border-top:1px solid #2a2440;margin:24px 0;">
+          <h2 style="color:#ffffff;font-size:16px;margin:0 0 12px;">Share On Tap, earn credit</h2>
+          <p style="color:#a09bb5;font-size:14px;line-height:1.6;margin:0 0 16px;">
+            Know a producer who'd love On Tap? Share your referral link. When someone buys through it, you'll get a free copy of our next plugin.
+          </p>
+          <div style="background:#0d0a1a;padding:12px 16px;border-radius:8px;border:1px solid #2a2440;text-align:center;">
+            <a href="${refLink}" style="color:#ff8c42;font-size:13px;word-break:break-all;text-decoration:none;">${refLink}</a>
+          </div>
+
+        </td></tr>
+
+        <tr><td align="center" style="padding-top:32px;">
+          <p style="color:#6b6580;font-size:12px;margin:0;">Need help? Reply to this email or contact mixedbysoda@gmail.com</p>
+          <p style="color:#6b6580;font-size:12px;margin:8px 0 0;">&copy; ${new Date().getFullYear()} Carbonated Audio</p>
+        </td></tr>
+
+      </table>
+    </td></tr>
+  </table>
+</body>
+</html>`;
 }
