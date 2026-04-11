@@ -30,6 +30,16 @@ const PRODUCTS = {
     },
     secretEnv: "DESIPPER_LICENSE_SECRET",
   },
+  ontap: {
+    name: "On Tap",
+    version: "1.0.0",
+    price: 20,
+    downloads: {
+      mac: `https://github.com/mixedbysoda-stack/ontap/releases/download/v1.0.0/OnTap-v1.0.0-Installer.pkg`,
+      windows: `https://github.com/mixedbysoda-stack/ontap/releases/download/v1.0.0/OnTap-v1.0.0-Windows-Installer.zip`,
+    },
+    secretEnv: "ONTAP_LICENSE_SECRET",
+  },
   bundle: {
     name: "Carbonated Audio Bundle",
     price: 30,
