@@ -36,7 +36,7 @@ const PRODUCTS = {
     price: 20,
     downloads: {
       mac: `https://github.com/mixedbysoda-stack/ontap/releases/download/v1.0.0/OnTap-v1.0.0-Installer.pkg`,
-      windows: `https://github.com/mixedbysoda-stack/ontap/releases/download/v1.0.0/OnTap-v1.0.0-Windows-Installer.zip`,
+      windows: `https://github.com/mixedbysoda-stack/ontap/releases/download/v1.0.0/OnTap-v1.0.0-Windows-Installer.exe`,
     },
     secretEnv: "ONTAP_LICENSE_SECRET",
   },
