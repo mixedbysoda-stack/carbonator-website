@@ -17,7 +17,7 @@
             </a>
             <div class="nav-links">
                 <div class="nav-dropdown">
-                    <a class="nav-dropdown-trigger${active === 'carbonator' || active === 'desipper' ? ' active' : ''}">Products</a>
+                    <a class="nav-dropdown-trigger${active === 'carbonator' || active === 'desipper' || active === 'ontap' ? ' active' : ''}">Products</a>
                     <div class="nav-dropdown-menu">
                         <a href="/carbonator">
                             <div>
@@ -29,6 +29,12 @@
                             <div>
                                 <div class="dropdown-label">De-Sipper</div>
                                 <div class="dropdown-desc">Transparent de-esser &middot; $15</div>
+                            </div>
+                        </a>
+                        <a href="/ontap">
+                            <div>
+                                <div class="dropdown-label">On Tap</div>
+                                <div class="dropdown-desc">Sidechain ducking &middot; $20</div>
                             </div>
                         </a>
                     </div>
@@ -47,6 +53,7 @@
         <div class="mobile-menu" id="mobileMenu">
             <a href="/carbonator">Carbonator</a>
             <a href="/desipper">De-Sipper</a>
+            <a href="/ontap">On Tap</a>
             <a href="/about">About</a>
             <a href="/faq">FAQ</a>
             <a href="/press">Press</a>
