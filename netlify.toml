@@ -30,3 +30,13 @@
   from = "/de-sipper"
   to = "/desipper.html"
   status = 301
+
+[[redirects]]
+  from = "/ontap"
+  to = "/ontap.html"
+  status = 200
+
+[[redirects]]
+  from = "/on-tap"
+  to = "/ontap.html"
+  status = 301
