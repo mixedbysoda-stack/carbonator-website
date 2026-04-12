@@ -243,15 +243,10 @@
 
         .products-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(3, 1fr);
             gap: 32px;
-            max-width: 1040px;
+            max-width: 1200px;
             margin: 0 auto;
-        }
-        .products-grid > .product-card:nth-child(3) {
-            grid-column: 1 / -1;
-            max-width: 504px;
-            justify-self: center;
         }
 
         .product-card {
@@ -889,6 +884,10 @@
            Responsive
            ======================================== */
         @media (max-width: 1024px) {
+            .products-grid {
+                grid-template-columns: 1fr;
+                max-width: 500px;
+            }
             .products-section {
                 padding: 60px 20px 80px;
             }
