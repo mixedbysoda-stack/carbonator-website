@@ -4602,6 +4602,10 @@
             btn.textContent = 'Download Now';
             btn.disabled = false;
 
+            if (/Win/i.test(navigator.platform || navigator.userAgent)) {
+                alert("Thanks! Carbonator's Windows demo is in progress — we've added you to the list and will email you the moment it's ready. In the meantime, the full Windows version is available with a 30-day money-back guarantee at carbonatedaudio.com/carbonator");
+                return;
+            }
             var a = document.createElement('a');
             a.href = 'Carbonator DEMO.zip';
             a.download = '';
