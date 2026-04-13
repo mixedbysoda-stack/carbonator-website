@@ -81,6 +81,80 @@
     }
     </script>
 
+    <!-- FAQPage Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "What is De-Sipper?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "A transparent de-esser plugin that removes harsh sibilance from vocals. It uses split-band processing to target only the sibilant frequencies, leaving the rest of your vocal completely untouched."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What formats are supported?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "De-Sipper is available as VST3, AU, AAX, and Standalone on macOS. On Windows, it ships as VST3 and Standalone."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How many computers can I use it on?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Up to 3 machines with one license. If you need to move an activation, just deactivate on the old machine and activate on the new one."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Is there a free trial?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes. The free demo includes all DSP features with a periodic silence cycle (60 seconds on, 10 seconds muted) so you can fully evaluate De-Sipper before purchasing."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Does it work with Pro Tools?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes, De-Sipper is available as an AAX plugin on macOS, fully compatible with Pro Tools."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Does it add latency?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "No. De-Sipper processes with zero latency — no lookahead buffer required. It works seamlessly for both tracking and mixing."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What's the refund policy?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "30-day money-back guarantee, no questions asked. If De-Sipper isn't right for you, just email us and we'll refund your purchase."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How do I install it?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Download the installer, run it, and select which formats you want (VST3, AU, AAX, Standalone). Then rescan plugins in your DAW and De-Sipper will appear in your plugin list."
+                }
+            }
+        ]
+    }
+    </script>
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1097,17 +1171,29 @@
 
         <!-- Cross-Sell Section -->
         <section class="cross-sell">
-            <p class="cross-sell-label">From the makers of</p>
-            <a href="/carbonator" class="cross-sell-card">
-                <div class="cross-sell-icon">
-                    <img src="/logo.png" alt="Carbonator logo" width="56" height="56">
-                </div>
-                <div class="cross-sell-info">
-                    <div class="cross-sell-name">Carbonator</div>
-                    <div class="cross-sell-desc">Analog saturation with 5 unique flavors. Loved by producers worldwide. Press featured &amp; real testimonials.</div>
-                    <div class="cross-sell-price">$20 one-time</div>
-                </div>
-            </a>
+            <p class="cross-sell-label">Also from Carbonated Audio</p>
+            <div class="cross-sell-cards">
+                <a href="/carbonator" class="cross-sell-card">
+                    <div class="cross-sell-icon">
+                        <img src="/logo.png" alt="Carbonator logo" width="56" height="56">
+                    </div>
+                    <div class="cross-sell-info">
+                        <div class="cross-sell-name">Carbonator</div>
+                        <div class="cross-sell-desc">Analog saturation with 5 unique flavors.</div>
+                        <div class="cross-sell-price">$20 one-time</div>
+                    </div>
+                </a>
+                <a href="/ontap" class="cross-sell-card purple">
+                    <div class="cross-sell-icon">
+                        <img src="/ontap-screenshot.png" alt="On Tap sidechain ducking plugin" width="56" height="56" style="object-fit:cover;border-radius:8px;">
+                    </div>
+                    <div class="cross-sell-info">
+                        <div class="cross-sell-name">On Tap</div>
+                        <div class="cross-sell-desc">Instant sidechain ducking. No routing needed.</div>
+                        <div class="cross-sell-price">$20 one-time</div>
+                    </div>
+                </a>
+            </div>
         </section>
 
         <!-- Footer -->
