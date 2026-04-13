@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>On Tap vs Kickstart: $20 Sidechain Ducker Compared | Carbonated Audio</title>
+    <meta name="description" content="On Tap ($20) vs Cableguys Kickstart ($25) — feature comparison, band-split routing, trigger modes, and an honest verdict on which sidechain ducker fits your workflow.">
+    <meta name="keywords" content="On Tap vs Kickstart, Kickstart alternative, cheap sidechain ducker, sidechain ducking plugin, kickstart 2 alternative, MIDI ducking plugin, best sidechain plugin 2026">
+    <meta name="author" content="Carbonated Audio">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="On Tap vs Kickstart: $20 Sidechain Ducker Compared">
+    <meta property="og:description" content="Honest feature-by-feature comparison of On Tap and Cableguys Kickstart 2. Band-split, trigger modes, price, and which one fits your workflow.">
+    <meta property="og:url" content="https://carbonatedaudio.com/ontap-vs-kickstart">
+    <meta property="og:site_name" content="Carbonated Audio">
+    <meta property="og:image" content="https://carbonatedaudio.com/ontap-screenshot.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="On Tap vs Kickstart: $20 Sidechain Ducker Compared">
+    <meta name="twitter:description" content="Honest feature-by-feature comparison of On Tap and Cableguys Kickstart 2.">
+    <meta name="twitter:image" content="https://carbonatedaudio.com/ontap-screenshot.png">
+
+    <link rel="canonical" href="https://carbonatedaudio.com/ontap-vs-kickstart">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "On Tap vs Kickstart — Sidechain Ducking Plugin Comparison",
+        "description": "Honest comparison of On Tap and Cableguys Kickstart 2 sidechain ducking plugins.",
+        "url": "https://carbonatedaudio.com/ontap-vs-kickstart",
+        "mainEntity": {
+            "@type": "ItemList",
+            "itemListElement": [
+                {
+                    "@type": "SoftwareApplication",
+                    "name": "On Tap",
+                    "applicationCategory": "MultimediaApplication",
+                    "offers": {"@type": "Offer", "price": "20.00", "priceCurrency": "USD"},
+                    "operatingSystem": ["macOS 10.13+"]
+                },
+                {
+                    "@type": "SoftwareApplication",
+                    "name": "Cableguys Kickstart 2",
+                    "applicationCategory": "MultimediaApplication",
+                    "offers": {"@type": "Offer", "price": "25.00", "priceCurrency": "USD"},
+                    "operatingSystem": ["macOS", "Windows"]
+                }
+            ]
+        }
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "Is On Tap cheaper than Kickstart?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes. On Tap is $20 one-time vs Kickstart 2's $25 one-time. Both are no-subscription, no-iLok plugins with free demo versions."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What's the biggest difference between On Tap and Kickstart?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "On Tap has a band-split crossover that lets you duck only the low end (or only the highs), which Kickstart does not offer. Kickstart's biggest advantage is cross-platform support — it runs on both macOS and Windows, while On Tap is currently macOS only."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Does On Tap work on Windows?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Not yet. On Tap v1.0.0 is macOS only (Apple Silicon and Intel). Windows support is on the roadmap. If you need a Windows ducker today, Kickstart 2 is the better choice."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Can On Tap replace Kickstart in my sessions?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "On Mac, yes — On Tap covers the same workflow (MIDI-triggered ducking with hand-crafted curves and tempo sync) and adds band-split routing on top. The migration cost is just relearning the curve library and reassigning your MIDI triggers."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Do I need a separate MIDI track?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Both plugins support MIDI-triggered mode (one MIDI note fires the ducking curve) and tempo-sync mode (auto-locks to your DAW's clock with no MIDI needed). On Tap also adds an audio-triggered mode that responds to an incoming envelope."
+                }
+            }
+        ]
+    }
+    </script>
+
+    <!-- GA4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z9L20HJ4M0"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-Z9L20HJ4M0');</script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg-primary: #0d0a1a;
+            --bg-secondary: #151025;
+            --bg-card: #1a1430;
+            --accent: #a855f7;
+            --accent-dark: #7c3aed;
+            --accent-light: #c084fc;
+            --green: #22c55e;
+            --text-primary: #ffffff;
+            --text-secondary: #a09bb5;
+            --text-muted: #6b6580;
+            --border: #2a2440;
+        }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+        a { color: var(--accent); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        nav {
+            position: sticky; top: 0; z-index: 100;
+            padding: 16px 40px;
+            display: flex; align-items: center; justify-content: space-between;
+            background: rgba(13,10,26,0.92);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .nav-brand { font-weight: 800; font-size: 17px; color: #fff; text-decoration: none; }
+        .nav-links { display: flex; gap: 24px; }
+        .nav-links a { color: var(--text-secondary); font-size: 14px; font-weight: 500; }
+        .nav-links a:hover { color: #fff; text-decoration: none; }
+        .nav-cta {
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+            color: #fff; padding: 8px 20px; border-radius: 8px;
+            font-weight: 600; font-size: 14px;
+        }
+        .nav-cta:hover { opacity: 0.9; text-decoration: none; }
+
+        .container { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+
+        .hero {
+            padding: 80px 0 40px;
+            text-align: center;
+        }
+        .hero-badge {
+            display: inline-block;
+            background: rgba(168,85,247,0.12);
+            border: 1px solid rgba(168,85,247,0.25);
+            border-radius: 100px;
+            padding: 6px 16px;
+            font-size: 13px; font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+        h1 {
+            font-size: 42px; font-weight: 900; letter-spacing: -0.03em;
+            line-height: 1.15; margin-bottom: 16px;
+        }
+        h1 .accent {
+            background: linear-gradient(135deg, var(--accent), var(--accent-light));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-sub {
+            font-size: 18px; color: var(--text-secondary); max-width: 600px; margin: 0 auto;
+        }
+
+        .verdict {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 32px;
+            margin: 40px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .verdict::before {
+            content: '';
+            position: absolute; top: 0; left: 0; right: 0; height: 3px;
+            background: linear-gradient(90deg, var(--accent-dark), var(--accent), var(--accent-light));
+        }
+        .verdict h2 { font-size: 20px; font-weight: 700; margin-bottom: 12px; }
+        .verdict p { color: var(--text-secondary); font-size: 15px; line-height: 1.7; }
+
+        .table-section { margin: 48px 0; }
+        .table-section h2 {
+            font-size: 28px; font-weight: 800; margin-bottom: 24px; letter-spacing: -0.02em;
+        }
+        table {
+            width: 100%; border-collapse: collapse;
+            background: var(--bg-card); border-radius: 12px; overflow: hidden;
+            border: 1px solid var(--border);
+        }
+        thead th {
+            padding: 16px 20px; text-align: left;
+            font-size: 14px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.05em; color: var(--text-secondary);
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+        }
+        thead th:first-child { width: 35%; }
+        tbody td {
+            padding: 14px 20px; font-size: 15px;
+            border-bottom: 1px solid rgba(42,36,64,0.5);
+        }
+        tbody tr:last-child td { border-bottom: none; }
+        .win { color: var(--green); font-weight: 600; }
+        .neutral { color: var(--text-secondary); }
+
+        .section { margin: 56px 0; }
+        .section h2 {
+            font-size: 28px; font-weight: 800; margin-bottom: 16px; letter-spacing: -0.02em;
+        }
+        .section h2 .accent {
+            background: linear-gradient(135deg, var(--accent), var(--accent-light));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .section p, .section li {
+            color: var(--text-secondary); font-size: 15px; line-height: 1.7;
+        }
+        .section p + p { margin-top: 14px; }
+        .section ul { list-style: none; padding: 0; }
+        .section li {
+            padding: 8px 0 8px 24px; position: relative;
+        }
+        .section li::before {
+            content: ''; position: absolute; left: 0; top: 16px;
+            width: 8px; height: 8px; border-radius: 50%;
+            background: var(--accent);
+        }
+
+        .cta-box {
+            text-align: center; padding: 56px 24px;
+            background: linear-gradient(180deg, var(--bg-secondary), var(--bg-primary));
+            border-radius: 20px; margin: 56px 0;
+            border: 1px solid var(--border);
+        }
+        .cta-box h2 { font-size: 32px; font-weight: 900; margin-bottom: 12px; }
+        .cta-box p { color: var(--text-secondary); font-size: 16px; margin-bottom: 28px; }
+        .btn-primary {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+            color: #fff; padding: 14px 36px; border-radius: 10px;
+            font-weight: 700; font-size: 16px; margin: 0 8px 12px;
+        }
+        .btn-primary:hover { opacity: 0.9; text-decoration: none; }
+        .btn-secondary {
+            display: inline-block;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.12);
+            color: #fff; padding: 14px 36px; border-radius: 10px;
+            font-weight: 600; font-size: 16px; margin: 0 8px 12px;
+        }
+        .btn-secondary:hover { background: rgba(255,255,255,0.1); text-decoration: none; }
+
+        footer {
+            padding: 40px 0; text-align: center;
+            border-top: 1px solid var(--border);
+            margin-top: 40px;
+        }
+        footer p { color: var(--text-muted); font-size: 13px; }
+        .compare-links { margin-top: 16px; }
+        .compare-links a {
+            color: var(--text-secondary); font-size: 13px; margin: 0 12px;
+        }
+
+        @media (max-width: 640px) {
+            nav { padding: 12px 16px; }
+            .nav-links { display: none; }
+            h1 { font-size: 28px; }
+            .hero { padding: 48px 0 24px; }
+            .verdict { padding: 24px; }
+            table { font-size: 13px; }
+            thead th, tbody td { padding: 10px 12px; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="/" class="nav-brand">Carbonated Audio</a>
+        <div class="nav-links">
+            <a href="/ontap">On Tap</a>
+            <a href="/desipper">De-Sipper</a>
+            <a href="/carbonator">Carbonator</a>
+        </div>
+        <a href="#" class="nav-cta" onclick="openDemoGate(event)">Try Free Demo</a>
+    </nav>
+
+    <div class="container">
+        <div class="hero">
+            <span class="hero-badge">Plugin Comparison</span>
+            <h1>On Tap vs Kickstart<br><span class="accent">Which Sidechain Ducker Wins in 2026?</span></h1>
+            <p class="hero-sub">An honest, feature-by-feature look at two MIDI-triggered ducking plugins built for producers who don't want to route a sidechain compressor.</p>
+            <div style="display:flex;gap:16px;justify-content:center;margin-top:20px;flex-wrap:wrap;">
+                <span style="background:linear-gradient(135deg,#a855f7,#7c3aed);padding:8px 20px;border-radius:20px;font-weight:700;font-size:14px;color:#fff;">On Tap: $20</span>
+                <span style="background:#2a2440;padding:8px 20px;border-radius:20px;font-weight:600;font-size:14px;color:#a09bb5;">Kickstart 2: $25</span>
+            </div>
+        </div>
+
+        <div class="verdict">
+            <h2>Quick Verdict</h2>
+            <p><strong>On Tap</strong> is the better pick if you're on macOS, want band-split ducking (duck only the lows or only the highs), and care about saving a few bucks. <strong>Kickstart 2</strong> wins if you're on Windows, already inside the Cableguys ecosystem, or want the most established curve library on the market. Both skip traditional sidechain routing entirely — insert, trigger, done.</p>
+        </div>
+
+        <div class="inline-cta" style="display:flex;gap:12px;justify-content:center;margin:24px 0 40px;flex-wrap:wrap;">
+            <a href="#" class="btn-primary" onclick="openDemoGate(event)" style="padding:14px 28px;border-radius:10px;background:linear-gradient(135deg,#a855f7,#7c3aed);color:#fff;font-weight:600;font-size:15px;text-decoration:none;display:inline-block;">Try On Tap Free</a>
+            <a href="https://buy.stripe.com/5kQcN51gl6gWfY51YL3oA04" class="btn-secondary" style="padding:14px 28px;border-radius:10px;border:1px solid #2a2440;color:#a09bb5;font-weight:600;font-size:15px;text-decoration:none;display:inline-block;">Get On Tap — $20</a>
+        </div>
+
+        <div class="table-section">
+            <h2>Feature Comparison</h2>
+            <table>
+                <thead>
+                    <tr><th>Feature</th><th>On Tap</th><th>Kickstart 2</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Price</td>
+                        <td class="win">$20 one-time</td>
+                        <td>$25 one-time</td>
+                    </tr>
+                    <tr>
+                        <td>Hand-Crafted Curves</td>
+                        <td>16 curves</td>
+                        <td class="neutral">Established preset library</td>
+                    </tr>
+                    <tr>
+                        <td>Trigger Modes</td>
+                        <td class="win">Sync + MIDI + Audio</td>
+                        <td>Sync + MIDI + Audio</td>
+                    </tr>
+                    <tr>
+                        <td>Band-Split Crossover</td>
+                        <td class="win">Yes — 20Hz to 5.12kHz</td>
+                        <td>No — full-band only</td>
+                    </tr>
+                    <tr>
+                        <td>Adjustable Curve Length</td>
+                        <td class="win">Draggable end marker</td>
+                        <td>Fixed per preset</td>
+                    </tr>
+                    <tr>
+                        <td>Anti-Click Smoothing</td>
+                        <td class="win">Built-in</td>
+                        <td>Built-in</td>
+                    </tr>
+                    <tr>
+                        <td>Wet/Dry Mix</td>
+                        <td class="win">Yes — parallel ducking</td>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <td>macOS Support</td>
+                        <td class="win">Apple Silicon + Intel</td>
+                        <td>Apple Silicon + Intel</td>
+                    </tr>
+                    <tr>
+                        <td>Windows Support</td>
+                        <td>Not yet — roadmap</td>
+                        <td class="win">Yes</td>
+                    </tr>
+                    <tr>
+                        <td>Formats</td>
+                        <td>VST3, AU, AAX</td>
+                        <td>VST3, AU, AAX</td>
+                    </tr>
+                    <tr>
+                        <td>Subscription Required</td>
+                        <td class="win">No</td>
+                        <td class="win">No</td>
+                    </tr>
+                    <tr>
+                        <td>iLok Required</td>
+                        <td class="win">No</td>
+                        <td class="win">No</td>
+                    </tr>
+                    <tr>
+                        <td>Free Demo / Trial</td>
+                        <td class="win">Yes — full plugin</td>
+                        <td class="win">Yes</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>When to Choose <span class="accent">On Tap</span></h2>
+            <ul>
+                <li>You're on macOS and want the cheapest no-routing ducker that still gives you serious control</li>
+                <li>You need band-split ducking — pump the kick out of just your sub bass without losing the highs of your bassline</li>
+                <li>You like dragging the end marker to dial in curve length per song instead of being stuck with a preset's fixed timing</li>
+                <li>You want all three trigger modes (Sync, MIDI, Audio) so the plugin adapts to whatever sound you're trying to duck against</li>
+                <li>You want to bundle it with other affordable studio plugins from one developer (Carbonator, De-Sipper, On Tap — $45 for all three)</li>
+                <li>You care about saving the $5 difference and putting it toward a plugin you don't already own</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>When to Choose Kickstart 2</h2>
+            <ul>
+                <li>You're on Windows — On Tap doesn't have a Windows build yet, so this is a hard requirement</li>
+                <li>You're already inside the Cableguys ecosystem (VolumeShaper, ShaperBox) and want consistent UI across your ducking tools</li>
+                <li>You've been using Kickstart for years and don't want to relearn a new curve library</li>
+                <li>You want the brand recognition — Kickstart is the name producers think of first when they hear "ducking plugin," and that has its own value</li>
+                <li>You want a plugin that's been refined over multiple major versions with a long-established preset library</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>The Real Differentiator: <span class="accent">Band-Split Ducking</span></h2>
+            <p>Most sidechain ducking plugins — Kickstart included — apply the duck to the entire signal. That works fine for pads and pluck synths, but it falls apart on full-spectrum sources like layered basses, mixed busses, or wide stereo pads. You end up either ducking the whole thing too hard or not ducking the bass enough to make room for the kick.</p>
+            <p>On Tap's band-split crossover lets you set a frequency (20Hz to 5.12kHz) and only duck the low band — or only the high band, depending on how you flip it. That means you can hammer the sub-bass out of the way of the kick while leaving the top end of your bass guitar perfectly intact. It's the kind of control that normally requires multiband compression and a separate sidechain bus. On Tap puts it on a single knob.</p>
+            <p>If you've ever fought a bass sound that needed the kick to punch through but didn't want to lose the click and growl, this feature alone justifies the plugin.</p>
+        </div>
+
+        <div class="section">
+            <h2>The Bottom Line</h2>
+            <p>Kickstart 2 earned its reputation. It's the de-facto standard for sidechain ducking in EDM, pop, and hip-hop production, and Cableguys has refined it across multiple versions. If you're on Windows or you already swear by it, there's no reason to switch.</p>
+            <p>But if you're on macOS, On Tap is the more interesting pick in 2026. It's $5 cheaper, it covers the same workflow (insert, pick a curve, trigger by MIDI or sync to tempo), and it adds a band-split crossover that genuinely changes what's possible in the bass-vs-kick fight. It also bundles with two other Carbonated Audio plugins (Carbonator for saturation, De-Sipper for de-essing) for $45 total — making it the cheapest way to start a small, focused indie plugin chain.</p>
+            <p>Try the demo first. The full plugin is free to download with no time limit, and you'll know within 10 minutes whether the band-split workflow clicks for you.</p>
+        </div>
+
+        <div class="cta-box">
+            <h2>Hear It On Your Own Bass</h2>
+            <p>Download the free demo — full plugin, no credit card, no iLok. Just ducking.</p>
+            <a href="#" class="btn-primary" onclick="openDemoGate(event)">Try On Tap Free</a>
+            <a href="https://buy.stripe.com/5kQcN51gl6gWfY51YL3oA04" class="btn-secondary">Get On Tap — $20</a>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Carbonated Audio. All rights reserved.</p>
+            <div class="compare-links">
+                <a href="/ontap">On Tap Home</a>
+                <a href="/desipper">De-Sipper (De-Esser)</a>
+                <a href="/carbonator">Carbonator (Saturation)</a>
+                <a href="/press">Press</a>
+                <a href="mailto:hello@carbonatedaudio.com">Support</a>
+                <a href="/">Back to Home</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Demo Gate Modal -->
+    <style>
+    .demo-gate-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:10000;align-items:center;justify-content:center}
+    .demo-gate-overlay.active{display:flex}
+    .demo-gate{background:linear-gradient(180deg,#1a1430,#0d0a1a);border:1px solid var(--border);border-radius:20px;padding:40px;max-width:420px;width:90%;text-align:center;position:relative;animation:gateSlideIn .3s ease-out}
+    @keyframes gateSlideIn{from{opacity:0;transform:translateY(20px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+    .demo-gate-close{position:absolute;top:14px;right:18px;background:none;border:none;color:var(--text-muted);font-size:22px;cursor:pointer;line-height:1}
+    .demo-gate-close:hover{color:var(--text-primary)}
+    .demo-gate h3{font-size:22px;font-weight:700;margin:0 0 6px;color:var(--text-primary)}
+    .demo-gate p{font-size:14px;color:var(--text-secondary);margin:0 0 24px}
+    .demo-gate-input{width:100%;padding:14px 16px;border-radius:10px;border:1px solid var(--border);background:var(--bg-primary);color:var(--text-primary);font-size:15px;font-family:inherit;outline:none;transition:border-color .2s;box-sizing:border-box}
+    .demo-gate-input::placeholder{color:var(--text-muted)}
+    .demo-gate-input:focus{border-color:var(--accent)}
+    .demo-gate-submit{width:100%;margin-top:14px;padding:14px;border-radius:10px;border:none;background:linear-gradient(135deg,var(--accent),var(--accent-dark));color:#fff;font-size:16px;font-weight:600;font-family:inherit;cursor:pointer;transition:opacity .2s,transform .1s}
+    .demo-gate-submit:hover{opacity:.9}
+    .demo-gate-submit:active{transform:scale(.98)}
+    .demo-gate-error{color:#ef4444;font-size:13px;margin-top:8px;min-height:18px}
+    .demo-gate-fine{font-size:12px;color:var(--text-muted);margin-top:16px}
+    </style>
+
+    <div class="demo-gate-overlay" id="demoGateOverlay">
+        <div class="demo-gate">
+            <button class="demo-gate-close" onclick="closeDemoGate()">&times;</button>
+            <h3>Get the Free On Tap Demo</h3>
+            <p>Where should we send the download link?</p>
+            <form id="demoGateForm" onsubmit="return submitDemoGate(event)">
+                <input type="email" class="demo-gate-input" id="demoGateContact" placeholder="you@email.com" autocomplete="email" required>
+                <div class="demo-gate-error" id="demoGateError"></div>
+                <button type="submit" class="demo-gate-submit">Send Me the Demo</button>
+            </form>
+            <div class="demo-gate-fine">No spam, ever. Just your download link and occasional updates.</div>
+        </div>
+    </div>
+
+    <script>
+    function openDemoGate(e){e.preventDefault();document.getElementById('demoGateOverlay').classList.add('active');setTimeout(function(){document.getElementById('demoGateContact').focus()},100);if(typeof gtag==='function')gtag('event','demo_gate_open',{event_category:'engagement',event_label:'ontap-vs-kickstart'})}
+    function closeDemoGate(){document.getElementById('demoGateOverlay').classList.remove('active');document.getElementById('demoGateError').textContent=''}
+    document.getElementById('demoGateOverlay').addEventListener('click',function(e){if(e.target===this)closeDemoGate()});
+    function submitDemoGate(e){e.preventDefault();var c=document.getElementById('demoGateContact').value.trim(),err=document.getElementById('demoGateError');if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(c)){err.textContent='Please enter a valid email address.';return false}err.textContent='';var btn=document.querySelector('.demo-gate-submit');btn.textContent='Unlocking...';btn.disabled=true;if(typeof gtag==='function')gtag('event','demo_download',{event_category:'conversion',event_label:'ontap-vs-kickstart'});var ref=new URLSearchParams(window.location.search).get('ref')||'ontap-vs-kickstart';fetch('/.netlify/functions/capture-lead',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contact:c,source:ref})}).catch(function(){});setTimeout(function(){closeDemoGate();btn.textContent='Download Now';btn.disabled=false;var a=document.createElement('a');a.href='https://github.com/mixedbysoda-stack/ontap/releases/download/v1.0.0-demo/OnTap-Demo-macOS.pkg';a.download='';document.body.appendChild(a);a.click();document.body.removeChild(a)},300);return false}
+    </script>
+</body>
+</html>
