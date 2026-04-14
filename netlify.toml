@@ -48,3 +48,19 @@
   from = "/on-tap"
   to = "/ontap.html"
   status = 301
+
+# Pretty URLs for legal pages
+[[redirects]]
+  from = "/terms"
+  to = "/terms.html"
+  status = 200
+
+[[redirects]]
+  from = "/privacy"
+  to = "/privacy.html"
+  status = 200
+
+[[redirects]]
+  from = "/eula"
+  to = "/eula.html"
+  status = 200

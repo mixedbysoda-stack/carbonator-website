@@ -16,10 +16,16 @@
             <div class="footer-links">
                 <a href="/carbonator">Carbonator</a>
                 <a href="/desipper">De-Sipper</a>
+                <a href="/ontap">On Tap</a>
                 <a href="/about">About</a>
                 <a href="/press">Press</a>
                 <a href="mailto:hello@carbonatedaudio.com">Support</a>
             </div>
         </footer>
+        <div class="footer-legal" style="text-align:center;padding:14px 20px 26px;font-size:11px;color:#6b6580;letter-spacing:0.02em;">
+            <a href="/terms" style="color:#6b6580;text-decoration:none;margin:0 10px;">Terms</a>·
+            <a href="/privacy" style="color:#6b6580;text-decoration:none;margin:0 10px;">Privacy</a>·
+            <a href="/eula" style="color:#6b6580;text-decoration:none;margin:0 10px;">EULA</a>
+        </div>
     `;
 })();
