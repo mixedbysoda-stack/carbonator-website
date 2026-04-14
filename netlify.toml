@@ -15,6 +15,14 @@
 [functions."review-request"]
   schedule = "0 10 * * *"
 
+# Redirect the .netlify.app subdomain to the apex domain to kill duplicate-content
+# (GSC auto-registered carbinated-audio.netlify.app as a separate property 2026-04-12).
+[[redirects]]
+  from = "https://carbinated-audio.netlify.app/*"
+  to = "https://carbonatedaudio.com/:splat"
+  status = 301
+  force = true
+
 # Pretty URLs for product pages
 [[redirects]]
   from = "/carbonator"
