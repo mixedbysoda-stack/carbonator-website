@@ -3,6 +3,7 @@ const { Resend } = require("resend");
 const { VERSION } = require("./config");
 
 const FROM_EMAIL = "Carbonated Audio <hello@carbonatedaudio.com>";
+const DEDUPE_WINDOW_MS = 60 * 60 * 1000;
 
 exports.handler = async (event) => {
   const headers = {
@@ -33,6 +34,27 @@ exports.handler = async (event) => {
   }
 
   const now = new Date().toISOString();
+
+  const dedupeKey = `${source}:${contact.toLowerCase()}`;
+  try {
+    const dedupeStore = getBlobStore("lead-dedupe");
+    const prev = await dedupeStore.get(dedupeKey, { type: "json" });
+    if (prev && prev.last_captured) {
+      const age = Date.now() - new Date(prev.last_captured).getTime();
+      if (age < DEDUPE_WINDOW_MS) {
+        console.log(`Dedupe hit for ${dedupeKey} (age ${Math.floor(age / 1000)}s) — skipping emails + lead write`);
+        return {
+          statusCode: 200,
+          headers,
+          body: JSON.stringify({ success: true, deduped: true }),
+        };
+      }
+    }
+    await dedupeStore.setJSON(dedupeKey, { last_captured: now });
+  } catch (dedupeErr) {
+    console.error("Dedupe check error (non-fatal, proceeding):", dedupeErr.message);
+  }
+
   const key = `lead_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
 
   // Save lead to Blobs (non-blocking — don't let this kill the email)
