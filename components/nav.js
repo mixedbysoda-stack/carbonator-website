@@ -28,7 +28,7 @@
                         <a href="/desipper">
                             <div>
                                 <div class="dropdown-label">De-Sipper</div>
-                                <div class="dropdown-desc">Transparent de-esser &middot; $15</div>
+                                <div class="dropdown-desc">Transparent de-esser &middot; $25</div>
                             </div>
                         </a>
                         <a href="/ontap">

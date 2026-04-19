@@ -121,7 +121,7 @@ function buildDay3Email(email, product) {
       tagline: "transparent de-essing that tames sibilance without killing brightness",
       demoUrl: PRODUCTS.desipper.downloads.mac,
       buyUrl: "https://carbonatedaudio.com/desipper",
-      price: "$15",
+      price: "$25",
       highlights: `
         <tr><td style="padding:6px 0;"><strong style="color:#00d4ff;">Split-Band Processing</strong> — Only touches sibilant frequencies.</td></tr>
         <tr><td style="padding:6px 0;"><strong style="color:#00d4ff;">Listen Mode</strong> — Solo exactly what's being removed.</td></tr>

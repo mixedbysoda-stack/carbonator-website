@@ -94,7 +94,7 @@ function getDay7Subject(product) {
     case "ontap":
       return "Ready to unlock On Tap? $20, no subscription.";
     case "desipper":
-      return "Ready to unlock De-Sipper? $15, no subscription.";
+      return "Ready to unlock De-Sipper? $25, no subscription.";
     default:
       return "Ready to go full version? $20, no subscription.";
   }
@@ -122,7 +122,7 @@ function buildDay7Email(email, product) {
       name: "De-Sipper",
       color: "#00d4ff",
       accentGradient: "linear-gradient(135deg,#00d4ff,#0099cc)",
-      price: "$15",
+      price: "$25",
       buyUrl: "https://carbonatedaudio.com/desipper",
       features: [
         "Full split-band de-essing",

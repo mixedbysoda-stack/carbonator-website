@@ -23,7 +23,7 @@ const PRODUCTS = {
   desipper: {
     name: "De-Sipper",
     version: "1.0.0",
-    price: 15,
+    price: 25,
     downloads: {
       mac: `https://github.com/mixedbysoda-stack/desipper/releases/download/v1.0.0/De-Sipper-v1.0-Installer.pkg`,
       windows: `https://github.com/mixedbysoda-stack/desipper/releases/download/v1.0.0/De-Sipper-v1.0.0-Windows-Installer.exe`,
