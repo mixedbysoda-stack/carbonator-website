@@ -409,6 +409,10 @@
             background: #cc33ff;
         }
 
+        .product-card .product-card-features[style*="--feature-dot"] li::before {
+            background: var(--feature-dot);
+        }
+
         .product-card-footer {
             display: flex;
             align-items: center;
@@ -1132,9 +1136,9 @@
                 </div>
 
                 <!-- On Tap -->
-                <div class="product-card scroll-reveal" data-accent="orange">
-                    <div class="product-card-img-wrapper" style="display:flex;align-items:center;justify-content:center;padding:20px;background:radial-gradient(ellipse at center, rgba(255,107,43,0.08) 0%, transparent 70%);">
-                        <img src="/ontap-screenshot.png" alt="On Tap — sidechain ducking plugin by Carbonated Audio" style="width:100%;max-width:340px;border-radius:12px;filter:drop-shadow(0 8px 32px rgba(255,107,43,0.4));" loading="lazy">
+                <div class="product-card scroll-reveal" data-accent="purple">
+                    <div class="product-card-img-wrapper" style="display:flex;align-items:center;justify-content:center;padding:20px;background:radial-gradient(ellipse at center, rgba(168,85,247,0.08) 0%, transparent 70%);">
+                        <img src="/ontap-screenshot.png" alt="On Tap — sidechain ducking plugin by Carbonated Audio" style="width:100%;max-width:340px;border-radius:12px;filter:drop-shadow(0 8px 32px rgba(168,85,247,0.4));" loading="lazy">
                     </div>
                     <div class="product-card-body">
                         <h3 class="product-card-name">On Tap</h3>
@@ -1147,26 +1151,26 @@
                         </ul>
                         <div class="product-card-footer">
                             <span class="product-card-price">$20</span>
-                            <a href="/ontap" class="product-card-cta" data-color="orange">
+                            <a href="/ontap" class="product-card-cta" data-color="purple">
                                 Learn More <span class="arrow">&rarr;</span>
                             </a>
                         </div>
                         <div style="display:flex;gap:10px;margin-top:12px;">
-                            <a href="https://buy.stripe.com/3cIbJ1f7b48OcLTgTF3oA03" style="flex:1;text-align:center;padding:10px;border-radius:8px;background:linear-gradient(135deg,#ff6b2b,#ff8c42);color:#fff;font-weight:600;font-size:13px;text-decoration:none;">Buy — $20</a>
-                            <a href="/ontap#demo" style="flex:1;text-align:center;padding:10px;border-radius:8px;border:1px solid rgba(255,107,43,0.3);color:#ff6b2b;font-weight:600;font-size:13px;text-decoration:none;">Try Demo</a>
+                            <a href="https://buy.stripe.com/5kQcN51gl6gWfY51YL3oA04" style="flex:1;text-align:center;padding:10px;border-radius:8px;background:linear-gradient(135deg,#a855f7,#7c3aed);color:#fff;font-weight:600;font-size:13px;text-decoration:none;">Buy — $20</a>
+                            <a href="/ontap#demo" style="flex:1;text-align:center;padding:10px;border-radius:8px;border:1px solid rgba(168,85,247,0.3);color:#a855f7;font-weight:600;font-size:13px;text-decoration:none;">Try Demo</a>
                         </div>
                     </div>
                 </div>
 
                 <!-- Pour -->
-                <div class="product-card scroll-reveal" data-accent="purple">
-                    <div class="product-card-img-wrapper" style="display:flex;align-items:center;justify-content:center;padding:20px;background:radial-gradient(ellipse at center, rgba(204,51,255,0.08) 0%, transparent 70%);">
-                        <img src="/pour-screenshot.png" alt="Pour — M/S stereo imager plugin by Carbonated Audio" style="width:100%;max-width:360px;border-radius:8px;filter:drop-shadow(0 8px 32px rgba(204,51,255,0.35));" loading="lazy">
+                <div class="product-card scroll-reveal" style="--glow-color: rgba(79,184,212,0.18);">
+                    <div class="product-card-img-wrapper" style="display:flex;align-items:center;justify-content:center;padding:20px;background:radial-gradient(ellipse at center, rgba(79,184,212,0.08) 0%, transparent 70%);">
+                        <img src="/pour-screenshot.png" alt="Pour — M/S stereo imager plugin by Carbonated Audio" style="width:100%;max-width:360px;border-radius:8px;filter:drop-shadow(0 8px 32px rgba(79,184,212,0.35));" loading="lazy">
                     </div>
                     <div class="product-card-body">
                         <h3 class="product-card-name">Pour</h3>
                         <p class="product-card-tagline">M/S stereo imaging with a live vectorscope. Pour it wider.</p>
-                        <ul class="product-card-features">
+                        <ul class="product-card-features" style="--feature-dot: #4fb8d4;">
                             <li>Shuffle + Space (Blumlein stereo shuffling)</li>
                             <li>Width, Rotation, Asymmetry</li>
                             <li>Live polar vectorscope</li>
@@ -1174,13 +1178,13 @@
                         </ul>
                         <div class="product-card-footer">
                             <span class="product-card-price">$20</span>
-                            <a href="/pour" class="product-card-cta" data-color="purple">
+                            <a href="/pour" class="product-card-cta" style="background:linear-gradient(135deg,#4fb8d4,#2a88a8);color:#fff;">
                                 Learn More <span class="arrow">&rarr;</span>
                             </a>
                         </div>
                         <div style="display:flex;gap:10px;margin-top:12px;">
-                            <a href="https://buy.stripe.com/bJe4gz0ch7l0aDL9rd3oA07" style="flex:1;text-align:center;padding:10px;border-radius:8px;background:linear-gradient(135deg,#cc33ff,#ff3366);color:#fff;font-weight:600;font-size:13px;text-decoration:none;">Buy — $20</a>
-                            <a href="/pour" style="flex:1;text-align:center;padding:10px;border-radius:8px;border:1px solid rgba(204,51,255,0.3);color:#cc33ff;font-weight:600;font-size:13px;text-decoration:none;">Try Demo</a>
+                            <a href="https://buy.stripe.com/bJe4gz0ch7l0aDL9rd3oA07" style="flex:1;text-align:center;padding:10px;border-radius:8px;background:linear-gradient(135deg,#4fb8d4,#2a88a8);color:#fff;font-weight:600;font-size:13px;text-decoration:none;">Buy — $20</a>
+                            <a href="/pour#demo" style="flex:1;text-align:center;padding:10px;border-radius:8px;border:1px solid rgba(79,184,212,0.3);color:#4fb8d4;font-weight:600;font-size:13px;text-decoration:none;">Try Demo</a>
                         </div>
                     </div>
                 </div>

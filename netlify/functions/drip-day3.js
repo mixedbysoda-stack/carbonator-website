@@ -7,7 +7,7 @@ const { Resend } = require("resend");
 const { PRODUCTS } = require("./config");
 
 const FROM_EMAIL = "Carbonated Audio <hello@carbonatedaudio.com>";
-const BUNDLE_URL = "https://buy.stripe.com/aFa7sL5wB9t8aDLdHt3oA05";
+const BUNDLE_URL = "https://buy.stripe.com/3cI9AT1glbBg7rz1YL3oA08";
 
 exports.handler = async () => {
   if (!process.env.RESEND_API_KEY) {
@@ -85,6 +85,7 @@ exports.handler = async () => {
 
 function getProductFromSource(source) {
   if (!source) return "carbonator";
+  if (source.includes("pour")) return "pour";
   if (source.includes("ontap")) return "ontap";
   if (source.includes("desipper")) return "desipper";
   return "carbonator";
@@ -92,6 +93,8 @@ function getProductFromSource(source) {
 
 function getDay3Subject(product) {
   switch (product) {
+    case "pour":
+      return "How's the Pour demo treating you? 🌊";
     case "ontap":
       return "How's On Tap working out? 🎚️";
     case "desipper":
@@ -138,6 +141,18 @@ function buildDay3Email(email, product) {
         <tr><td style="padding:6px 0;"><strong style="color:#a855f7;">16 Ducking Curves</strong> — From subtle pump to deep sidechain grooves.</td></tr>
         <tr><td style="padding:6px 0;"><strong style="color:#a855f7;">3 Trigger Modes</strong> — Sync to DAW, MIDI, or audio input.</td></tr>
         <tr><td style="padding:6px 0;"><strong style="color:#a855f7;">Band-Split Crossover</strong> — Duck only the frequencies you want.</td></tr>`,
+    },
+    pour: {
+      name: "Pour",
+      color: "#4fb8d4",
+      tagline: "M/S stereo imaging with a live polar vectorscope",
+      demoUrl: PRODUCTS.pour.downloads.mac,
+      buyUrl: "https://carbonatedaudio.com/pour",
+      price: "$20",
+      highlights: `
+        <tr><td style="padding:6px 0;"><strong style="color:#4fb8d4;">Shuffle + Space</strong> — Blumlein bass stereo shuffling for wider lows.</td></tr>
+        <tr><td style="padding:6px 0;"><strong style="color:#4fb8d4;">Width, Rotation, Asymmetry</strong> — Full M/S shaping control.</td></tr>
+        <tr><td style="padding:6px 0;"><strong style="color:#4fb8d4;">Live Vectorscope</strong> — See the stereo field in real time.</td></tr>`,
     },
   };
 
@@ -202,7 +217,7 @@ function buildDay3Email(email, product) {
           </p>
 
           <p style="color:#a09bb5;font-size:14px;line-height:1.7;margin:16px 0 0;">
-            Or grab all 3 plugins in our <a href="${BUNDLE_URL}" style="color:#4ecca3;text-decoration:none;font-weight:600;">Complete Bundle for $45</a> (save $10).
+            Or grab all 4 plugins in our <a href="${BUNDLE_URL}" style="color:#4ecca3;text-decoration:none;font-weight:600;">Complete Bundle for $60</a> (save $25).
           </p>
 
           <hr style="border:none;border-top:1px solid #2a2440;margin:24px 0;">

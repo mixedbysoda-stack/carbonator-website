@@ -589,7 +589,7 @@ function buildOnTapEmail({ email, amountPaid, orderId, licenseKey, refCode }) {
             </td></tr>
             <tr><td align="center">
               <a href="${product.downloads.windows}" style="display:inline-block;padding:14px 32px;background:linear-gradient(135deg,#ff6b2b,#ff8c42);color:#ffffff;text-decoration:none;border-radius:8px;font-size:16px;font-weight:600;">
-                Download for Windows (.zip)
+                Download for Windows (.exe)
               </a>
             </td></tr>
           </table>
@@ -621,7 +621,7 @@ function buildOnTapEmail({ email, amountPaid, orderId, licenseKey, refCode }) {
           <h2 style="color:#ffffff;font-size:16px;margin:0 0 12px;">Quick Start</h2>
           <ol style="color:#a09bb5;font-size:14px;padding-left:20px;margin:0;">
             <li style="margin-bottom:8px;"><strong style="color:#ffffff;">macOS:</strong> Open the .pkg installer — it installs VST3, AU, and AAX automatically.</li>
-            <li style="margin-bottom:8px;"><strong style="color:#ffffff;">Windows:</strong> Run the installer or extract the .zip to your VST3 folder.</li>
+            <li style="margin-bottom:8px;"><strong style="color:#ffffff;">Windows:</strong> Run the .exe installer — it places the VST3 in the standard plugin folder automatically.</li>
             <li style="margin-bottom:8px;"><strong style="color:#ffffff;">Activate:</strong> Open On Tap in your DAW, paste your license key, and click Activate.</li>
             <li style="margin-bottom:8px;"><strong style="color:#ffffff;">Use it:</strong> Insert On Tap on your bass, synths, or pads. Pick a curve and adjust the mix.</li>
           </ol>

@@ -7,7 +7,7 @@ const { Resend } = require("resend");
 const { PRODUCTS } = require("./config");
 
 const FROM_EMAIL = "Carbonated Audio <hello@carbonatedaudio.com>";
-const BUNDLE_URL = "https://buy.stripe.com/aFa7sL5wB9t8aDLdHt3oA05";
+const BUNDLE_URL = "https://buy.stripe.com/3cI9AT1glbBg7rz1YL3oA08";
 
 exports.handler = async () => {
   if (!process.env.RESEND_API_KEY) {
@@ -84,6 +84,7 @@ exports.handler = async () => {
 
 function getProductFromSource(source) {
   if (!source) return "carbonator";
+  if (source.includes("pour")) return "pour";
   if (source.includes("ontap")) return "ontap";
   if (source.includes("desipper")) return "desipper";
   return "carbonator";
@@ -91,6 +92,8 @@ function getProductFromSource(source) {
 
 function getDay7Subject(product) {
   switch (product) {
+    case "pour":
+      return "Ready to unlock Pour? $20, no subscription.";
     case "ontap":
       return "Ready to unlock On Tap? $20, no subscription.";
     case "desipper":
@@ -150,6 +153,22 @@ function buildDay7Email(email, product) {
       quote: "Sidechain without the routing headache. This is how it should work.",
       quoteAuthor: "— On Tap user",
     },
+    pour: {
+      name: "Pour",
+      color: "#4fb8d4",
+      accentGradient: "linear-gradient(135deg,#4fb8d4,#2a88a8)",
+      price: "$20",
+      buyUrl: "https://carbonatedaudio.com/pour",
+      features: [
+        "Full M/S stereo imaging controls",
+        "Shuffle + Space (Blumlein shuffling)",
+        "Live polar vectorscope",
+        "Use on up to 3 machines",
+        "No subscription — pay once, own forever",
+      ],
+      quote: "Wider low end without killing mono compatibility — finally.",
+      quoteAuthor: "— Pour user",
+    },
   };
 
   const info = productInfo[product] || productInfo.carbonator;
@@ -204,7 +223,7 @@ function buildDay7Email(email, product) {
           <hr style="border:none;border-top:1px solid #2a2440;margin:0 0 24px;">
 
           <p style="color:#a09bb5;font-size:14px;text-align:center;margin:0;">
-            Want all 3 plugins? Grab the <a href="${BUNDLE_URL}" style="color:#4ecca3;text-decoration:none;font-weight:600;">Complete Bundle for $45</a> — save $10.
+            Want all 4 plugins? Grab the <a href="${BUNDLE_URL}" style="color:#4ecca3;text-decoration:none;font-weight:600;">Complete Bundle for $60</a> — save $25.
           </p>
 
         </td></tr>
