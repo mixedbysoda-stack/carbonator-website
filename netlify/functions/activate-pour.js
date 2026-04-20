@@ -156,7 +156,7 @@ exports.handler = async (event) => {
         headers,
         body: JSON.stringify({
           success: false,
-          error: "Maximum activations reached (3/3). Contact hello@carbonatedaudio.com for help.",
+          error: "Maximum activations reached (3/3). Contact mixedbysoda@gmail.com for help.",
         }),
       };
     }

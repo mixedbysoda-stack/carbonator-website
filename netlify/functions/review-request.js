@@ -44,6 +44,7 @@ exports.handler = async () => {
 
       await resend.emails.send({
         from: FROM_EMAIL,
+        reply_to: "mixedbysoda@gmail.com",
         to: buyer.email,
         subject: "Quick question about Carbonator",
         html: buildReviewEmail(buyer.email),
