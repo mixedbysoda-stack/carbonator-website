@@ -1521,12 +1521,15 @@
         <div class="demo-gate">
             <button class="demo-gate-close" onclick="closeDemoGate()">&times;</button>
             <h3>Get the Free Demo</h3>
-            <p>Enter your email and we'll start the download.</p>
+            <p>Enter your email and pick your OS. The demo plays 60 s, mutes 10 s, repeats.</p>
             <form id="demoGateForm" onsubmit="return submitDemoGate(event)">
                 <input type="email" class="demo-gate-input" id="demoGateContact"
                        placeholder="you@email.com" autocomplete="email" required>
                 <div class="demo-gate-error" id="demoGateError"></div>
-                <button type="submit" class="demo-gate-submit">Download Demo</button>
+                <div style="display:flex;gap:12px;margin-top:8px;">
+                    <button type="button" class="demo-gate-submit" data-os="mac" style="flex:1;" onclick="submitDemoGate(event, 'mac')">Download for macOS</button>
+                    <button type="button" class="demo-gate-submit" data-os="win" style="flex:1;" onclick="submitDemoGate(event, 'win')">Download for Windows</button>
+                </div>
             </form>
             <div class="demo-gate-fine">No spam, ever. Just your download link and occasional updates from Carbonated Audio.</div>
         </div>
@@ -1549,7 +1552,12 @@
         if (e.target === this) closeDemoGate();
     });
 
-    function submitDemoGate(e) {
+    var POUR_DEMO_URLS = {
+        mac: 'https://github.com/mixedbysoda-stack/pour/releases/download/v1.0.0-demo/Pour-v1.0.0-Demo-Installer.pkg',
+        win: 'https://github.com/mixedbysoda-stack/pour/releases/download/v1.0.0-demo/Pour-v1.0.0-Demo-Windows-Installer.exe'
+    };
+
+    function submitDemoGate(e, os) {
         e.preventDefault();
         var contact = document.getElementById('demoGateContact').value.trim();
         var errorEl = document.getElementById('demoGateError');
@@ -1559,20 +1567,22 @@
             errorEl.textContent = 'Please enter a valid email address.';
             return false;
         }
-
         errorEl.textContent = '';
 
-        var btn = document.querySelector('.demo-gate-submit');
-        btn.textContent = 'Preparing download...';
-        btn.disabled = true;
+        var btns = document.querySelectorAll('.demo-gate-submit');
+        btns.forEach(function(b) { b.disabled = true; });
+        var pressed = document.querySelector('.demo-gate-submit[data-os="' + os + '"]');
+        var origText = pressed ? pressed.textContent : '';
+        if (pressed) pressed.textContent = 'Preparing download...';
 
-        if (typeof gtag === 'function') gtag('event', 'demo_download', { event_category: 'conversion', event_label: 'pour-demo-gate' });
+        if (typeof gtag === 'function')
+            gtag('event', 'demo_download', { event_category: 'conversion', event_label: 'pour-demo-' + os });
 
         var refSource = new URLSearchParams(window.location.search).get('ref') || 'pour-demo-gate';
         fetch('/.netlify/functions/capture-lead', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ contact: contact, source: refSource })
+            body: JSON.stringify({ contact: contact, source: refSource + '-' + os })
         }).catch(function() {});
 
         fetch('https://script.google.com/macros/s/AKfycbw8jJUukfTXjT6wAA3RH2zG1Twp5oxCFDNFQiy3_sv7RHciDMZ05LTc8XCVc6eK8CnC/exec?contact=' + encodeURIComponent(contact), {
@@ -1581,13 +1591,11 @@
 
         setTimeout(function() {
             closeDemoGate();
-            btn.textContent = 'Download Demo';
-            btn.disabled = false;
+            btns.forEach(function(b) { b.disabled = false; });
+            if (pressed) pressed.textContent = origText;
 
             var a = document.createElement('a');
-            a.href = (/Win/i.test(navigator.platform || navigator.userAgent))
-                ? 'https://github.com/mixedbysoda-stack/pour/releases/download/v1.0.0-demo/Pour-v1.0.0-Windows-Installer.exe'
-                : 'https://github.com/mixedbysoda-stack/pour/releases/download/v1.0.0-demo/Pour-Demo-macOS.pkg';
+            a.href = POUR_DEMO_URLS[os] || POUR_DEMO_URLS.mac;
             a.download = '';
             document.body.appendChild(a);
             a.click();
