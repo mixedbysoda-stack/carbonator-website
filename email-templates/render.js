@@ -296,24 +296,27 @@ function variantBundle({ name, headline, body, bundlePrice = 60, bundleOriginal 
 
 // ---------------------------------------------------------------
 // VARIANT D — transactional / support / license delivery
-// tokens: { product, customerEmail, amount, orderId, licenseKey?, downloadMac?, downloadWin?, version?, quickStart (array)?, refCode?, preheader }
+// Single-license: { product, licenseKey, downloadMac, downloadWin, ... }
+// Bundle (multi-license): { product: "bundle", licenses: [{product, licenseKey, downloadMac, downloadWin}, ...], ... }
 // ---------------------------------------------------------------
-function variantSupport({ product, customerEmail, amount, orderId, licenseKey, downloadMac, downloadWin, version, quickStart, refCode, headline, body, preheader, signatureName }) {
+function variantSupport({ product, customerEmail, amount, orderId, licenseKey, licenses, downloadMac, downloadWin, version, quickStart, refCode, headline, body, preheader, signatureName }) {
   const accent = PRODUCT_ACCENTS[product] || PRODUCT_ACCENTS.carbonator;
-  const title = headline || `Thank you for your purchase!`;
+  const isBundle = Array.isArray(licenses) && licenses.length > 0;
+  const title = headline || (isBundle ? "Thank you for the Complete Bundle!" : "Thank you for your purchase!");
 
-  const licenseBlock = licenseKey ? `
+  // Single-license license + download blocks
+  const singleLicenseBlock = (!isBundle && licenseKey) ? `
     <p style="color:${BRAND.textMuted};font-size:11px;letter-spacing:1.5px;text-transform:uppercase;margin:0 0 8px;text-align:center;">Your ${accent.name} License Key</p>
     ${codeBlock(licenseKey, { accent: accent.color })}
     <p style="color:${BRAND.textMuted};font-size:12px;text-align:center;margin:0 0 24px;">Paste into ${accent.name} to activate &middot; 3 machines per license</p>
   ` : "";
 
-  const downloads = [];
-  if (downloadMac) downloads.push({ os: "macOS", url: downloadMac });
-  if (downloadWin) downloads.push({ os: "Windows", url: downloadWin });
-  const downloadBlock = downloads.length ? `
+  const singleDownloads = [];
+  if (!isBundle && downloadMac) singleDownloads.push({ os: "macOS", url: downloadMac });
+  if (!isBundle && downloadWin) singleDownloads.push({ os: "Windows", url: downloadWin });
+  const singleDownloadBlock = singleDownloads.length ? `
     <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 24px;">
-      ${downloads.map(d => `
+      ${singleDownloads.map(d => `
       <tr>
         <td align="center" style="padding:0 0 10px;">
           ${ctaButton({ href: d.url, text: `Download for ${d.os}`, gradient: accent.gradient })}
@@ -321,11 +324,45 @@ function variantSupport({ product, customerEmail, amount, orderId, licenseKey, d
       </tr>`).join("")}
     </table>` : "";
 
+  // Bundle: one card per plugin with its own license key + downloads
+  const bundleBlocks = isBundle ? licenses.map(lic => {
+    const pacc = PRODUCT_ACCENTS[lic.product] || accent;
+    const dls = [];
+    if (lic.downloadMac) dls.push({ os: "macOS", url: lic.downloadMac });
+    if (lic.downloadWin) dls.push({ os: "Windows", url: lic.downloadWin });
+    return `
+    <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 20px;">
+      <tr>
+        <td style="background:${BRAND.bgCardDeep};border:1px solid ${BRAND.border};border-radius:12px;padding:20px 18px;">
+          <p style="margin:0 0 12px;font-size:15px;font-weight:700;color:${pacc.color};letter-spacing:0.2px;">${pacc.name}</p>
+          ${lic.licenseKey ? `
+          <div style="background:${BRAND.bgCard};border:1px solid ${BRAND.border};border-radius:6px;padding:12px;text-align:center;margin:0 0 12px;">
+            <code style="font-family:${BRAND.mono};font-size:12px;color:${pacc.color};letter-spacing:0.4px;word-break:break-all;">${lic.licenseKey}</code>
+          </div>` : ""}
+          ${dls.length ? `
+          <table width="100%" cellpadding="0" cellspacing="0" border="0">
+            ${dls.map(d => `
+            <tr><td align="center" style="padding:0 0 6px;">
+              <a href="${d.url}" style="display:inline-block;padding:10px 20px;background:${pacc.gradient};color:#ffffff;text-decoration:none;border-radius:8px;font-family:${BRAND.font};font-size:13px;font-weight:700;">Download ${d.os}</a>
+            </td></tr>`).join("")}
+          </table>` : ""}
+        </td>
+      </tr>
+    </table>`;
+  }).join("") : "";
+
+  const licenseBlock = isBundle ? bundleBlocks : singleLicenseBlock;
+  const downloadBlock = isBundle ? "" : singleDownloadBlock;
+
+  const productLabel = isBundle
+    ? "Carbonated Audio Complete Bundle"
+    : `${accent.name}${version ? ` v${version}` : ""}`;
   const receiptBlock = (amount || orderId || customerEmail) ? `
     ${divider()}
     <p style="color:${BRAND.textMuted};font-size:11px;letter-spacing:1.5px;text-transform:uppercase;margin:0 0 12px;">Order details</p>
     <table width="100%" cellpadding="0" cellspacing="0" border="0" style="font-size:13px;margin:0 0 8px;">
-      ${product ? `<tr><td style="color:${BRAND.textMuted};padding:4px 0;">Product</td><td align="right" style="color:${BRAND.textPrimary};padding:4px 0;">${accent.name}${version ? ` v${version}` : ""}</td></tr>` : ""}
+      ${product ? `<tr><td style="color:${BRAND.textMuted};padding:4px 0;">Product</td><td align="right" style="color:${BRAND.textPrimary};padding:4px 0;">${productLabel}</td></tr>` : ""}
+      ${isBundle ? `<tr><td style="color:${BRAND.textMuted};padding:4px 0;">Includes</td><td align="right" style="color:${BRAND.textPrimary};padding:4px 0;">${licenses.map(l => (PRODUCT_ACCENTS[l.product] || {}).name || l.product).join(" + ")}</td></tr>` : ""}
       ${amount ? `<tr><td style="color:${BRAND.textMuted};padding:4px 0;">Amount</td><td align="right" style="color:${BRAND.textPrimary};padding:4px 0;">${amount}</td></tr>` : ""}
       ${customerEmail ? `<tr><td style="color:${BRAND.textMuted};padding:4px 0;">Email</td><td align="right" style="color:${BRAND.textPrimary};padding:4px 0;">${customerEmail}</td></tr>` : ""}
       ${orderId ? `<tr><td style="color:${BRAND.textMuted};padding:4px 0;">Order ID</td><td align="right" style="color:${BRAND.textPrimary};padding:4px 0;font-family:${BRAND.mono};font-size:11px;word-break:break-all;">${orderId}</td></tr>` : ""}
