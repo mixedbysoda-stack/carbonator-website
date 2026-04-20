@@ -54,6 +54,42 @@
   to = "/pour.html"
   status = 200
 
+# Manual hub and per-plugin manual pages
+[[redirects]]
+  from = "/manual"
+  to = "/manual.html"
+  status = 200
+
+[[redirects]]
+  from = "/manual/carbonator"
+  to = "/manual-carbonator.html"
+  status = 200
+
+[[redirects]]
+  from = "/manual/pour"
+  to = "/manual-pour.html"
+  status = 200
+
+[[redirects]]
+  from = "/manual/ontap"
+  to = "/manual-ontap.html"
+  status = 200
+
+[[redirects]]
+  from = "/manual/on-tap"
+  to = "/manual-ontap.html"
+  status = 301
+
+[[redirects]]
+  from = "/manual/desipper"
+  to = "/manual-desipper.html"
+  status = 200
+
+[[redirects]]
+  from = "/manual/de-sipper"
+  to = "/manual-desipper.html"
+  status = 301
+
 # Pretty URLs for legal pages
 [[redirects]]
   from = "/terms"

@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>De-Sipper Manual — Carbonated Audio</title>
+    <meta name="description" content="Complete DSP manual for De-Sipper by Carbonated Audio. Filtered-detection hard-knee compressor. Wideband or split mode, internal or external sidechain. Full DSP reference.">
+    <meta name="author" content="Carbonated Audio">
+    <link rel="canonical" href="https://carbonatedaudio.com/manual/desipper">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="De-Sipper Manual — Carbonated Audio">
+    <meta property="og:description" content="Complete DSP manual for De-Sipper by Carbonated Audio. Filtered-detection hard-knee compressor. Wideband or split mode, internal or external sidechain. Full DSP reference.">
+    <meta property="og:url" content="https://carbonatedaudio.com/manual/desipper">
+    <meta property="og:site_name" content="Carbonated Audio">
+    <meta property="og:image" content="https://carbonatedaudio.com/og-image.png">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="De-Sipper Manual — Carbonated Audio">
+    <meta name="twitter:description" content="Complete DSP manual for De-Sipper by Carbonated Audio. Filtered-detection hard-knee compressor. Wideband or split mode, internal or external sidechain. Full DSP reference.">
+    <meta name="twitter:image" content="https://carbonatedaudio.com/og-image.png">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "TechArticle",
+        "headline": "De-Sipper DSP Manual",
+        "description": 'Complete DSP manual for De-Sipper by Carbonated Audio. Filtered-detection hard-knee compressor. Wideband or split mode, internal or external sidechain. Full DSP reference.',
+        "author": {"@type": "Organization", "name": "Carbonated Audio", "url": "https://carbonatedaudio.com"},
+        "publisher": {"@type": "Organization", "name": "Carbonated Audio", "url": "https://carbonatedaudio.com"},
+        "url": "https://carbonatedaudio.com/manual/desipper",
+        "mainEntityOfPage": "https://carbonatedaudio.com/manual/desipper",
+        "datePublished": "2026-04-20",
+        "dateModified": "2026-04-20",
+        "about": {
+            "@type": "SoftwareApplication",
+            "name": "De-Sipper",
+            "applicationCategory": "MultimediaApplication",
+            "operatingSystem": ["macOS 10.13+", "Windows 10+"]
+        },
+        "proficiencyLevel": "Intermediate"
+    }
+    </script>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z9L20HJ4M0"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-Z9L20HJ4M0');</script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg-primary: #0d0a1a;
+            --bg-secondary: #151025;
+            --bg-card: #1a1430;
+            --bg-card-darker: #120e22;
+            --text-primary: #ffffff;
+            --text-secondary: #a09bb5;
+            --text-muted: #6b6580;
+            --border: #2a2440;
+            --accent: #00d4ff;
+            --accent-light: #b8ecff;
+        }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.65;
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent;
+        }
+        a, button { touch-action: manipulation; }
+
+        /* Navigation */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 16px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(13, 10, 26, 0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+        .nav-logo-img { height: 36px; width: auto; transition: filter 0.3s; }
+        .nav-logo-img:hover { filter: brightness(1.2); }
+        .nav-links { display: flex; align-items: center; gap: 32px; }
+        .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--text-primary); }
+        .nav-dropdown { position: relative; }
+        .nav-dropdown-trigger { cursor: pointer; }
+        .nav-dropdown-menu {
+            display: none; position: absolute; top: 100%; left: 0; padding: 8px;
+            background: rgba(26, 20, 48, 0.98); border: 1px solid var(--border); border-radius: 12px;
+            min-width: 240px; backdrop-filter: blur(20px); margin-top: 8px;
+        }
+        .nav-dropdown:hover .nav-dropdown-menu { display: block; }
+        .nav-dropdown-menu a { display: block; padding: 10px 12px; border-radius: 8px; color: var(--text-secondary); }
+        .nav-dropdown-menu a:hover { background: rgba(255,255,255,0.05); color: var(--text-primary); }
+        .dropdown-label { color: var(--text-primary); font-weight: 600; font-size: 14px; }
+        .dropdown-desc { color: var(--text-muted); font-size: 12px; margin-top: 2px; }
+        .hamburger { display: none; flex-direction: column; justify-content: center; gap: 5px; width: 44px; height: 44px; padding: 10px; background: none; border: none; cursor: pointer; z-index: 201; }
+        .hamburger span { display: block; width: 24px; height: 2px; background: var(--text-primary); border-radius: 2px; transition: transform 0.3s, opacity 0.3s; }
+        .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+        .mobile-menu { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 199; background: rgba(13, 10, 26, 0.97); backdrop-filter: blur(20px); flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 80px 32px 32px; }
+        .mobile-menu.active { display: flex; }
+        .mobile-menu a { color: var(--text-secondary); text-decoration: none; font-size: 20px; font-weight: 600; padding: 14px 24px; border-radius: 12px; width: 100%; max-width: 300px; text-align: center; }
+        .mobile-menu a:hover { color: var(--text-primary); background: rgba(255, 255, 255, 0.06); }
+
+        /* Page layout */
+        .page-wrapper { max-width: 860px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+        .manual-hero { padding: 80px 0 48px; text-align: center; }
+        .manual-hero .eyebrow {
+            display: inline-block; padding: 6px 14px; border-radius: 999px;
+            background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+            color: var(--accent-light); font-size: 12px; font-weight: 600;
+            letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px;
+        }
+        .manual-hero h1 {
+            font-size: clamp(36px, 6vw, 54px); font-weight: 800; line-height: 1.1;
+            letter-spacing: -1.5px; margin-bottom: 14px;
+        }
+        .manual-hero h1 .accent { color: var(--accent); }
+        .manual-hero .hero-sub { color: var(--text-secondary); font-size: 17px; max-width: 580px; margin: 0 auto; }
+
+        .download-bar {
+            max-width: 860px; margin: 24px auto 0; padding: 18px 24px;
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 14px; display: flex; gap: 16px; align-items: center;
+            justify-content: space-between; flex-wrap: wrap;
+        }
+        .download-bar .download-text { color: var(--text-secondary); font-size: 14px; }
+        .download-bar .download-text strong { color: var(--text-primary); }
+        .download-btn {
+            padding: 12px 22px; background: var(--accent); color: #0a0b0d;
+            border: none; border-radius: 10px; font-weight: 700; font-size: 14px;
+            text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+            transition: transform 0.15s, filter 0.15s;
+        }
+        .download-btn:hover { transform: translateY(-1px); filter: brightness(1.1); }
+
+        /* Rendered markdown styling */
+        .manual-body {
+            background: var(--bg-card-darker);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 48px 48px 40px;
+            margin: 36px 0 48px;
+        }
+        .manual-body h1 {
+            font-size: 28px; color: var(--text-primary); margin: 0 0 6px 0;
+            border-bottom: 2px solid var(--accent); padding-bottom: 10px;
+            letter-spacing: -0.5px;
+        }
+        .manual-body h1 + p strong:first-child { color: var(--accent); font-size: 14px; letter-spacing: 0.5px; }
+        .manual-body h2 {
+            font-size: 20px; color: var(--text-primary); margin: 36px 0 10px;
+            padding-top: 18px; border-top: 1px solid var(--border);
+            letter-spacing: -0.25px;
+        }
+        .manual-body h3 { font-size: 15px; color: var(--text-primary); margin: 20px 0 6px; }
+        .manual-body p { color: var(--text-secondary); margin: 10px 0; font-size: 15px; line-height: 1.7; }
+        .manual-body p strong { color: var(--text-primary); }
+        .manual-body code {
+            font-family: 'JetBrains Mono', 'SF Mono', Menlo, monospace;
+            background: rgba(255,255,255,0.06); color: var(--accent-light);
+            padding: 1px 6px; border-radius: 4px; font-size: 13px;
+        }
+        .manual-body pre {
+            background: #06070a; color: #e5e7eb; padding: 18px 20px;
+            border-radius: 10px; border: 1px solid var(--border);
+            font-family: 'JetBrains Mono', 'SF Mono', Menlo, monospace;
+            font-size: 12.5px; line-height: 1.55; overflow-x: auto;
+            margin: 14px 0;
+        }
+        .manual-body pre code { background: transparent; color: inherit; padding: 0; font-size: inherit; }
+        .manual-body table {
+            width: 100%; border-collapse: collapse; margin: 16px 0;
+            font-size: 14px; background: rgba(255,255,255,0.02);
+            border-radius: 10px; overflow: hidden;
+        }
+        .manual-body th {
+            text-align: left; padding: 10px 14px; color: var(--text-primary);
+            font-weight: 600; background: rgba(255,255,255,0.04);
+            border-bottom: 2px solid var(--accent);
+        }
+        .manual-body td {
+            padding: 10px 14px; color: var(--text-secondary);
+            border-bottom: 1px solid var(--border);
+        }
+        .manual-body tr:last-child td { border-bottom: none; }
+        .manual-body hr { border: none; border-top: 1px solid var(--border); margin: 36px 0; }
+        .manual-body ul, .manual-body ol { margin: 10px 0 10px 24px; color: var(--text-secondary); }
+        .manual-body li { margin: 4px 0; font-size: 15px; line-height: 1.7; }
+        .manual-body em { color: var(--text-muted); }
+        .manual-body a { color: var(--accent-light); text-decoration: underline; text-underline-offset: 3px; }
+
+        /* Footer */
+        .site-footer {
+            padding: 32px 40px; border-top: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: space-between;
+            flex-wrap: wrap; gap: 16px; color: var(--text-muted); font-size: 13px;
+        }
+        .footer-links { display: flex; gap: 20px; flex-wrap: wrap; }
+        .footer-links a { color: var(--text-muted); text-decoration: none; }
+        .footer-links a:hover { color: var(--text-secondary); }
+
+        @media (max-width: 768px) {
+            nav { padding: 14px 20px; }
+            .nav-links { display: none; }
+            .hamburger { display: flex; }
+            .manual-hero { padding: 48px 0 32px; }
+            .manual-body { padding: 28px 20px; border-radius: 12px; }
+            .manual-body h1 { font-size: 24px; }
+            .manual-body h2 { font-size: 18px; }
+            .download-bar { flex-direction: column; align-items: flex-start; gap: 10px; }
+            .download-btn { width: 100%; justify-content: center; }
+        }
+</style>
+</head>
+<body>
+    <div id="site-nav" data-active="manual"></div>
+    <script src="/components/nav.js"></script>
+
+    <div class="page-wrapper">
+        <section class="manual-hero">
+            <span class="eyebrow">Hard-Knee De-Esser · $25</span>
+            <h1><span class="accent">De-Sipper</span> Manual</h1>
+            <p class="hero-sub">Filtered-detection hard-knee compressor. Wideband or split mode, internal or external sidechain. Full DSP reference.</p>
+        </section>
+
+        <div class="download-bar">
+            <div class="download-text">
+                <strong>Prefer a PDF?</strong> Downloadable version for offline reference or print.
+            </div>
+            <a href="/manuals/desipper.pdf" class="download-btn" download>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Download PDF
+            </a>
+        </div>
+
+        <article class="manual-body">
+<h1>De-Sipper — DSP Manual</h1>
+<p><strong>Carbonated Audio · v1.0.0</strong>
+Hard-knee frequency-selective compressor for taming sibilance.</p>
+<p>This document explains the signal processing inside De-Sipper from the top down: what each control does mathematically, why it's there, and how to reason about it on a vocal. It's written for engineers and producers who want to know what's actually happening to their audio, not just which knobs sound good.</p>
+<hr />
+<h2>1. Overview</h2>
+<p>De-Sipper is a <strong>wideband/split hard-knee compressor with a filtered detection path</strong> — the canonical architecture behind every de-esser that's ever worked.</p>
+<p>Everything in De-Sipper reduces to four core stages:</p>
+<ol>
+<li><strong>Sidechain filter</strong> — take the input, isolate the frequency range that contains the sibilance (usually 4–10 kHz).</li>
+<li><strong>Energy detector</strong> — measure the level of that filtered signal in dB over a short time window.</li>
+<li><strong>Hard-knee compressor</strong> — if the level is above the threshold, generate a matching attenuation in dB. If it's below, do nothing.</li>
+<li><strong>Apply attenuation</strong> — either to the whole signal (Wideband) or only to the high band above the crossover (Split).</li>
+</ol>
+<p>There's no knee, no ratio, no attack, no release knobs to tune. De-Sipper's detection path is simple on purpose — the decisions it makes are fast (~1 ms attack, ~50 ms release) and the attenuation law is 1:1 below threshold and ∞:1 above, in dB. That's what "hard-knee" means here.</p>
+<hr />
+<h2>2. Signal Flow</h2>
+<pre><code>Main In ─► SideChain Filter ─► Energy Detector ─┐
+    │         (HP or BP)         (fast attack)   │
+    │                                            ▼
+    │                               Hard-knee compressor
+    │                               attenuation = −(energy − threshold)
+    │                                            │
+    │                                            ▼ gain (linear)
+    │                                      ┌─────┴─────┐
+    │                                      │           │
+    │  (Wideband)                          │     (Split)
+    ├──► × gain ────────────────────────►  │           │
+    │                                      │           ├──► LR4 crossover
+    │                                      │           │         │
+    │                                      │           │   ┌─────┴─────┐
+    │                                      │           │   │  low     high
+    │                                      │           │   │  pass  × gain
+    │                                      │           │   │   │      │
+    │                                      │           │   └───┴──────┘ (sum)
+    │                                      │           │         │
+    │                                      │           │         ▼
+    └── (optional) External Sidechain ─────┘           │         Out
+        (replaces filtered main as detector input)     │
+                                                       │
+                               (Monitor SideChain: bypass audio path, pass sidechain)
+</code></pre>
+<p>Stereo runs two independent filter + detector chains (left and right), but attenuation metering always reports the left channel's values for UI consistency.</p>
+<hr />
+<h2>3. SideChain Filter</h2>
+<p><strong>Type:</strong> toggle between 2nd-order Butterworth high-pass (default) and narrow band-pass (Q = 4).
+<strong>Frequency:</strong> 1 kHz to 12 kHz, default 5,506 Hz (logarithmic skew), labelled in Hz.</p>
+<p>The sidechain filter <strong>never touches the audio path</strong> — it only shapes the detection signal.</p>
+<h3>HighPass mode (default)</h3>
+<p>A 2nd-order Butterworth HP at the user's frequency. Everything below is attenuated at 12 dB/oct; everything above passes through to the detector. Use this when you want broad sibilance detection — the detector reacts to all high-frequency energy above your cut point.</p>
+<pre><code>scFilter(s) = makeHighPass(sampleRate, frequency, Q = 0.707)
+</code></pre>
+<h3>BandPass mode</h3>
+<p>A 2nd-order narrow band-pass at the user's frequency with Q = 4. Roughly a 375 Hz wide window at 1.5 kHz, 2,750 Hz wide window at 11 kHz — tight enough to isolate a specific problem frequency like a harsh "s" or "sh" band.</p>
+<pre><code>scFilter(s) = makeBandPass(sampleRate, frequency, Q = 4.0)
+</code></pre>
+<p>Use BandPass when the singer has sibilance that sits in a narrow range (e.g. 6.5 kHz on a male voice, 8 kHz on a brighter female voice) and you want the de-esser to react only to that range — not to cymbals, or to the high end of the voice generally.</p>
+<hr />
+<h2>4. Energy Detector</h2>
+<p>A simple one-pole peak envelope follower with asymmetric attack/release:</p>
+<pre><code>if |input| &gt; envelope:
+    envelope += attackCoeff × (|input| − envelope)
+else:
+    envelope += releaseCoeff × (|input| − envelope)
+
+level_dB = 20 × log₁₀(envelope)
+</code></pre>
+<p><strong>Attack:</strong> ~1 ms time constant (<code>1 − exp(−1/(sr × 0.001))</code>).
+<strong>Release:</strong> ~50 ms time constant (<code>1 − exp(−1/(sr × 0.050))</code>).</p>
+<p>Fast attack catches transients before the signal gets loud; moderate release keeps the detector from pumping on sustained speech. The output is a single dB level per block — the detector doesn't need to run sample-by-sample through the attenuation stage.</p>
+<p>When the envelope drops below 1e-10 (effectively digital silence), the reported level floors at <strong>−100 dB</strong>.</p>
+<hr />
+<h2>5. Threshold and Hard-Knee Compression</h2>
+<p><strong>Threshold range:</strong> −80 dB to 0 dB, default −16 dB.</p>
+<p>De-Sipper's compressor isn't a compressor in the knee/ratio sense — it's a <strong>hard-knee</strong> gain cell:</p>
+<pre><code>if energy_dB ≤ threshold_dB:
+    attenuation_dB = 0
+else:
+    attenuation_dB = −(energy_dB − threshold_dB)
+</code></pre>
+<p><strong>Translation:</strong>
+- If the sidechain energy is at or below threshold, there's zero gain reduction.
+- If the sidechain energy is above threshold, the gain cell attenuates the signal by <strong>exactly the amount by which the energy exceeds threshold</strong>, in dB.</p>
+<p>This is ∞:1 ratio, zero-knee compression — everything above threshold gets flattened to threshold level, everything below passes untouched. It's the most honest de-esser behaviour: dial threshold just below the sibilant peaks, and only the peaks get reduced. No character, no colour, no surprise pumping.</p>
+<p>The attenuation is then converted to a linear gain factor:</p>
+<pre><code>gain_linear = 10^(attenuation_dB / 20)
+</code></pre>
+<hr />
+<h2>6. Audio Mode — Wideband vs Split</h2>
+<h3>Wideband (Split toggle OFF)</h3>
+<p>The gain factor is applied to the entire signal, full-band:</p>
+<pre><code>output[i] = input[i] × gain_linear
+</code></pre>
+<p>When sibilance hits, <strong>the whole signal ducks</strong> — bass, mids, and highs all attenuate together by the same amount. Wideband is the classic broadcast/recording-engineer de-esser sound.</p>
+<h3>Split (default — Split toggle ON)</h3>
+<p>The signal is split through a <strong>Linkwitz-Riley 4th-order crossover</strong> (two cascaded 2nd-order Butterworth filters — one LP, one HP, both with Q = 0.707) at the sidechain filter frequency, and the gain factor is applied <strong>only to the high band</strong>:</p>
+<pre><code>low  = lpf(lpf(input, freq, Q=0.707), freq, Q=0.707)
+high = hpf(hpf(input, freq, Q=0.707), freq, Q=0.707) × gain_linear
+output = low + high
+</code></pre>
+<p>The low band passes through untouched; only the high band (where the sibilance lives) is attenuated. Split mode is what you want on a vocal where Wideband would also duck the body of the voice every time an "s" happens — it's surgical.</p>
+<p><strong>Crossover math:</strong> LR4 = two cascaded Butterworth LP (or HP) stages at Q = 0.707. The LP and HP outputs sum to a flat response at unity gain when recombined, so there's no frequency-domain artefact from the split itself.</p>
+<hr />
+<h2>7. Monitor SideChain</h2>
+<p><strong>Boolean, default OFF.</strong></p>
+<p>A diagnostic listening mode. When active, the audio output is replaced with the filtered sidechain signal — the exact signal the detector is measuring. You hear whatever's above the HP cut or inside the BP window, with no de-essing applied.</p>
+<p>This is the fastest way to:
+- Hear the sibilance in isolation so you can tune Frequency.
+- Confirm that HighPass vs BandPass is isolating the right material.
+- Set Threshold by ear — watch the meter and listen for where the "s" energy peaks through.</p>
+<p><strong>Turn this off before rendering.</strong> It's a monitoring tool, not a processing mode.</p>
+<hr />
+<h2>8. External Sidechain</h2>
+<p>De-Sipper declares a stereo main bus plus an <strong>optional mono or stereo sidechain input bus</strong>. Supported hosts:</p>
+<ul>
+<li><strong>Pro Tools (AAX)</strong> — standard sidechain key input via the plug-in's Key popup.</li>
+<li><strong>Logic / Ableton / Cubase / any VST3 host supporting aux inputs.</strong></li>
+</ul>
+<p>When the sidechain bus is active, the SideChain Filter and Energy Detector operate on the <strong>external signal</strong>, not the main input. The attenuation computed from the external key is then applied to both main audio channels identically.</p>
+<p>Why use it? Common cases:
+- Feed a dry vocal as key into a de-esser on the same vocal that's been heavily processed (reverb/delay) — detection stays clean.
+- Drive De-Sipper from a parallel vocal bus to chase a specific performer's sibilance on a group of vocals.
+- Side-chain from another track entirely to duck high frequencies rhythmically (creative use, not strictly de-essing).</p>
+<p>The Frequency and HP/BP mode controls still apply — the sidechain signal is filtered before detection just like the internal path.</p>
+<hr />
+<h2>9. Meters</h2>
+<p>De-Sipper reports three meter values to the UI:</p>
+<ul>
+<li><strong>SideChain Energy (dB)</strong> — current level of the filtered sidechain signal, measured by the energy detector.</li>
+<li><strong>Current Attenuation (dB)</strong> — instantaneous gain reduction computed by the hard-knee compressor. Always ≤ 0.</li>
+<li><strong>Peak Attenuation (dB)</strong> — largest attenuation seen since the last peak reset. Useful for setting threshold: if peak never drops below 0, nothing is triggering; if peak reads −20 dB on every phrase, you're over-de-essing.</li>
+<li><strong>Output Level (dB, per channel L and R)</strong> — envelope-followed output loudness, with 1 ms attack / 300 ms release. This is what the L/R meters on the plug-in display.</li>
+</ul>
+<hr />
+<h2>10. Latency and CPU</h2>
+<p>De-Sipper is <strong>zero-latency</strong>. All filters are IIR (not linear-phase), no lookahead, no oversampling.</p>
+<p>CPU is dominated by:
+- One 2nd-order biquad per channel for the sidechain filter
+- One envelope follower per channel
+- Four 2nd-order biquads per channel in Split mode (the LR4 crossover: 2×LP + 2×HP)</p>
+<p>Stereo in Split mode totals 10 biquads per instance. Light; safe to stack on every vocal in a session.</p>
+<hr />
+<h2>11. Channel Configuration</h2>
+<ul>
+<li><strong>Main I/O:</strong> stereo in, stereo out.</li>
+<li><strong>Sidechain input (bus index 1):</strong> accepts disabled, mono, or stereo. Stereo external SC currently processes the left channel only through detection but applies the resulting attenuation to both output channels (this matches the behaviour of most pro de-essers — stereo SC detection doesn't usefully differ).</li>
+<li><strong>Sample rates:</strong> all sample rates supported. Coefficients recompute when sample rate changes.</li>
+<li><strong>Block sizes:</strong> arbitrary. Detector runs per block, attenuation is a scalar per block, audio path applies that gain per sample.</li>
+</ul>
+<hr />
+<h2>12. Credits and References</h2>
+<ul>
+<li><strong>De-essing architecture:</strong> classic broadcast de-essers (Orban 622, DBX 902, Waves DeEsser). De-Sipper's "filtered detection + hard-knee compressor + optional band-split" lineage traces back to these.</li>
+<li><strong>Linkwitz-Riley crossover:</strong> S. Linkwitz, <em>Active Crossover Networks for Noncoincident Drivers</em>, JAES 1976. Chosen because LR4 sums flat — critical for the Split mode.</li>
+<li><strong>Robert Bristow-Johnson</strong>, <em>Cookbook formulae for audio EQ biquad filter coefficients</em> — source for the HP/BP/LP biquad math.</li>
+</ul>
+<hr />
+<p><em>Questions, bug reports, or sound-design notes: hello@carbonatedaudio.com.</em></p>
+        </article>
+
+        <section style="text-align:center;padding:8px 0 60px;">
+            <a href="/manual" style="color:var(--text-secondary);text-decoration:none;font-size:14px;">&larr; All manuals</a>
+            &nbsp;&nbsp;&middot;&nbsp;&nbsp;
+            <a href="/desipper" style="color:var(--accent-light);text-decoration:none;font-weight:600;font-size:14px;">Buy De-Sipper &rarr;</a>
+        </section>
+    </div>
+
+
+    <footer class="site-footer">
+        <div class="footer-left">
+            <span class="footer-text">&copy; 2026 Carbonated Audio. All rights reserved. &nbsp;&middot;&nbsp; <a href="/terms">Terms</a> &nbsp;&middot;&nbsp; <a href="/privacy">Privacy</a> &nbsp;&middot;&nbsp; <a href="/eula">EULA</a></span>
+        </div>
+        <div class="footer-links">
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+            <a href="/press">Press</a>
+            <a href="/faq">FAQ</a>
+            <a href="/manual">Manual</a>
+            <a href="mailto:hello@carbonatedaudio.com">Contact</a>
+        </div>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>On Tap Manual — Carbonated Audio</title>
+    <meta name="description" content="Complete DSP manual for On Tap by Carbonated Audio. Tempo-synced sidechain ducker — 16 curves, three trigger modes, band-split option. Full DSP reference.">
+    <meta name="author" content="Carbonated Audio">
+    <link rel="canonical" href="https://carbonatedaudio.com/manual/ontap">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="On Tap Manual — Carbonated Audio">
+    <meta property="og:description" content="Complete DSP manual for On Tap by Carbonated Audio. Tempo-synced sidechain ducker — 16 curves, three trigger modes, band-split option. Full DSP reference.">
+    <meta property="og:url" content="https://carbonatedaudio.com/manual/ontap">
+    <meta property="og:site_name" content="Carbonated Audio">
+    <meta property="og:image" content="https://carbonatedaudio.com/og-image.png">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="On Tap Manual — Carbonated Audio">
+    <meta name="twitter:description" content="Complete DSP manual for On Tap by Carbonated Audio. Tempo-synced sidechain ducker — 16 curves, three trigger modes, band-split option. Full DSP reference.">
+    <meta name="twitter:image" content="https://carbonatedaudio.com/og-image.png">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "TechArticle",
+        "headline": "On Tap DSP Manual",
+        "description": 'Complete DSP manual for On Tap by Carbonated Audio. Tempo-synced sidechain ducker — 16 curves, three trigger modes, band-split option. Full DSP reference.',
+        "author": {"@type": "Organization", "name": "Carbonated Audio", "url": "https://carbonatedaudio.com"},
+        "publisher": {"@type": "Organization", "name": "Carbonated Audio", "url": "https://carbonatedaudio.com"},
+        "url": "https://carbonatedaudio.com/manual/ontap",
+        "mainEntityOfPage": "https://carbonatedaudio.com/manual/ontap",
+        "datePublished": "2026-04-20",
+        "dateModified": "2026-04-20",
+        "about": {
+            "@type": "SoftwareApplication",
+            "name": "On Tap",
+            "applicationCategory": "MultimediaApplication",
+            "operatingSystem": ["macOS 10.13+", "Windows 10+"]
+        },
+        "proficiencyLevel": "Intermediate"
+    }
+    </script>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z9L20HJ4M0"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-Z9L20HJ4M0');</script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg-primary: #0d0a1a;
+            --bg-secondary: #151025;
+            --bg-card: #1a1430;
+            --bg-card-darker: #120e22;
+            --text-primary: #ffffff;
+            --text-secondary: #a09bb5;
+            --text-muted: #6b6580;
+            --border: #2a2440;
+            --accent: #a855f7;
+            --accent-light: #d8b4fe;
+        }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.65;
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent;
+        }
+        a, button { touch-action: manipulation; }
+
+        /* Navigation */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 16px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(13, 10, 26, 0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+        .nav-logo-img { height: 36px; width: auto; transition: filter 0.3s; }
+        .nav-logo-img:hover { filter: brightness(1.2); }
+        .nav-links { display: flex; align-items: center; gap: 32px; }
+        .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--text-primary); }
+        .nav-dropdown { position: relative; }
+        .nav-dropdown-trigger { cursor: pointer; }
+        .nav-dropdown-menu {
+            display: none; position: absolute; top: 100%; left: 0; padding: 8px;
+            background: rgba(26, 20, 48, 0.98); border: 1px solid var(--border); border-radius: 12px;
+            min-width: 240px; backdrop-filter: blur(20px); margin-top: 8px;
+        }
+        .nav-dropdown:hover .nav-dropdown-menu { display: block; }
+        .nav-dropdown-menu a { display: block; padding: 10px 12px; border-radius: 8px; color: var(--text-secondary); }
+        .nav-dropdown-menu a:hover { background: rgba(255,255,255,0.05); color: var(--text-primary); }
+        .dropdown-label { color: var(--text-primary); font-weight: 600; font-size: 14px; }
+        .dropdown-desc { color: var(--text-muted); font-size: 12px; margin-top: 2px; }
+        .hamburger { display: none; flex-direction: column; justify-content: center; gap: 5px; width: 44px; height: 44px; padding: 10px; background: none; border: none; cursor: pointer; z-index: 201; }
+        .hamburger span { display: block; width: 24px; height: 2px; background: var(--text-primary); border-radius: 2px; transition: transform 0.3s, opacity 0.3s; }
+        .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+        .mobile-menu { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 199; background: rgba(13, 10, 26, 0.97); backdrop-filter: blur(20px); flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 80px 32px 32px; }
+        .mobile-menu.active { display: flex; }
+        .mobile-menu a { color: var(--text-secondary); text-decoration: none; font-size: 20px; font-weight: 600; padding: 14px 24px; border-radius: 12px; width: 100%; max-width: 300px; text-align: center; }
+        .mobile-menu a:hover { color: var(--text-primary); background: rgba(255, 255, 255, 0.06); }
+
+        /* Page layout */
+        .page-wrapper { max-width: 860px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+        .manual-hero { padding: 80px 0 48px; text-align: center; }
+        .manual-hero .eyebrow {
+            display: inline-block; padding: 6px 14px; border-radius: 999px;
+            background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+            color: var(--accent-light); font-size: 12px; font-weight: 600;
+            letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px;
+        }
+        .manual-hero h1 {
+            font-size: clamp(36px, 6vw, 54px); font-weight: 800; line-height: 1.1;
+            letter-spacing: -1.5px; margin-bottom: 14px;
+        }
+        .manual-hero h1 .accent { color: var(--accent); }
+        .manual-hero .hero-sub { color: var(--text-secondary); font-size: 17px; max-width: 580px; margin: 0 auto; }
+
+        .download-bar {
+            max-width: 860px; margin: 24px auto 0; padding: 18px 24px;
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 14px; display: flex; gap: 16px; align-items: center;
+            justify-content: space-between; flex-wrap: wrap;
+        }
+        .download-bar .download-text { color: var(--text-secondary); font-size: 14px; }
+        .download-bar .download-text strong { color: var(--text-primary); }
+        .download-btn {
+            padding: 12px 22px; background: var(--accent); color: #0a0b0d;
+            border: none; border-radius: 10px; font-weight: 700; font-size: 14px;
+            text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+            transition: transform 0.15s, filter 0.15s;
+        }
+        .download-btn:hover { transform: translateY(-1px); filter: brightness(1.1); }
+
+        /* Rendered markdown styling */
+        .manual-body {
+            background: var(--bg-card-darker);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 48px 48px 40px;
+            margin: 36px 0 48px;
+        }
+        .manual-body h1 {
+            font-size: 28px; color: var(--text-primary); margin: 0 0 6px 0;
+            border-bottom: 2px solid var(--accent); padding-bottom: 10px;
+            letter-spacing: -0.5px;
+        }
+        .manual-body h1 + p strong:first-child { color: var(--accent); font-size: 14px; letter-spacing: 0.5px; }
+        .manual-body h2 {
+            font-size: 20px; color: var(--text-primary); margin: 36px 0 10px;
+            padding-top: 18px; border-top: 1px solid var(--border);
+            letter-spacing: -0.25px;
+        }
+        .manual-body h3 { font-size: 15px; color: var(--text-primary); margin: 20px 0 6px; }
+        .manual-body p { color: var(--text-secondary); margin: 10px 0; font-size: 15px; line-height: 1.7; }
+        .manual-body p strong { color: var(--text-primary); }
+        .manual-body code {
+            font-family: 'JetBrains Mono', 'SF Mono', Menlo, monospace;
+            background: rgba(255,255,255,0.06); color: var(--accent-light);
+            padding: 1px 6px; border-radius: 4px; font-size: 13px;
+        }
+        .manual-body pre {
+            background: #06070a; color: #e5e7eb; padding: 18px 20px;
+            border-radius: 10px; border: 1px solid var(--border);
+            font-family: 'JetBrains Mono', 'SF Mono', Menlo, monospace;
+            font-size: 12.5px; line-height: 1.55; overflow-x: auto;
+            margin: 14px 0;
+        }
+        .manual-body pre code { background: transparent; color: inherit; padding: 0; font-size: inherit; }
+        .manual-body table {
+            width: 100%; border-collapse: collapse; margin: 16px 0;
+            font-size: 14px; background: rgba(255,255,255,0.02);
+            border-radius: 10px; overflow: hidden;
+        }
+        .manual-body th {
+            text-align: left; padding: 10px 14px; color: var(--text-primary);
+            font-weight: 600; background: rgba(255,255,255,0.04);
+            border-bottom: 2px solid var(--accent);
+        }
+        .manual-body td {
+            padding: 10px 14px; color: var(--text-secondary);
+            border-bottom: 1px solid var(--border);
+        }
+        .manual-body tr:last-child td { border-bottom: none; }
+        .manual-body hr { border: none; border-top: 1px solid var(--border); margin: 36px 0; }
+        .manual-body ul, .manual-body ol { margin: 10px 0 10px 24px; color: var(--text-secondary); }
+        .manual-body li { margin: 4px 0; font-size: 15px; line-height: 1.7; }
+        .manual-body em { color: var(--text-muted); }
+        .manual-body a { color: var(--accent-light); text-decoration: underline; text-underline-offset: 3px; }
+
+        /* Footer */
+        .site-footer {
+            padding: 32px 40px; border-top: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: space-between;
+            flex-wrap: wrap; gap: 16px; color: var(--text-muted); font-size: 13px;
+        }
+        .footer-links { display: flex; gap: 20px; flex-wrap: wrap; }
+        .footer-links a { color: var(--text-muted); text-decoration: none; }
+        .footer-links a:hover { color: var(--text-secondary); }
+
+        @media (max-width: 768px) {
+            nav { padding: 14px 20px; }
+            .nav-links { display: none; }
+            .hamburger { display: flex; }
+            .manual-hero { padding: 48px 0 32px; }
+            .manual-body { padding: 28px 20px; border-radius: 12px; }
+            .manual-body h1 { font-size: 24px; }
+            .manual-body h2 { font-size: 18px; }
+            .download-bar { flex-direction: column; align-items: flex-start; gap: 10px; }
+            .download-btn { width: 100%; justify-content: center; }
+        }
+</style>
+</head>
+<body>
+    <div id="site-nav" data-active="manual"></div>
+    <script src="/components/nav.js"></script>
+
+    <div class="page-wrapper">
+        <section class="manual-hero">
+            <span class="eyebrow">Sidechain Ducker · $20</span>
+            <h1><span class="accent">On Tap</span> Manual</h1>
+            <p class="hero-sub">Tempo-synced sidechain ducker — 16 curves, three trigger modes, band-split option. Full DSP reference.</p>
+        </section>
+
+        <div class="download-bar">
+            <div class="download-text">
+                <strong>Prefer a PDF?</strong> Downloadable version for offline reference or print.
+            </div>
+            <a href="/manuals/ontap.pdf" class="download-btn" download>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Download PDF
+            </a>
+        </div>
+
+        <article class="manual-body">
+<h1>On Tap — DSP Manual</h1>
+<p><strong>Carbonated Audio · v1.0.0</strong>
+Tempo-synced sidechain ducker for modern mix engineers.</p>
+<p>This document explains the signal processing inside On Tap from the top down: what each control does mathematically, why it's there, and how to reason about it on a mix. It's written for engineers and producers who want a real understanding of what the plug-in does, not just which knobs make things louder.</p>
+<hr />
+<h2>1. Overview</h2>
+<p>On Tap is a <strong>tempo-synced amplitude modulator</strong> — a sidechain ducker that doesn't need a sidechain. Instead of detecting a kick drum and reacting to it, On Tap runs a mathematically-defined <strong>ducking curve</strong> against the host's transport or an incoming MIDI trigger, pumping the signal on a rhythmic grid you choose.</p>
+<p>Everything in On Tap reduces to three core ideas:</p>
+<ol>
+<li><strong>Pick a trigger</strong> — the host's PPQ clock, an incoming MIDI note-on, or (in the future) a sidechain audio trigger.</li>
+<li><strong>Sample a curve</strong> — a pre-computed envelope shape that describes how the gain should rise and fall across one cycle.</li>
+<li><strong>Apply the curve</strong> — multiply the audio by the resulting gain, optionally on a single band if you only want to duck the low end.</li>
+</ol>
+<p>There's no detector, no threshold, no attack/release to tune. The "sidechain envelope" is whatever curve you pick, stretched and shifted by the Slope and Shift controls, looped at the tempo division you set.</p>
+<hr />
+<h2>2. Signal Flow</h2>
+<pre><code>In ─► Bypass? ──► Trigger source (Sync / MIDI / Audio) ─► Phase counter
+                                                            │
+                                                            ▼
+                                                    Curve lookup (16 presets)
+                                                            │
+                                                            ▼
+                                                  Slope / Shift reshape
+                                                            │
+                                                            ▼
+                                                    Duck gain = 1 − curve
+                                                            │
+                                                            ▼
+                                                    Mix (0–100%) blend
+                                                            │
+                                                            ▼
+                    ┌───────────────┬───────── Anti-click smoothing ──────────┐
+                    │                                                         │
+                    ▼ (Band Active OFF)                                       ▼ (Band Active ON)
+              Apply gain to full                                       Split → LP │ HP
+              buffer                                                   Apply gain to LP only
+                                                                        Recombine LP + HP
+                                                                             │
+                                                                             ▼
+                                                                           Out
+</code></pre>
+<p>Every stage runs <strong>per sample</strong> in the gain-application loop, so automation and knob tweaks are click-free when Anti-Click Smoothing is on.</p>
+<hr />
+<h2>3. Trigger Modes</h2>
+<p>On Tap supports three ways of knowing when to start a ducking cycle:</p>
+<h3>Sync (default)</h3>
+<p>The plug-in reads the host's <code>ppqPosition</code> (position in quarter notes since the start of the transport) and computes a phase value from 0.0 to 1.0:</p>
+<pre><code>phase = (ppqPosition mod lengthBeats) / lengthBeats
+</code></pre>
+<p>where <code>lengthBeats</code> is determined by the Length control (see Section 4). This means the ducking cycle is <strong>locked to your DAW's grid</strong> — start the transport and every cycle aligns exactly to a beat, bar, or bar-division.</p>
+<p>When transport is stopped, phase is held at 0 (cycle does not advance).</p>
+<h3>MIDI</h3>
+<p>The plug-in listens for MIDI note-on messages on its input bus. Any note-on sets <code>triggered = true</code> and resets the phase to 0. The phase then advances at a fixed rate derived from a nominal BPM of 120 and the Length setting:</p>
+<pre><code>phaseIncrement = (120/60) / (sampleRate × lengthBeats)
+</code></pre>
+<p>When phase reaches 1.0, the cycle either loops (if <strong>Loop</strong> is on) or latches at 1.0 (silent, no ducking) and waits for the next note-on.</p>
+<p>Use this when you want a ducking cycle gated to specific beats — e.g. feeding it from a kick MIDI clip to get chops on kick hits only.</p>
+<h3>Audio</h3>
+<p>Reserved for future revision. In v1.0 the mode is present but not active — phase advances based on the MIDI-style trigger state.</p>
+<hr />
+<h2>4. Length — Cycle Division</h2>
+<p><strong>Options:</strong> 1/8, 1/4, 1/2, 1/1 — default 1/4.</p>
+<p>Sets the length of one full ducking cycle in musical beats:</p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Beats per cycle</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1/8</td>
+<td>0.5 (eighth note)</td>
+</tr>
+<tr>
+<td>1/4</td>
+<td>1.0 (quarter note — default)</td>
+</tr>
+<tr>
+<td>1/2</td>
+<td>2.0 (half note)</td>
+</tr>
+<tr>
+<td>1/1</td>
+<td>4.0 (whole note / one bar in 4/4)</td>
+</tr>
+</tbody>
+</table>
+<p>Shorter values give you per-beat chops; longer values give you slow, swelling fades over a whole bar. In Sync mode, phase resets exactly on the grid — the first duck starts exactly on beat 1.</p>
+<hr />
+<h2>5. Curve Presets</h2>
+<p>On Tap ships with <strong>16 pre-computed envelope curves</strong>, lookup-table driven for zero-overhead per-sample access. Each is a 1024-point table stored as <code>tables[preset][position]</code>, where position is the current cycle phase (0.0 to 1.0).</p>
+<p>Each curve value means "how much signal to let through at this point in the cycle" — 1.0 is full volume, 0.0 is silent. The final duck gain is the inverse (1 − curve), so a curve value of 1.0 at phase 0 means <strong>no ducking at the top of the cycle</strong>, and dropping toward 0 means <strong>increasing ducking</strong>.</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Name</th>
+<th>Shape</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Sharp Kick Duck</td>
+<td>Very fast attack, exponential release. <code>curve(x) = exp(−8x)·0.9</code> after a 5% flat head.</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Medium Duck</td>
+<td>Exponential release, <code>exp(−4x)</code>.</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Slow Duck</td>
+<td>Gentler exponential, <code>exp(−2x)</code>.</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Linear Ramp Down</td>
+<td><code>1 − x</code>. The most predictable shape.</td>
+</tr>
+<tr>
+<td>4</td>
+<td>S-Curve (default)</td>
+<td>Logistic sigmoid, <code>1 − 1/(1 + exp(−12(x − 0.5)))</code> — the classic "sidechain pump" shape.</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Punchy</td>
+<td>Fast dip then half-amplitude exponential recovery.</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Half Duck</td>
+<td>Exponential for the first half of the cycle, silent for the second half.</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Smooth Cosine</td>
+<td>Raised cosine, <code>(1 + cos(πx))/2</code> — the most symmetric, pillowy shape.</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Double Pump</td>
+<td><code>|sin(2πx)| × exp(−3x)</code> — two attenuations per cycle for rapid gating.</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Sub Bass Smooth</td>
+<td>Linear ramp, <code>x</code>. Opens into the cycle rather than ducking — useful for "swell" effects.</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Stepped</td>
+<td>Three-stage ladder: 1.0 → 0.5 → 0.0 at thirds of the cycle.</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Gentle Decay</td>
+<td>Slow exponential, <code>exp(−1.5x)</code>.</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Aggressive</td>
+<td>2% flat head then very fast exponential — reverse-chain style.</td>
+</tr>
+<tr>
+<td>13</td>
+<td>Wobble</td>
+<td>Exponentially-decayed cosine, <code>exp(−3x)(0.5 + 0.5·cos(6πx))</code>.</td>
+</tr>
+<tr>
+<td>14</td>
+<td>Flat Top Decay</td>
+<td>Holds 1.0 for 30% of cycle, then exponential decay.</td>
+</tr>
+<tr>
+<td>15</td>
+<td>Quick Release</td>
+<td>Fast linear dip, long quiet tail.</td>
+</tr>
+</tbody>
+</table>
+<p>The preset bank is generated on construction and never recomputed, so changing presets is a pointer swap — no audio artefact.</p>
+<hr />
+<h2>6. Slope Offset</h2>
+<p><strong>Range:</strong> −1.0 to +1.0, default 0.0.</p>
+<p>Stretches or compresses the sloped portion of the curve by applying a power remapping to the position value <strong>before</strong> the lookup:</p>
+<pre><code>power = 2^(−slopeOffset × 2)
+position' = position^power
+</code></pre>
+<p>At slopeOffset = 0, power = 1, position is unchanged (neutral).
+At slopeOffset = +1, power = 0.25 — the curve is "stretched" so the slope happens earlier.
+At slopeOffset = −1, power = 4 — the curve is "compressed" so the slope happens later.</p>
+<p>Musically this gives you a <strong>single-knob attack/release shaper</strong> — push positive for a faster initial dip, pull negative for a lazier one, with the total cycle length unchanged.</p>
+<hr />
+<h2>7. Shift</h2>
+<p><strong>Range:</strong> −1.0 to +1.0, default 0.0.</p>
+<p>Phase-shifts the curve inside its cycle. Applied before the slope remap:</p>
+<pre><code>position' = (position + shift + 10) mod 1.0
+</code></pre>
+<p>The <code>+10</code> is there to guarantee a positive value before <code>mod</code> for negative shift values. The net effect: the curve starts at a different point of the cycle, letting you dial in where the duck lands relative to the beat. Shift = +0.25 rotates the curve a quarter of a cycle to the right; Shift = −0.5 flips it to the opposite half.</p>
+<p>Use Shift to "delay" or "pre-duck" against the beat without touching Length.</p>
+<hr />
+<h2>8. Mix</h2>
+<p><strong>Range:</strong> 0% to 100%, default 100%.</p>
+<p>Parallel dry/wet blend on the ducked gain. Computed per sample:</p>
+<pre><code>targetGain = 1 − (Mix × (1 − duckGain))
+</code></pre>
+<p>At Mix = 100%, the full duck is applied (targetGain = duckGain).
+At Mix = 50%, the duck amount is halved — a 20 dB dip becomes ~10 dB.
+At Mix = 0%, the plug-in is effectively inactive (targetGain = 1.0 constant).</p>
+<p>This lets you dial in subtle pumping without picking a different curve preset, and is the right control to automate if you want the ducking to "build" into a chorus.</p>
+<hr />
+<h2>9. Loop</h2>
+<p><strong>Boolean, default ON.</strong></p>
+<p>Only relevant in MIDI (and future Audio) trigger modes.</p>
+<ul>
+<li><strong>Loop ON</strong> — after each cycle completes, phase wraps back to 0 and the curve repeats until a new trigger arrives.</li>
+<li><strong>Loop OFF</strong> — the cycle runs once per trigger, then phase latches at 1.0 (full volume, no ducking) until the next MIDI note-on.</li>
+</ul>
+<p>In Sync mode, Loop is effectively always on — the host's PPQ doesn't stop advancing until you stop the transport.</p>
+<hr />
+<h2>10. Anti-Click Smoothing</h2>
+<p><strong>Boolean, default ON.</strong></p>
+<p>Controls whether the gain-change smoother runs across sample changes.</p>
+<ul>
+<li><strong>Smoothing ON</strong> — a one-pole lowpass smoother sits on <code>smoothedGain</code>, with a time constant of ~6 ms (computed as <code>6/1000 × sampleRate</code> samples). This guarantees any abrupt curve transition (e.g. the stepped preset crossing a boundary, or a shift-automation movement) fades smoothly across the change.</li>
+<li><strong>Smoothing OFF</strong> — gain is applied as-is, sample-accurate. You get sharper transients on stepped curves, at the cost of possible clicks.</li>
+</ul>
+<p>Default to ON unless you specifically want the stepped behaviour (preset 10) to click on every boundary.</p>
+<hr />
+<h2>11. Band Split (Low-Band Only Ducking)</h2>
+<p><strong>Band Active:</strong> Boolean, default OFF.
+<strong>Band Frequency:</strong> 20 Hz to 5,120 Hz, default 320 Hz, logarithmic skew.</p>
+<p>When Band Active is on, On Tap splits the incoming audio into <strong>two bands</strong> using a Linkwitz-Riley crossover, ducks <strong>only the low band</strong>, and recombines:</p>
+<ol>
+<li><strong>Split</strong> — input runs through both a 2nd-order Linkwitz-Riley lowpass and a matched highpass at the Band Frequency. (JUCE's <code>juce::dsp::LinkwitzRileyFilter</code> — the split is phase-coherent, so recombining at unity is flat.)</li>
+<li><strong>Duck the low band</strong> — the per-sample gain curve is applied to the low band only.</li>
+<li><strong>Recombine</strong> — low + high summed back into the output.</li>
+</ol>
+<p>Why? Full-range ducking is great for creating space for a kick on a bus, but on a full mix it kills your cymbals, vocal sibilance, and reverb tails. Band Split lets you chop just the sub-kick energy without touching the top end — modern "side-chain only the bass" approach used on modern EDM and pop mixes.</p>
+<p><strong>When to use:</strong>
+- <strong>Active OFF</strong> — full-range ducking. Good for buses, drum loops, pads sitting behind kicks.
+- <strong>Active ON, ~100 Hz</strong> — just the sub rumble ducks out of the way of the kick fundamental.
+- <strong>Active ON, ~300 Hz</strong> — ducks kick + bass body, leaves guitars, vocals, cymbals, snare all unaffected.
+- <strong>Active ON, ~800 Hz</strong> — aggressive, affects most of the low midrange. Less musical; creative tool.</p>
+<hr />
+<h2>12. Bypass</h2>
+<p>Global bypass, checked first in the process loop. When true, the audio passes through untouched at unity gain and none of the DSP is executed.</p>
+<hr />
+<h2>13. Latency and CPU</h2>
+<p>On Tap is <strong>zero-latency</strong>. No FFT, no lookahead, no oversampling.</p>
+<p>CPU cost is dominated by:
+- A single LUT lookup + linear interpolation per sample (always cheap)
+- One multiply per sample for the gain application
+- Two 2nd-order biquads per channel when Band Split is active (slight increase)</p>
+<p>Expect roughly the cost of a gate or a tempo-synced LFO. Safe to stack dozens of instances in a session.</p>
+<hr />
+<h2>14. Channel Configuration</h2>
+<ul>
+<li><strong>Main I/O:</strong> stereo in, stereo out. Mono supported.</li>
+<li><strong>MIDI input:</strong> accepts note-on messages for MIDI trigger mode (the plug-in declares <code>NEEDS_MIDI_INPUT = TRUE</code> in its CMake manifest).</li>
+<li><strong>Sample rates:</strong> all sample rates supported. Crossover coefficients recompute when sample rate changes.</li>
+<li><strong>Block sizes:</strong> arbitrary.</li>
+</ul>
+<hr />
+<h2>15. Credits and References</h2>
+<ul>
+<li><strong>Linkwitz-Riley crossover</strong> — S. Linkwitz, <em>Active Crossover Networks for Noncoincident Drivers</em>, JAES 1976. The reason the two-band split recombines flat.</li>
+<li><strong>Robert Bristow-Johnson</strong>, <em>Cookbook formulae for audio EQ biquad filter coefficients</em> — source for the filter math JUCE's <code>dsp::IIR::Coefficients</code> uses internally.</li>
+</ul>
+<hr />
+<p><em>Questions, bug reports, or sound-design notes: hello@carbonatedaudio.com.</em></p>
+        </article>
+
+        <section style="text-align:center;padding:8px 0 60px;">
+            <a href="/manual" style="color:var(--text-secondary);text-decoration:none;font-size:14px;">&larr; All manuals</a>
+            &nbsp;&nbsp;&middot;&nbsp;&nbsp;
+            <a href="/ontap" style="color:var(--accent-light);text-decoration:none;font-weight:600;font-size:14px;">Buy On Tap &rarr;</a>
+        </section>
+    </div>
+
+
+    <footer class="site-footer">
+        <div class="footer-left">
+            <span class="footer-text">&copy; 2026 Carbonated Audio. All rights reserved. &nbsp;&middot;&nbsp; <a href="/terms">Terms</a> &nbsp;&middot;&nbsp; <a href="/privacy">Privacy</a> &nbsp;&middot;&nbsp; <a href="/eula">EULA</a></span>
+        </div>
+        <div class="footer-links">
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+            <a href="/press">Press</a>
+            <a href="/faq">FAQ</a>
+            <a href="/manual">Manual</a>
+            <a href="mailto:hello@carbonatedaudio.com">Contact</a>
+        </div>
+    </footer>
+
+</body>
+</html>
