@@ -20,7 +20,7 @@
                 <a href="/pour">Pour</a>
                 <a href="/about">About</a>
                 <a href="/press">Press</a>
-                <a href="mailto:hello@carbonatedaudio.com">Support</a>
+                <a href="mailto:mixedbysoda@gmail.com">Support</a>
             </div>
         </footer>
         <div class="footer-legal" style="text-align:center;padding:14px 20px 26px;font-size:11px;color:#6b6580;letter-spacing:0.02em;">

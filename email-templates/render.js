@@ -404,7 +404,7 @@ function variantSupport({ product, customerEmail, amount, orderId, licenseKey, l
     ${refBlock}
     ${divider()}
     <p style="color:${BRAND.textMuted};font-size:12px;line-height:1.6;text-align:center;margin:0;">
-      Need help? Just reply — <a href="mailto:hello@carbonatedaudio.com" style="color:${BRAND.textSecondary};text-decoration:none;">hello@carbonatedaudio.com</a>
+      Need help? Just reply — <a href="mailto:mixedbysoda@gmail.com" style="color:${BRAND.textSecondary};text-decoration:none;">mixedbysoda@gmail.com</a>
     </p>
     ${signatureName ? signature(signatureName) : ""}
   `;

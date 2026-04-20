@@ -151,6 +151,7 @@ exports.handler = async () => {
       const product = getProductFromSource(lead.source);
       await resend.emails.send({
         from: FROM_EMAIL,
+        reply_to: "mixedbysoda@gmail.com",
         to: lead.contact,
         subject: SUBJECTS[product] || SUBJECTS.carbonator,
         html: buildDay7Body(product),
