@@ -70,6 +70,7 @@ exports.handler = async (event) => {
             license_key_carbonator: bundleKeys.carbonator || "",
             license_key_desipper: bundleKeys.desipper || "",
             license_key_ontap: bundleKeys.ontap || "",
+            license_key_pour: bundleKeys.pour || "",
             product: "bundle",
           },
         });
@@ -86,6 +87,7 @@ exports.handler = async (event) => {
           carbonatorKey: bundleKeys.carbonator,
           desipperKey: bundleKeys.desipper,
           ontapKey: bundleKeys.ontap,
+          pourKey: bundleKeys.pour,
           refCode: generateRefCode(email),
         });
 
@@ -415,10 +417,11 @@ function buildDesipperEmail({ email, amountPaid, orderId, licenseKey, refCode })
 </html>`;
 }
 
-function buildBundleEmail({ email, amountPaid, orderId, carbonatorKey, desipperKey, ontapKey, refCode }) {
+function buildBundleEmail({ email, amountPaid, orderId, carbonatorKey, desipperKey, ontapKey, pourKey, refCode }) {
   const carbonator = PRODUCTS.carbonator;
   const desipper = PRODUCTS.desipper;
   const ontap = PRODUCTS.ontap;
+  const pour = PRODUCTS.pour;
   const refLink = `https://carbonatedaudio.com/.netlify/functions/referral?action=track&ref=${refCode}`;
 
   return `<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
@@ -436,7 +439,7 @@ function buildBundleEmail({ email, amountPaid, orderId, carbonatorKey, desipperK
             </td></tr>
           </table>
           <h1 style="color:#ffffff;font-size:24px;text-align:center;margin:0 0 8px;">Thank you for the Complete Bundle!</h1>
-          <p style="color:#a09bb5;font-size:16px;text-align:center;margin:0 0 32px;">You now own all three Carbonated Audio plugins. Here are your license keys and download links.</p>
+          <p style="color:#a09bb5;font-size:16px;text-align:center;margin:0 0 32px;">You now own all four Carbonated Audio plugins. Here are your license keys and download links.</p>
 
           <h2 style="color:#ff6b2b;font-size:18px;margin:0 0 12px;text-align:center;">Carbonator License Key</h2>
           <div style="background:#0d0a1a;padding:16px;border-radius:8px;border:1px solid #2a2440;text-align:center;margin-bottom:8px;">
@@ -485,10 +488,26 @@ function buildBundleEmail({ email, amountPaid, orderId, carbonatorKey, desipperK
           </table>
 
           <hr style="border:none;border-top:1px solid #2a2440;margin:0 0 24px;">
+
+          <h2 style="color:#cc33ff;font-size:18px;margin:0 0 12px;text-align:center;">Pour License Key</h2>
+          <div style="background:#0d0a1a;padding:16px;border-radius:8px;border:1px solid #2a2440;text-align:center;margin-bottom:8px;">
+            <code style="font-size:13px;color:#cc33ff;letter-spacing:0.5px;word-break:break-all;font-family:'Courier New',Courier,monospace;">${pourKey || "Contact support"}</code>
+          </div>
+          <p style="color:#a09bb5;font-size:13px;text-align:center;margin:0 0 16px;">Paste into the Pour plugin to activate. Up to 3 machines.</p>
+          <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:24px;">
+            <tr><td align="center" style="padding-bottom:8px;">
+              <a href="${pour.downloads.mac}" style="display:inline-block;padding:12px 28px;background:linear-gradient(135deg,#cc33ff,#ff3366);color:#ffffff;text-decoration:none;border-radius:8px;font-size:14px;font-weight:600;">Pour macOS (.pkg)</a>
+            </td></tr>
+            <tr><td align="center">
+              <a href="${pour.downloads.windows}" style="display:inline-block;padding:12px 28px;background:linear-gradient(135deg,#cc33ff,#ff3366);color:#ffffff;text-decoration:none;border-radius:8px;font-size:14px;font-weight:600;">Pour Windows (.exe)</a>
+            </td></tr>
+          </table>
+
+          <hr style="border:none;border-top:1px solid #2a2440;margin:0 0 24px;">
           <h2 style="color:#ffffff;font-size:16px;margin:0 0 16px;">Order Details</h2>
           <table width="100%" cellpadding="0" cellspacing="0" style="font-size:14px;">
             <tr><td style="color:#a09bb5;padding:4px 0;">Product</td><td style="color:#ffffff;text-align:right;padding:4px 0;">Carbonated Audio Complete Bundle</td></tr>
-            <tr><td style="color:#a09bb5;padding:4px 0;">Includes</td><td style="color:#ffffff;text-align:right;padding:4px 0;">Carbonator + De-Sipper + On Tap</td></tr>
+            <tr><td style="color:#a09bb5;padding:4px 0;">Includes</td><td style="color:#ffffff;text-align:right;padding:4px 0;">Carbonator + De-Sipper + On Tap + Pour</td></tr>
             <tr><td style="color:#a09bb5;padding:4px 0;">Amount</td><td style="color:#ffffff;text-align:right;padding:4px 0;">${amountPaid}</td></tr>
             <tr><td style="color:#a09bb5;padding:4px 0;">Email</td><td style="color:#ffffff;text-align:right;padding:4px 0;">${email}</td></tr>
             <tr><td style="color:#a09bb5;padding:4px 0;">Order ID</td><td style="color:#ffffff;text-align:right;padding:4px 0;font-size:11px;word-break:break-all;">${orderId}</td></tr>
@@ -497,10 +516,10 @@ function buildBundleEmail({ email, amountPaid, orderId, carbonatorKey, desipperK
           <hr style="border:none;border-top:1px solid #2a2440;margin:24px 0;">
           <h2 style="color:#ffffff;font-size:16px;margin:0 0 12px;">Quick Start</h2>
           <ol style="color:#a09bb5;font-size:14px;padding-left:20px;margin:0;">
-            <li style="margin-bottom:8px;"><strong style="color:#ffffff;">Install all three plugins</strong> using the download links above.</li>
+            <li style="margin-bottom:8px;"><strong style="color:#ffffff;">Install all four plugins</strong> using the download links above.</li>
             <li style="margin-bottom:8px;"><strong style="color:#ffffff;">Activate each plugin</strong> with its respective license key.</li>
             <li style="margin-bottom:8px;"><strong style="color:#ffffff;">Rescan plugins</strong> in your DAW.</li>
-            <li style="margin-bottom:8px;"><strong style="color:#ffffff;">Carbonator</strong> for saturation, <strong style="color:#ffffff;">De-Sipper</strong> for de-essing, <strong style="color:#ffffff;">On Tap</strong> for sidechain ducking.</li>
+            <li style="margin-bottom:8px;"><strong style="color:#ffffff;">Carbonator</strong> for saturation, <strong style="color:#ffffff;">De-Sipper</strong> for de-essing, <strong style="color:#ffffff;">On Tap</strong> for sidechain ducking, <strong style="color:#ffffff;">Pour</strong> for stereo imaging.</li>
           </ol>
 
           <hr style="border:none;border-top:1px solid #2a2440;margin:24px 0;">

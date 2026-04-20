@@ -52,9 +52,9 @@ const PRODUCTS = {
   },
   bundle: {
     name: "Carbonated Audio Bundle",
-    price: 45,
+    price: 60,
     isBundle: true,
-    includes: ["carbonator", "desipper", "ontap"],
+    includes: ["carbonator", "desipper", "ontap", "pour"],
   },
 };
 
