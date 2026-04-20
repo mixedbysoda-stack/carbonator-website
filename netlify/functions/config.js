@@ -40,6 +40,16 @@ const PRODUCTS = {
     },
     secretEnv: "ONTAP_LICENSE_SECRET",
   },
+  pour: {
+    name: "Pour",
+    version: "1.0.0",
+    price: 20,
+    downloads: {
+      mac: `https://github.com/mixedbysoda-stack/pour/releases/download/v1.0.0/Pour-v1.0.0-Installer.pkg`,
+      windows: `https://github.com/mixedbysoda-stack/pour/releases/download/v1.0.0/Pour-v1.0.0-Windows-Installer.exe`,
+    },
+    secretEnv: "POUR_LICENSE_SECRET",
+  },
   bundle: {
     name: "Carbonated Audio Bundle",
     price: 45,

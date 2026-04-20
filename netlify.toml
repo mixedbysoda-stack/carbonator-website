@@ -49,6 +49,11 @@
   to = "/ontap.html"
   status = 301
 
+[[redirects]]
+  from = "/pour"
+  to = "/pour.html"
+  status = 200
+
 # Pretty URLs for legal pages
 [[redirects]]
   from = "/terms"
