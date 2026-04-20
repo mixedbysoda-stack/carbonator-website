@@ -53,7 +53,7 @@
             {
                 "@type": "ItemList",
                 "name": "Carbonated Audio Plugins",
-                "numberOfItems": 3,
+                "numberOfItems": 4,
                 "itemListElement": [
                     {
                         "@type": "ListItem",
@@ -92,6 +92,21 @@
                             "@type": "SoftwareApplication",
                             "name": "On Tap",
                             "url": "https://carbonatedaudio.com/ontap",
+                            "applicationCategory": "MultimediaApplication",
+                            "offers": {
+                                "@type": "Offer",
+                                "price": "20.00",
+                                "priceCurrency": "USD"
+                            }
+                        }
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 4,
+                        "item": {
+                            "@type": "SoftwareApplication",
+                            "name": "Pour",
+                            "url": "https://carbonatedaudio.com/pour",
                             "applicationCategory": "MultimediaApplication",
                             "offers": {
                                 "@type": "Offer",
@@ -258,9 +273,9 @@
 
         .products-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(2, 1fr);
             gap: 24px;
-            max-width: 1100px;
+            max-width: 900px;
             margin: 0 auto;
         }
 
@@ -304,6 +319,10 @@
 
         .product-card[data-accent="cyan"] {
             --glow-color: rgba(0, 212, 255, 0.15);
+        }
+
+        .product-card[data-accent="purple"] {
+            --glow-color: rgba(204, 51, 255, 0.18);
         }
 
         .product-card-img-wrapper {
@@ -386,6 +405,10 @@
             background: var(--cyan);
         }
 
+        .product-card[data-accent="purple"] .product-card-features li::before {
+            background: #cc33ff;
+        }
+
         .product-card-footer {
             display: flex;
             align-items: center;
@@ -428,6 +451,14 @@
         .product-card-cta[data-color="cyan"]:hover {
             background: #33dfff;
             box-shadow: 0 4px 24px rgba(0, 212, 255, 0.4);
+            transform: translateY(-1px);
+        }
+
+        .product-card-cta[data-color="purple"] {
+            background: linear-gradient(135deg, #cc33ff, #ff3366);
+        }
+        .product-card-cta[data-color="purple"]:hover {
+            box-shadow: 0 4px 24px rgba(204, 51, 255, 0.4);
             transform: translateY(-1px);
         }
 
@@ -1024,11 +1055,11 @@
             </div>
             <div class="hero-stats">
                 <div class="hero-stat">
-                    <span class="hero-stat-value">3 Plugins</span>
+                    <span class="hero-stat-value">4 Plugins</span>
                 </div>
                 <div class="hero-stat-divider"></div>
                 <div class="hero-stat">
-                    <span class="hero-stat-value">$45 for All Three</span>
+                    <span class="hero-stat-value">From $20</span>
                 </div>
                 <div class="hero-stat-divider"></div>
                 <div class="hero-stat">
@@ -1123,6 +1154,33 @@
                         <div style="display:flex;gap:10px;margin-top:12px;">
                             <a href="https://buy.stripe.com/3cIbJ1f7b48OcLTgTF3oA03" style="flex:1;text-align:center;padding:10px;border-radius:8px;background:linear-gradient(135deg,#ff6b2b,#ff8c42);color:#fff;font-weight:600;font-size:13px;text-decoration:none;">Buy — $20</a>
                             <a href="/ontap#demo" style="flex:1;text-align:center;padding:10px;border-radius:8px;border:1px solid rgba(255,107,43,0.3);color:#ff6b2b;font-weight:600;font-size:13px;text-decoration:none;">Try Demo</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pour -->
+                <div class="product-card scroll-reveal" data-accent="purple">
+                    <div class="product-card-img-wrapper" style="display:flex;align-items:center;justify-content:center;padding:20px;background:radial-gradient(ellipse at center, rgba(204,51,255,0.08) 0%, transparent 70%);">
+                        <img src="/pour-screenshot.png" alt="Pour — M/S stereo imager plugin by Carbonated Audio" style="width:100%;max-width:360px;border-radius:8px;filter:drop-shadow(0 8px 32px rgba(204,51,255,0.35));" loading="lazy">
+                    </div>
+                    <div class="product-card-body">
+                        <h3 class="product-card-name">Pour</h3>
+                        <p class="product-card-tagline">M/S stereo imaging with a live vectorscope. Pour it wider.</p>
+                        <ul class="product-card-features">
+                            <li>Shuffle + Space (Blumlein stereo shuffling)</li>
+                            <li>Width, Rotation, Asymmetry</li>
+                            <li>Live polar vectorscope</li>
+                            <li>Zero latency, VST3 / AU / AAX</li>
+                        </ul>
+                        <div class="product-card-footer">
+                            <span class="product-card-price">$20</span>
+                            <a href="/pour" class="product-card-cta" data-color="purple">
+                                Learn More <span class="arrow">&rarr;</span>
+                            </a>
+                        </div>
+                        <div style="display:flex;gap:10px;margin-top:12px;">
+                            <a href="https://buy.stripe.com/bJe4gz0ch7l0aDL9rd3oA07" style="flex:1;text-align:center;padding:10px;border-radius:8px;background:linear-gradient(135deg,#cc33ff,#ff3366);color:#fff;font-weight:600;font-size:13px;text-decoration:none;">Buy — $20</a>
+                            <a href="/pour" style="flex:1;text-align:center;padding:10px;border-radius:8px;border:1px solid rgba(204,51,255,0.3);color:#cc33ff;font-weight:600;font-size:13px;text-decoration:none;">Try Demo</a>
                         </div>
                     </div>
                 </div>
