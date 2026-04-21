@@ -56,6 +56,18 @@ const PRODUCTS = {
     isBundle: true,
     includes: ["carbonator", "desipper", "ontap", "pour"],
   },
+  vocal_bundle: {
+    name: "Vocal Chain Bundle",
+    price: 35,
+    isBundle: true,
+    includes: ["carbonator", "desipper"],
+  },
+  mixbus_bundle: {
+    name: "Mix Bus Bundle",
+    price: 30,
+    isBundle: true,
+    includes: ["ontap", "pour"],
+  },
 };
 
 /**

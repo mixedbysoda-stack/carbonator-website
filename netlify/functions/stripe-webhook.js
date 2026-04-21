@@ -13,6 +13,8 @@ const SUBJECTS = {
   ontap: "Your On Tap License Key & Download Links",
   pour: "Your Pour License Key & Download Links",
   bundle: "Your Carbonated Audio Bundle — License Keys & Downloads",
+  vocal_bundle: "Your Vocal Chain Bundle — License Keys & Downloads",
+  mixbus_bundle: "Your Mix Bus Bundle — License Keys & Downloads",
 };
 
 const QUICK_START = {
@@ -46,6 +48,18 @@ const QUICK_START = {
     '<strong style="color:#ffffff;">Rescan plugins</strong> in your DAW.',
     '<strong style="color:#ffffff;">Stack them:</strong> Carbonator for saturation, De-Sipper for vocals, On Tap for sidechain, Pour for imaging.',
   ],
+  vocal_bundle: [
+    '<strong style="color:#ffffff;">Install Carbonator and De-Sipper</strong> using the download links above.',
+    '<strong style="color:#ffffff;">Activate each plugin</strong> with its matching license key — each key is plugin-specific.',
+    '<strong style="color:#ffffff;">Rescan plugins</strong> in your DAW.',
+    '<strong style="color:#ffffff;">Vocal chain flow:</strong> De-Sipper first to tame sibilance, then Carbonator for analog character.',
+  ],
+  mixbus_bundle: [
+    '<strong style="color:#ffffff;">Install On Tap and Pour</strong> using the download links above.',
+    '<strong style="color:#ffffff;">Activate each plugin</strong> with its matching license key — each key is plugin-specific.',
+    '<strong style="color:#ffffff;">Rescan plugins</strong> in your DAW.',
+    '<strong style="color:#ffffff;">Mix bus moves:</strong> On Tap for sidechain ducking on bass/synths, Pour for width on stereo buses.',
+  ],
 };
 
 const BODY_COPY = {
@@ -53,6 +67,10 @@ const BODY_COPY = {
     `<p style="color:#a09bb5;font-size:15px;line-height:1.7;margin:0;">Your ${productName} license key and downloads are below. If anything breaks on install, just reply to this email.</p>`,
   bundle:
     `<p style="color:#a09bb5;font-size:15px;line-height:1.7;margin:0;">You now own all four Carbonated Audio plugins. Each license key, download pair, and a quick-start checklist are below.</p>`,
+  vocal_bundle:
+    `<p style="color:#a09bb5;font-size:15px;line-height:1.7;margin:0;">Welcome to the Vocal Chain Bundle — you now own Carbonator and De-Sipper. License keys, downloads, and a quick-start checklist are below.</p>`,
+  mixbus_bundle:
+    `<p style="color:#a09bb5;font-size:15px;line-height:1.7;margin:0;">Welcome to the Mix Bus Bundle — you now own On Tap and Pour. License keys, downloads, and a quick-start checklist are below.</p>`,
 };
 
 exports.handler = async (event) => {
@@ -104,7 +122,7 @@ exports.handler = async (event) => {
 
   if (product.isBundle) {
     const licenses = [];
-    const metadataUpdate = { product: "bundle" };
+    const metadataUpdate = { product: productId };
     for (const includedId of product.includes) {
       const included = PRODUCTS[includedId];
       const secret = process.env[included.secretEnv];
@@ -128,18 +146,24 @@ exports.handler = async (event) => {
       console.error("Failed to store bundle keys on session:", err.message);
     }
 
+    const preheaderMap = {
+      bundle: "Your 4 license keys + downloads",
+      vocal_bundle: "Your Vocal Chain Bundle — 2 license keys + downloads",
+      mixbus_bundle: "Your Mix Bus Bundle — 2 license keys + downloads",
+    };
+
     emailHtml = buildEmail("support", {
-      product: "bundle",
+      product: productId,
       customerEmail: email,
       amount: amountPaid,
       orderId,
       licenses,
-      body: BODY_COPY.bundle,
-      quickStart: QUICK_START.bundle,
+      body: BODY_COPY[productId] || BODY_COPY.bundle,
+      quickStart: QUICK_START[productId] || QUICK_START.bundle,
       refCode,
-      preheader: "Your 4 license keys + downloads",
+      preheader: preheaderMap[productId] || preheaderMap.bundle,
     });
-    emailSubject = SUBJECTS.bundle;
+    emailSubject = SUBJECTS[productId] || SUBJECTS.bundle;
   } else {
     const licenseSecret = process.env[product.secretEnv];
     let licenseKey = session.metadata?.license_key;

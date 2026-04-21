@@ -72,6 +72,22 @@ const PRODUCT_ACCENTS = {
     url: "https://buy.stripe.com/3cI9AT1glbBg7rz1YL3oA08",
     price: 60,
   },
+  vocal_bundle: {
+    name: "Vocal Chain Bundle",
+    color: "#ff6b2b",
+    colorAlt: "#4fb8d4",
+    gradient: "linear-gradient(135deg,#ff6b2b,#4fb8d4)",
+    url: "https://buy.stripe.com/7sY28raQV34KeU1bzl3oA09",
+    price: 35,
+  },
+  mixbus_bundle: {
+    name: "Mix Bus Bundle",
+    color: "#00d4ff",
+    colorAlt: "#7b68ee",
+    gradient: "linear-gradient(135deg,#00d4ff,#7b68ee)",
+    url: "https://buy.stripe.com/28EeVdcZ3gVA27f1YL3oA0a",
+    price: 30,
+  },
 };
 
 function shell(innerHtml, { preheader } = {}) {
@@ -302,7 +318,8 @@ function variantBundle({ name, headline, body, bundlePrice = 60, bundleOriginal 
 function variantSupport({ product, customerEmail, amount, orderId, licenseKey, licenses, downloadMac, downloadWin, version, quickStart, refCode, headline, body, preheader, signatureName }) {
   const accent = PRODUCT_ACCENTS[product] || PRODUCT_ACCENTS.carbonator;
   const isBundle = Array.isArray(licenses) && licenses.length > 0;
-  const title = headline || (isBundle ? "Thank you for the Complete Bundle!" : "Thank you for your purchase!");
+  const bundleLabel = accent && accent.name ? accent.name : "Bundle";
+  const title = headline || (isBundle ? `Thank you for the ${bundleLabel}!` : "Thank you for your purchase!");
 
   // Single-license license + download blocks
   const singleLicenseBlock = (!isBundle && licenseKey) ? `
@@ -355,7 +372,7 @@ function variantSupport({ product, customerEmail, amount, orderId, licenseKey, l
   const downloadBlock = isBundle ? "" : singleDownloadBlock;
 
   const productLabel = isBundle
-    ? "Carbonated Audio Complete Bundle"
+    ? `Carbonated Audio ${bundleLabel}`
     : `${accent.name}${version ? ` v${version}` : ""}`;
   const receiptBlock = (amount || orderId || customerEmail) ? `
     ${divider()}

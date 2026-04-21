@@ -840,6 +840,57 @@
             transform: translateY(-2px);
         }
 
+        .pricing-btn[data-color="vocal"] {
+            background: linear-gradient(135deg, #ff6b2b, #4fb8d4);
+            color: #fff;
+            box-shadow: 0 4px 24px rgba(255, 107, 43, 0.25);
+        }
+        .pricing-btn[data-color="vocal"]:hover {
+            box-shadow: 0 6px 32px rgba(255, 107, 43, 0.45);
+            transform: translateY(-2px);
+        }
+
+        .pricing-btn[data-color="mix"] {
+            background: linear-gradient(135deg, #00d4ff, #7b68ee);
+            color: #fff;
+            box-shadow: 0 4px 24px rgba(0, 212, 255, 0.25);
+        }
+        .pricing-btn[data-color="mix"]:hover {
+            box-shadow: 0 6px 32px rgba(123, 104, 238, 0.45);
+            transform: translateY(-2px);
+        }
+
+        /* Bundle-tier card tints — escalating color intensity by bundle size */
+        .pricing-card.vocal-bundle {
+            border-color: rgba(255, 107, 43, 0.28);
+            background: linear-gradient(180deg, rgba(255, 107, 43, 0.05), var(--bg-card-darker) 45%);
+            box-shadow: 0 6px 28px rgba(255, 107, 43, 0.08);
+        }
+        .pricing-card.vocal-bundle:hover {
+            box-shadow: 0 10px 36px rgba(255, 107, 43, 0.14);
+        }
+        .pricing-card.vocal-bundle .pricing-amount {
+            background: linear-gradient(135deg, #ff6b2b, #4fb8d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .pricing-card.mix-bundle {
+            border-color: rgba(0, 212, 255, 0.28);
+            background: linear-gradient(180deg, rgba(0, 212, 255, 0.05), var(--bg-card-darker) 45%);
+            box-shadow: 0 6px 28px rgba(0, 212, 255, 0.08);
+        }
+        .pricing-card.mix-bundle:hover {
+            box-shadow: 0 10px 36px rgba(123, 104, 238, 0.14);
+        }
+        .pricing-card.mix-bundle .pricing-amount {
+            background: linear-gradient(135deg, #00d4ff, #7b68ee);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
         .pricing-trust {
             text-align: center;
             margin-top: 40px;
@@ -1294,27 +1345,28 @@
             <h2 class="section-title scroll-reveal">Get the Full Toolkit</h2>
             <p class="section-desc scroll-reveal">No subscriptions. No upsells. Pay once, own it forever.</p>
             <div class="pricing-grid">
-                <!-- Carbonator -->
-                <div class="pricing-card scroll-reveal">
+                <!-- Vocal Chain Bundle (2 plugins) -->
+                <div class="pricing-card vocal-bundle scroll-reveal">
                     <div class="pricing-card-header">
-                        <div class="pricing-card-name">Carbonator</div>
-                        <div class="pricing-card-desc">Analog saturation</div>
+                        <div class="pricing-card-name">Vocal Chain</div>
+                        <div class="pricing-card-desc">Saturation + de-ess, 2 plugins</div>
                     </div>
                     <div class="pricing-price">
-                        <span class="pricing-dollar">$</span><span class="pricing-amount">20</span>
+                        <span class="pricing-original">$45</span>
+                        <span class="pricing-dollar">$</span><span class="pricing-amount">35</span>
                         <div class="pricing-period">one-time payment</div>
                     </div>
                     <ul class="pricing-features">
-                        <li><span class="check">&#10003;</span> 5 saturation flavors</li>
-                        <li><span class="check">&#10003;</span> Carbonated mode</li>
-                        <li><span class="check">&#10003;</span> VST3, AU, AAX</li>
-                        <li><span class="check">&#10003;</span> macOS + Windows</li>
-                        <li><span class="check">&#10003;</span> Free updates</li>
+                        <li><span class="check">&#10003;</span> Carbonator (full license)</li>
+                        <li><span class="check">&#10003;</span> De-Sipper (full license)</li>
+                        <li><span class="check">&#10003;</span> VST3, AU, AAX &mdash; macOS + Windows</li>
+                        <li><span class="check">&#10003;</span> Free updates for both</li>
+                        <li><span class="check">&#10003;</span> Save $10</li>
                     </ul>
-                    <a href="https://buy.stripe.com/aFafZhgbffRw6nv0UH3oA00" class="pricing-btn" data-color="orange">Get Carbonator</a>
+                    <a href="https://buy.stripe.com/7sY28raQV34KeU1bzl3oA09" class="pricing-btn" data-color="vocal">Get Vocal Chain &mdash; $35</a>
                 </div>
 
-                <!-- Bundle (Featured) -->
+                <!-- Complete Bundle (Featured — 4 plugins) -->
                 <div class="pricing-card featured scroll-reveal">
                     <span class="pricing-badge">BEST VALUE</span>
                     <div class="pricing-card-header">
@@ -1331,31 +1383,32 @@
                         <li><span class="check">&#10003;</span> De-Sipper (full license)</li>
                         <li><span class="check">&#10003;</span> On Tap (full license)</li>
                         <li><span class="check">&#10003;</span> Pour (full license)</li>
-                        <li><span class="check">&#10003;</span> VST3, AU, AAX — macOS + Windows</li>
+                        <li><span class="check">&#10003;</span> VST3, AU, AAX &mdash; macOS + Windows</li>
                         <li><span class="check">&#10003;</span> Free updates for all four</li>
                         <li><span class="check">&#10003;</span> Save $25</li>
                     </ul>
                     <a href="https://buy.stripe.com/3cI9AT1glbBg7rz1YL3oA08" class="pricing-btn" data-color="purple">Get All 4 Plugins &mdash; $60</a>
                 </div>
 
-                <!-- De-Sipper -->
-                <div class="pricing-card scroll-reveal">
+                <!-- Mix Bus Bundle (2 plugins) -->
+                <div class="pricing-card mix-bundle scroll-reveal">
                     <div class="pricing-card-header">
-                        <div class="pricing-card-name">De-Sipper</div>
-                        <div class="pricing-card-desc">Transparent de-esser</div>
+                        <div class="pricing-card-name">Mix Bus</div>
+                        <div class="pricing-card-desc">Ducking + imaging, 2 plugins</div>
                     </div>
                     <div class="pricing-price">
-                        <span class="pricing-dollar">$</span><span class="pricing-amount">25</span>
+                        <span class="pricing-original">$40</span>
+                        <span class="pricing-dollar">$</span><span class="pricing-amount">30</span>
                         <div class="pricing-period">one-time payment</div>
                     </div>
                     <ul class="pricing-features">
-                        <li><span class="check">&#10003;</span> Surgical sibilance control</li>
-                        <li><span class="check">&#10003;</span> Real-time frequency display</li>
-                        <li><span class="check">&#10003;</span> VST3, AU, AAX</li>
-                        <li><span class="check">&#10003;</span> macOS + Windows</li>
-                        <li><span class="check">&#10003;</span> Free updates</li>
+                        <li><span class="check">&#10003;</span> On Tap (full license)</li>
+                        <li><span class="check">&#10003;</span> Pour (full license)</li>
+                        <li><span class="check">&#10003;</span> VST3, AU, AAX &mdash; macOS + Windows</li>
+                        <li><span class="check">&#10003;</span> Free updates for both</li>
+                        <li><span class="check">&#10003;</span> Save $10</li>
                     </ul>
-                    <a href="https://buy.stripe.com/4gM4gzgbf8p4h29cDp3oA06" class="pricing-btn" data-color="cyan">Get De-Sipper</a>
+                    <a href="https://buy.stripe.com/28EeVdcZ3gVA27f1YL3oA0a" class="pricing-btn" data-color="mix">Get Mix Bus &mdash; $30</a>
                 </div>
             </div>
             <p class="pricing-trust scroll-reveal">
