@@ -1386,6 +1386,11 @@
                         <div class="pricing-period">one-time payment</div>
                         <div style="font-size:12px;color:#a09bb5;margin-top:8px;">or 4 payments of $15 &middot; Klarna &middot; Afterpay &middot; Affirm</div>
                     </div>
+                    <div style="margin:14px 0 20px;padding:14px 16px;border-radius:12px;background:linear-gradient(135deg,rgba(255,107,43,0.12),rgba(204,51,255,0.12));border:1px solid rgba(255,107,43,0.35);text-align:center;">
+                        <div style="font-size:11px;font-weight:700;letter-spacing:1.5px;color:#ff6b2b;text-transform:uppercase;margin-bottom:6px;">🎟️ KVR Deal &mdash; $10 off</div>
+                        <div style="font-size:15px;color:#fff;font-weight:600;margin-bottom:4px;">Pay <strong>$50</strong> with code <code style="padding:2px 8px;border-radius:6px;background:rgba(255,255,255,0.1);font-family:'JetBrains Mono',monospace;font-size:14px;color:#ffb088;">KVRSIP</code> at checkout</div>
+                        <div style="font-size:12px;color:#a09bb5;" id="kvrsip-countdown">Ends May 30, 2026</div>
+                    </div>
                     <ul class="pricing-features">
                         <li><span class="check">&#10003;</span> Carbonator (full license)</li>
                         <li><span class="check">&#10003;</span> De-Sipper (full license)</li>
@@ -1393,9 +1398,9 @@
                         <li><span class="check">&#10003;</span> Pour (full license)</li>
                         <li><span class="check">&#10003;</span> VST3, AU, AAX &mdash; macOS + Windows</li>
                         <li><span class="check">&#10003;</span> Free updates for all four</li>
-                        <li><span class="check">&#10003;</span> Save $25</li>
+                        <li><span class="check">&#10003;</span> Save $25 off individual prices</li>
                     </ul>
-                    <a href="https://buy.stripe.com/3cI9AT1glbBg7rz1YL3oA08" class="pricing-btn" data-color="purple">Get All 4 Plugins &mdash; $60</a>
+                    <a href="https://buy.stripe.com/3cI9AT1glbBg7rz1YL3oA08" class="pricing-btn" data-color="purple">Get the Bundle &mdash; $50 with KVRSIP</a>
                 </div>
 
                 <!-- Mix Bus Bundle (2 plugins) -->
@@ -1608,6 +1613,29 @@
             requestAnimationFrame(render);
         }
         requestAnimationFrame(render);
+    })();
+    </script>
+
+    <!-- KVRSIP countdown (expires 2026-05-30 23:59:59 ET) -->
+    <script>
+    (function() {
+        var endMs = 1780199999 * 1000;
+        var el = document.getElementById('kvrsip-countdown');
+        if (!el) return;
+        function tick() {
+            var diff = endMs - Date.now();
+            if (diff <= 0) {
+                el.textContent = 'Promo expired';
+                el.style.opacity = '0.6';
+                return;
+            }
+            var d = Math.floor(diff / 86400000);
+            var h = Math.floor((diff % 86400000) / 3600000);
+            var m = Math.floor((diff % 3600000) / 60000);
+            el.textContent = 'Ends in ' + d + 'd ' + h + 'h ' + m + 'm';
+            setTimeout(tick, 30000);
+        }
+        tick();
     })();
     </script>
 </body>
