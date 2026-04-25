@@ -13,7 +13,7 @@ const FOUR_DAYS = 4 * 24 * 60 * 60 * 1000;
 
 const SUBJECTS = {
   carbonator: "Ready to unlock Carbonator? $20, no subscription.",
-  desipper: "Ready to unlock De-Sipper? $25, no subscription.",
+  desipper: "Ready to unlock De-Sipper? $20, no subscription.",
   ontap: "Ready to unlock On Tap? $20, no subscription.",
   pour: "Ready to unlock Pour? $20, no subscription.",
 };
@@ -43,7 +43,7 @@ const CONVERT = {
     ],
     quote: "Finally a de-esser that doesn't make my vocals sound dull.",
     quoteAuthor: "— De-Sipper user",
-    priceLine: "$25 one-time",
+    priceLine: "$20 one-time",
   },
   ontap: {
     headline: "Tired of the demo cycle? Unlock On Tap.",
@@ -110,7 +110,7 @@ function buildDay7Body(product) {
     <p style="color:#a09bb5;font-size:14px;line-height:1.7;margin:0;text-align:center;">
       Want all 4 plugins? Grab the
       <a href="${BUNDLE_URL}" style="color:#4ecca3;text-decoration:none;font-weight:600;">Complete Bundle for $60</a>
-      &mdash; save $25.
+      &mdash; save $20.
     </p>
   `;
 

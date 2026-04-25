@@ -678,7 +678,7 @@
                                 });
 
                                 const tweetText = data.product === 'desipper'
-                                    ? encodeURIComponent('Just copped De-Sipper \u2014 surgical de-essing, $25. Try it:')
+                                    ? encodeURIComponent('Just copped De-Sipper \u2014 surgical de-essing, $20. Try it:')
                                     : encodeURIComponent('Just copped Carbonator \u2014 5 saturation flavors, one knob, $20. The Lemon-Lime is wild. Try the free demo:');
                                 document.getElementById('share-twitter').href = `https://twitter.com/intent/tweet?text=${tweetText}&url=${encodeURIComponent(refUrl)}`;
 
@@ -698,7 +698,7 @@
                     }
 
                     // GA4: fire purchase event
-                    var priceByProduct = { carbonator: 20, desipper: 25, ontap: 20, pour: 20, bundle: 60, vocal_bundle: 35, mixbus_bundle: 30 };
+                    var priceByProduct = { carbonator: 20, desipper: 20, ontap: 20, pour: 20, bundle: 60, vocal_bundle: 35, mixbus_bundle: 30 };
                     var purchaseValue = priceByProduct[data.product] || 20;
                     if (typeof gtag === 'function') {
                         gtag('event', 'purchase', {

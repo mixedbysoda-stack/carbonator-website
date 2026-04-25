@@ -46,7 +46,7 @@ const PRODUCT_ACCENTS = {
     colorAlt: "#0066ff",
     gradient: "linear-gradient(135deg,#00d4ff,#0066ff)",
     url: "https://carbonatedaudio.com/desipper",
-    price: 25,
+    price: 20,
   },
   ontap: {
     name: "On Tap",
@@ -256,7 +256,7 @@ function variantSpotlight({ product, name, headline, body, ctaText, ctaUrl, feat
 // VARIANT C — bundle / promo pitch
 // tokens: { name?, headline, body (HTML), bundlePrice, bundleOriginal, savings, promoCode, promoExpires, ctaText?, ctaUrl?, includes (array), signatureName? }
 // ---------------------------------------------------------------
-function variantBundle({ name, headline, body, bundlePrice = 60, bundleOriginal = 85, savings = 25, promoCode, promoExpires, ctaText, ctaUrl, includes, signatureName, preheader }) {
+function variantBundle({ name, headline, body, bundlePrice = 60, bundleOriginal = 80, savings = 20, promoCode, promoExpires, ctaText, ctaUrl, includes, signatureName, preheader }) {
   const accent = PRODUCT_ACCENTS.bundle;
   const cta = ctaUrl || accent.url;
   const ctaLabel = ctaText || `Get the Bundle — $${bundlePrice}`;

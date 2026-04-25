@@ -97,7 +97,7 @@ function buildDay3Body(product, contact) {
     </p>
     <p style="color:#a09bb5;font-size:14px;line-height:1.7;margin:0 0 16px;">${otherProducts}</p>
     <p style="color:#a09bb5;font-size:14px;line-height:1.7;margin:0;">
-      Or grab all 4 plugins in our <a href="${BUNDLE_URL}" style="color:#4ecca3;text-decoration:none;font-weight:600;">Complete Bundle for $60</a> &mdash; save $25.
+      Or grab all 4 plugins in our <a href="${BUNDLE_URL}" style="color:#4ecca3;text-decoration:none;font-weight:600;">Complete Bundle for $60</a> &mdash; save $20.
     </p>
   `;
 
