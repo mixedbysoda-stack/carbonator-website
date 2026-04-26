@@ -22,25 +22,25 @@
                         <a href="/carbonator">
                             <div>
                                 <div class="dropdown-label">Carbonator</div>
-                                <div class="dropdown-desc">Analog saturation &middot; $20</div>
+                                <div class="dropdown-desc">Analog saturation</div>
                             </div>
                         </a>
                         <a href="/desipper">
                             <div>
                                 <div class="dropdown-label">De-Sipper</div>
-                                <div class="dropdown-desc">Transparent de-esser &middot; $20</div>
+                                <div class="dropdown-desc">Transparent de-esser</div>
                             </div>
                         </a>
                         <a href="/ontap">
                             <div>
                                 <div class="dropdown-label">On Tap</div>
-                                <div class="dropdown-desc">Sidechain ducking &middot; $20</div>
+                                <div class="dropdown-desc">Sidechain ducking</div>
                             </div>
                         </a>
                         <a href="/pour">
                             <div>
                                 <div class="dropdown-label">Pour</div>
-                                <div class="dropdown-desc">M/S stereo imager &middot; $20</div>
+                                <div class="dropdown-desc">M/S stereo imager</div>
                             </div>
                         </a>
                     </div>
