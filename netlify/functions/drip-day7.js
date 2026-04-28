@@ -30,7 +30,7 @@ const CONVERT = {
     ],
     quote: "The Lemon-Lime on my vocal chain is crazy. An absolute staple.",
     quoteAuthor: "— ZakMabry",
-    priceLine: "$20 — launch price, goes to $35 after April 30",
+    priceLine: "$20 — launch price, goes to $35 after May 30",
   },
   desipper: {
     headline: "Tired of the demo cycle? Unlock De-Sipper.",
