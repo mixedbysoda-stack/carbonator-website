@@ -64,13 +64,21 @@ const PRODUCT_ACCENTS = {
     url: "https://carbonatedaudio.com/pour",
     price: 20,
   },
+  tonic: {
+    name: "Tonic",
+    color: "#a855f7",
+    colorAlt: "#7b2fff",
+    gradient: "linear-gradient(135deg,#a855f7,#7b2fff)",
+    url: "https://carbonatedaudio.com/tonic",
+    price: 20,
+  },
   bundle: {
     name: "Complete Bundle",
     color: "#cc33ff",
     colorAlt: "#ff6b2b",
     gradient: "linear-gradient(135deg,#ff6b2b,#cc33ff,#00d4ff)",
     url: "https://buy.stripe.com/eVqeVdcZ3axc13b46T3oA0d",
-    price: 60,
+    price: 75,
   },
   vocal_bundle: {
     name: "Vocal Chain Bundle",
