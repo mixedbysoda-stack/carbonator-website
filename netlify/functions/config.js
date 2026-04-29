@@ -50,6 +50,16 @@ const PRODUCTS = {
     },
     secretEnv: "POUR_LICENSE_SECRET",
   },
+  tonic: {
+    name: "Tonic",
+    version: "1.0.0",
+    price: 20,
+    downloads: {
+      mac: `https://github.com/mixedbysoda-stack/tonic/releases/download/v1.0.0/Tonic-v1.0.0-Installer.pkg`,
+      windows: `https://github.com/mixedbysoda-stack/tonic/releases/download/v1.0.0/Tonic-v1.0.0-Windows-Installer.exe`,
+    },
+    secretEnv: "TONIC_LICENSE_SECRET",
+  },
   bundle: {
     name: "Carbonated Audio Bundle",
     price: 60,

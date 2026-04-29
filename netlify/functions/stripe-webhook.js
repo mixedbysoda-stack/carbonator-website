@@ -12,6 +12,7 @@ const SUBJECTS = {
   desipper: "Your De-Sipper License Key & Download Links",
   ontap: "Your On Tap License Key & Download Links",
   pour: "Your Pour License Key & Download Links",
+  tonic: "Your Tonic License Key & Download Links",
   bundle: "Your Carbonated Audio Bundle — License Keys & Downloads",
   vocal_bundle: "Your Vocal Chain Bundle — License Keys & Downloads",
   mixbus_bundle: "Your Mix Bus Bundle — License Keys & Downloads",
@@ -41,6 +42,12 @@ const QUICK_START = {
     '<strong style="color:#ffffff;">Windows:</strong> Run the .exe installer — it places the VST3 in the standard plugin folder automatically.',
     '<strong style="color:#ffffff;">Activate:</strong> Open Pour, paste your license key, click Activate.',
     '<strong style="color:#ffffff;">Use it:</strong> Drop Pour on a stereo track or bus and start widening.',
+  ],
+  tonic: [
+    '<strong style="color:#ffffff;">macOS:</strong> Open the .pkg installer and pick your formats (VST3, AU, AAX).',
+    '<strong style="color:#ffffff;">Windows:</strong> Run the .exe installer — it places the VST3 in the standard plugin folder automatically.',
+    '<strong style="color:#ffffff;">Activate:</strong> Open Tonic, paste your license key, click Activate.',
+    '<strong style="color:#ffffff;">Use it:</strong> Insert Tonic on a vocal track. Start with Threshold around -12dB, Ratio 4:1, taste to fit.',
   ],
   bundle: [
     '<strong style="color:#ffffff;">Install all four plugins</strong> using the download links above.',
