@@ -1,0 +1,1830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tonic — Opto-Tube Vocal Compressor | Carbonated Audio</title>
+    <meta name="description" content="Tonic is an opto-tube vocal compressor with dual time-circuit envelope, transformer modeling, and program-dependent release. $20 one-time. VST3, AU, AAX for macOS & Windows.">
+    <meta name="keywords" content="vocal compressor plugin, opto compressor, tube compressor VST, vocal processing, Tonic, Carbonated Audio">
+    <meta name="author" content="Carbonated Audio">
+
+    <!-- Open Graph / Social Sharing -->
+    <meta property="og:type" content="product">
+    <meta property="og:title" content="Tonic — Opto-Tube Vocal Compressor">
+    <meta property="og:description" content="Pro-grade opto-tube vocal compression. Dual time-circuit envelope, transformer warmth, real analog modeling — $20 one-time.">
+    <meta property="og:url" content="https://carbonatedaudio.com/tonic">
+    <meta property="og:site_name" content="Carbonated Audio">
+    <meta property="og:image" content="https://carbonatedaudio.com/tonic-screenshot.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Tonic opto-tube vocal compressor plugin interface by Carbonated Audio">
+    <meta property="product:price:amount" content="20.00">
+    <meta property="product:price:currency" content="USD">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Tonic — Opto-Tube Vocal Compressor">
+    <meta name="twitter:description" content="Opto-tube vocal compression with dual time-circuit envelope and transformer warmth. Studio vocal glue for $20.">
+    <meta name="twitter:image" content="https://carbonatedaudio.com/tonic-screenshot.png">
+
+    <!-- Canonical -->
+    <link rel="canonical" href="https://carbonatedaudio.com/tonic">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Tonic",
+        "alternateName": "Tonic Vocal Compressor Plugin",
+        "applicationCategory": "MultimediaApplication",
+        "softwareVersion": "1.0.0",
+        "operatingSystem": ["macOS 10.13+", "Windows 10+"],
+        "description": "Tonic is an opto-tube vocal compressor with dual time-circuit envelope, transformer modeling, and program-dependent compression. Available as VST3, AU, AAX on macOS and Windows. One-time $20 purchase.",
+        "url": "https://carbonatedaudio.com/tonic",
+        "image": "https://carbonatedaudio.com/tonic-screenshot.png",
+        "screenshot": "https://carbonatedaudio.com/tonic-screenshot.png",
+        "author": {
+            "@type": "Organization",
+            "name": "Carbonated Audio",
+            "url": "https://carbonatedaudio.com"
+        },
+        "brand": {
+            "@type": "Brand",
+            "name": "Carbonated Audio"
+        },
+        "offers": {
+            "@type": "Offer",
+            "url": "https://carbonatedaudio.com/tonic",
+            "price": "20.00",
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/InStock",
+            "priceValidUntil": "2027-12-31",
+            "seller": {
+                "@type": "Organization",
+                "name": "Carbonated Audio"
+            }
+        },
+        "featureList": [
+            "Opto cell with thermal memory model",
+            "Tube push-pull saturation stage",
+            "Input + output transformer modeling",
+            "Dual time-circuit: FIX / MAN / FIX+MAN",
+            "Continuous threshold, ratio, attack, release",
+            "Sidechain HPF (20 Hz – 500 Hz)",
+            "Internal or external sidechain",
+            "Stereo / Dual-Mono / Mid-Side modes",
+            "Selective 4x oversampling on gain cell",
+            "Parallel compression mix knob",
+            "Invisible true-peak brickwall safety net",
+            "VST3, AU, AAX, Standalone formats",
+            "macOS (Apple Silicon + Intel) and Windows",
+            "One-time $20 purchase",
+            "3 machine activations"
+        ],
+        "systemRequirements": "macOS 10.13+ (Apple Silicon and Intel) or Windows 10+. Compatible with Pro Tools, Logic Pro, Ableton Live, FL Studio, Studio One, Cubase, Reaper, and all major DAWs."
+    }
+    </script>
+
+    <!-- FAQPage Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "What is Tonic?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Tonic is an opto-tube vocal compressor that models the full analog signal chain — input transformer, opto cell with thermal memory, tube push-pull amplifier, and output transformer. Designed for vocals, priced at $20 instead of $200+."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What makes Tonic different from other opto compressors?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Three things. First, the dual time-circuit (FIX / MAN / FIX+MAN) lets you blend program-dependent envelope with manual control — most plugins skip this entirely. Second, the opto cell has a thermal memory model so release time depends on illumination history, not just an envelope follower. Third, the tube push-pull stage shifts harmonic balance with drive — even-dominant at low drive, odd-dominant when pushed."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What formats are supported?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Tonic is available as VST3, AU, AAX, and Standalone on macOS. On Windows, it ships as VST3 and Standalone (AAX on Windows is on the roadmap)."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How many computers can I use it on?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Up to 3 machines with one license. If you need to move an activation, just deactivate on the old machine and activate on the new one."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Is there a free trial?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes. The free demo includes the full DSP feature set with a periodic silence cycle (60 seconds on, 10 seconds muted) so you can fully evaluate Tonic on your own vocals before purchasing."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Does it work with Pro Tools?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes — Tonic ships as a PACE-wrapped AAX plugin on macOS, fully compatible with Pro Tools sessions."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Does it pair well with De-Sipper?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "It is the pairing. De-Sipper tames sibilance, Tonic glues the vocal tone — together they form a complete vocal chain for $40. We recommend De-Sipper first in the chain, then Tonic for the opto-tube glue."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What's the refund policy?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "30-day money-back guarantee, no questions asked. If Tonic isn't right for you, just email us and we'll refund your purchase."
+                }
+            }
+        ]
+    }
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Shared Styles -->
+    <link rel="stylesheet" href="/shared.css">
+
+    <!-- GA4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z9L20HJ4M0"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-Z9L20HJ4M0');
+    </script>
+
+    <style>
+        /* ========================================
+           Tonic — Page-Specific Styles
+           UV-violet primary + fluoyellow accent
+           Matches plugin GUI: eviolet #7B2FFF, fluoyellow #D4FF00
+           ======================================== */
+
+        :root {
+            --accent: #a855f7;
+            --accent-dark: #7b2fff;
+            --accent-glow: rgba(168, 85, 247, 0.18);
+            --accent-border: rgba(168, 85, 247, 0.22);
+            --accent-border-hover: rgba(168, 85, 247, 0.45);
+            --fluo: #d4ff00;
+            --fluo-soft: rgba(212, 255, 0, 0.18);
+        }
+
+        .section-title .accent {
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* ---- Hero ---- */
+        .hero {
+            min-height: 75vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 120px 40px 80px;
+            position: relative;
+        }
+
+        .hero-title {
+            font-size: clamp(56px, 10vw, 96px);
+            font-weight: 900;
+            letter-spacing: -2px;
+            line-height: 1;
+            background: linear-gradient(135deg, #c084fc, #7b2fff 60%, #d4ff00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 12px;
+            text-shadow: 0 0 60px rgba(123, 47, 255, 0.25);
+        }
+
+        .hero-tagline {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--fluo);
+            margin-bottom: 28px;
+            opacity: 0.85;
+        }
+
+        .hero-lines {
+            font-size: clamp(28px, 5vw, 48px);
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 24px;
+            color: var(--text-primary);
+        }
+
+        .hero-lines span {
+            display: block;
+        }
+
+        .hero-lines .fluo {
+            color: var(--fluo);
+        }
+
+        .hero-desc {
+            font-size: 18px;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 8px;
+            line-height: 1.7;
+        }
+
+        .hero-byline {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 32px;
+            font-weight: 500;
+        }
+
+        .hero-screenshot {
+            max-width: 600px;
+            width: 100%;
+            border-radius: 16px;
+            margin-bottom: 40px;
+            box-shadow:
+                0 24px 80px rgba(123, 47, 255, 0.2),
+                0 0 0 1px rgba(168, 85, 247, 0.18),
+                0 0 120px rgba(212, 255, 0, 0.05);
+        }
+
+        .hero-ctas {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 16px;
+        }
+
+        .btn-primary {
+            padding: 16px 32px;
+            min-height: 48px;
+            background: linear-gradient(135deg, #a855f7, #7b2fff);
+            border: none;
+            border-radius: 12px;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: transform 0.2s, box-shadow 0.2s, filter 0.2s;
+            position: relative;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow:
+                0 8px 32px rgba(123, 47, 255, 0.4),
+                0 0 60px rgba(212, 255, 0, 0.12);
+        }
+
+        .btn-secondary {
+            padding: 16px 32px;
+            min-height: 48px;
+            background: transparent;
+            border: 1px solid var(--accent-border);
+            border-radius: 12px;
+            color: var(--accent);
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent-border-hover);
+            background: rgba(168, 85, 247, 0.08);
+            color: #c084fc;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat-value {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .hero-stat-label {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        .hero-stat-divider {
+            width: 1px;
+            background: var(--border);
+            align-self: stretch;
+        }
+
+        /* ---- Features ---- */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: rgba(26, 20, 48, 0.6);
+            border: 1px solid var(--accent-border);
+            border-radius: 16px;
+            padding: 32px;
+            transition: border-color 0.3s, transform 0.2s;
+        }
+
+        .feature-card:hover {
+            border-color: var(--accent-border-hover);
+            transform: translateY(-2px);
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--accent-glow);
+            border-radius: 12px;
+        }
+
+        .feature-icon svg {
+            width: 24px;
+            height: 24px;
+            stroke: var(--accent);
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .feature-card h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .feature-card p {
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* ---- Five-Knob Showcase ---- */
+        .knob-showcase {
+            background: rgba(21, 16, 37, 0.5);
+        }
+
+        .knob-row {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 24px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .knob-card {
+            text-align: center;
+            padding: 24px 12px;
+            background: rgba(10, 15, 31, 0.7);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            transition: border-color 0.3s, transform 0.2s;
+        }
+
+        .knob-card:hover {
+            border-color: var(--accent-border-hover);
+            transform: translateY(-2px);
+        }
+
+        .knob-graphic {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background:
+                radial-gradient(circle at 35% 30%, #e8d4a8 0%, #c9a876 40%, #8b7547 75%, #5c4a2a 100%);
+            margin: 0 auto 14px;
+            position: relative;
+            box-shadow:
+                inset 0 1px 0 rgba(255, 255, 255, 0.4),
+                inset 0 -2px 4px rgba(0, 0, 0, 0.3),
+                0 4px 12px rgba(0, 0, 0, 0.4),
+                0 0 24px rgba(168, 85, 247, 0.15);
+        }
+
+        .knob-graphic::after {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 3px;
+            height: 18px;
+            background: #f5efe0;
+            border-radius: 2px;
+            box-shadow: 0 0 6px rgba(245, 239, 224, 0.5);
+        }
+
+        .knob-card h4 {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--fluo);
+            margin-bottom: 6px;
+        }
+
+        .knob-card p {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* ---- How It Works ---- */
+        .how-it-works {
+            background: rgba(21, 16, 37, 0.5);
+        }
+
+        .steps {
+            display: flex;
+            gap: 32px;
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .steps::before {
+            content: '';
+            position: absolute;
+            top: 40px;
+            left: calc(16.66% + 24px);
+            right: calc(16.66% + 24px);
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-dark));
+            opacity: 0.3;
+        }
+
+        .step {
+            flex: 1;
+            text-align: center;
+        }
+
+        .step-number {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+            color: #fff;
+            font-weight: 800;
+            font-size: 20px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 0 24px rgba(168, 85, 247, 0.4);
+        }
+
+        .step h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .step p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* ---- Compatibility ---- */
+        .compat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .compat-card {
+            background: rgba(26, 20, 48, 0.6);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px;
+            text-align: center;
+        }
+
+        .compat-card h3 {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .compat-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+        }
+
+        .compat-badge {
+            background: var(--accent-glow);
+            border: 1px solid var(--accent-border);
+            border-radius: 8px;
+            padding: 6px 14px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--accent);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .compat-card p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* ---- Pricing ---- */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        .pricing-card {
+            background: rgba(26, 20, 48, 0.6);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 40px 32px;
+            text-align: center;
+            position: relative;
+            transition: border-color 0.3s;
+        }
+
+        .pricing-card.featured {
+            border-color: var(--accent);
+            box-shadow:
+                0 0 40px rgba(168, 85, 247, 0.12),
+                0 0 80px rgba(212, 255, 0, 0.04);
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+            color: #fff;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 4px 16px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .pricing-card h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .pricing-price {
+            font-size: 48px;
+            font-weight: 900;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .pricing-subtitle {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+
+        .pricing-features {
+            list-style: none;
+            text-align: left;
+            margin-bottom: 32px;
+            padding-left: 0;
+        }
+
+        .pricing-features li {
+            padding: 8px 0;
+            font-size: 14px;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pricing-features li::before {
+            content: '';
+            width: 18px;
+            height: 18px;
+            min-width: 18px;
+            background: var(--accent-glow);
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23a855f7' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: 12px;
+        }
+
+        .btn-pricing {
+            width: 100%;
+            justify-content: center;
+        }
+
+        /* ---- FAQ ---- */
+        .faq-list {
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid var(--border);
+        }
+
+        .faq-question {
+            width: 100%;
+            background: none;
+            border: none;
+            padding: 20px 0;
+            text-align: left;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            color: var(--text-primary);
+            font-size: 16px;
+            font-weight: 600;
+            font-family: inherit;
+            transition: color 0.2s;
+        }
+
+        .faq-question:hover {
+            color: var(--accent);
+        }
+
+        .faq-icon {
+            width: 24px;
+            height: 24px;
+            min-width: 24px;
+            position: relative;
+            transition: transform 0.3s;
+        }
+
+        .faq-icon::before,
+        .faq-icon::after {
+            content: '';
+            position: absolute;
+            background: var(--accent);
+            border-radius: 2px;
+            transition: transform 0.3s;
+        }
+
+        .faq-icon::before {
+            width: 14px;
+            height: 2px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .faq-icon::after {
+            width: 2px;
+            height: 14px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .faq-item.active .faq-icon::after {
+            transform: translate(-50%, -50%) rotate(90deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-answer-inner {
+            padding: 0 0 20px;
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* ---- Vocal Chain Pairing Callout ---- */
+        .pairing-callout {
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.08), rgba(212, 255, 0, 0.04));
+            border: 1px solid var(--accent-border);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 720px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .pairing-callout h3 {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .pairing-callout h3 .fluo {
+            color: var(--fluo);
+        }
+
+        .pairing-callout p {
+            font-size: 16px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .pairing-stack {
+            display: inline-flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px 24px;
+            background: rgba(10, 15, 31, 0.6);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            margin-bottom: 24px;
+        }
+
+        .pairing-pill {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            font-weight: 700;
+            padding: 8px 14px;
+            border-radius: 8px;
+        }
+
+        .pairing-pill.tonic {
+            background: var(--accent-glow);
+            color: var(--accent);
+            border: 1px solid var(--accent-border);
+        }
+
+        .pairing-pill.desipper {
+            background: rgba(0, 212, 255, 0.15);
+            color: #22d3ee;
+            border: 1px solid rgba(0, 212, 255, 0.25);
+        }
+
+        .pairing-plus {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--text-muted);
+        }
+
+        .pairing-total {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        .pairing-total strong {
+            color: var(--fluo);
+            font-size: 18px;
+            font-weight: 800;
+        }
+
+        /* ---- Cross-Sell ---- */
+        .cross-sell {
+            text-align: center;
+            background: rgba(21, 16, 37, 0.5);
+        }
+
+        .cross-sell-label {
+            font-size: 14px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+            margin-bottom: 24px;
+        }
+
+        .cross-sell-cards {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cross-sell-card {
+            display: inline-flex;
+            align-items: center;
+            gap: 20px;
+            background: rgba(26, 20, 48, 0.6);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px 32px;
+            text-decoration: none;
+            transition: border-color 0.3s, transform 0.2s;
+        }
+
+        .cross-sell-card:hover {
+            border-color: rgba(255, 107, 43, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .cross-sell-card.cyan:hover {
+            border-color: rgba(0, 212, 255, 0.4);
+        }
+
+        .cross-sell-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 12px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .cross-sell-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .cross-sell-info {
+            text-align: left;
+        }
+
+        .cross-sell-name {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .cross-sell-desc {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .cross-sell-price {
+            font-size: 14px;
+            color: #ff6b2b;
+            font-weight: 600;
+            margin-top: 4px;
+        }
+
+        .cross-sell-card.cyan .cross-sell-price {
+            color: #22d3ee;
+        }
+
+        /* ---- Press Bar ---- */
+        .press-bar {
+            text-align: center;
+            padding: 32px 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .press-bar-text {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .press-bar-outlets {
+            font-size: 15px;
+            color: var(--text-secondary);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        /* ---- Why Section ---- */
+        .why-section {
+            background: rgba(21, 16, 37, 0.5);
+        }
+
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .why-card {
+            background: rgba(26, 20, 48, 0.6);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 32px 24px;
+            text-align: center;
+            transition: border-color 0.3s;
+        }
+
+        .why-card:hover {
+            border-color: var(--accent-border-hover);
+        }
+
+        .why-icon {
+            margin-bottom: 16px;
+        }
+
+        .why-card h3 {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .why-card p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* ---- Pricing Single Card ---- */
+        .pricing-single {
+            grid-template-columns: 1fr !important;
+            max-width: 440px !important;
+        }
+
+        /* ---- Guarantee Line ---- */
+        .guarantee-line {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+            font-weight: 500;
+        }
+
+        /* ---- Scroll Reveal ---- */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .scroll-reveal.visible {
+            opacity: 1;
+            transform: none;
+        }
+
+        /* ---- Responsive ---- */
+        @media (max-width: 768px) {
+            .hero {
+                padding: 100px 20px 60px;
+            }
+
+            .hero-screenshot {
+                max-width: 100%;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .knob-row {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .steps {
+                flex-direction: column;
+                gap: 24px;
+            }
+
+            .steps::before {
+                display: none;
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+            }
+
+            .hero-stats {
+                gap: 24px;
+            }
+
+            .cross-sell-card {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .cross-sell-info {
+                text-align: center;
+            }
+
+            .why-grid {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+            }
+
+            .pairing-callout {
+                padding: 32px 24px;
+            }
+
+            .pairing-stack {
+                flex-direction: column;
+                gap: 8px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-ctas {
+                flex-direction: column;
+                width: 100%;
+                padding: 0 16px;
+            }
+
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .compat-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .knob-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+            #silk-bg {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Silk WebGL Background -->
+    <canvas id="silk-bg"></canvas>
+
+    <div class="content-wrapper">
+
+        <!-- Navigation -->
+        <div id="site-nav" data-active="tonic"></div>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1 class="hero-title">Tonic</h1>
+            <div class="hero-tagline">OPTO-TUBE VOCAL COMPRESSOR</div>
+            <div class="hero-lines">
+                <span>Pro vocal glue</span>
+                <span>for the price of</span>
+                <span class="fluo">dinner.</span>
+            </div>
+            <p class="hero-desc">Opto cell with thermal memory. Tube push-pull saturation. Real transformer modeling. Dual time-circuit envelope. <strong style="color:#f5efe0;">$20 instead of $200.</strong></p>
+            <p class="hero-byline">by Carbonated Audio</p>
+            <img class="hero-screenshot" src="/tonic-screenshot.png" alt="Tonic opto-tube vocal compressor plugin interface — UV violet chassis with brushed brass knobs and glowing tonic-water tumbler meter" width="600" height="400" onerror="this.style.display='none'">
+            <div class="hero-ctas">
+                <a href="#pricing" class="btn-primary" id="heroBuyBtn">Get Tonic — $20</a>
+                <a href="#" class="btn-secondary" onclick="openDemoGate(event)">Try Free Demo</a>
+            </div>
+            <p style="margin-top:12px;font-size:13px;color:#a09bb5;text-align:center;">or 4 interest-free payments of $5 &mdash; Klarna &middot; Afterpay at checkout</p>
+            <p class="guarantee-line">&#128737; 30-day money-back guarantee. No questions asked.</p>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <div class="hero-stat-value">$20</div>
+                    <div class="hero-stat-label">One-Time</div>
+                </div>
+                <div class="hero-stat-divider"></div>
+                <div class="hero-stat">
+                    <div class="hero-stat-value">VST3 / AU / AAX</div>
+                    <div class="hero-stat-label">All Formats</div>
+                </div>
+                <div class="hero-stat-divider"></div>
+                <div class="hero-stat">
+                    <div class="hero-stat-value">macOS + Windows</div>
+                    <div class="hero-stat-label">Both Platforms</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Press/Trust Bar -->
+        <section class="press-bar">
+            <p class="press-bar-text">From the makers of Carbonator &amp; De-Sipper — featured on:</p>
+            <p class="press-bar-outlets">Audio Plugin Guy &bull; Rekkerd.org &bull; KVR Audio &bull; AudioNewsRoom</p>
+        </section>
+
+        <!-- Five-Knob Showcase -->
+        <section class="knob-showcase">
+            <h2 class="section-title">Five Knobs. <span class="accent">No Tabs.</span></h2>
+            <p style="text-align:center;color:var(--text-secondary);max-width:680px;margin:-12px auto 40px;font-size:16px;line-height:1.7;">Five knobs and three switches — the entire signal chain in plain sight. No menus to hunt through, no presets to scroll. Set it once and trust the iron.</p>
+            <div class="knob-row">
+                <div class="knob-card">
+                    <div class="knob-graphic" aria-hidden="true"></div>
+                    <h4>THRESHOLD</h4>
+                    <p>Off → -40 dBu, continuous</p>
+                </div>
+                <div class="knob-card">
+                    <div class="knob-graphic" aria-hidden="true"></div>
+                    <h4>RATIO</h4>
+                    <p>2:1 → 10:1, continuous</p>
+                </div>
+                <div class="knob-card">
+                    <div class="knob-graphic" aria-hidden="true"></div>
+                    <h4>ATTACK</h4>
+                    <p>0.5 ms → 300 ms</p>
+                </div>
+                <div class="knob-card">
+                    <div class="knob-graphic" aria-hidden="true"></div>
+                    <h4>RELEASE</h4>
+                    <p>50 ms → 10 s, program-aware</p>
+                </div>
+                <div class="knob-card">
+                    <div class="knob-graphic" aria-hidden="true"></div>
+                    <h4>GAIN</h4>
+                    <p>0 → +30 dB tube makeup</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features">
+            <h2 class="section-title">Real <span class="accent">Analog Modeling</span></h2>
+            <p style="text-align:center;color:var(--text-secondary);max-width:680px;margin:-12px auto 40px;font-size:16px;line-height:1.7;">Not a static curve. The opto cell remembers. The tube shifts harmonics under drive. The transformers add weight. Every part of the chain is modeled — not faked.</p>
+            <div class="features-grid">
+
+                <!-- 1. Opto cell thermal memory -->
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24"><path d="M12 2v6M12 16v6M2 12h6M16 12h6M4.93 4.93l4.24 4.24M14.83 14.83l4.24 4.24M4.93 19.07l4.24-4.24M14.83 9.17l4.24-4.24"/><circle cx="12" cy="12" r="3"/></svg>
+                    </div>
+                    <h3>Opto cell with thermal memory</h3>
+                    <p>Release time depends on how long the cell has been illuminated — real opto physics, not just an envelope follower. That's where the "the more it works, the more it wants to work" feel comes from.</p>
+                </div>
+
+                <!-- 2. Dual time-circuit -->
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    </div>
+                    <h3>Dual time-circuit (FIX / MAN / F+M)</h3>
+                    <p>Program-dependent envelope, full manual control, or both blended together. Three release behaviors with a single rocker switch — most plugins skip this entirely.</p>
+                </div>
+
+                <!-- 3. Tube push-pull saturation -->
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24"><path d="M2 12h4l3-9 6 18 3-9h4"/></svg>
+                    </div>
+                    <h3>Tube push-pull saturation</h3>
+                    <p>Even-harmonic dominance at low drive. As you push GAIN past unity, the harmonic balance tilts toward odd — exactly how a real push-pull amp behaves. Vocals get warmth without mud.</p>
+                </div>
+
+                <!-- 4. Transformer iron -->
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M7 10v4M11 8v8M15 10v4M19 11v2"/></svg>
+                    </div>
+                    <h3>Input + output transformer iron</h3>
+                    <p>Two transformer stages bracket the gain cell — one shapes the input, one shapes the output. Subtle low-mid weight, gentle HF rolloff at ~25 kHz, the iron character that makes hardware sound expensive.</p>
+                </div>
+
+                <!-- 5. Sidechain HPF -->
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24"><path d="M3 12h4l3-7 4 14 3-7h4"/></svg>
+                    </div>
+                    <h3>Sidechain HPF (20 Hz – 500 Hz)</h3>
+                    <p>Stop the kick from ducking the vocal. Internal or external sidechain, with auto-gain compensation so threshold doesn't drift when the filter engages. Defeat-able when you don't need it.</p>
+                </div>
+
+                <!-- 6. M-S / Dual / Stereo modes -->
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24"><circle cx="8" cy="12" r="6"/><circle cx="16" cy="12" r="6"/></svg>
+                    </div>
+                    <h3>Stereo / Dual-Mono / Mid-Side</h3>
+                    <p>Compress the whole signal, treat L and R independently, or compress just the mid while leaving the sides untouched. Three different vibes, one switch.</p>
+                </div>
+
+                <!-- 7. Selective oversampling -->
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+                    </div>
+                    <h3>Selective 4× oversampling</h3>
+                    <p>Oversampling runs only on the gain cell — bit-transparent when there's no compression happening. Zero CPU cost when Tonic is just listening, full anti-aliasing the moment it starts working.</p>
+                </div>
+
+                <!-- 8. Parallel mix + safety brickwall -->
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24"><path d="M5 3v18M19 3v18M5 12h14"/></svg>
+                    </div>
+                    <h3>Parallel mix + true-peak safety</h3>
+                    <p>Built-in dry/wet for parallel compression. Plus an invisible -0.1 dBFS true-peak brickwall at 4× OS that only catches stray peaks — keeps you safe without colouring the sound.</p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- How It Works Section -->
+        <section class="how-it-works">
+            <h2 class="section-title">How It <span class="accent">Works</span></h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Insert on vocal</h3>
+                    <p>Drop Tonic on any vocal track as a VST3, AU, or AAX plugin.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Set the five knobs</h3>
+                    <p>Threshold, Ratio, Attack, Release, Gain — same layout the pros have used for 30 years.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Vocal sits</h3>
+                    <p>Glued, warm, present — without the $200 price tag or iLok dongle.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Vocal Chain Pairing Callout -->
+        <section>
+            <div class="pairing-callout">
+                <h3>Pair with <span class="fluo">De-Sipper</span> for a complete vocal chain</h3>
+                <p>De-Sipper tames sibilance. Tonic glues the tone. Together: a finished modern vocal, ready for the mix.</p>
+                <div class="pairing-stack">
+                    <span class="pairing-pill desipper">De-Sipper</span>
+                    <span class="pairing-plus">+</span>
+                    <span class="pairing-pill tonic">Tonic</span>
+                </div>
+                <div class="pairing-total">Complete vocal chain for <strong>$40</strong></div>
+            </div>
+        </section>
+
+        <!-- Compatibility Section -->
+        <section id="compatibility">
+            <h2 class="section-title"><span class="accent">Compatibility</span></h2>
+            <div class="compat-grid">
+                <div class="compat-card">
+                    <h3>Formats</h3>
+                    <div class="compat-badges">
+                        <span class="compat-badge">VST3</span>
+                        <span class="compat-badge">AU</span>
+                        <span class="compat-badge">AAX</span>
+                        <span class="compat-badge">Standalone</span>
+                    </div>
+                </div>
+                <div class="compat-card">
+                    <h3>macOS</h3>
+                    <p>10.13+ (High Sierra and later)<br>Intel + Apple Silicon native</p>
+                </div>
+                <div class="compat-card">
+                    <h3>Windows</h3>
+                    <p>Windows 10+ (64-bit)</p>
+                </div>
+                <div class="compat-card">
+                    <h3>DAWs</h3>
+                    <p>Pro Tools, Logic Pro, Ableton Live, FL Studio, Studio One, Cubase, Reaper, and more</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Tonic Section -->
+        <section class="why-section">
+            <h2 class="section-title">Why <span class="accent">Tonic</span></h2>
+            <div class="why-grid">
+                <div class="why-card">
+                    <div class="why-icon">
+                        <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                    </div>
+                    <h3>Real analog modeling, not snake oil</h3>
+                    <p>Topology, opto thermal memory, dual time-circuit, transformer iron. Modeled from the physics — not faked with a static curve.</p>
+                </div>
+                <div class="why-card">
+                    <div class="why-icon">
+                        <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                    </div>
+                    <h3>From a trusted brand</h3>
+                    <p>Made by Carbonated Audio — featured on KVR Audio, Rekkerd.org, Audio Plugin Guy, and AudioNewsRoom. Real indie dev, real customer support.</p>
+                </div>
+                <div class="why-card">
+                    <div class="why-icon">
+                        <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M12 8v4l3 3"/></svg>
+                    </div>
+                    <h3>$20 once, forever</h3>
+                    <p>No subscription. No iLok dongle. No annual reactivation. Pay once, three machine activations, free updates for the life of the plugin.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing Section -->
+        <section id="pricing">
+            <h2 class="section-title">Simple <span class="accent">Pricing</span></h2>
+            <div class="pricing-grid pricing-single">
+
+                <div class="pricing-card featured">
+                    <div class="pricing-badge">Launch Price</div>
+                    <h3>Full Version</h3>
+                    <div class="pricing-price">$20</div>
+                    <div class="pricing-subtitle">one-time purchase</div>
+                    <div style="font-size:12px;color:#a09bb5;margin-top:6px;">or 4 payments of $5 &middot; Klarna &middot; Afterpay</div>
+                    <ul class="pricing-features">
+                        <li>Unlimited use, forever</li>
+                        <li>VST3, AU, AAX, Standalone</li>
+                        <li>3 machine activations</li>
+                        <li>Free updates for life</li>
+                        <li>Email support</li>
+                        <li>30-day refund guarantee</li>
+                    </ul>
+                    <!-- TODO: Replace with real Tonic Stripe payment link once product is created in Stripe -->
+                    <a href="#" onclick="alert('Tonic checkout link coming soon — drop your email via the demo button to be notified at launch.'); return false;" class="btn-primary btn-pricing" id="pricingBuyBtn">Get Tonic — $20</a>
+                    <a href="#" class="btn-secondary" style="display:inline-block; margin-top:12px; text-align:center;" onclick="openDemoGate(event)">Try Free Demo</a>
+                    <p class="guarantee-line" style="margin-top: 16px;">&#128737; 30-day money-back guarantee. No questions asked.</p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faq">
+            <h2 class="section-title">Frequently <span class="accent">Asked</span></h2>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <button class="faq-question">What is Tonic?<span class="faq-icon"></span></button>
+                    <div class="faq-answer"><div class="faq-answer-inner">Tonic is an opto-tube vocal compressor that models the full analog signal chain — input transformer, opto cell with thermal memory, tube push-pull amplifier, and output transformer. Designed for vocals, priced at $20 instead of $200+.</div></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">What makes Tonic different from other opto compressors?<span class="faq-icon"></span></button>
+                    <div class="faq-answer"><div class="faq-answer-inner">Three things. First, the <strong>dual time-circuit</strong> (FIX / MAN / FIX+MAN) lets you blend program-dependent envelope with manual control — most plugins skip it. Second, the <strong>opto cell has a thermal memory model</strong> so release time depends on illumination history, not just an envelope follower. Third, the <strong>tube push-pull stage</strong> shifts harmonic balance with drive — even-dominant at low drive, odd-dominant when pushed.</div></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">What formats are supported?<span class="faq-icon"></span></button>
+                    <div class="faq-answer"><div class="faq-answer-inner">Tonic ships as VST3, AU, AAX, and Standalone on macOS. On Windows, it's VST3 and Standalone (Windows AAX is on the roadmap).</div></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">How many computers can I use it on?<span class="faq-icon"></span></button>
+                    <div class="faq-answer"><div class="faq-answer-inner">Up to 3 machines with one license. If you need to move an activation, just deactivate on the old machine and activate on the new one.</div></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">Is there a free trial?<span class="faq-icon"></span></button>
+                    <div class="faq-answer"><div class="faq-answer-inner">Yes! <a href="#" onclick="openDemoGate(event)" style="color:#a855f7;">Download the free demo here.</a> The demo includes the full DSP feature set with a periodic silence cycle (60 seconds on, 10 seconds muted) so you can fully evaluate Tonic on your own vocals.</div></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">Does it work with Pro Tools?<span class="faq-icon"></span></button>
+                    <div class="faq-answer"><div class="faq-answer-inner">Yes — Tonic ships as a PACE-wrapped AAX plugin on macOS, fully compatible with Pro Tools 12+ sessions.</div></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">Does it pair with De-Sipper?<span class="faq-icon"></span></button>
+                    <div class="faq-answer"><div class="faq-answer-inner">It is the pairing. <a href="/desipper" style="color:#22d3ee;">De-Sipper</a> tames sibilance, Tonic glues the vocal tone — together they form a complete vocal chain for $40. We recommend De-Sipper first in the chain, then Tonic for the opto-tube glue.</div></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">Does it add latency?<span class="faq-icon"></span></button>
+                    <div class="faq-answer"><div class="faq-answer-inner">At 1× oversampling, Tonic is zero-latency. When you switch to 2× or 4× OS, there's a small lookahead buffer (a few samples) added — same as any other oversampled plugin. Selective oversampling means the gain cell only oversamples when it's actually compressing, so CPU stays low.</div></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">What's the refund policy?<span class="faq-icon"></span></button>
+                    <div class="faq-answer"><div class="faq-answer-inner">30-day money-back guarantee, no questions asked. If Tonic isn't right for you, just email us and we'll refund your purchase.</div></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">How do I install it?<span class="faq-icon"></span></button>
+                    <div class="faq-answer"><div class="faq-answer-inner">Download the installer, run it, and select which formats you want (VST3, AU, AAX, Standalone). Then rescan plugins in your DAW and Tonic will appear in your plugin list.</div></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cross-Sell Section -->
+        <section class="cross-sell">
+            <p class="cross-sell-label">Also from Carbonated Audio</p>
+            <div class="cross-sell-cards">
+                <a href="/desipper" class="cross-sell-card cyan">
+                    <div class="cross-sell-icon">
+                        <img src="/desipper-screenshot.png" alt="De-Sipper transparent de-esser plugin" width="56" height="56" style="object-fit:cover;border-radius:8px;">
+                    </div>
+                    <div class="cross-sell-info">
+                        <div class="cross-sell-name">De-Sipper</div>
+                        <div class="cross-sell-desc">Transparent de-essing — pairs with Tonic.</div>
+                        <div class="cross-sell-price">$20 one-time</div>
+                    </div>
+                </a>
+                <a href="/carbonator" class="cross-sell-card">
+                    <div class="cross-sell-icon">
+                        <img src="/logo.png" alt="Carbonator logo" width="56" height="56">
+                    </div>
+                    <div class="cross-sell-info">
+                        <div class="cross-sell-name">Carbonator</div>
+                        <div class="cross-sell-desc">Analog saturation with 5 unique flavors.</div>
+                        <div class="cross-sell-price">$20 one-time</div>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <div id="site-footer"></div>
+
+    </div>
+
+    <!-- Shared Components -->
+    <script src="/components/nav.js"></script>
+    <script src="/components/footer.js"></script>
+
+    <!-- Silk WebGL Background (UV-violet palette) -->
+    <script>
+    (function() {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+        const canvas = document.getElementById('silk-bg');
+        const gl = canvas.getContext('webgl');
+        if (!gl) return;
+
+        function resize() {
+            const dpr = Math.min(window.devicePixelRatio || 1, 2);
+            canvas.width = window.innerWidth * dpr;
+            canvas.height = window.innerHeight * dpr;
+            gl.viewport(0, 0, canvas.width, canvas.height);
+        }
+        resize();
+        window.addEventListener('resize', resize);
+
+        const vsSource = `
+            attribute vec2 aPosition;
+            varying vec2 vUv;
+            void main() {
+                vUv = aPosition * 0.5 + 0.5;
+                gl_Position = vec4(aPosition, 0.0, 1.0);
+            }
+        `;
+
+        const fsSource = `
+            precision mediump float;
+            varying vec2 vUv;
+            uniform float uTime;
+            uniform vec3 uColor;
+            uniform float uSpeed;
+            uniform float uScale;
+            uniform float uRotation;
+            uniform float uNoiseIntensity;
+
+            const float e = 2.71828182845904523536;
+
+            float noise(vec2 texCoord) {
+                float G = e;
+                vec2 r = (G * sin(G * texCoord));
+                return fract(r.x * r.y * (1.0 + texCoord.x));
+            }
+
+            vec2 rotateUvs(vec2 uv, float angle) {
+                float c = cos(angle);
+                float s = sin(angle);
+                mat2 rot = mat2(c, -s, s, c);
+                return rot * uv;
+            }
+
+            void main() {
+                float rnd = noise(gl_FragCoord.xy);
+                vec2 uv = rotateUvs(vUv * uScale, uRotation);
+                vec2 tex = uv * uScale;
+                float tOffset = uSpeed * uTime;
+
+                tex.y += 0.03 * sin(8.0 * tex.x - tOffset);
+
+                float pattern = 0.6 +
+                    0.4 * sin(5.0 * (tex.x + tex.y +
+                    cos(3.0 * tex.x + 5.0 * tex.y) +
+                    0.02 * tOffset) +
+                    sin(20.0 * (tex.x + tex.y - 0.1 * tOffset)));
+
+                vec4 col = vec4(uColor, 1.0) * vec4(vec3(pattern), 1.0) - rnd / 15.0 * uNoiseIntensity;
+                col.a = 1.0;
+                gl_FragColor = col;
+            }
+        `;
+
+        function compile(type, src) {
+            const s = gl.createShader(type);
+            gl.shaderSource(s, src);
+            gl.compileShader(s);
+            return s;
+        }
+
+        const prog = gl.createProgram();
+        gl.attachShader(prog, compile(gl.VERTEX_SHADER, vsSource));
+        gl.attachShader(prog, compile(gl.FRAGMENT_SHADER, fsSource));
+        gl.linkProgram(prog);
+        gl.useProgram(prog);
+
+        const buf = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+        const aPos = gl.getAttribLocation(prog, 'aPosition');
+        gl.enableVertexAttribArray(aPos);
+        gl.vertexAttribPointer(aPos, 2, gl.FLOAT, false, 0, 0);
+
+        const uTime = gl.getUniformLocation(prog, 'uTime');
+        const uColor = gl.getUniformLocation(prog, 'uColor');
+        const uSpeed = gl.getUniformLocation(prog, 'uSpeed');
+        const uScale = gl.getUniformLocation(prog, 'uScale');
+        const uRotation = gl.getUniformLocation(prog, 'uRotation');
+        const uNoise = gl.getUniformLocation(prog, 'uNoiseIntensity');
+
+        // UV-violet silk for Tonic theme — matches plugin's eviolet #7B2FFF chassis glow
+        gl.uniform3f(uColor, 0.18, 0.04, 0.42);
+        gl.uniform1f(uSpeed, 4.0);
+        gl.uniform1f(uScale, 1.0);
+        gl.uniform1f(uRotation, 0.0);
+        gl.uniform1f(uNoise, 1.5);
+
+        let time = 0;
+        function frame() {
+            time += 0.0016;
+            gl.uniform1f(uTime, time);
+            gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+            requestAnimationFrame(frame);
+        }
+        requestAnimationFrame(frame);
+    })();
+    </script>
+
+    <!-- FAQ Accordion -->
+    <script>
+    (function() {
+        const items = document.querySelectorAll('.faq-item');
+        items.forEach(item => {
+            const btn = item.querySelector('.faq-question');
+            const answer = item.querySelector('.faq-answer');
+            btn.addEventListener('click', () => {
+                const isActive = item.classList.contains('active');
+                items.forEach(i => {
+                    i.classList.remove('active');
+                    i.querySelector('.faq-answer').style.maxHeight = null;
+                });
+                if (!isActive) {
+                    item.classList.add('active');
+                    answer.style.maxHeight = answer.scrollHeight + 'px';
+                }
+            });
+        });
+    })();
+    </script>
+
+    <!-- Scroll Reveal -->
+    <script>
+    (function() {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.classList.add('visible');
+                    observer.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.feature-card, .pricing-card, .cross-sell-card, .faq-item, .why-card, .knob-card, .pairing-callout, section > h2, .section-label').forEach(el => {
+            el.classList.add('scroll-reveal');
+            observer.observe(el);
+        });
+    })();
+    </script>
+
+    <!-- Demo Gate Modal -->
+    <style>
+    .demo-gate-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.75);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        z-index: 10000;
+        align-items: center;
+        justify-content: center;
+    }
+    .demo-gate-overlay.active { display: flex; }
+
+    .demo-gate {
+        background: linear-gradient(180deg, var(--bg-card) 0%, #0a0a12 100%);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        padding: 40px;
+        max-width: 420px;
+        width: 90%;
+        text-align: center;
+        position: relative;
+        animation: gateSlideIn 0.3s ease-out;
+    }
+    @keyframes gateSlideIn {
+        from { opacity: 0; transform: translateY(20px) scale(0.97); }
+        to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .demo-gate-close {
+        position: absolute;
+        top: 14px;
+        right: 18px;
+        background: none;
+        border: none;
+        color: var(--text-muted);
+        font-size: 22px;
+        cursor: pointer;
+        line-height: 1;
+    }
+    .demo-gate-close:hover { color: var(--text-primary); }
+
+    .demo-gate h3 {
+        font-size: 22px;
+        font-weight: 700;
+        margin: 0 0 6px;
+        color: var(--text-primary);
+    }
+    .demo-gate p {
+        font-size: 14px;
+        color: var(--text-secondary);
+        margin: 0 0 24px;
+    }
+
+    .demo-gate-input {
+        width: 100%;
+        padding: 14px 16px;
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        background: var(--bg-primary);
+        color: var(--text-primary);
+        font-size: 15px;
+        font-family: inherit;
+        outline: none;
+        transition: border-color 0.2s;
+        box-sizing: border-box;
+    }
+    .demo-gate-input::placeholder { color: var(--text-muted); }
+    .demo-gate-input:focus { border-color: var(--accent); }
+
+    .demo-gate-submit {
+        width: 100%;
+        margin-top: 14px;
+        padding: 14px;
+        border-radius: 10px;
+        border: none;
+        background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+        color: #fff;
+        font-size: 16px;
+        font-weight: 600;
+        font-family: inherit;
+        cursor: pointer;
+        transition: opacity 0.2s, transform 0.1s;
+    }
+    .demo-gate-submit:hover { opacity: 0.9; }
+    .demo-gate-submit:active { transform: scale(0.98); }
+
+    .demo-gate-error {
+        color: #ef4444;
+        font-size: 13px;
+        margin-top: 8px;
+        min-height: 18px;
+    }
+
+    .demo-gate-fine {
+        font-size: 12px;
+        color: var(--text-muted);
+        margin-top: 16px;
+    }
+    </style>
+
+    <div class="demo-gate-overlay" id="demoGateOverlay">
+        <div class="demo-gate">
+            <button class="demo-gate-close" onclick="closeDemoGate()">&times;</button>
+            <h3>Get notified when Tonic launches</h3>
+            <p>The demo build is in the oven. Drop your email and we'll send you the download link the moment it ships.</p>
+            <form id="demoGateForm" onsubmit="return submitDemoGate(event)">
+                <input type="email" class="demo-gate-input" id="demoGateContact"
+                       placeholder="you@email.com" autocomplete="email" required>
+                <div class="demo-gate-error" id="demoGateError"></div>
+                <button type="submit" class="demo-gate-submit">Notify Me at Launch</button>
+            </form>
+            <div class="demo-gate-fine">No spam, ever. Just your download link and occasional updates from Carbonated Audio.</div>
+        </div>
+    </div>
+
+    <script>
+    function openDemoGate(e) {
+        if (e) e.preventDefault();
+        document.getElementById('demoGateOverlay').classList.add('active');
+        setTimeout(function() { document.getElementById('demoGateContact').focus(); }, 100);
+        if (typeof gtag === 'function') gtag('event', 'demo_gate_open', { event_category: 'engagement', event_label: 'tonic' });
+    }
+
+    function closeDemoGate() {
+        document.getElementById('demoGateOverlay').classList.remove('active');
+        document.getElementById('demoGateError').textContent = '';
+    }
+
+    document.getElementById('demoGateOverlay').addEventListener('click', function(e) {
+        if (e.target === this) closeDemoGate();
+    });
+
+    function submitDemoGate(e) {
+        e.preventDefault();
+        var contact = document.getElementById('demoGateContact').value.trim();
+        var errorEl = document.getElementById('demoGateError');
+        var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (!emailRe.test(contact)) {
+            errorEl.textContent = 'Please enter a valid email address.';
+            return false;
+        }
+
+        errorEl.textContent = '';
+
+        var btn = document.querySelector('.demo-gate-submit');
+        btn.textContent = 'Saving your spot...';
+        btn.disabled = true;
+
+        if (typeof gtag === 'function') gtag('event', 'demo_signup', { event_category: 'conversion', event_label: 'tonic-launch-list' });
+
+        var refSource = new URLSearchParams(window.location.search).get('ref') || 'tonic-launch-list';
+        fetch('/.netlify/functions/capture-lead', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ contact: contact, source: refSource })
+        }).catch(function() {});
+
+        setTimeout(function() {
+            btn.textContent = "You're on the list ✓";
+            setTimeout(closeDemoGate, 1400);
+            setTimeout(function() {
+                btn.textContent = 'Notify Me at Launch';
+                btn.disabled = false;
+                document.getElementById('demoGateContact').value = '';
+            }, 1600);
+        }, 600);
+
+        return false;
+    }
+    </script>
+
+</body>
+</html>

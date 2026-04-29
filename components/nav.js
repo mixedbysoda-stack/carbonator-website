@@ -17,7 +17,7 @@
             </a>
             <div class="nav-links">
                 <div class="nav-dropdown">
-                    <a class="nav-dropdown-trigger${active === 'carbonator' || active === 'desipper' || active === 'ontap' || active === 'pour' ? ' active' : ''}">Products</a>
+                    <a class="nav-dropdown-trigger${active === 'carbonator' || active === 'desipper' || active === 'ontap' || active === 'pour' || active === 'tonic' ? ' active' : ''}">Products</a>
                     <div class="nav-dropdown-menu">
                         <a href="/carbonator">
                             <div>
@@ -29,6 +29,12 @@
                             <div>
                                 <div class="dropdown-label">De-Sipper</div>
                                 <div class="dropdown-desc">Transparent de-esser</div>
+                            </div>
+                        </a>
+                        <a href="/tonic">
+                            <div>
+                                <div class="dropdown-label">Tonic</div>
+                                <div class="dropdown-desc">Opto-tube vocal compressor</div>
                             </div>
                         </a>
                         <a href="/ontap">
@@ -60,6 +66,7 @@
         <div class="mobile-menu" id="mobileMenu">
             <a href="/carbonator">Carbonator</a>
             <a href="/desipper">De-Sipper</a>
+            <a href="/tonic">Tonic</a>
             <a href="/ontap">On Tap</a>
             <a href="/pour">Pour</a>
             <a href="/manual">Manual</a>

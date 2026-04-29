@@ -54,6 +54,11 @@
   to = "/pour.html"
   status = 200
 
+[[redirects]]
+  from = "/tonic"
+  to = "/tonic.html"
+  status = 200
+
 # Manual hub and per-plugin manual pages
 [[redirects]]
   from = "/manual"
