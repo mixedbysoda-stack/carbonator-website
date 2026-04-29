@@ -61,10 +61,10 @@ const PRODUCTS = {
     secretEnv: "TONIC_LICENSE_SECRET",
   },
   bundle: {
-    name: "Carbonated Audio Bundle",
-    price: 60,
+    name: "Carbonated Audio Complete Bundle",
+    price: 75,
     isBundle: true,
-    includes: ["carbonator", "desipper", "ontap", "pour"],
+    includes: ["carbonator", "desipper", "ontap", "pour", "tonic"],
   },
   vocal_bundle: {
     name: "Vocal Chain Bundle",

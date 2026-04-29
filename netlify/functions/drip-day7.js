@@ -8,7 +8,7 @@ const { PRODUCTS } = require("./config");
 const { buildEmail, PRODUCT_ACCENTS } = require("../../email-templates/render");
 
 const FROM_EMAIL = "Carbonated Audio <hello@carbonatedaudio.com>";
-const BUNDLE_URL = "https://buy.stripe.com/3cI9AT1glbBg7rz1YL3oA08";
+const BUNDLE_URL = "https://buy.stripe.com/eVqeVdcZ3axc13b46T3oA0d";
 const FOUR_DAYS = 4 * 24 * 60 * 60 * 1000;
 
 const SUBJECTS = {
@@ -108,9 +108,9 @@ function buildDay7Body(product) {
   const appendix = `
     <hr style="border:none;border-top:1px solid #2a2440;margin:28px 0;">
     <p style="color:#a09bb5;font-size:14px;line-height:1.7;margin:0;text-align:center;">
-      Want all 4 plugins? Grab the
-      <a href="${BUNDLE_URL}" style="color:#4ecca3;text-decoration:none;font-weight:600;">Complete Bundle for $60</a>
-      &mdash; save $20.
+      Want all 5 plugins? Grab the
+      <a href="${BUNDLE_URL}" style="color:#4ecca3;text-decoration:none;font-weight:600;">Complete Bundle for $75</a>
+      &mdash; save $25.
     </p>
   `;
 

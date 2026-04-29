@@ -69,7 +69,7 @@ const PRODUCT_ACCENTS = {
     color: "#cc33ff",
     colorAlt: "#ff6b2b",
     gradient: "linear-gradient(135deg,#ff6b2b,#cc33ff,#00d4ff)",
-    url: "https://buy.stripe.com/3cI9AT1glbBg7rz1YL3oA08",
+    url: "https://buy.stripe.com/eVqeVdcZ3axc13b46T3oA0d",
     price: 60,
   },
   vocal_bundle: {
