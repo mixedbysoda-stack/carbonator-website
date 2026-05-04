@@ -1794,7 +1794,16 @@
         if (e.target === this) closeDemoGate();
     });
 
-    var TONIC_DEMO_DOWNLOAD = 'https://github.com/mixedbysoda-stack/tonic/releases/download/v2.0.0-demo/Tonic-v2.0.0-Demo-Installer.pkg';
+    var TONIC_DEMO_MAC = 'https://github.com/mixedbysoda-stack/tonic/releases/download/v2.0.0-demo/Tonic-v2.0.0-Demo-Installer.pkg';
+    var TONIC_DEMO_WIN = 'https://github.com/mixedbysoda-stack/tonic/releases/download/v2.0.0-demo/Tonic-v2.0.0-Demo-Windows-Installer.exe';
+
+    function detectTonicPlatform() {
+        var ua = navigator.userAgent || '';
+        var p = (navigator.userAgentData && navigator.userAgentData.platform) || navigator.platform || '';
+        if (/Win/i.test(p) || /Windows/i.test(ua)) return 'win';
+        if (/Mac/i.test(p) || /Mac OS X|Macintosh/i.test(ua)) return 'mac';
+        return 'mac'; // default to Mac for unknown UAs
+    }
 
     function submitDemoGate(e) {
         e.preventDefault();
@@ -1822,18 +1831,21 @@
             body: JSON.stringify({ contact: contact, source: refSource, product: 'tonic-demo' })
         }).catch(function() {});
 
+        var platform = detectTonicPlatform();
+        var downloadUrl = platform === 'win' ? TONIC_DEMO_WIN : TONIC_DEMO_MAC;
+
         // Trigger the actual download — uses an invisible anchor click so
         // the file lands in the user's Downloads folder without leaving the
         // page (preserves the "thanks" affordance below).
         var dl = document.createElement('a');
-        dl.href = TONIC_DEMO_DOWNLOAD;
+        dl.href = downloadUrl;
         dl.setAttribute('download', '');
         dl.style.display = 'none';
         document.body.appendChild(dl);
         dl.click();
         setTimeout(function() { document.body.removeChild(dl); }, 0);
 
-        if (typeof gtag === 'function') gtag('event', 'demo_download', { event_category: 'conversion', event_label: 'tonic-demo-mac' });
+        if (typeof gtag === 'function') gtag('event', 'demo_download', { event_category: 'conversion', event_label: 'tonic-demo-' + platform });
 
         setTimeout(function() {
             btn.textContent = "Downloading… ✓";
