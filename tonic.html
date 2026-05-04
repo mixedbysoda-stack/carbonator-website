@@ -1765,15 +1765,15 @@
     <div class="demo-gate-overlay" id="demoGateOverlay">
         <div class="demo-gate">
             <button class="demo-gate-close" onclick="closeDemoGate()">&times;</button>
-            <h3>Get notified when Tonic launches</h3>
-            <p>The demo build is in the oven. Drop your email and we'll send you the download link the moment it ships.</p>
+            <h3>Try Tonic free</h3>
+            <p>Full plugin, free download. Audio plays for 60 seconds, then mutes for 10 seconds — so you can fully evaluate Tonic on your own vocals before buying.</p>
             <form id="demoGateForm" onsubmit="return submitDemoGate(event)">
                 <input type="email" class="demo-gate-input" id="demoGateContact"
                        placeholder="you@email.com" autocomplete="email" required>
                 <div class="demo-gate-error" id="demoGateError"></div>
-                <button type="submit" class="demo-gate-submit">Notify Me at Launch</button>
+                <button type="submit" class="demo-gate-submit">Send Me the Download</button>
             </form>
-            <div class="demo-gate-fine">No spam, ever. Just your download link and occasional updates from Carbonated Audio.</div>
+            <div class="demo-gate-fine">No spam, ever. We'll email you the download link plus the occasional update from Carbonated Audio.</div>
         </div>
     </div>
 
@@ -1794,6 +1794,8 @@
         if (e.target === this) closeDemoGate();
     });
 
+    var TONIC_DEMO_DOWNLOAD = 'https://github.com/mixedbysoda-stack/tonic/releases/download/v2.0.0-demo/Tonic-v2.0.0-Demo-Installer.pkg';
+
     function submitDemoGate(e) {
         e.preventDefault();
         var contact = document.getElementById('demoGateContact').value.trim();
@@ -1808,26 +1810,39 @@
         errorEl.textContent = '';
 
         var btn = document.querySelector('.demo-gate-submit');
-        btn.textContent = 'Saving your spot...';
+        btn.textContent = 'Sending download link...';
         btn.disabled = true;
 
-        if (typeof gtag === 'function') gtag('event', 'demo_signup', { event_category: 'conversion', event_label: 'tonic-launch-list' });
+        if (typeof gtag === 'function') gtag('event', 'demo_signup', { event_category: 'conversion', event_label: 'tonic-demo' });
 
-        var refSource = new URLSearchParams(window.location.search).get('ref') || 'tonic-launch-list';
+        var refSource = new URLSearchParams(window.location.search).get('ref') || 'tonic-demo';
         fetch('/.netlify/functions/capture-lead', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ contact: contact, source: refSource })
+            body: JSON.stringify({ contact: contact, source: refSource, product: 'tonic-demo' })
         }).catch(function() {});
 
+        // Trigger the actual download — uses an invisible anchor click so
+        // the file lands in the user's Downloads folder without leaving the
+        // page (preserves the "thanks" affordance below).
+        var dl = document.createElement('a');
+        dl.href = TONIC_DEMO_DOWNLOAD;
+        dl.setAttribute('download', '');
+        dl.style.display = 'none';
+        document.body.appendChild(dl);
+        dl.click();
+        setTimeout(function() { document.body.removeChild(dl); }, 0);
+
+        if (typeof gtag === 'function') gtag('event', 'demo_download', { event_category: 'conversion', event_label: 'tonic-demo-mac' });
+
         setTimeout(function() {
-            btn.textContent = "You're on the list ✓";
-            setTimeout(closeDemoGate, 1400);
+            btn.textContent = "Downloading… ✓";
+            setTimeout(closeDemoGate, 2000);
             setTimeout(function() {
-                btn.textContent = 'Notify Me at Launch';
+                btn.textContent = 'Send Me the Download';
                 btn.disabled = false;
                 document.getElementById('demoGateContact').value = '';
-            }, 1600);
+            }, 2200);
         }, 600);
 
         return false;
