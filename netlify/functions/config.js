@@ -52,11 +52,13 @@ const PRODUCTS = {
   },
   tonic: {
     name: "Tonic",
-    version: "1.0.0",
+    version: "2.0.0",
     price: 20,
     downloads: {
-      mac: `https://github.com/mixedbysoda-stack/tonic/releases/download/v1.0.0/Tonic-v1.0.0-Installer.pkg`,
-      windows: `https://github.com/mixedbysoda-stack/tonic/releases/download/v1.0.0/Tonic-v1.0.0-Windows-Installer.exe`,
+      mac: `https://github.com/mixedbysoda-stack/tonic/releases/download/v2.0.0/Tonic-v2.0.0-Installer.pkg`,
+      // Windows v2 not yet shipped — pointer kept for the future v1 EXE that
+      // never released either; CI build will populate this slot when ready.
+      windows: `https://github.com/mixedbysoda-stack/tonic/releases/download/v2.0.0/Tonic-v2.0.0-Windows-Installer.exe`,
     },
     secretEnv: "TONIC_LICENSE_SECRET",
   },
