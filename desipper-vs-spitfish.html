@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>De-Sipper vs SpitFish: $20 Modern De-Esser vs Free Legacy Classic | Carbonated Audio</title>
+    <meta name="description" content="De-Sipper ($20) vs SpitFish (free) — feature comparison, modern signed de-esser vs aging Digitalfishphones legacy plugin, and an honest verdict on when to pay $20 for a working modern build.">
+    <meta name="keywords" content="De-Sipper vs SpitFish, SpitFish replacement, modern de-esser plugin, Digitalfishphones SpitFish 64-bit, free de-esser alternative, $20 de-esser, legacy plugin replacement 2026">
+    <meta name="author" content="Carbonated Audio">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="De-Sipper vs SpitFish: $20 Modern De-Esser vs Free Legacy Classic">
+    <meta property="og:description" content="Honest feature-by-feature comparison of De-Sipper and SpitFish. Modern signed plugin vs free legacy build with 32-bit and compatibility issues.">
+    <meta property="og:url" content="https://carbonatedaudio.com/desipper-vs-spitfish">
+    <meta property="og:site_name" content="Carbonated Audio">
+    <meta property="og:image" content="https://carbonatedaudio.com/desipper-screenshot.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="De-Sipper vs SpitFish: $20 Modern De-Esser vs Free Legacy Classic">
+    <meta name="twitter:description" content="Honest feature-by-feature comparison of De-Sipper and SpitFish.">
+    <meta name="twitter:image" content="https://carbonatedaudio.com/desipper-screenshot.png">
+
+    <link rel="canonical" href="https://carbonatedaudio.com/desipper-vs-spitfish">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "De-Sipper vs SpitFish — Modern vs Legacy De-Esser Comparison",
+        "description": "Honest comparison of De-Sipper and SpitFish for sibilance control on modern systems.",
+        "url": "https://carbonatedaudio.com/desipper-vs-spitfish",
+        "mainEntity": {
+            "@type": "ItemList",
+            "itemListElement": [
+                {
+                    "@type": "SoftwareApplication",
+                    "name": "De-Sipper",
+                    "applicationCategory": "MultimediaApplication",
+                    "offers": {"@type": "Offer", "price": "20.00", "priceCurrency": "USD"},
+                    "operatingSystem": ["macOS 10.13+", "Windows 10+"]
+                },
+                {
+                    "@type": "SoftwareApplication",
+                    "name": "SpitFish",
+                    "applicationCategory": "MultimediaApplication",
+                    "offers": {"@type": "Offer", "price": "0.00", "priceCurrency": "USD"},
+                    "operatingSystem": ["macOS (legacy)", "Windows (32-bit VST2)"]
+                }
+            ]
+        }
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "Is SpitFish still usable in 2026?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "On modern systems it's hit or miss. SpitFish was last updated by Digitalfishphones over a decade ago and is primarily a 32-bit VST2 plugin. Modern DAWs (Pro Tools 2024+, Logic Pro 11, Ableton Live 12) have moved toward 64-bit-only and increasingly toward AU/VST3, so SpitFish often won't load without a 32-bit bridge. On Apple Silicon Macs it has additional compatibility friction."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Why pay $20 for De-Sipper when SpitFish is free?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "De-Sipper is signed, notarized, PACE-wrapped for AAX, native 64-bit on macOS and Windows including Apple Silicon, and ships in modern formats (AU, VST3, AAX). SpitFish is a free legacy plugin that may or may not load in your current DAW. The $20 buys you a working, supported, modern de-esser instead of a free one that fights you on install."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Does SpitFish sound good?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes — when it loads, SpitFish sounds genuinely musical. Florian Bomers tuned it well and it has earned its reputation. The issue isn't sound quality; it's that the plugin format and architecture have aged out of compatibility with most modern DAWs and operating systems."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What about latency and modern compatibility?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "SpitFish has been reported to have inconsistent latency reporting in some host configurations, which can cause phase issues in parallel chains. De-Sipper reports latency correctly to the host, supports modern Pro Tools AAX, and runs natively on Apple Silicon and modern Windows without bridging."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Is there a free demo of De-Sipper?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes. De-Sipper has a free demo at carbonatedaudio.com/desipper — full plugin with a 60-second audio / 10-second mute cycle. You can A/B it against SpitFish on the same vocal session."
+                }
+            }
+        ]
+    }
+    </script>
+
+    <!-- GA4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z9L20HJ4M0"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-Z9L20HJ4M0');</script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg-primary: #0a1420; --bg-secondary: #0f1d2e; --bg-card: #142537;
+            --accent: #06b6d4; --accent-dark: #0891b2; --accent-light: #67e8f9;
+            --green: #22c55e; --text-primary: #ffffff; --text-secondary: #94a8b8;
+            --text-muted: #647585; --border: #1e3145;
+        }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; }
+        a { color: var(--accent); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        nav { position: sticky; top: 0; z-index: 100; padding: 16px 40px; display: flex; align-items: center; justify-content: space-between; background: rgba(10,20,32,0.92); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .nav-brand { font-weight: 800; font-size: 17px; color: #fff; text-decoration: none; }
+        .nav-links { display: flex; gap: 24px; }
+        .nav-links a { color: var(--text-secondary); font-size: 14px; font-weight: 500; }
+        .nav-links a:hover { color: #fff; text-decoration: none; }
+        .nav-cta { background: linear-gradient(135deg, var(--accent), var(--accent-dark)); color: #fff; padding: 8px 20px; border-radius: 8px; font-weight: 600; font-size: 14px; }
+        .nav-cta:hover { opacity: 0.9; text-decoration: none; }
+
+        .container { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+
+        .hero { padding: 80px 0 40px; text-align: center; }
+        .hero-badge { display: inline-block; background: rgba(6,182,212,0.12); border: 1px solid rgba(6,182,212,0.25); border-radius: 100px; padding: 6px 16px; font-size: 13px; font-weight: 600; color: var(--accent); margin-bottom: 20px; }
+        h1 { font-size: 42px; font-weight: 900; letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 16px; }
+        h1 .accent { background: linear-gradient(135deg, var(--accent), var(--accent-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .hero-sub { font-size: 18px; color: var(--text-secondary); max-width: 600px; margin: 0 auto; }
+
+        .verdict { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 32px; margin: 40px 0; position: relative; overflow: hidden; }
+        .verdict::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--accent-dark), var(--accent), var(--accent-light)); }
+        .verdict h2 { font-size: 20px; font-weight: 700; margin-bottom: 12px; }
+        .verdict p { color: var(--text-secondary); font-size: 15px; line-height: 1.7; }
+
+        .table-section { margin: 48px 0; }
+        .table-section h2 { font-size: 28px; font-weight: 800; margin-bottom: 24px; letter-spacing: -0.02em; }
+        table { width: 100%; border-collapse: collapse; background: var(--bg-card); border-radius: 12px; overflow: hidden; border: 1px solid var(--border); }
+        thead th { padding: 16px 20px; text-align: left; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-secondary); background: var(--bg-secondary); border-bottom: 1px solid var(--border); }
+        thead th:first-child { width: 35%; }
+        tbody td { padding: 14px 20px; font-size: 15px; border-bottom: 1px solid rgba(30,49,69,0.5); }
+        tbody tr:last-child td { border-bottom: none; }
+        .win { color: var(--green); font-weight: 600; }
+        .neutral { color: var(--text-secondary); }
+
+        .section { margin: 56px 0; }
+        .section h2 { font-size: 28px; font-weight: 800; margin-bottom: 16px; letter-spacing: -0.02em; }
+        .section h2 .accent { background: linear-gradient(135deg, var(--accent), var(--accent-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .section p, .section li { color: var(--text-secondary); font-size: 15px; line-height: 1.7; }
+        .section p + p { margin-top: 14px; }
+        .section ul { list-style: none; padding: 0; }
+        .section li { padding: 8px 0 8px 24px; position: relative; }
+        .section li::before { content: ''; position: absolute; left: 0; top: 16px; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+
+        .cta-box { text-align: center; padding: 56px 24px; background: linear-gradient(180deg, var(--bg-secondary), var(--bg-primary)); border-radius: 20px; margin: 56px 0; border: 1px solid var(--border); }
+        .cta-box h2 { font-size: 32px; font-weight: 900; margin-bottom: 12px; }
+        .cta-box p { color: var(--text-secondary); font-size: 16px; margin-bottom: 28px; }
+        .btn-primary { display: inline-block; background: linear-gradient(135deg, var(--accent), var(--accent-dark)); color: #fff; padding: 14px 36px; border-radius: 10px; font-weight: 700; font-size: 16px; margin: 0 8px 12px; }
+        .btn-primary:hover { opacity: 0.9; text-decoration: none; }
+        .btn-secondary { display: inline-block; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); color: #fff; padding: 14px 36px; border-radius: 10px; font-weight: 600; font-size: 16px; margin: 0 8px 12px; }
+        .btn-secondary:hover { background: rgba(255,255,255,0.1); text-decoration: none; }
+
+        footer { padding: 40px 0; text-align: center; border-top: 1px solid var(--border); margin-top: 40px; }
+        footer p { color: var(--text-muted); font-size: 13px; }
+        .compare-links { margin-top: 16px; }
+        .compare-links a { color: var(--text-secondary); font-size: 13px; margin: 0 12px; }
+
+        @media (max-width: 640px) { nav { padding: 12px 16px; } .nav-links { display: none; } h1 { font-size: 28px; } .hero { padding: 48px 0 24px; } .verdict { padding: 24px; } table { font-size: 13px; } thead th, tbody td { padding: 10px 12px; } }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="/" class="nav-brand">Carbonated Audio</a>
+        <div class="nav-links">
+            <a href="/desipper">De-Sipper</a>
+            <a href="/tonic">Tonic</a>
+            <a href="/carbonator">Carbonator</a>
+            <a href="/pour">Pour</a>
+        </div>
+        <a href="/desipper" class="nav-cta">Try De-Sipper Free</a>
+    </nav>
+
+    <div class="container">
+        <div class="hero">
+            <span class="hero-badge">Plugin Comparison</span>
+            <h1>De-Sipper vs SpitFish<br><span class="accent">Modern Build vs Free Legacy Classic</span></h1>
+            <p class="hero-sub">An honest, feature-by-feature look at a $20 modern signed de-esser and the beloved free Digitalfishphones plugin most modern DAWs can no longer load.</p>
+            <div style="display:flex;gap:16px;justify-content:center;margin-top:20px;flex-wrap:wrap;">
+                <span style="background:linear-gradient(135deg,#06b6d4,#0891b2);padding:8px 20px;border-radius:20px;font-weight:700;font-size:14px;color:#fff;">De-Sipper: $20</span>
+                <span style="background:#1e3145;padding:8px 20px;border-radius:20px;font-weight:600;font-size:14px;color:#94a8b8;">SpitFish: Free (legacy)</span>
+            </div>
+        </div>
+
+        <div class="verdict">
+            <h2>Quick Verdict</h2>
+            <p><strong>SpitFish</strong> earned its reputation honestly — Florian Bomers built a free de-esser that sounded better than half the paid options when it shipped. <strong>De-Sipper</strong> isn't trying to dethrone SpitFish on character; it's offering a modern, signed, AAX-supported, Apple-Silicon-native de-esser that actually loads in 2026. If SpitFish still loads in your DAW and sounds right on your vocal, keep using it. If you've tried to install it on a recent Mac or in a current Pro Tools session and hit a wall, $20 buys a working modern alternative.</p>
+        </div>
+
+        <div class="inline-cta" style="display:flex;gap:12px;justify-content:center;margin:24px 0 40px;flex-wrap:wrap;">
+            <a href="/desipper" class="btn-primary" style="padding:14px 28px;border-radius:10px;background:linear-gradient(135deg,#06b6d4,#0891b2);color:#fff;font-weight:600;font-size:15px;text-decoration:none;display:inline-block;">Try De-Sipper Free</a>
+            <a href="https://buy.stripe.com/9B6bJ11gl7l0aDLgTF3oA0b" class="btn-secondary" style="padding:14px 28px;border-radius:10px;border:1px solid #1e3145;color:#94a8b8;font-weight:600;font-size:15px;text-decoration:none;display:inline-block;">Get De-Sipper — $20</a>
+        </div>
+
+        <div class="table-section">
+            <h2>Feature Comparison</h2>
+            <table>
+                <thead>
+                    <tr><th>Feature</th><th>De-Sipper</th><th>SpitFish</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Price</td><td>$20 one-time</td><td class="win">Free</td></tr>
+                    <tr><td>Plugin Formats</td><td class="win">AU, VST3, AAX</td><td>VST2 (legacy)</td></tr>
+                    <tr><td>64-bit Native</td><td class="win">Yes — both macOS &amp; Windows</td><td>Primarily 32-bit</td></tr>
+                    <tr><td>Apple Silicon Native</td><td class="win">Yes</td><td>Compatibility friction</td></tr>
+                    <tr><td>Code Signed &amp; Notarized</td><td class="win">Yes</td><td>No</td></tr>
+                    <tr><td>Pro Tools AAX</td><td class="win">Yes — PACE-wrapped</td><td>No</td></tr>
+                    <tr><td>Latency Reporting</td><td class="win">Accurate</td><td>Reports of inconsistency</td></tr>
+                    <tr><td>UI Resolution</td><td class="win">Modern resizable UI</td><td>Fixed-size legacy UI</td></tr>
+                    <tr><td>Active Development</td><td class="win">Yes — current updates</td><td>Last update circa 2010s</td></tr>
+                    <tr><td>Support</td><td class="win">Email + 30-day refund</td><td>None (abandonware)</td></tr>
+                    <tr><td>Sound Quality</td><td class="win">Modern algorithm, oversampled</td><td class="win">Genuinely musical when it loads</td></tr>
+                    <tr><td>Free Demo</td><td class="win">Yes — full plugin with periodic mute</td><td class="win">Already free</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>When to Stick With <span class="accent">SpitFish</span></h2>
+            <ul>
+                <li>Your DAW still loads VST2 plugins reliably and SpitFish opens cleanly in your sessions</li>
+                <li>You're on an older macOS or Windows machine and the legacy build still runs natively without bridges</li>
+                <li>You've used SpitFish for years and you know exactly how to dial it in for your specific voice</li>
+                <li>You're working at a casual level where the occasional plugin scan-crash isn't a session-killer</li>
+                <li>You value $20 in your wallet over modern-format support</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>When to Switch to <span class="accent">De-Sipper</span></h2>
+            <ul>
+                <li>You're on a recent Mac (macOS 12 or later, especially Apple Silicon) and SpitFish either won't load or requires bridging that breaks in subtle ways</li>
+                <li>You use Pro Tools and need a real AAX de-esser — SpitFish doesn't have one, and you've been opening alternate sessions just to de-ess</li>
+                <li>You charge for mixing and can't have a de-esser fail to load in front of a client</li>
+                <li>You want code-signed, notarized plugins that don't trigger Gatekeeper warnings or installer permissions weirdness</li>
+                <li>You want a developer who can actually email you back if something goes wrong, instead of an abandonware plugin with no support</li>
+                <li>You want to bundle De-Sipper with Carbonator, Tonic, On Tap, and Pour in the Complete Bundle for $75 — five modern signed plugins from one developer</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>The Real Differentiator: <span class="accent">Modernity</span></h2>
+            <p>SpitFish is one of the great free plugins of all time. The problem isn't its sound. The problem is that the world has moved on from how it was built. The plugin was authored when 32-bit VST2 was the standard, when DAWs trusted unsigned plugins by default, when Apple Silicon didn't exist, and when Pro Tools' AAX format hadn't replaced RTAS yet. Every one of those facts has flipped.</p>
+            <p>If you're producing in 2026 on a recent system, you're increasingly running into walls with SpitFish. macOS 13+ has stricter rules about unsigned binaries. Pro Tools moved entirely to AAX years ago. Apple Silicon makes 32-bit Intel code an emulation layer at best. Some hosts have dropped VST2 support entirely. None of this is SpitFish's fault — it's just the cost of being a free plugin that nobody has updated for over a decade.</p>
+            <p>De-Sipper isn't trying to be better than SpitFish on a sonic level — that's a coin-flip on individual sources. It's trying to be the plugin that actually loads, in the format your DAW asks for, on the OS you're actually running. $20 is the price of that being someone else's problem.</p>
+        </div>
+
+        <div class="section">
+            <h2>The Bottom Line</h2>
+            <p>SpitFish is a great free plugin and there's no shame in keeping it on the sessions where it still works. It earned its place and it'll outlast a lot of paid plugins on charm alone.</p>
+            <p>But if you've already tried installing it on your current setup and run into a 32-bit warning, a missing AAX format, an unsigned-binary block on macOS, or a host that just won't show it in the plugin list — that's the gap De-Sipper fills. $20 one-time, no iLok, no subscription, signed and notarized for current operating systems, with active developer support if anything goes wrong.</p>
+            <p>Try the demo first. The full plugin is free to download with a periodic mute. Run it next to SpitFish on the same vocal, A/B them, and decide for yourself.</p>
+        </div>
+
+        <div class="cta-box">
+            <h2>A Modern De-Esser That Actually Loads</h2>
+            <p>Download the free demo — full plugin, no credit card, no iLok. Signed, notarized, modern.</p>
+            <a href="/desipper" class="btn-primary">Try De-Sipper Free</a>
+            <a href="https://buy.stripe.com/9B6bJ11gl7l0aDLgTF3oA0b" class="btn-secondary">Get De-Sipper — $20</a>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Carbonated Audio. All rights reserved. &nbsp;·&nbsp; <a href="/terms" style="color:inherit;text-decoration:none;opacity:0.8;">Terms</a> &nbsp;·&nbsp; <a href="/privacy" style="color:inherit;text-decoration:none;opacity:0.8;">Privacy</a> &nbsp;·&nbsp; <a href="/eula" style="color:inherit;text-decoration:none;opacity:0.8;">EULA</a></p>
+            <div class="compare-links">
+                <a href="/desipper-vs-soothe">De-Sipper vs Soothe</a>
+                <a href="/tonic-vs-renaissance-comp">Tonic vs Renaissance Comp</a>
+                <a href="/tonic-vs-fabfilter-pro-c">Tonic vs Pro-C 2</a>
+                <a href="/tonic-vs-stock-compressor">Tonic vs Stock Comp</a>
+                <a href="/pour-vs-ozone-imager">Pour vs Ozone Imager</a>
+                <a href="/ontap-vs-kickstart">On Tap vs Kickstart</a>
+                <a href="/">Back to Home</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

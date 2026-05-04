@@ -59,6 +59,37 @@
   to = "/tonic.html"
   status = 200
 
+# SEO comparison pages (pretty URLs)
+[[redirects]]
+  from = "/tonic-vs-renaissance-comp"
+  to = "/tonic-vs-renaissance-comp.html"
+  status = 200
+
+[[redirects]]
+  from = "/tonic-vs-fabfilter-pro-c"
+  to = "/tonic-vs-fabfilter-pro-c.html"
+  status = 200
+
+[[redirects]]
+  from = "/tonic-vs-stock-compressor"
+  to = "/tonic-vs-stock-compressor.html"
+  status = 200
+
+[[redirects]]
+  from = "/desipper-vs-soothe"
+  to = "/desipper-vs-soothe.html"
+  status = 200
+
+[[redirects]]
+  from = "/desipper-vs-spitfish"
+  to = "/desipper-vs-spitfish.html"
+  status = 200
+
+[[redirects]]
+  from = "/pour-vs-ozone-imager"
+  to = "/pour-vs-ozone-imager.html"
+  status = 200
+
 # Manual hub and per-plugin manual pages
 [[redirects]]
   from = "/manual"
