@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({"gtm.start":
+new Date().getTime(),event:"gtm.js"});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
+"https://www.googletagmanager.com/gtm.js?id="+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,"script","dataLayer","GTM-5QVG68CF");</script>
+    <!-- End Google Tag Manager -->
+    <!-- Meta Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version="2.0";n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,"script","https://connect.facebook.net/en_US/fbevents.js");fbq("init","1682413179857373");fbq("track","PageView");
+    </script>
+    <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1682413179857373&ev=PageView&noscript=1"/></noscript>
+    <!-- End Meta Pixel Code -->
+    <title>Thank You — Carbonator by Carbonated Audio</title>
+    <meta name="description" content="Thank you for purchasing Carbonator. Download your plugin, get your license key, and start adding analog warmth to your mixes.">
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="canonical" href="https://carbonatedaudio.com/success">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Thank You — Carbonator by Carbonated Audio">
+    <meta property="og:description" content="Thank you for purchasing Carbonator. Download your plugin and start adding analog warmth.">
+    <meta property="og:url" content="https://carbonatedaudio.com/success">
+    <meta property="og:site_name" content="Carbonated Audio">
+    <meta property="og:image" content="https://carbonatedaudio.com/og-image.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Thank You — Carbonator by Carbonated Audio">
+    <meta name="twitter:description" content="Thank you for purchasing Carbonator.">
+    <meta name="twitter:image" content="https://carbonatedaudio.com/og-image.png">
+    <!-- GA4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z9L20HJ4M0"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-Z9L20HJ4M0');</script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Pacifico&family=Lobster&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0d0a1a;
+            --bg-secondary: #151025;
+            --bg-card: #1a1430;
+            --orange: #ff6b2b;
+            --orange-light: #ff8c42;
+            --text-primary: #ffffff;
+            --text-secondary: #a09bb5;
+            --text-muted: #6b6580;
+            --border: #2a2440;
+            --green: #10b981;
+            --red: #ef4444;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+
+        .success-container {
+            max-width: 640px;
+            width: 100%;
+            text-align: center;
+        }
+
+        /* --- State: Hidden by default --- */
+        .state { display: none; }
+        .state.active { display: block; }
+
+        /* --- Loading State --- */
+        .spinner {
+            width: 48px;
+            height: 48px;
+            border: 4px solid var(--border);
+            border-top-color: var(--orange);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto 24px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            font-size: 18px;
+            color: var(--text-secondary);
+        }
+
+        /* --- Success State --- */
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(16, 185, 129, 0.15);
+            border: 2px solid var(--green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 32px;
+            animation: scaleIn 0.5s ease-out;
+        }
+
+        @keyframes scaleIn {
+            0% { transform: scale(0); opacity: 0; }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .success-icon svg {
+            width: 40px;
+            height: 40px;
+            stroke: var(--green);
+            stroke-width: 2.5;
+            fill: none;
+        }
+
+        /* --- Error State --- */
+        .error-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(239, 68, 68, 0.15);
+            border: 2px solid var(--red);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 32px;
+            animation: scaleIn 0.5s ease-out;
+        }
+
+        .error-icon svg {
+            width: 40px;
+            height: 40px;
+            stroke: var(--red);
+            stroke-width: 2.5;
+            fill: none;
+        }
+
+        .error-message {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+        }
+
+        /* --- Shared Styles --- */
+        .brand {
+            font-family: 'Pacifico', cursive;
+            font-size: 20px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        h1 {
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        h1 .accent {
+            background: linear-gradient(135deg, var(--orange), var(--orange-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            color: var(--text-secondary);
+            margin-bottom: 48px;
+        }
+
+        .download-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 32px;
+            text-align: left;
+        }
+
+        .download-section h2 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .download-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .download-card {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.2s;
+        }
+
+        .download-card:hover {
+            border-color: var(--orange);
+            background: rgba(255, 107, 43, 0.05);
+        }
+
+        .download-card .os-icon {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .download-card .os-name {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .download-card .os-detail {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, var(--orange), var(--orange-light));
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 20px rgba(255, 107, 43, 0.3);
+        }
+
+        .download-btn svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .instructions {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 32px;
+            text-align: left;
+        }
+
+        .instructions h2 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .instruction-step {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .instruction-step:last-child {
+            margin-bottom: 0;
+        }
+
+        .step-number {
+            flex-shrink: 0;
+            width: 28px;
+            height: 28px;
+            background: rgba(255, 107, 43, 0.15);
+            color: var(--orange);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .step-text {
+            font-size: 14px;
+            color: var(--text-secondary);
+            padding-top: 3px;
+        }
+
+        .step-text strong {
+            color: var(--text-primary);
+        }
+
+        .step-text code {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .receipt-note {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 32px;
+        }
+
+        .back-link {
+            color: var(--orange);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        /* --- License Key Section --- */
+        .license-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px 24px;
+            margin-bottom: 32px;
+            text-align: center;
+        }
+
+        .license-section h2 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .license-key-box {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 14px 16px;
+            margin-bottom: 12px;
+        }
+
+        .license-key-box code {
+            flex: 1;
+            font-family: 'JetBrains Mono', 'Courier New', monospace;
+            font-size: 12px;
+            color: var(--orange-light);
+            letter-spacing: 0.5px;
+            word-break: break-all;
+            text-align: left;
+            user-select: all;
+        }
+
+        .copy-btn {
+            flex-shrink: 0;
+            padding: 8px 16px;
+            background: linear-gradient(135deg, var(--orange), var(--orange-light));
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .copy-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 12px rgba(255, 107, 43, 0.3);
+        }
+
+        .license-note {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        /* --- Referral Section --- */
+        .referral-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px 24px;
+            margin-bottom: 32px;
+            text-align: center;
+        }
+
+        .referral-section h2 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .referral-desc {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+
+        .referral-link-box {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin-bottom: 16px;
+        }
+
+        .referral-link-box code {
+            flex: 1;
+            font-family: 'JetBrains Mono', 'Courier New', monospace;
+            font-size: 13px;
+            color: var(--orange-light);
+            text-align: left;
+            word-break: break-all;
+            user-select: all;
+        }
+
+        .share-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .share-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid var(--border);
+            background: rgba(255,255,255,0.04);
+            color: var(--text-primary);
+        }
+
+        .share-btn:hover {
+            border-color: var(--orange);
+            background: rgba(255,107,43,0.08);
+        }
+
+        @media (max-width: 600px) {
+            .download-grid {
+                grid-template-columns: 1fr;
+            }
+            h1 {
+                font-size: 28px;
+            }
+            .share-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5QVG68CF"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <div class="success-container">
+
+        <!-- STATE 1: Loading / Verifying -->
+        <div id="state-loading" class="state active">
+            <div class="spinner"></div>
+            <p class="loading-text">Verifying your purchase...</p>
+        </div>
+
+        <!-- STATE 2: Verified — show downloads -->
+        <div id="state-verified" class="state">
+            <div class="success-icon">
+                <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"/>
+                </svg>
+            </div>
+
+            <div class="brand">Carbonated Audio</div>
+            <h1>Thank you for buying <span class="accent" id="product-name-heading">Carbonator</span></h1>
+            <p class="subtitle">Your purchase is complete. Download your plugin below.</p>
+
+            <div class="license-section" id="license-section" style="display: none;">
+                <h2>Your License Key</h2>
+                <div class="license-key-box">
+                    <code id="license-key-text"></code>
+                    <button class="copy-btn" id="copy-key-btn">Copy</button>
+                </div>
+                <p class="license-note" id="license-note-text">Paste this key into the Carbonator plugin to activate it. Each key works on up to 3 machines.</p>
+            </div>
+
+            <div class="download-section">
+                <h2 id="download-heading">Download Carbonator</h2>
+                <div class="download-grid">
+                    <div class="download-card">
+                        <div class="os-icon">&#63743;</div>
+                        <div class="os-name">macOS</div>
+                        <div class="os-detail">Intel + Apple Silicon (Universal)<br>VST3, AU, AAX, Standalone</div>
+                        <a href="#" class="download-btn" id="mac-download">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                <polyline points="7 10 12 15 17 10"/>
+                                <line x1="12" y1="15" x2="12" y2="3"/>
+                            </svg>
+                            Download .pkg
+                        </a>
+                    </div>
+                    <div class="download-card">
+                        <div class="os-icon">&#9783;</div>
+                        <div class="os-name">Windows</div>
+                        <div class="os-detail">64-bit (x86_64)<br>VST3, Standalone</div>
+                        <a href="#" class="download-btn" id="win-download">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                <polyline points="7 10 12 15 17 10"/>
+                                <line x1="12" y1="15" x2="12" y2="3"/>
+                            </svg>
+                            Download .zip
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="instructions">
+                <h2>Installation</h2>
+
+                <div class="instruction-step">
+                    <div class="step-number">1</div>
+                    <div class="step-text"><strong>macOS:</strong> Open the .pkg installer and follow the prompts. Choose which formats to install (VST3, AU, AAX, Standalone).</div>
+                </div>
+
+                <div class="instruction-step">
+                    <div class="step-number">2</div>
+                    <div class="step-text"><strong>Windows:</strong> Extract the .zip and copy the VST3 plugin to <code>C:\Program Files\Common Files\VST3\</code></div>
+                </div>
+
+                <div class="instruction-step">
+                    <div class="step-number">3</div>
+                    <div class="step-text"><strong>Rescan plugins</strong> in your DAW (FL Studio: Options &rarr; Manage plugins &rarr; Start scan). Carbonator will appear under Effects &rarr; Filter.</div>
+                </div>
+
+                <div class="instruction-step">
+                    <div class="step-number">4</div>
+                    <div class="step-text"><strong>Drop it on a track</strong> and start tweaking. Pick a flavor, turn the FIZZ knob, and toggle Carbonated mode.</div>
+                </div>
+            </div>
+
+            <!-- Referral + Share Section -->
+            <div class="referral-section" id="referral-section" style="display:none;">
+                <h2>Know a producer who'd love this?</h2>
+                <p class="referral-desc">Share your referral link. When someone buys through it, we'll track it — referral rewards coming soon.</p>
+                <div class="referral-link-box">
+                    <code id="referral-link-text"></code>
+                    <button class="copy-btn" id="copy-ref-btn">Copy</button>
+                </div>
+                <div class="share-buttons">
+                    <a href="#" id="share-twitter" target="_blank" rel="noopener" class="share-btn share-twitter">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                        Post on X
+                    </a>
+                    <button class="share-btn share-copy" id="share-copy-link">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                        Copy Link
+                    </button>
+                </div>
+            </div>
+
+            <p class="receipt-note">A receipt and download links have been sent to your email. If you need help, contact us at mixedbysoda@gmail.com</p>
+
+            <div style="margin-top:24px;display:flex;gap:16px;justify-content:center;">
+                <a href="/press" style="color:var(--text-muted);font-size:13px;text-decoration:none;">Press</a>
+                <a href="mailto:mixedbysoda@gmail.com" style="color:var(--text-muted);font-size:13px;text-decoration:none;">Support</a>
+                <a href="mailto:mixedbysoda@gmail.com" style="color:var(--text-muted);font-size:13px;text-decoration:none;">Contact</a>
+            </div>
+            <a href="index.html" class="back-link" style="margin-top:12px;display:inline-block;">&larr; Back to Carbonated Audio</a>
+        </div>
+
+        <!-- STATE 3: Error — payment not verified -->
+        <div id="state-error" class="state">
+            <div class="error-icon">
+                <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"/>
+                    <line x1="15" y1="9" x2="9" y2="15"/>
+                    <line x1="9" y1="9" x2="15" y2="15"/>
+                </svg>
+            </div>
+
+            <div class="brand">Carbonated Audio</div>
+            <h1>Payment <span class="accent">Not Verified</span></h1>
+            <p class="error-message" id="error-detail">We couldn't verify your purchase. If you just completed payment, please wait a moment and refresh the page. If the issue persists, contact mixedbysoda@gmail.com with your order details.</p>
+
+            <a href="index.html" class="back-link">&larr; Back to Carbonated Audio</a>
+        </div>
+
+    </div>
+
+    <script>
+        (async function () {
+            const stateLoading = document.getElementById('state-loading');
+            const stateVerified = document.getElementById('state-verified');
+            const stateError = document.getElementById('state-error');
+            const errorDetail = document.getElementById('error-detail');
+
+            function showState(state) {
+                stateLoading.classList.remove('active');
+                stateVerified.classList.remove('active');
+                stateError.classList.remove('active');
+                state.classList.add('active');
+            }
+
+            function showError(message) {
+                if (message) errorDetail.textContent = message;
+                showState(stateError);
+            }
+
+            // Get session_id from URL
+            const params = new URLSearchParams(window.location.search);
+            const sessionId = params.get('session_id');
+
+            if (!sessionId) {
+                showError('No payment session found. Please complete your purchase first.');
+                return;
+            }
+
+            try {
+                const res = await fetch(
+                    `/.netlify/functions/verify-session?session_id=${encodeURIComponent(sessionId)}`
+                );
+                const data = await res.json();
+
+                if (data.verified) {
+                    // Populate download URLs from the server
+                    document.getElementById('mac-download').href = data.downloads.mac;
+                    document.getElementById('win-download').href = data.downloads.windows;
+                    const productName = data.product_name || 'Carbonator';
+                    document.getElementById('download-heading').textContent =
+                        `Download ${productName} v${data.version}`;
+                    document.getElementById('product-name-heading').textContent = productName;
+                    document.getElementById('license-note-text').textContent =
+                        `Paste this key into the ${productName} plugin to activate it. Each key works on up to 3 machines.`;
+
+                    // Show license key if available
+                    if (data.license_key) {
+                        document.getElementById('license-key-text').textContent = data.license_key;
+                        document.getElementById('license-section').style.display = 'block';
+                        document.getElementById('copy-key-btn').addEventListener('click', function() {
+                            navigator.clipboard.writeText(data.license_key).then(function() {
+                                document.getElementById('copy-key-btn').textContent = 'Copied!';
+                                setTimeout(function() {
+                                    document.getElementById('copy-key-btn').textContent = 'Copy';
+                                }, 2000);
+                            });
+                        });
+                    }
+
+                    // Generate and show referral link
+                    if (data.email) {
+                        try {
+                            const refRes = await fetch(`/.netlify/functions/referral?action=generate&email=${encodeURIComponent(data.email)}`);
+                            const refData = await refRes.json();
+                            if (refData.ref_code) {
+                                const refUrl = `https://carbonatedaudio.com?ref=${refData.ref_code}`;
+                                document.getElementById('referral-link-text').textContent = refUrl;
+                                document.getElementById('referral-section').style.display = 'block';
+
+                                document.getElementById('copy-ref-btn').addEventListener('click', function() {
+                                    navigator.clipboard.writeText(refUrl).then(function() {
+                                        document.getElementById('copy-ref-btn').textContent = 'Copied!';
+                                        setTimeout(function() {
+                                            document.getElementById('copy-ref-btn').textContent = 'Copy';
+                                        }, 2000);
+                                    });
+                                });
+
+                                const tweetText = data.product === 'desipper'
+                                    ? encodeURIComponent('Just copped De-Sipper \u2014 surgical de-essing, $20. Try it:')
+                                    : encodeURIComponent('Just copped Carbonator \u2014 5 saturation flavors, one knob, $20. The Lemon-Lime is wild. Try the free demo:');
+                                document.getElementById('share-twitter').href = `https://twitter.com/intent/tweet?text=${tweetText}&url=${encodeURIComponent(refUrl)}`;
+
+                                document.getElementById('share-copy-link').addEventListener('click', function() {
+                                    navigator.clipboard.writeText(refUrl).then(function() {
+                                        this.querySelector('svg + *') || (this.textContent = 'Copied!');
+                                        document.getElementById('share-copy-link').innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Copied!';
+                                        setTimeout(function() {
+                                            document.getElementById('share-copy-link').innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy Link';
+                                        }, 2000);
+                                    });
+                                });
+                            }
+                        } catch (refErr) {
+                            console.error('Referral generation failed:', refErr);
+                        }
+                    }
+
+                    // GA4: fire purchase event
+                    var priceByProduct = { carbonator: 20, desipper: 20, ontap: 20, pour: 20, bundle: 60, vocal_bundle: 35, mixbus_bundle: 30 };
+                    var purchaseValue = priceByProduct[data.product] || 20;
+                    if (typeof gtag === 'function') {
+                        gtag('event', 'purchase', {
+                            currency: 'USD',
+                            value: purchaseValue,
+                            transaction_id: sessionId,
+                            items: [{
+                                item_id: data.product,
+                                item_name: data.product_name || 'Carbonator',
+                                price: purchaseValue,
+                                quantity: 1
+                            }]
+                        });
+                    }
+
+                    showState(stateVerified);
+                } else {
+                    showError(data.error || 'Payment could not be verified.');
+                }
+            } catch (err) {
+                console.error('Verification failed:', err);
+                showError('Something went wrong verifying your purchase. Please refresh the page or contact mixedbysoda@gmail.com');
+            }
+        })();
+    </script>
+</body>
+</html>

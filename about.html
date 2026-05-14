@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({"gtm.start":
+new Date().getTime(),event:"gtm.js"});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
+"https://www.googletagmanager.com/gtm.js?id="+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,"script","dataLayer","GTM-5QVG68CF");</script>
+    <!-- End Google Tag Manager -->
+    <!-- Meta Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version="2.0";n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,"script","https://connect.facebook.net/en_US/fbevents.js");fbq("init","1682413179857373");fbq("track","PageView");
+    </script>
+    <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1682413179857373&ev=PageView&noscript=1"/></noscript>
+    <!-- End Meta Pixel Code -->
+    <title>About Carbonated Audio — Indie $20 Audio Plugins by One Working Engineer</title>
+    <meta name="description" content="Carbonated Audio is one mixing engineer building $20 audio plugins — Carbonator, De-Sipper, On Tap, Pour, Tonic. No corporate stack, no markup. Built for working producers.">
+    <meta name="keywords" content="Carbonated Audio, about, indie plugin developer, saturation plugin, Carbonator story, audio plugin company">
+    <meta name="author" content="Carbonated Audio">
+    <link rel="canonical" href="https://carbonatedaudio.com/about">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="About — Carbonated Audio">
+    <meta property="og:description" content="Built by a producer, for producers. The story behind Carbonator — a $20 analog saturation plugin with 5 circuit-modeled DSP flavors.">
+    <meta property="og:url" content="https://carbonatedaudio.com/about">
+    <meta property="og:site_name" content="Carbonated Audio">
+    <meta property="og:image" content="https://carbonatedaudio.com/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Carbonated Audio — Built by a Producer, for Producers">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="About — Carbonated Audio">
+    <meta name="twitter:description" content="Built by a producer, for producers. The story behind Carbonator — a $20 saturation plugin with 5 circuit-modeled DSP flavors.">
+    <meta name="twitter:image" content="https://carbonatedaudio.com/og-image.png">
+
+    <!-- Organization Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Carbonated Audio",
+        "url": "https://carbonatedaudio.com",
+        "description": "Indie audio plugin developer specializing in affordable saturation and harmonic processing effects. Founded by a producer and mixing engineer.",
+        "logo": "https://carbonatedaudio.com/logo.png",
+        "foundingDate": "2025",
+        "founder": {
+            "@type": "Person",
+            "jobTitle": "Producer & Mixing Engineer"
+        },
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "email": "mixedbysoda@gmail.com",
+            "contactType": "Customer Support"
+        },
+        "sameAs": [
+            "https://www.instagram.com/carbonatedaudio",
+            "https://github.com/mixedbysoda-stack/carbonator"
+        ]
+    }
+    </script>
+
+    <!-- GA4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z9L20HJ4M0"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-Z9L20HJ4M0');</script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg-primary: #0d0a1a;
+            --bg-secondary: #151025;
+            --bg-card: #1a1430;
+            --bg-card-darker: #120e22;
+            --orange: #ff6b2b;
+            --orange-light: #ff8c42;
+            --red: #e63946;
+            --pink: #ff3366;
+            --magenta: #cc33ff;
+            --yellow: #ffd700;
+            --cyan: #00d4ff;
+            --green: #22c55e;
+            --text-primary: #ffffff;
+            --text-secondary: #a09bb5;
+            --text-muted: #6b6580;
+            --border: #2a2440;
+        }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent;
+        }
+        a, button { touch-action: manipulation; }
+
+        /* ===== FLOATING PARTICLES ===== */
+        .particles-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: rgba(255, 107, 43, 0.3);
+            border-radius: 50%;
+            bottom: -10px;
+            animation: floatUp linear infinite;
+        }
+        .particle:nth-child(odd) {
+            background: rgba(255, 51, 102, 0.25);
+        }
+        .particle:nth-child(3n) {
+            background: rgba(204, 51, 255, 0.2);
+            width: 2px;
+            height: 2px;
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(0) translateX(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-110vh) translateX(40px); opacity: 0; }
+        }
+
+        /* ===== NAVIGATION ===== */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 16px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(13, 10, 26, 0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+        .nav-logo-img {
+            height: 36px;
+            width: auto;
+            transition: filter 0.3s;
+        }
+        .nav-logo-img:hover {
+            filter: brightness(1.2);
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+        .btn-buy {
+            padding: 12px 24px;
+            min-height: 44px;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+        }
+        .btn-buy:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            gap: 5px;
+            width: 44px;
+            height: 44px;
+            padding: 10px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            z-index: 201;
+        }
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--text-primary);
+            border-radius: 2px;
+            transition: transform 0.3s, opacity 0.3s;
+        }
+        .hamburger.active span:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+        }
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger.active span:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
+        }
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 199;
+            background: rgba(13, 10, 26, 0.97);
+            backdrop-filter: blur(20px);
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 80px 32px 32px;
+        }
+        .mobile-menu.active {
+            display: flex;
+        }
+        .mobile-menu a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: 600;
+            padding: 14px 24px;
+            border-radius: 12px;
+            transition: color 0.2s, background 0.2s;
+            width: 100%;
+            max-width: 300px;
+            text-align: center;
+        }
+        .mobile-menu a:hover, .mobile-menu a:active {
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.06);
+        }
+        .mobile-menu .mobile-menu-cta {
+            margin-top: 16px;
+            padding: 16px 32px;
+            background: linear-gradient(135deg, var(--orange), var(--pink));
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-weight: 700;
+        }
+
+        /* ===== PAGE LAYOUT ===== */
+        .page-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ===== AURORA HERO ===== */
+        .about-hero {
+            text-align: center;
+            padding: 100px 0 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        .aurora-container {
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .aurora-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.4;
+        }
+        .aurora-orb-1 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255, 107, 43, 0.4), transparent 70%);
+            top: 20%;
+            left: 30%;
+            animation: auroraFloat1 8s ease-in-out infinite;
+        }
+        .aurora-orb-2 {
+            width: 350px;
+            height: 350px;
+            background: radial-gradient(circle, rgba(255, 51, 102, 0.35), transparent 70%);
+            top: 40%;
+            right: 25%;
+            animation: auroraFloat2 10s ease-in-out infinite;
+        }
+        .aurora-orb-3 {
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(204, 51, 255, 0.3), transparent 70%);
+            bottom: 20%;
+            left: 40%;
+            animation: auroraFloat3 12s ease-in-out infinite;
+        }
+        @keyframes auroraFloat1 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(60px, -40px) scale(1.1); }
+            66% { transform: translate(-30px, 30px) scale(0.95); }
+        }
+        @keyframes auroraFloat2 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(-50px, 40px) scale(1.05); }
+            66% { transform: translate(40px, -20px) scale(0.9); }
+        }
+        @keyframes auroraFloat3 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(50px, -50px) scale(1.15); }
+        }
+
+        /* ===== HERO TEXT ===== */
+        .hero-title {
+            font-size: 56px;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--orange), var(--pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 16px;
+            position: relative;
+            z-index: 1;
+            line-height: 1.15;
+        }
+        .hero-subtitle {
+            font-size: 20px;
+            color: var(--text-secondary);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ===== SCROLL REVEAL ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .reveal-stagger {
+            opacity: 0;
+            transform: translateY(25px);
+            transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-stagger.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== SECTION DIVIDER ===== */
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border), var(--orange), var(--border), transparent);
+            margin: 0;
+            border: none;
+            opacity: 0.5;
+        }
+
+        /* ===== STORY SECTION ===== */
+        .story-section {
+            padding: 80px 0;
+        }
+        .story-section p {
+            color: var(--text-secondary);
+            font-size: 17px;
+            line-height: 1.8;
+            margin-bottom: 24px;
+            max-width: 720px;
+        }
+        .story-section p:last-child {
+            margin-bottom: 0;
+        }
+        .story-section p strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        .story-highlight {
+            color: var(--orange) !important;
+            font-weight: 700;
+            font-size: 22px;
+            border-left: 3px solid var(--orange);
+            padding-left: 20px;
+            margin: 40px 0;
+            line-height: 1.6;
+        }
+
+        /* ===== PHILOSOPHY CARDS ===== */
+        .philosophy-section {
+            padding: 80px 0;
+        }
+        .philosophy-section h2 {
+            font-size: 36px;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 48px;
+        }
+        .philosophy-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+        .philosophy-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 36px 28px;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+        }
+        .philosophy-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--orange), var(--pink));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .philosophy-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(255, 107, 43, 0.3);
+            box-shadow: 0 8px 40px rgba(255, 107, 43, 0.1), 0 0 60px rgba(255, 107, 43, 0.05);
+        }
+        .philosophy-card:hover::before {
+            opacity: 1;
+        }
+        .philosophy-card-icon {
+            font-size: 32px;
+            margin-bottom: 16px;
+            display: block;
+        }
+        .philosophy-card h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        .philosophy-card p {
+            color: var(--text-secondary);
+            font-size: 15px;
+            line-height: 1.65;
+        }
+
+        /* ===== PRESS SECTION ===== */
+        .press-section {
+            padding: 80px 0;
+            text-align: center;
+        }
+        .press-section h2 {
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+        .press-section .press-sub {
+            color: var(--text-secondary);
+            font-size: 16px;
+            margin-bottom: 40px;
+        }
+        .press-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+        .press-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 28px 20px;
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            position: relative;
+        }
+        .press-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(255, 107, 43, 0.3);
+            box-shadow: 0 8px 30px rgba(255, 107, 43, 0.08);
+        }
+        .press-card-name {
+            font-weight: 700;
+            font-size: 15px;
+        }
+        .press-card-desc {
+            color: var(--text-muted);
+            font-size: 12px;
+        }
+        .press-card-arrow {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            color: var(--text-muted);
+            transition: color 0.2s;
+        }
+        .press-card:hover .press-card-arrow {
+            color: var(--orange);
+        }
+
+        /* ===== NUMBERS SECTION ===== */
+        .numbers-section {
+            padding: 80px 0;
+            text-align: center;
+        }
+        .numbers-section h2 {
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 48px;
+        }
+        .numbers-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 24px;
+        }
+        .number-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 32px 16px;
+            text-align: center;
+        }
+        .number-value {
+            font-size: 42px;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--orange), var(--pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
+            line-height: 1.1;
+        }
+        .number-label {
+            color: var(--text-secondary);
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        /* ===== CTA SECTION ===== */
+        .cta-section {
+            padding: 80px 0 100px;
+            text-align: center;
+        }
+        .cta-section h2 {
+            font-size: 40px;
+            font-weight: 800;
+            margin-bottom: 32px;
+        }
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .cta-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px 36px;
+            min-height: 52px;
+            background: linear-gradient(135deg, var(--orange), var(--pink));
+            color: var(--text-primary);
+            font-size: 16px;
+            font-weight: 700;
+            border: none;
+            border-radius: 12px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+        .cta-primary::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--orange-light), var(--pink));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .cta-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(255, 107, 43, 0.3);
+        }
+        .cta-primary:hover::before {
+            opacity: 1;
+        }
+        .cta-primary span {
+            position: relative;
+            z-index: 1;
+        }
+        .cta-secondary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px 36px;
+            min-height: 52px;
+            background: transparent;
+            color: var(--text-primary);
+            font-size: 16px;
+            font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 12px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background 0.2s, border-color 0.2s;
+        }
+        .cta-secondary:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.45);
+        }
+
+        /* ===== FOOTER ===== */
+        .site-footer {
+            border-top: 1px solid var(--border);
+            padding: 40px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+        .footer-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .footer-text {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+        .footer-links {
+            display: flex;
+            gap: 24px;
+        }
+        .footer-links a {
+            font-size: 13px;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+            padding: 8px 4px;
+            min-height: 44px;
+            display: inline-flex;
+            align-items: center;
+        }
+        .footer-links a:hover {
+            color: var(--text-secondary);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 36px;
+            }
+            .hero-subtitle {
+                font-size: 16px;
+            }
+            .page-wrapper {
+                padding: 0 20px;
+            }
+            nav {
+                padding: 16px 20px;
+            }
+            .nav-links {
+                display: none;
+            }
+            .hamburger {
+                display: flex;
+            }
+            .philosophy-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+            .press-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .numbers-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+            .numbers-grid .number-card:last-child {
+                grid-column: 1 / -1;
+            }
+            .number-value {
+                font-size: 32px;
+            }
+            .story-section,
+            .philosophy-section,
+            .press-section,
+            .numbers-section,
+            .cta-section {
+                padding: 56px 0;
+            }
+            .philosophy-section h2,
+            .press-section h2,
+            .numbers-section h2,
+            .cta-section h2 {
+                font-size: 28px;
+            }
+            .story-section p {
+                font-size: 15px;
+            }
+            .story-highlight {
+                font-size: 18px;
+            }
+            .site-footer {
+                flex-direction: column;
+                gap: 16px;
+                padding: 32px 20px;
+                text-align: center;
+            }
+            .about-hero {
+                padding: 70px 0 60px;
+            }
+            .aurora-orb {
+                filter: blur(60px);
+                opacity: 0.25;
+            }
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* ===== REDUCED MOTION ===== */
+        @media (prefers-reduced-motion: reduce) {
+            .particle,
+            .aurora-orb {
+                animation: none !important;
+            }
+            .reveal,
+            .reveal-stagger {
+                opacity: 1 !important;
+                transform: none !important;
+                transition: none !important;
+            }
+            .philosophy-card:hover,
+            .press-card:hover,
+            .cta-primary:hover {
+                transform: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5QVG68CF"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <!-- Floating Particles -->
+    <div class="particles-container" id="particles"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="/" class="nav-logo">
+            <img src="logo.png" alt="Carbonated Audio" class="nav-logo-img">
+        </a>
+        <div class="nav-links">
+            <a href="/#features">Features</a>
+            <a href="/#demos">Demos</a>
+            <a href="/#compatibility">Compatibility</a>
+            <a href="/#pricing">Pricing</a>
+            <a href="/#reviews">Reviews</a>
+            <a href="/#pricing" class="btn-buy">Shop Plugins</a>
+        </div>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Open menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="/#features" class="mobile-nav-link">Features</a>
+        <a href="/#demos" class="mobile-nav-link">Demos</a>
+        <a href="/#compatibility" class="mobile-nav-link">Compatibility</a>
+        <a href="/#pricing" class="mobile-nav-link">Pricing</a>
+        <a href="/#reviews" class="mobile-nav-link">Reviews</a>
+        <a href="/#pricing" class="mobile-menu-cta">Shop Plugins</a>
+    </div>
+
+    <div class="page-wrapper">
+
+        <!-- ===== HERO ===== -->
+        <section class="about-hero">
+            <div class="aurora-container">
+                <div class="aurora-orb aurora-orb-1"></div>
+                <div class="aurora-orb aurora-orb-2"></div>
+                <div class="aurora-orb aurora-orb-3"></div>
+            </div>
+            <h1 class="hero-title">Built by a Producer,<br>for Producers</h1>
+            <p class="hero-subtitle">The story behind Carbonated Audio</p>
+        </section>
+
+        <hr class="section-divider">
+
+        <!-- ===== THE STORY ===== -->
+        <section class="story-section">
+            <div class="reveal">
+                <p>Carbonated Audio started with a simple frustration: every saturation plugin I loved was either $150+ or locked behind a subscription. I'm a producer and mixing engineer — I know what analog warmth sounds like. I also know what it's like to check your bank account after buying plugins.</p>
+            </div>
+
+            <div class="reveal">
+                <p>So I built Carbonator. Not a stripped-down "budget" version of something better — a plugin designed from scratch to do one thing incredibly well: <strong>give your tracks instant analog character.</strong></p>
+            </div>
+
+            <div class="reveal">
+                <p>The 5 flavors aren't presets or marketing gimmicks. Each one is a different DSP circuit model — Cola is console-style, Cherry is tube, Grape is lo-fi, Lemon-Lime is bright harmonics, Orange Cream is tape. Real saturation algorithms, not just EQ curves with drive.</p>
+            </div>
+
+            <div class="reveal">
+                <p class="story-highlight">The Fizz knob? That's the whole point. One control that morphs drive, compression, EQ, and makeup gain together. Because the best plugin is the one you actually use — and you'll use it more if it takes 2 seconds to get a great sound.</p>
+            </div>
+
+            <div class="reveal">
+                <p><strong>$20. No subscription. No iLok. No BS.</strong> That's the deal.</p>
+            </div>
+        </section>
+
+        <hr class="section-divider">
+
+        <!-- ===== OUR PHILOSOPHY ===== -->
+        <section class="philosophy-section">
+            <h2 class="reveal">Our Philosophy</h2>
+            <div class="philosophy-grid">
+                <div class="philosophy-card reveal-stagger">
+                    <span class="philosophy-card-icon">&#127911;</span>
+                    <h3>Sound First</h3>
+                    <p>Every decision starts with "does it sound good?" Not "does it look impressive?" or "can we add more features?" If one knob gets you there, one knob is all you need.</p>
+                </div>
+                <div class="philosophy-card reveal-stagger">
+                    <span class="philosophy-card-icon">&#128176;</span>
+                    <h3>Affordable by Design</h3>
+                    <p>We believe studio-quality sound shouldn't cost studio-quality money. $20 isn't a "budget" compromise — it's a statement that great tools should be accessible.</p>
+                </div>
+                <div class="philosophy-card reveal-stagger">
+                    <span class="philosophy-card-icon">&#9854;</span>
+                    <h3>No Subscription, Ever</h3>
+                    <p>You buy it, you own it. Forever. Lifetime updates. Up to 3 machines. We'll never hold your music hostage behind a monthly payment.</p>
+                </div>
+            </div>
+        </section>
+
+        <hr class="section-divider">
+
+        <!-- ===== PRESS COVERAGE ===== -->
+        <section class="press-section">
+            <h2 class="reveal">Don't Just Take Our Word for It</h2>
+            <p class="press-sub reveal">Carbonator has been covered by leading audio publications.</p>
+            <div class="press-grid">
+                <a href="https://www.audiopluginguy.com/news-carbinated-audio-releases-carbonator-an-analog-saturation-plugin/" target="_blank" rel="noopener" class="press-card reveal-stagger">
+                    <div class="press-card-name">Audio Plugin Guy</div>
+                    <div class="press-card-desc">Plugin news &amp; reviews</div>
+                    <svg class="press-card-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+                </a>
+                <a href="https://rekkerd.org/carbinated-audio-releases-carbonator-saturation-effect-plugin/" target="_blank" rel="noopener" class="press-card reveal-stagger">
+                    <div class="press-card-name">Rekkerd.org</div>
+                    <div class="press-card-desc">Free VST resources &amp; news</div>
+                    <svg class="press-card-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+                </a>
+                <a href="https://www.kvraudio.com/product/carbonator-by-carbinated-audio" target="_blank" rel="noopener" class="press-card reveal-stagger">
+                    <div class="press-card-name">KVR Audio</div>
+                    <div class="press-card-desc">The #1 audio plugin database</div>
+                    <svg class="press-card-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+                </a>
+                <a href="https://audionewsroom.net/2026/03/carbonator-five-flavors-of-circuit-modeled-saturation.html" target="_blank" rel="noopener" class="press-card reveal-stagger">
+                    <div class="press-card-name">AudioNewsRoom</div>
+                    <div class="press-card-desc">Music tech news &amp; reviews</div>
+                    <svg class="press-card-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+                </a>
+            </div>
+        </section>
+
+        <hr class="section-divider">
+
+        <!-- ===== BY THE NUMBERS ===== -->
+        <section class="numbers-section">
+            <h2 class="reveal">By the Numbers</h2>
+            <div class="numbers-grid">
+                <div class="number-card reveal-stagger">
+                    <div class="number-value" data-countup="" data-target="5" data-suffix="">0</div>
+                    <div class="number-label">Saturation Flavors</div>
+                </div>
+                <div class="number-card reveal-stagger">
+                    <div class="number-value" data-countup="$" data-target="20" data-suffix="">$0</div>
+                    <div class="number-label">One-Time Price</div>
+                </div>
+                <div class="number-card reveal-stagger">
+                    <div class="number-value" data-countup="" data-target="0" data-suffix="">0</div>
+                    <div class="number-label">Subscriptions</div>
+                </div>
+                <div class="number-card reveal-stagger">
+                    <div class="number-value" data-countup="" data-target="3" data-suffix="">0</div>
+                    <div class="number-label">Machine Activations</div>
+                </div>
+                <div class="number-card reveal-stagger">
+                    <div class="number-value" data-countup="" data-target="5" data-suffix="+">0</div>
+                    <div class="number-label">Countries with Buyers</div>
+                </div>
+            </div>
+        </section>
+
+        <hr class="section-divider">
+
+        <!-- ===== CTA ===== -->
+        <section class="cta-section">
+            <h2 class="reveal">Ready to hear the difference?</h2>
+            <div class="cta-buttons reveal">
+                <a href="/#demos" class="cta-secondary">Try the Free Demo</a>
+                <a href="/#pricing" class="cta-primary"><span>Shop Plugins</span></a>
+            </div>
+        </section>
+
+    </div><!-- end page-wrapper -->
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-left">
+            <span class="footer-text">&copy; 2026 Carbonated Audio. All rights reserved. &nbsp;·&nbsp; <a href="/terms" style="color:inherit;text-decoration:none;opacity:0.8;">Terms</a> &nbsp;·&nbsp; <a href="/privacy" style="color:inherit;text-decoration:none;opacity:0.8;">Privacy</a> &nbsp;·&nbsp; <a href="/eula" style="color:inherit;text-decoration:none;opacity:0.8;">EULA</a></span>
+        </div>
+        <div class="footer-links">
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+            <a href="/press">Press</a>
+            <a href="mailto:mixedbysoda@gmail.com">Support</a>
+            <a href="mailto:mixedbysoda@gmail.com">Contact</a>
+        </div>
+    </footer>
+
+    <script>
+    (function() {
+        'use strict';
+
+        // ===== MOBILE HAMBURGER MENU =====
+        var hamburgerBtn = document.getElementById('hamburgerBtn');
+        var mobileMenu = document.getElementById('mobileMenu');
+        if (hamburgerBtn && mobileMenu) {
+            hamburgerBtn.addEventListener('click', function() {
+                hamburgerBtn.classList.toggle('active');
+                mobileMenu.classList.toggle('active');
+                document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+            });
+            mobileMenu.querySelectorAll('a').forEach(function(link) {
+                link.addEventListener('click', function() {
+                    hamburgerBtn.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+            });
+        }
+
+        // ===== FLOATING PARTICLES =====
+        var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (!prefersReduced) {
+            var particlesContainer = document.getElementById('particles');
+            var particleCount = 30;
+            for (var i = 0; i < particleCount; i++) {
+                var p = document.createElement('div');
+                p.className = 'particle';
+                p.style.left = (Math.random() * 100) + '%';
+                p.style.animationDuration = (12 + Math.random() * 20) + 's';
+                p.style.animationDelay = (Math.random() * 15) + 's';
+                p.style.opacity = (0.15 + Math.random() * 0.35);
+                particlesContainer.appendChild(p);
+            }
+        }
+
+        // ===== SCROLL REVEAL (IntersectionObserver) =====
+        var revealElements = document.querySelectorAll('.reveal');
+        var staggerElements = document.querySelectorAll('.reveal-stagger');
+
+        if ('IntersectionObserver' in window && !prefersReduced) {
+            var revealObserver = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('revealed');
+                        revealObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+            revealElements.forEach(function(el) {
+                revealObserver.observe(el);
+            });
+
+            var staggerObserver = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        var parent = entry.target.parentElement;
+                        var siblings = parent.querySelectorAll('.reveal-stagger');
+                        siblings.forEach(function(sib, idx) {
+                            setTimeout(function() {
+                                sib.classList.add('revealed');
+                            }, idx * 100);
+                        });
+                        siblings.forEach(function(sib) {
+                            staggerObserver.unobserve(sib);
+                        });
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+            staggerElements.forEach(function(el) {
+                staggerObserver.observe(el);
+            });
+        } else {
+            revealElements.forEach(function(el) { el.classList.add('revealed'); });
+            staggerElements.forEach(function(el) { el.classList.add('revealed'); });
+        }
+
+        // ===== COUNT-UP ANIMATION =====
+        var countUpElements = document.querySelectorAll('[data-countup]');
+        var countedUp = new Set();
+
+        if ('IntersectionObserver' in window && !prefersReduced) {
+            var countObserver = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting && !countedUp.has(entry.target)) {
+                        countedUp.add(entry.target);
+                        animateCountUp(entry.target);
+                        countObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.3 });
+
+            countUpElements.forEach(function(el) {
+                countObserver.observe(el);
+            });
+        } else {
+            countUpElements.forEach(function(el) {
+                var prefix = el.getAttribute('data-countup') || '';
+                var target = parseInt(el.getAttribute('data-target'), 10);
+                var suffix = el.getAttribute('data-suffix') || '';
+                el.textContent = prefix + target + suffix;
+            });
+        }
+
+        function animateCountUp(el) {
+            var prefix = el.getAttribute('data-countup') || '';
+            var target = parseInt(el.getAttribute('data-target'), 10);
+            var suffix = el.getAttribute('data-suffix') || '';
+            var duration = 1200;
+            var startTime = null;
+
+            function step(timestamp) {
+                if (!startTime) startTime = timestamp;
+                var progress = Math.min((timestamp - startTime) / duration, 1);
+                var eased = 1 - Math.pow(1 - progress, 3);
+                var current = Math.round(eased * target);
+                el.textContent = prefix + current + suffix;
+                if (progress < 1) {
+                    requestAnimationFrame(step);
+                }
+            }
+            requestAnimationFrame(step);
+        }
+
+    })();
+    </script>
+
+</body>
+</html>

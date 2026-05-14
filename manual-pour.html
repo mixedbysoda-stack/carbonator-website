@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({"gtm.start":
+new Date().getTime(),event:"gtm.js"});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
+"https://www.googletagmanager.com/gtm.js?id="+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,"script","dataLayer","GTM-5QVG68CF");</script>
+    <!-- End Google Tag Manager -->
+    <!-- Meta Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version="2.0";n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,"script","https://connect.facebook.net/en_US/fbevents.js");fbq("init","1682413179857373");fbq("track","PageView");
+    </script>
+    <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1682413179857373&ev=PageView&noscript=1"/></noscript>
+    <!-- End Meta Pixel Code -->
+    <title>Pour Manual — Carbonated Audio</title>
+    <meta name="description" content="Complete DSP manual for Pour by Carbonated Audio. Blumlein stereo shuffling, rotation, asymmetry, and a half-polar vectorscope. Full DSP reference.">
+    <meta name="author" content="Carbonated Audio">
+    <link rel="canonical" href="https://carbonatedaudio.com/manual/pour">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Pour Manual — Carbonated Audio">
+    <meta property="og:description" content="Complete DSP manual for Pour by Carbonated Audio. Blumlein stereo shuffling, rotation, asymmetry, and a half-polar vectorscope. Full DSP reference.">
+    <meta property="og:url" content="https://carbonatedaudio.com/manual/pour">
+    <meta property="og:site_name" content="Carbonated Audio">
+    <meta property="og:image" content="https://carbonatedaudio.com/og-image.png">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Pour Manual — Carbonated Audio">
+    <meta name="twitter:description" content="Complete DSP manual for Pour by Carbonated Audio. Blumlein stereo shuffling, rotation, asymmetry, and a half-polar vectorscope. Full DSP reference.">
+    <meta name="twitter:image" content="https://carbonatedaudio.com/og-image.png">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "TechArticle",
+        "headline": "Pour DSP Manual",
+        "description": 'Complete DSP manual for Pour by Carbonated Audio. Blumlein stereo shuffling, rotation, asymmetry, and a half-polar vectorscope. Full DSP reference.',
+        "author": {"@type": "Organization", "name": "Carbonated Audio", "url": "https://carbonatedaudio.com"},
+        "publisher": {"@type": "Organization", "name": "Carbonated Audio", "url": "https://carbonatedaudio.com"},
+        "url": "https://carbonatedaudio.com/manual/pour",
+        "mainEntityOfPage": "https://carbonatedaudio.com/manual/pour",
+        "datePublished": "2026-04-20",
+        "dateModified": "2026-04-20",
+        "about": {
+            "@type": "SoftwareApplication",
+            "name": "Pour",
+            "applicationCategory": "MultimediaApplication",
+            "operatingSystem": ["macOS 10.13+", "Windows 10+"]
+        },
+        "proficiencyLevel": "Intermediate"
+    }
+    </script>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z9L20HJ4M0"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-Z9L20HJ4M0');</script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg-primary: #0d0a1a;
+            --bg-secondary: #151025;
+            --bg-card: #1a1430;
+            --bg-card-darker: #120e22;
+            --text-primary: #ffffff;
+            --text-secondary: #a09bb5;
+            --text-muted: #6b6580;
+            --border: #2a2440;
+            --accent: #4fb8d4;
+            --accent-light: #b8ecff;
+        }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.65;
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent;
+        }
+        a, button { touch-action: manipulation; }
+
+        /* Navigation */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 16px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(13, 10, 26, 0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+        .nav-logo-img { height: 36px; width: auto; transition: filter 0.3s; }
+        .nav-logo-img:hover { filter: brightness(1.2); }
+        .nav-links { display: flex; align-items: center; gap: 32px; }
+        .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--text-primary); }
+        .nav-dropdown { position: relative; }
+        .nav-dropdown-trigger { cursor: pointer; }
+        .nav-dropdown-menu {
+            display: none; position: absolute; top: 100%; left: 0; padding: 8px;
+            background: rgba(26, 20, 48, 0.98); border: 1px solid var(--border); border-radius: 12px;
+            min-width: 240px; backdrop-filter: blur(20px); margin-top: 8px;
+        }
+        .nav-dropdown:hover .nav-dropdown-menu { display: block; }
+        .nav-dropdown-menu a { display: block; padding: 10px 12px; border-radius: 8px; color: var(--text-secondary); }
+        .nav-dropdown-menu a:hover { background: rgba(255,255,255,0.05); color: var(--text-primary); }
+        .dropdown-label { color: var(--text-primary); font-weight: 600; font-size: 14px; }
+        .dropdown-desc { color: var(--text-muted); font-size: 12px; margin-top: 2px; }
+        .hamburger { display: none; flex-direction: column; justify-content: center; gap: 5px; width: 44px; height: 44px; padding: 10px; background: none; border: none; cursor: pointer; z-index: 201; }
+        .hamburger span { display: block; width: 24px; height: 2px; background: var(--text-primary); border-radius: 2px; transition: transform 0.3s, opacity 0.3s; }
+        .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+        .mobile-menu { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 199; background: rgba(13, 10, 26, 0.97); backdrop-filter: blur(20px); flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 80px 32px 32px; }
+        .mobile-menu.active { display: flex; }
+        .mobile-menu a { color: var(--text-secondary); text-decoration: none; font-size: 20px; font-weight: 600; padding: 14px 24px; border-radius: 12px; width: 100%; max-width: 300px; text-align: center; }
+        .mobile-menu a:hover { color: var(--text-primary); background: rgba(255, 255, 255, 0.06); }
+
+        /* Page layout */
+        .page-wrapper { max-width: 860px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+        .manual-hero { padding: 80px 0 48px; text-align: center; }
+        .manual-hero .eyebrow {
+            display: inline-block; padding: 6px 14px; border-radius: 999px;
+            background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+            color: var(--accent-light); font-size: 12px; font-weight: 600;
+            letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px;
+        }
+        .manual-hero h1 {
+            font-size: clamp(36px, 6vw, 54px); font-weight: 800; line-height: 1.1;
+            letter-spacing: -1.5px; margin-bottom: 14px;
+        }
+        .manual-hero h1 .accent { color: var(--accent); }
+        .manual-hero .hero-sub { color: var(--text-secondary); font-size: 17px; max-width: 580px; margin: 0 auto; }
+
+        .download-bar {
+            max-width: 860px; margin: 24px auto 0; padding: 18px 24px;
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 14px; display: flex; gap: 16px; align-items: center;
+            justify-content: space-between; flex-wrap: wrap;
+        }
+        .download-bar .download-text { color: var(--text-secondary); font-size: 14px; }
+        .download-bar .download-text strong { color: var(--text-primary); }
+        .download-btn {
+            padding: 12px 22px; background: var(--accent); color: #0a0b0d;
+            border: none; border-radius: 10px; font-weight: 700; font-size: 14px;
+            text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+            transition: transform 0.15s, filter 0.15s;
+        }
+        .download-btn:hover { transform: translateY(-1px); filter: brightness(1.1); }
+
+        /* Rendered markdown styling */
+        .manual-body {
+            background: var(--bg-card-darker);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 48px 48px 40px;
+            margin: 36px 0 48px;
+        }
+        .manual-body h1 {
+            font-size: 28px; color: var(--text-primary); margin: 0 0 6px 0;
+            border-bottom: 2px solid var(--accent); padding-bottom: 10px;
+            letter-spacing: -0.5px;
+        }
+        .manual-body h1 + p strong:first-child { color: var(--accent); font-size: 14px; letter-spacing: 0.5px; }
+        .manual-body h2 {
+            font-size: 20px; color: var(--text-primary); margin: 36px 0 10px;
+            padding-top: 18px; border-top: 1px solid var(--border);
+            letter-spacing: -0.25px;
+        }
+        .manual-body h3 { font-size: 15px; color: var(--text-primary); margin: 20px 0 6px; }
+        .manual-body p { color: var(--text-secondary); margin: 10px 0; font-size: 15px; line-height: 1.7; }
+        .manual-body p strong { color: var(--text-primary); }
+        .manual-body code {
+            font-family: 'JetBrains Mono', 'SF Mono', Menlo, monospace;
+            background: rgba(255,255,255,0.06); color: var(--accent-light);
+            padding: 1px 6px; border-radius: 4px; font-size: 13px;
+        }
+        .manual-body pre {
+            background: #06070a; color: #e5e7eb; padding: 18px 20px;
+            border-radius: 10px; border: 1px solid var(--border);
+            font-family: 'JetBrains Mono', 'SF Mono', Menlo, monospace;
+            font-size: 12.5px; line-height: 1.55; overflow-x: auto;
+            margin: 14px 0;
+        }
+        .manual-body pre code { background: transparent; color: inherit; padding: 0; font-size: inherit; }
+        .manual-body table {
+            width: 100%; border-collapse: collapse; margin: 16px 0;
+            font-size: 14px; background: rgba(255,255,255,0.02);
+            border-radius: 10px; overflow: hidden;
+        }
+        .manual-body th {
+            text-align: left; padding: 10px 14px; color: var(--text-primary);
+            font-weight: 600; background: rgba(255,255,255,0.04);
+            border-bottom: 2px solid var(--accent);
+        }
+        .manual-body td {
+            padding: 10px 14px; color: var(--text-secondary);
+            border-bottom: 1px solid var(--border);
+        }
+        .manual-body tr:last-child td { border-bottom: none; }
+        .manual-body hr { border: none; border-top: 1px solid var(--border); margin: 36px 0; }
+        .manual-body ul, .manual-body ol { margin: 10px 0 10px 24px; color: var(--text-secondary); }
+        .manual-body li { margin: 4px 0; font-size: 15px; line-height: 1.7; }
+        .manual-body em { color: var(--text-muted); }
+        .manual-body a { color: var(--accent-light); text-decoration: underline; text-underline-offset: 3px; }
+
+        /* Footer */
+        .site-footer {
+            padding: 32px 40px; border-top: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: space-between;
+            flex-wrap: wrap; gap: 16px; color: var(--text-muted); font-size: 13px;
+        }
+        .footer-links { display: flex; gap: 20px; flex-wrap: wrap; }
+        .footer-links a { color: var(--text-muted); text-decoration: none; }
+        .footer-links a:hover { color: var(--text-secondary); }
+
+        @media (max-width: 768px) {
+            nav { padding: 14px 20px; }
+            .nav-links { display: none; }
+            .hamburger { display: flex; }
+            .manual-hero { padding: 48px 0 32px; }
+            .manual-body { padding: 28px 20px; border-radius: 12px; }
+            .manual-body h1 { font-size: 24px; }
+            .manual-body h2 { font-size: 18px; }
+            .download-bar { flex-direction: column; align-items: flex-start; gap: 10px; }
+            .download-btn { width: 100%; justify-content: center; }
+        }
+</style>
+</head>
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5QVG68CF"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <div id="site-nav" data-active="manual"></div>
+    <script src="/components/nav.js"></script>
+
+    <div class="page-wrapper">
+        <section class="manual-hero">
+            <span class="eyebrow">M/S Stereo Imager · $20</span>
+            <h1><span class="accent">Pour</span> Manual</h1>
+            <p class="hero-sub">Blumlein stereo shuffling, rotation, asymmetry, and a half-polar vectorscope. Full DSP reference.</p>
+        </section>
+
+        <div class="download-bar">
+            <div class="download-text">
+                <strong>Prefer a PDF?</strong> Downloadable version for offline reference or print.
+            </div>
+            <a href="/manuals/pour.pdf" class="download-btn" download>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Download PDF
+            </a>
+        </div>
+
+        <article class="manual-body">
+<h1>Pour — DSP Manual</h1>
+<p><strong>Carbonated Audio · v1.0.0</strong>
+Stereo imager / width tool for modern mix engineers.</p>
+<p>This document explains the signal processing inside Pour from the top down: what each control does mathematically, why it's there, and how to reason about it on a mix. It's written for engineers and producers who want to know what they're pushing air around with.</p>
+<hr />
+<h2>1. Overview</h2>
+<p>Pour is a <strong>Mid/Side (M/S) stereo imager</strong> built on the classical <strong>Blumlein Stereo Shuffling</strong> technique (Alan Blumlein, 1931), with the tonal architecture of the <strong>SSL Fusion Stereo Image</strong> module as its spiritual reference. Everything in the plug-in reduces to three core ideas:</p>
+<ol>
+<li><strong>Encode</strong> the stereo signal into Mid (centre) and Side (difference) components.</li>
+<li><strong>Reshape</strong> those two components independently — tonally with a shelf filter, gain-wise with a side trim, spatially with rotation and asymmetry.</li>
+<li><strong>Decode</strong> back into Left/Right.</li>
+</ol>
+<p>No mid/side plug-in does anything that isn't a variation of those three steps. Pour's job is to expose the right controls, in the right order, with sensible ranges.</p>
+<hr />
+<h2>2. Signal Flow</h2>
+<pre><code>In ─► Input Trim ─► M/S Encode ─┬─► Mid ───────────────────────────────┐
+                                │                                       │
+                                └─► Side ─► Space Shelf ─► Width Gain ──┤
+                                                                        │
+                          ┌──── Rotation (M/S vector) ◄─────────────────┘
+                          ▼
+                    M/S Decode ─► Solo Side tap ─► Asymmetry Pan ─► Output Trim ─► Out
+</code></pre>
+<p>Every stage runs <strong>per sample</strong> with parameter smoothing, so automation and knob tweaks are click-free. Parameter smoothing is linear, 20 ms for most controls and 50 ms for Shuffle (the filter crossover) to avoid zipper artefacts when the user sweeps it.</p>
+<hr />
+<h2>3. Mid/Side Encoding and Decoding</h2>
+<p>Pour uses the standard energy-preserving M/S formulation:</p>
+<pre><code>M = 0.5 × (L + R)          // Mid (mono sum, phantom centre)
+S = 0.5 × (L − R)          // Side (difference, stereo content only)
+</code></pre>
+<p>On decode:</p>
+<pre><code>L = M + S
+R = M − S
+</code></pre>
+<p>Because the encoder uses 0.5 scaling on both components, the round trip with no processing in between is bit-accurate and unity-gain. Anything that sounds different after Pour with all knobs at their defaults (0 dB, 0°) is a bug, not a feature.</p>
+<p><strong>Why M/S?</strong> Because the stereo field of a typical master is asymmetric by content: kick, snare, bass, and lead vocal sit in the Mid; reverb tails, guitar doubles, cymbal decays, and stereo synths sit in the Side. Treating them independently is the only way to widen a mix without washing out the centre, or to tighten the low end without collapsing the whole stereo image.</p>
+<hr />
+<h2>4. Input Trim</h2>
+<p><strong>Range:</strong> −12 dB to +12 dB, default 0 dB. Linear parameter smoothing, 20 ms.</p>
+<p>Pre-M/S, applied equally to L and R. Mathematically:</p>
+<pre><code>L' = L × 10^(InputTrim_dB / 20)
+R' = R × 10^(InputTrim_dB / 20)
+</code></pre>
+<p>Use this to match gain staging when Pour is pushed hard by Space or Width. Because it's pre-encode, Input Trim does not affect the M/S ratio — it's a pure level matcher.</p>
+<hr />
+<h2>5. Space — Low-Shelf on the Side Signal</h2>
+<p><strong>Range:</strong> −12 dB to +12 dB, default 0 dB. Linear smoothing, 20 ms.</p>
+<p>Space is a <strong>low-shelf filter applied only to the Side signal</strong>. Its corner is set by the <strong>Shuffle</strong> control (Section 6). This is the heart of Blumlein Stereo Shuffling.</p>
+<p>Implementation: a classic RBJ biquad low-shelf, Q = 0.707 (Butterworth-flat — broad and gentle, not a resonant shelf).</p>
+<pre><code>S' = LowShelf(S, fc = Shuffle_Hz, Q = 0.707, gain = Space_dB)
+</code></pre>
+<p><strong>Musical meaning:</strong>
+- <strong>Positive Space (e.g. +3 dB)</strong> — boosts low frequencies in the Side signal only, creating a sense of low-end width and "air" below the Shuffle frequency. Blumlein showed in 1931 that a moderate LF boost on the difference channel reproduces the low-frequency interaural cues that microphone spacing would have captured but that stereo recording loses. It's the reason your master can feel bigger without actually getting louder.
+- <strong>Negative Space (e.g. −3 dB)</strong> — cuts low frequencies in the Side signal, collapsing the low end toward mono. This is the "tighten the bass" move on a mix bus or a kick/bass submix. The kick stays centred and punchy; sub rumble stops fighting the stereo field.</p>
+<p>At 0 dB, the shelf is bypassed internally (gain = 1.0 means the biquad passes signal unchanged).</p>
+<hr />
+<h2>6. Shuffle — The Shelf Crossover</h2>
+<p><strong>Range:</strong> 40 Hz to 400 Hz, default 100 Hz. Logarithmic skew so 160 Hz sits roughly at the centre of the knob. Linear smoothing, 50 ms (slow on purpose — sweeping a filter corner is perceptible and needs longer smoothing to avoid warble).</p>
+<p>Shuffle sets <strong>the corner frequency of the Space shelf</strong>. It does nothing on its own — only when Space is non-zero does Shuffle change the sound.</p>
+<p>Practical landmarks:
+- <strong>40–80 Hz</strong> — sub-only. Lets kick/sub be widened or tightened without touching the body of a mix.
+- <strong>100–160 Hz</strong> — kick/bass fundamentals. The classic Blumlein sweet spot.
+- <strong>200–400 Hz</strong> — extends into low mids. Useful when a mix has wide guitars or keys with body you want to reshape.</p>
+<hr />
+<h2>7. Width — Side Gain</h2>
+<p><strong>Range:</strong> −6 dB to +6 dB, default 0 dB. Linear smoothing, 20 ms.</p>
+<p>Width is a <strong>broadband gain on the Side signal</strong>, applied after the Space shelf.</p>
+<pre><code>S'' = S' × 10^(Width_dB / 20)
+</code></pre>
+<ul>
+<li><strong>+6 dB</strong> doubles the Side amplitude — maximum widening. Things that were barely off-centre move hard to the edges.</li>
+<li><strong>−6 dB</strong> halves the Side amplitude — gentle narrowing toward mono.</li>
+<li><strong>0 dB</strong> is neutral.</li>
+</ul>
+<p><strong>Why −6/+6 and not wider?</strong> Because above +6 dB on the Side, comb filtering and mono compatibility problems get ugly fast. Below −6 dB you're basically summing to mono and no longer imaging. The range is narrow on purpose; engineers who want extreme width should stack Pour instances or use rotation.</p>
+<hr />
+<h2>8. Rotation — M/S Vector Tilt</h2>
+<p><strong>Range:</strong> −45° to +45°, default 0°. Linear smoothing, 20 ms.</p>
+<p>Rotation treats (M, S) as a 2-D vector and rotates it by an angle θ:</p>
+<pre><code>M'' = M × cos(θ) − S' × sin(θ)
+S''' = M × sin(θ) + S' × cos(θ)
+</code></pre>
+<p>Geometrically, this <strong>tilts the stereo image</strong> without changing its total energy. A small positive rotation leans the whole mix slightly to one side of the M/S plane; the perceptual effect is that off-centre elements shift and the overall image feels like it's been rotated clockwise or counter-clockwise around the listener.</p>
+<p>At θ = 0, rotation is a no-op (the matrix is identity). At θ = ±45°, Mid and Side swap roles — a strong creative effect, rarely musical on a full mix but useful on stems.</p>
+<p><strong>When to reach for it:</strong> asymmetric mixes that pull too hard to one side, stereo guitar doubles where the spread sits off-axis, or as a subtle "walking the image" tool on a chorus.</p>
+<hr />
+<h2>9. Asymmetry — Constant-Power Pan on Output</h2>
+<p><strong>Range:</strong> −90° to +90°, default 0°. Linear smoothing, 20 ms.</p>
+<p>Applied after M/S decode, Asymmetry is a <strong>constant-power pan law</strong> on the final L/R output:</p>
+<pre><code>t = (Asymmetry / 90° × 0.5 + 0.5) × π/2     // 0..π/2
+panL = cos(t) × √2
+panR = sin(t) × √2
+
+L_out = L' × panL
+R_out = R' × panR
+</code></pre>
+<p>The √2 scaling means that at t = π/4 (centre), both panL and panR equal 1.0, so the pan law is unity at the centre and follows a −3 dB constant-power curve as it moves off-centre. This is the same curve used by most modern DAW pan knobs and avoids the centre dip or centre bump you get from linear or equal-power-without-compensation pans.</p>
+<p><strong>Asymmetry vs Rotation:</strong> both move the image, but differently.
+- <strong>Rotation</strong> reshapes the M/S balance — it changes how much Mid and Side exist relative to each other, tilting the whole stereo perspective.
+- <strong>Asymmetry</strong> is a pure output pan — the phantom centre shifts left or right, but the M/S balance is untouched.</p>
+<p>Use Asymmetry to fix a mix that lands off-centre. Use Rotation to reshape what the stereo field is doing internally.</p>
+<hr />
+<h2>10. Solo Side</h2>
+<p>Boolean toggle. When active, the decoded output is replaced by the Side signal on both channels:</p>
+<pre><code>L_out = S'''
+R_out = S'''
+</code></pre>
+<p>This is a <strong>diagnostic listening mode</strong> — you hear only the difference information. It's the fastest way to audition what Space, Shuffle, and Width are actually doing, and to find phase issues or mis-panned elements on a stereo bus. Anything that appears in Solo Side is, by definition, what would collapse to silence if the mix were summed to mono.</p>
+<p>Not intended as a processing mode. Toggle it off before rendering.</p>
+<hr />
+<h2>11. Output Trim</h2>
+<p><strong>Range:</strong> −12 dB to +12 dB, default 0 dB. Linear smoothing, 20 ms.</p>
+<p>Post-everything, applied equally to L and R. Use to match bypass level after pushing Space or Width.</p>
+<hr />
+<h2>12. IN (Bypass)</h2>
+<p>Boolean, default on. When off, Pour passes the input through untouched at unity gain. The meters and scope continue to display so the user can still see the signal.</p>
+<p>Bypass is implemented inside the audio thread, not by the host — so automation, crossfades, and sample-accurate timing are preserved.</p>
+<hr />
+<h2>13. Presets (shipping set)</h2>
+<p>Pour ships with a minimal hand-tuned preset bank — each one is a starting point, not a destination.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Category</th>
+<th>Shuffle (Hz)</th>
+<th>Space (dB)</th>
+<th>Width (dB)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Default Preset</td>
+<td>Default</td>
+<td>100</td>
+<td>0.0</td>
+<td>0.0</td>
+</tr>
+<tr>
+<td>Tight Low End</td>
+<td>Bass</td>
+<td>60</td>
+<td>−4.0</td>
+<td>−1.5</td>
+</tr>
+<tr>
+<td>Wide Sub</td>
+<td>Bass</td>
+<td>80</td>
+<td>+6.0</td>
+<td>+2.0</td>
+</tr>
+<tr>
+<td>Intimate Vocal</td>
+<td>Vocal</td>
+<td>180</td>
+<td>−1.5</td>
+<td>−1.5</td>
+</tr>
+<tr>
+<td>Open Vocal</td>
+<td>Vocal</td>
+<td>220</td>
+<td>+2.5</td>
+<td>+3.0</td>
+</tr>
+<tr>
+<td>Punchy Drum Bus</td>
+<td>Drums</td>
+<td>100</td>
+<td>+1.5</td>
+<td>+2.0</td>
+</tr>
+<tr>
+<td>Wide Room</td>
+<td>Drums</td>
+<td>280</td>
+<td>+4.0</td>
+<td>+4.0</td>
+</tr>
+<tr>
+<td>Doubled Guitars</td>
+<td>Guitar</td>
+<td>160</td>
+<td>+1.0</td>
+<td>+3.5</td>
+</tr>
+<tr>
+<td>Stereo Spread Guitar</td>
+<td>Guitar</td>
+<td>340</td>
+<td>+3.0</td>
+<td>+4.5</td>
+</tr>
+</tbody>
+</table>
+<p>Input Trim, Output Trim, Rotation, and Asymmetry are left at 0 by every factory preset. Presets touch only the three "sound" controls so the user can hear the idea without a hidden gain change.</p>
+<hr />
+<h2>14. Metering and Vectorscope</h2>
+<p>Pour's goniometer is a <strong>half-polar vectorscope</strong>, plotting each sample as:</p>
+<pre><code>x = 0.5 × (L − R)      // Side — horizontal axis
+y = 0.5 × (L + R)      // Mid — vertical axis (upper half only, magnitude)
+</code></pre>
+<p>The scope shows the <strong>post-processing</strong> signal, so the user sees what Pour is producing, not what it received. A persistence-of-vision fade (≈ 10% decay per frame at 45 fps) leaves a short trail so transient content remains readable.</p>
+<p>The cyan triangle overlay on the scope is a live read-out of the Width / Rotation / Asymmetry state — a visual summary of the stereo field that updates as parameters move.</p>
+<p>The left and right LED meters show <strong>peak input and peak output levels</strong> per channel, updated every audio block (≈ 30 Hz on the UI).</p>
+<hr />
+<h2>15. Parameter Smoothing Summary</h2>
+<p>All continuous parameters are linearly smoothed. Smoothing times:</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Smoothing time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Input Trim</td>
+<td>20 ms</td>
+</tr>
+<tr>
+<td>Output Trim</td>
+<td>20 ms</td>
+</tr>
+<tr>
+<td>Width</td>
+<td>20 ms</td>
+</tr>
+<tr>
+<td>Space</td>
+<td>20 ms</td>
+</tr>
+<tr>
+<td>Rotation</td>
+<td>20 ms</td>
+</tr>
+<tr>
+<td>Asymmetry</td>
+<td>20 ms</td>
+</tr>
+<tr>
+<td>Shuffle</td>
+<td>50 ms</td>
+</tr>
+</tbody>
+</table>
+<p>Shuffle is slower because it moves a filter corner, which is perceptually more sensitive to discontinuity than a gain change. The longer window makes automation of the crossover sound like a filter sweep rather than a series of stepped tone shifts.</p>
+<hr />
+<h2>16. Channel Configuration</h2>
+<ul>
+<li><strong>Main input / output</strong>: stereo (2-channel) or mono (1-channel).</li>
+<li><strong>Mono input</strong>: the plug-in passes the signal through unchanged (imaging a single channel has no meaning).</li>
+<li><strong>Sample rates</strong>: all sample rates supported. Filter coefficients recompute when the host changes sample rate.</li>
+<li><strong>Block sizes</strong>: arbitrary. Internal processing is sample-accurate, not block-rate.</li>
+</ul>
+<hr />
+<h2>17. Latency and CPU</h2>
+<p>Pour is <strong>zero-latency</strong>. Every filter used is IIR (not linear-phase FIR), and there is no lookahead buffer anywhere in the chain.</p>
+<p>CPU is dominated by the Input Trim / Output Trim / Width smoothers and the single biquad on the Side signal. Expect roughly the cost of a two-band parametric EQ. Pour is safe to stack on many tracks in a large session.</p>
+<hr />
+<h2>18. Credits and References</h2>
+<ul>
+<li><strong>Alan Blumlein</strong>, <em>Improvements in and relating to Sound-transmission, Sound-recording and Sound-reproducing systems</em> (British Patent 394,325, 1931) — the original M/S stereo shuffling paper.</li>
+<li><strong>SSL Fusion Stereo Image</strong> — the modern reference for the Space/Shuffle/Width control philosophy.</li>
+<li><strong>Robert Bristow-Johnson</strong>, <em>Cookbook formulae for audio EQ biquad filter coefficients</em> — source of the low-shelf biquad Pour uses for Space.</li>
+</ul>
+<hr />
+<p><em>Questions, bug reports, or sound-design notes: mixedbysoda@gmail.com.</em></p>
+        </article>
+
+        <section style="text-align:center;padding:8px 0 60px;">
+            <a href="/manual" style="color:var(--text-secondary);text-decoration:none;font-size:14px;">&larr; All manuals</a>
+            &nbsp;&nbsp;&middot;&nbsp;&nbsp;
+            <a href="/pour" style="color:var(--accent-light);text-decoration:none;font-weight:600;font-size:14px;">Buy Pour &rarr;</a>
+        </section>
+    </div>
+
+
+    <footer class="site-footer">
+        <div class="footer-left">
+            <span class="footer-text">&copy; 2026 Carbonated Audio. All rights reserved. &nbsp;&middot;&nbsp; <a href="/terms">Terms</a> &nbsp;&middot;&nbsp; <a href="/privacy">Privacy</a> &nbsp;&middot;&nbsp; <a href="/eula">EULA</a></span>
+        </div>
+        <div class="footer-links">
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+            <a href="/press">Press</a>
+            <a href="/faq">FAQ</a>
+            <a href="/manual">Manual</a>
+            <a href="mailto:mixedbysoda@gmail.com">Contact</a>
+        </div>
+    </footer>
+
+</body>
+</html>

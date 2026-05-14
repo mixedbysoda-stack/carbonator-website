@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({"gtm.start":
+new Date().getTime(),event:"gtm.js"});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
+"https://www.googletagmanager.com/gtm.js?id="+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,"script","dataLayer","GTM-5QVG68CF");</script>
+    <!-- End Google Tag Manager -->
+    <!-- Meta Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version="2.0";n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,"script","https://connect.facebook.net/en_US/fbevents.js");fbq("init","1682413179857373");fbq("track","PageView");
+    </script>
+    <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1682413179857373&ev=PageView&noscript=1"/></noscript>
+    <!-- End Meta Pixel Code -->
+    <title>Plugin Manuals — Carbonated Audio</title>
+    <meta name="description" content="Full DSP manuals for every Carbonated Audio plugin: Tonic, Carbonator, Pour, On Tap, and De-Sipper. Technical reference, parameter tables, signal flow, and downloadable PDFs.">
+    <meta name="keywords" content="Carbonated Audio manuals, plugin documentation, Tonic manual, Carbonator manual, Pour manual, On Tap manual, De-Sipper manual, DSP reference">
+    <meta name="author" content="Carbonated Audio">
+    <link rel="canonical" href="https://carbonatedaudio.com/manual">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Plugin Manuals — Carbonated Audio">
+    <meta property="og:description" content="Full DSP manuals for every Carbonated Audio plugin, with downloadable PDFs.">
+    <meta property="og:url" content="https://carbonatedaudio.com/manual">
+    <meta property="og:site_name" content="Carbonated Audio">
+    <meta property="og:image" content="https://carbonatedaudio.com/og-image.png">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Plugin Manuals — Carbonated Audio">
+    <meta name="twitter:description" content="Full DSP manuals for every Carbonated Audio plugin, with downloadable PDFs.">
+    <meta name="twitter:image" content="https://carbonatedaudio.com/og-image.png">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "name": "Carbonated Audio Plugin Manuals",
+        "description": "Full DSP manuals for every Carbonated Audio plugin.",
+        "url": "https://carbonatedaudio.com/manual",
+        "publisher": {"@type": "Organization", "name": "Carbonated Audio", "url": "https://carbonatedaudio.com"}
+    }
+    </script>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z9L20HJ4M0"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-Z9L20HJ4M0');</script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg-primary: #0d0a1a;
+            --bg-secondary: #151025;
+            --bg-card: #1a1430;
+            --bg-card-darker: #120e22;
+            --text-primary: #ffffff;
+            --text-secondary: #a09bb5;
+            --text-muted: #6b6580;
+            --border: #2a2440;
+            --accent: #ff6b2b;
+            --accent-light: #ff8c42;
+        }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.65;
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent;
+        }
+        a, button { touch-action: manipulation; }
+
+        /* Navigation */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 16px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(13, 10, 26, 0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+        .nav-logo-img { height: 36px; width: auto; transition: filter 0.3s; }
+        .nav-logo-img:hover { filter: brightness(1.2); }
+        .nav-links { display: flex; align-items: center; gap: 32px; }
+        .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--text-primary); }
+        .nav-dropdown { position: relative; }
+        .nav-dropdown-trigger { cursor: pointer; }
+        .nav-dropdown-menu {
+            display: none; position: absolute; top: 100%; left: 0; padding: 8px;
+            background: rgba(26, 20, 48, 0.98); border: 1px solid var(--border); border-radius: 12px;
+            min-width: 240px; backdrop-filter: blur(20px); margin-top: 8px;
+        }
+        .nav-dropdown:hover .nav-dropdown-menu { display: block; }
+        .nav-dropdown-menu a { display: block; padding: 10px 12px; border-radius: 8px; color: var(--text-secondary); }
+        .nav-dropdown-menu a:hover { background: rgba(255,255,255,0.05); color: var(--text-primary); }
+        .dropdown-label { color: var(--text-primary); font-weight: 600; font-size: 14px; }
+        .dropdown-desc { color: var(--text-muted); font-size: 12px; margin-top: 2px; }
+        .hamburger { display: none; flex-direction: column; justify-content: center; gap: 5px; width: 44px; height: 44px; padding: 10px; background: none; border: none; cursor: pointer; z-index: 201; }
+        .hamburger span { display: block; width: 24px; height: 2px; background: var(--text-primary); border-radius: 2px; transition: transform 0.3s, opacity 0.3s; }
+        .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+        .mobile-menu { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 199; background: rgba(13, 10, 26, 0.97); backdrop-filter: blur(20px); flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 80px 32px 32px; }
+        .mobile-menu.active { display: flex; }
+        .mobile-menu a { color: var(--text-secondary); text-decoration: none; font-size: 20px; font-weight: 600; padding: 14px 24px; border-radius: 12px; width: 100%; max-width: 300px; text-align: center; }
+        .mobile-menu a:hover { color: var(--text-primary); background: rgba(255, 255, 255, 0.06); }
+
+        /* Page layout */
+        .page-wrapper { max-width: 860px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+        .manual-hero { padding: 80px 0 48px; text-align: center; }
+        .manual-hero .eyebrow {
+            display: inline-block; padding: 6px 14px; border-radius: 999px;
+            background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+            color: var(--accent-light); font-size: 12px; font-weight: 600;
+            letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px;
+        }
+        .manual-hero h1 {
+            font-size: clamp(36px, 6vw, 54px); font-weight: 800; line-height: 1.1;
+            letter-spacing: -1.5px; margin-bottom: 14px;
+        }
+        .manual-hero h1 .accent { color: var(--accent); }
+        .manual-hero .hero-sub { color: var(--text-secondary); font-size: 17px; max-width: 580px; margin: 0 auto; }
+
+        .download-bar {
+            max-width: 860px; margin: 24px auto 0; padding: 18px 24px;
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 14px; display: flex; gap: 16px; align-items: center;
+            justify-content: space-between; flex-wrap: wrap;
+        }
+        .download-bar .download-text { color: var(--text-secondary); font-size: 14px; }
+        .download-bar .download-text strong { color: var(--text-primary); }
+        .download-btn {
+            padding: 12px 22px; background: var(--accent); color: #0a0b0d;
+            border: none; border-radius: 10px; font-weight: 700; font-size: 14px;
+            text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+            transition: transform 0.15s, filter 0.15s;
+        }
+        .download-btn:hover { transform: translateY(-1px); filter: brightness(1.1); }
+
+        /* Rendered markdown styling */
+        .manual-body {
+            background: var(--bg-card-darker);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 48px 48px 40px;
+            margin: 36px 0 48px;
+        }
+        .manual-body h1 {
+            font-size: 28px; color: var(--text-primary); margin: 0 0 6px 0;
+            border-bottom: 2px solid var(--accent); padding-bottom: 10px;
+            letter-spacing: -0.5px;
+        }
+        .manual-body h1 + p strong:first-child { color: var(--accent); font-size: 14px; letter-spacing: 0.5px; }
+        .manual-body h2 {
+            font-size: 20px; color: var(--text-primary); margin: 36px 0 10px;
+            padding-top: 18px; border-top: 1px solid var(--border);
+            letter-spacing: -0.25px;
+        }
+        .manual-body h3 { font-size: 15px; color: var(--text-primary); margin: 20px 0 6px; }
+        .manual-body p { color: var(--text-secondary); margin: 10px 0; font-size: 15px; line-height: 1.7; }
+        .manual-body p strong { color: var(--text-primary); }
+        .manual-body code {
+            font-family: 'JetBrains Mono', 'SF Mono', Menlo, monospace;
+            background: rgba(255,255,255,0.06); color: var(--accent-light);
+            padding: 1px 6px; border-radius: 4px; font-size: 13px;
+        }
+        .manual-body pre {
+            background: #06070a; color: #e5e7eb; padding: 18px 20px;
+            border-radius: 10px; border: 1px solid var(--border);
+            font-family: 'JetBrains Mono', 'SF Mono', Menlo, monospace;
+            font-size: 12.5px; line-height: 1.55; overflow-x: auto;
+            margin: 14px 0;
+        }
+        .manual-body pre code { background: transparent; color: inherit; padding: 0; font-size: inherit; }
+        .manual-body table {
+            width: 100%; border-collapse: collapse; margin: 16px 0;
+            font-size: 14px; background: rgba(255,255,255,0.02);
+            border-radius: 10px; overflow: hidden;
+        }
+        .manual-body th {
+            text-align: left; padding: 10px 14px; color: var(--text-primary);
+            font-weight: 600; background: rgba(255,255,255,0.04);
+            border-bottom: 2px solid var(--accent);
+        }
+        .manual-body td {
+            padding: 10px 14px; color: var(--text-secondary);
+            border-bottom: 1px solid var(--border);
+        }
+        .manual-body tr:last-child td { border-bottom: none; }
+        .manual-body hr { border: none; border-top: 1px solid var(--border); margin: 36px 0; }
+        .manual-body ul, .manual-body ol { margin: 10px 0 10px 24px; color: var(--text-secondary); }
+        .manual-body li { margin: 4px 0; font-size: 15px; line-height: 1.7; }
+        .manual-body em { color: var(--text-muted); }
+        .manual-body a { color: var(--accent-light); text-decoration: underline; text-underline-offset: 3px; }
+
+        /* Footer */
+        .site-footer {
+            padding: 32px 40px; border-top: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: space-between;
+            flex-wrap: wrap; gap: 16px; color: var(--text-muted); font-size: 13px;
+        }
+        .footer-links { display: flex; gap: 20px; flex-wrap: wrap; }
+        .footer-links a { color: var(--text-muted); text-decoration: none; }
+        .footer-links a:hover { color: var(--text-secondary); }
+
+        @media (max-width: 768px) {
+            nav { padding: 14px 20px; }
+            .nav-links { display: none; }
+            .hamburger { display: flex; }
+            .manual-hero { padding: 48px 0 32px; }
+            .manual-body { padding: 28px 20px; border-radius: 12px; }
+            .manual-body h1 { font-size: 24px; }
+            .manual-body h2 { font-size: 18px; }
+            .download-bar { flex-direction: column; align-items: flex-start; gap: 10px; }
+            .download-btn { width: 100%; justify-content: center; }
+        }
+
+        .manual-grid {
+            display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px;
+            margin: 24px 0 56px;
+        }
+        @media (max-width: 640px) { .manual-grid { grid-template-columns: 1fr; } }
+        .manual-card {
+            display: block; padding: 24px 26px;
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 16px; text-decoration: none;
+            transition: transform 0.18s, border-color 0.18s, background 0.18s;
+            position: relative;
+        }
+        .manual-card::before {
+            content: ""; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+            background: var(--card-accent); border-radius: 16px 16px 0 0; opacity: 0.7;
+        }
+        .manual-card:hover { transform: translateY(-2px); border-color: var(--card-accent); background: var(--bg-card-darker); }
+        .manual-card-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 10px; flex-wrap: wrap; }
+        .manual-card-name { color: var(--text-primary); font-size: 22px; font-weight: 700; letter-spacing: -0.5px; }
+        .manual-card-tag { color: var(--card-accent); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; }
+        .manual-card-desc { color: var(--text-secondary); font-size: 14px; line-height: 1.55; margin-bottom: 18px; }
+        .manual-card-foot { display: flex; justify-content: space-between; align-items: center; }
+        .manual-card-cta { color: var(--card-accent); font-size: 14px; font-weight: 600; }
+        .manual-card-pdf {
+            font-size: 11px; font-weight: 700; letter-spacing: 1px;
+            padding: 5px 10px; border: 1px solid var(--border); border-radius: 6px;
+            color: var(--text-secondary); text-decoration: none;
+        }
+        .manual-card-pdf:hover { color: var(--text-primary); border-color: var(--card-accent); }
+
+        .hub-meta {
+            max-width: 640px; margin: 12px auto 0; color: var(--text-muted); font-size: 13px;
+            text-align: center; line-height: 1.7;
+        }
+    </style>
+</head>
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5QVG68CF"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <div id="site-nav" data-active="manual"></div>
+    <script src="/components/nav.js"></script>
+
+    <div class="page-wrapper">
+        <section class="manual-hero">
+            <span class="eyebrow">Documentation</span>
+            <h1><span class="accent">Plugin</span> Manuals</h1>
+            <p class="hero-sub">Full DSP reference for every Carbonated Audio plugin. Browse online, or grab the PDF.</p>
+        </section>
+
+        <div class="manual-grid">
+
+            <a href="/manuals/tonic.pdf" class="manual-card" style="--card-accent: #c084fc;" target="_blank" rel="noopener">
+                <div class="manual-card-head">
+                    <span class="manual-card-name">Tonic</span>
+                    <span class="manual-card-tag">Opto-Tube Vocal Compressor</span>
+                </div>
+                <p class="manual-card-desc">Thermal-modeled photocell, push-pull tube saturation, transformer modeling, and a dual time-circuit. Full parameter and preset reference.</p>
+                <div class="manual-card-foot">
+                    <span class="manual-card-cta">Read manual &rarr;</span>
+                    <a href="/manuals/tonic.pdf" class="manual-card-pdf" download onclick="event.stopPropagation();">PDF</a>
+                </div>
+            </a>
+
+            <a href="/manual-pour" class="manual-card" style="--card-accent: #4fb8d4;">
+                <div class="manual-card-head">
+                    <span class="manual-card-name">Pour</span>
+                    <span class="manual-card-tag">M/S Stereo Imager</span>
+                </div>
+                <p class="manual-card-desc">Blumlein stereo shuffling, rotation, asymmetry, and a half-polar vectorscope. Full DSP reference.</p>
+                <div class="manual-card-foot">
+                    <span class="manual-card-cta">Read manual &rarr;</span>
+                    <a href="/manuals/pour.pdf" class="manual-card-pdf" download onclick="event.stopPropagation();">PDF</a>
+                </div>
+            </a>
+        
+            <a href="/manual-ontap" class="manual-card" style="--card-accent: #a855f7;">
+                <div class="manual-card-head">
+                    <span class="manual-card-name">On Tap</span>
+                    <span class="manual-card-tag">Sidechain Ducker</span>
+                </div>
+                <p class="manual-card-desc">Tempo-synced sidechain ducker — 16 curves, three trigger modes, band-split option. Full DSP reference.</p>
+                <div class="manual-card-foot">
+                    <span class="manual-card-cta">Read manual &rarr;</span>
+                    <a href="/manuals/ontap.pdf" class="manual-card-pdf" download onclick="event.stopPropagation();">PDF</a>
+                </div>
+            </a>
+        
+            <a href="/manual-desipper" class="manual-card" style="--card-accent: #00d4ff;">
+                <div class="manual-card-head">
+                    <span class="manual-card-name">De-Sipper</span>
+                    <span class="manual-card-tag">Hard-Knee De-Esser</span>
+                </div>
+                <p class="manual-card-desc">Filtered-detection hard-knee compressor. Wideband or split mode, internal or external sidechain. Full DSP reference.</p>
+                <div class="manual-card-foot">
+                    <span class="manual-card-cta">Read manual &rarr;</span>
+                    <a href="/manuals/desipper.pdf" class="manual-card-pdf" download onclick="event.stopPropagation();">PDF</a>
+                </div>
+            </a>
+        
+            <a href="/manual-carbonator" class="manual-card" style="--card-accent: #ff6b2b;">
+                <div class="manual-card-head">
+                    <span class="manual-card-name">Carbonator</span>
+                    <span class="manual-card-tag">5-Flavor Saturation</span>
+                </div>
+                <p class="manual-card-desc">Five DSP flavors — Cola, Cherry, Grape, Lemon-Lime, Orange Cream — morphed by the Fizz knob. Full DSP reference.</p>
+                <div class="manual-card-foot">
+                    <span class="manual-card-cta">Read manual &rarr;</span>
+                    <a href="/manuals/carbonator.pdf" class="manual-card-pdf" download onclick="event.stopPropagation();">PDF</a>
+                </div>
+            </a>
+        
+        </div>
+
+        <p class="hub-meta">
+            Every manual is generated from the plugin's shipping source, so parameter ranges, filter Qs, and signal flow match the current build exactly.<br>
+            Questions? <a href="mailto:mixedbysoda@gmail.com" style="color: var(--accent-light);">mixedbysoda@gmail.com</a>
+        </p>
+
+        <section style="text-align:center;padding:16px 0 60px;">
+            <a href="/faq" style="color:var(--text-secondary);text-decoration:none;font-size:14px;">Looking for FAQs instead? &rarr;</a>
+        </section>
+    </div>
+
+
+    <footer class="site-footer">
+        <div class="footer-left">
+            <span class="footer-text">&copy; 2026 Carbonated Audio. All rights reserved. &nbsp;&middot;&nbsp; <a href="/terms">Terms</a> &nbsp;&middot;&nbsp; <a href="/privacy">Privacy</a> &nbsp;&middot;&nbsp; <a href="/eula">EULA</a></span>
+        </div>
+        <div class="footer-links">
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+            <a href="/press">Press</a>
+            <a href="/faq">FAQ</a>
+            <a href="/manual">Manual</a>
+            <a href="mailto:mixedbysoda@gmail.com">Contact</a>
+        </div>
+    </footer>
+
+</body>
+</html>

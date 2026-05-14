@@ -1,0 +1,1323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({"gtm.start":
+new Date().getTime(),event:"gtm.js"});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
+"https://www.googletagmanager.com/gtm.js?id="+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,"script","dataLayer","GTM-5QVG68CF");</script>
+    <!-- End Google Tag Manager -->
+    <!-- Meta Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version="2.0";n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,"script","https://connect.facebook.net/en_US/fbevents.js");fbq("init","1682413179857373");fbq("track","PageView");
+    </script>
+    <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1682413179857373&ev=PageView&noscript=1"/></noscript>
+    <!-- End Meta Pixel Code -->
+    <title>Carbonator User Manual — Carbonated Audio</title>
+    <meta name="description" content="Complete user manual for Carbonator, the $20 analog saturation plugin by Carbonated Audio. Installation, activation, interface guide, flavor descriptions, DAW compatibility, and troubleshooting.">
+    <meta name="keywords" content="Carbonator manual, Carbonator documentation, saturation plugin guide, Carbonator help, Carbonated Audio support, Carbonator installation">
+    <meta name="author" content="Carbonated Audio">
+
+    <!-- Open Graph / Social Sharing -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Carbonator User Manual — Carbonated Audio">
+    <meta property="og:description" content="Complete documentation for Carbonator: installation, activation, interface guide, 5 saturation flavors, DAW compatibility, and troubleshooting.">
+    <meta property="og:url" content="https://carbonatedaudio.com/manual/carbonator">
+    <meta property="og:site_name" content="Carbonated Audio">
+    <meta property="og:image" content="https://carbonatedaudio.com/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Carbonator User Manual — Carbonated Audio">
+    <meta name="twitter:description" content="Complete documentation for Carbonator: installation, activation, interface guide, 5 saturation flavors, DAW compatibility, and troubleshooting.">
+    <meta name="twitter:image" content="https://carbonatedaudio.com/og-image.png">
+
+    <!-- TechArticle Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "TechArticle",
+        "headline": "Carbonator User Manual",
+        "description": "Complete user manual for Carbonator, the analog saturation plugin by Carbonated Audio. Covers installation, activation, interface guide, 5 saturation flavors, Carbonated mode, recommended settings, DAW compatibility, and troubleshooting.",
+        "author": {
+            "@type": "Organization",
+            "name": "Carbonated Audio",
+            "url": "https://carbonatedaudio.com"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Carbonated Audio",
+            "url": "https://carbonatedaudio.com"
+        },
+        "url": "https://carbonatedaudio.com/manual/carbonator",
+        "mainEntityOfPage": "https://carbonatedaudio.com/manual/carbonator",
+        "datePublished": "2026-04-02",
+        "dateModified": "2026-04-02",
+        "about": {
+            "@type": "SoftwareApplication",
+            "name": "Carbonator",
+            "applicationCategory": "MultimediaApplication",
+            "softwareVersion": "2.2.0",
+            "operatingSystem": ["macOS 10.13+", "Windows 10+"]
+        },
+        "proficiencyLevel": "Beginner",
+        "dependencies": "macOS 10.13+ or Windows 10+, compatible DAW (optional)"
+    }
+    </script>
+
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z9L20HJ4M0"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-Z9L20HJ4M0');
+    </script>
+
+    <link rel="canonical" href="https://carbonatedaudio.com/manual/carbonator">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0d0a1a;
+            --bg-secondary: #151025;
+            --bg-card: #1a1430;
+            --bg-card-darker: #120e22;
+            --orange: #ff6b2b;
+            --orange-light: #ff8c42;
+            --red: #e63946;
+            --pink: #ff3366;
+            --magenta: #cc33ff;
+            --yellow: #ffd700;
+            --cyan: #00d4ff;
+            --text-primary: #ffffff;
+            --text-secondary: #a09bb5;
+            --text-muted: #6b6580;
+            --border: #2a2440;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.6;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        a, button {
+            touch-action: manipulation;
+        }
+
+        /* Navigation */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 16px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(13, 10, 26, 0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .nav-logo-img {
+            height: 36px;
+            width: auto;
+            transition: filter 0.3s;
+        }
+        .nav-logo-img:hover {
+            filter: brightness(1.2);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .btn-buy {
+            padding: 12px 24px;
+            min-height: 44px;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .btn-buy:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            gap: 5px;
+            width: 44px;
+            height: 44px;
+            padding: 10px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            z-index: 201;
+        }
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--text-primary);
+            border-radius: 2px;
+            transition: transform 0.3s, opacity 0.3s;
+        }
+        .hamburger.active span:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+        }
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger.active span:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 199;
+            background: rgba(13, 10, 26, 0.97);
+            backdrop-filter: blur(20px);
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 80px 32px 32px;
+        }
+        .mobile-menu.active {
+            display: flex;
+        }
+        .mobile-menu a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: 600;
+            padding: 14px 24px;
+            border-radius: 12px;
+            transition: color 0.2s, background 0.2s;
+            width: 100%;
+            max-width: 300px;
+            text-align: center;
+        }
+        .mobile-menu a:hover, .mobile-menu a:active {
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.06);
+        }
+        .mobile-menu .mobile-menu-cta {
+            margin-top: 16px;
+            padding: 16px 32px;
+            background: linear-gradient(135deg, var(--orange), var(--pink));
+            border-radius: 12px;
+            color: white;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        /* Page Layout */
+        .manual-layout {
+            display: flex;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 48px 40px 80px;
+            gap: 48px;
+        }
+
+        /* Sidebar ToC */
+        .toc-sidebar {
+            position: sticky;
+            top: 80px;
+            width: 240px;
+            min-width: 240px;
+            max-height: calc(100vh - 100px);
+            overflow-y: auto;
+            padding-right: 16px;
+            align-self: flex-start;
+        }
+
+        .toc-sidebar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .toc-sidebar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .toc-sidebar::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 4px;
+        }
+
+        .toc-title {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        .toc-sidebar a {
+            display: block;
+            padding: 8px 12px;
+            font-size: 13px;
+            color: var(--text-muted);
+            text-decoration: none;
+            border-left: 2px solid transparent;
+            transition: all 0.2s;
+            line-height: 1.4;
+        }
+
+        .toc-sidebar a:hover {
+            color: var(--text-secondary);
+            border-left-color: var(--border);
+        }
+
+        .toc-sidebar a.active {
+            color: var(--orange);
+            border-left-color: var(--orange);
+            background: rgba(255, 107, 43, 0.05);
+        }
+
+        /* Main Content */
+        .manual-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .manual-header {
+            margin-bottom: 48px;
+            padding-bottom: 32px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .manual-header h1 {
+            font-size: 36px;
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 12px;
+        }
+
+        .manual-header h1 .accent {
+            background: linear-gradient(135deg, var(--orange), var(--pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .manual-header .subtitle {
+            font-size: 16px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .manual-header .version-badge {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 4px 12px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--orange);
+            background: rgba(255, 107, 43, 0.1);
+            border: 1px solid rgba(255, 107, 43, 0.2);
+            border-radius: 20px;
+        }
+
+        .manual-section {
+            margin-bottom: 56px;
+        }
+
+        .manual-section h2 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+            letter-spacing: -0.5px;
+        }
+
+        .manual-section h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-top: 28px;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .manual-section p {
+            font-size: 15px;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+            line-height: 1.7;
+        }
+
+        .manual-section ul, .manual-section ol {
+            margin-bottom: 16px;
+            padding-left: 20px;
+        }
+
+        .manual-section li {
+            font-size: 15px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+
+        .manual-section li strong {
+            color: var(--text-primary);
+        }
+
+        /* Spec grid */
+        .spec-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .spec-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 16px 20px;
+            transition: border-color 0.2s;
+        }
+
+        .spec-item:hover {
+            border-color: rgba(255, 107, 43, 0.3);
+        }
+
+        .spec-label {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+
+        .spec-value {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        /* Code/path blocks */
+        code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            background: var(--bg-card-darker);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 2px 8px;
+            color: var(--orange-light);
+        }
+
+        .path-block {
+            background: var(--bg-card-darker);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 16px 20px;
+            margin-bottom: 16px;
+            overflow-x: auto;
+        }
+
+        .path-block code {
+            background: none;
+            border: none;
+            padding: 0;
+            font-size: 13px;
+            color: var(--cyan);
+        }
+
+        .path-block .path-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        /* Steps */
+        .steps {
+            counter-reset: step-counter;
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .steps li {
+            counter-increment: step-counter;
+            position: relative;
+            padding-left: 44px;
+            margin-bottom: 16px;
+        }
+
+        .steps li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 28px;
+            height: 28px;
+            background: rgba(255, 107, 43, 0.15);
+            border: 1px solid rgba(255, 107, 43, 0.3);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--orange);
+            line-height: 28px;
+            text-align: center;
+        }
+
+        /* Flavor cards */
+        .flavor-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 16px;
+            transition: border-color 0.3s, transform 0.2s;
+        }
+
+        .flavor-card:hover {
+            border-color: rgba(255, 107, 43, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .flavor-card .flavor-name {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .flavor-card .flavor-style {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--orange);
+            margin-bottom: 10px;
+        }
+
+        .flavor-card .flavor-desc {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        .flavor-card .flavor-meta {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .flavor-card .flavor-tag {
+            font-size: 12px;
+            padding: 4px 10px;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+        }
+
+        .flavor-card .flavor-tag strong {
+            color: var(--text-secondary);
+        }
+
+        /* Recommended settings */
+        .setting-row {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 14px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .setting-row:last-child {
+            border-bottom: none;
+        }
+
+        .setting-use {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            min-width: 160px;
+        }
+
+        .setting-recipe {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .setting-fizz {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            color: var(--orange);
+            background: rgba(255, 107, 43, 0.1);
+            padding: 2px 8px;
+            border-radius: 4px;
+            white-space: nowrap;
+        }
+
+        /* DAW table */
+        .daw-table-wrapper {
+            overflow-x: auto;
+            margin-bottom: 16px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .daw-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        .daw-table th {
+            background: var(--bg-card);
+            padding: 12px 20px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .daw-table td {
+            padding: 12px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            color: var(--text-secondary);
+        }
+
+        .daw-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .daw-table tr:hover td {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .daw-table .daw-name {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .daw-table .format-tag {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-right: 4px;
+            background: rgba(255, 107, 43, 0.1);
+            color: var(--orange);
+        }
+
+        .daw-table .na {
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        /* Troubleshooting */
+        .troubleshoot-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 20px 24px;
+            margin-bottom: 12px;
+            transition: border-color 0.2s;
+        }
+
+        .troubleshoot-item:hover {
+            border-color: rgba(255, 107, 43, 0.2);
+        }
+
+        .troubleshoot-item .issue {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+
+        .troubleshoot-item .fix {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Support section */
+        .support-links {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .support-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 16px 24px;
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .support-link:hover {
+            border-color: rgba(255, 107, 43, 0.3);
+            color: var(--text-primary);
+            transform: translateY(-2px);
+        }
+
+        .support-link .icon {
+            font-size: 20px;
+        }
+
+        /* Footer */
+        .site-footer {
+            border-top: 1px solid var(--border);
+            padding: 40px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-text {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer-links a {
+            font-size: 13px;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--text-secondary);
+        }
+
+        /* Mobile responsive */
+        @media (max-width: 900px) {
+            .manual-layout {
+                flex-direction: column;
+                padding: 32px 20px 60px;
+                gap: 0;
+            }
+
+            .toc-sidebar {
+                position: relative;
+                top: 0;
+                width: 100%;
+                min-width: 0;
+                max-height: none;
+                padding-right: 0;
+                margin-bottom: 32px;
+                padding-bottom: 24px;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .toc-sidebar a {
+                display: inline-block;
+                border-left: none;
+                padding: 6px 12px;
+                font-size: 12px;
+                border-radius: 6px;
+            }
+
+            .toc-sidebar a.active {
+                background: rgba(255, 107, 43, 0.1);
+                border-left: none;
+            }
+
+            .toc-links {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 4px;
+            }
+
+            .manual-header h1 {
+                font-size: 28px;
+            }
+
+            .spec-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .flavor-card .flavor-meta {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .setting-row {
+                flex-direction: column;
+                gap: 4px;
+                align-items: flex-start;
+            }
+
+            .setting-use {
+                min-width: auto;
+            }
+
+            .support-links {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .nav-links {
+                display: none;
+            }
+            .hamburger {
+                display: flex;
+            }
+            nav {
+                padding: 16px 20px;
+            }
+            .manual-header h1 {
+                font-size: 24px;
+            }
+            .spec-grid {
+                grid-template-columns: 1fr;
+            }
+            .site-footer {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+                padding: 30px 20px 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5QVG68CF"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <!-- Navigation -->
+    <nav>
+        <a href="/" class="nav-logo">
+            <img src="logo.png" alt="Carbonated Audio" class="nav-logo-img">
+        </a>
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/manual" style="color: var(--text-primary);">Manual</a>
+            <a href="/press">Press</a>
+            <a href="/#pricing" class="btn-buy">Shop Plugins</a>
+        </div>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Open menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="/" class="mobile-nav-link">Home</a>
+        <a href="/manual" class="mobile-nav-link">Manual</a>
+        <a href="/press" class="mobile-nav-link">Press</a>
+        <a href="/#pricing" class="mobile-menu-cta">Shop Plugins</a>
+    </div>
+
+    <div class="manual-layout">
+
+        <!-- Sidebar Table of Contents -->
+        <aside class="toc-sidebar">
+            <div class="toc-title">Contents</div>
+            <div class="toc-links">
+                <a href="#overview" class="toc-link">Overview</a>
+                <a href="#installation" class="toc-link">Installation</a>
+                <a href="#activation" class="toc-link">Activation</a>
+                <a href="#interface" class="toc-link">Interface Guide</a>
+                <a href="#flavors" class="toc-link">The 5 Flavors</a>
+                <a href="#carbonated-mode" class="toc-link">Carbonated Mode</a>
+                <a href="#recommended-settings" class="toc-link">Recommended Settings</a>
+                <a href="#daw-compatibility" class="toc-link">DAW Compatibility</a>
+                <a href="#troubleshooting" class="toc-link">Troubleshooting</a>
+                <a href="#support" class="toc-link">Support</a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="manual-content">
+
+            <div class="manual-header">
+                <h1><span class="accent">Carbonator</span> User Manual</h1>
+                <p class="subtitle">Everything you need to know about getting started with Carbonator, the analog saturation plugin by Carbonated Audio.</p>
+                <span class="version-badge">v2.2.0</span>
+            </div>
+
+            <div style="background:rgba(255,107,43,0.08);border:1px solid rgba(255,107,43,0.35);border-radius:12px;padding:18px 22px;margin:0 0 40px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;">
+                <div style="color:var(--text-secondary);font-size:14px;">
+                    <strong style="color:var(--text-primary);">Looking for the DSP reference?</strong> Full parameter math, signal flow, and flavour-by-flavour breakdown.
+                </div>
+                <a href="/manuals/carbonator.pdf" download style="padding:10px 20px;background:var(--orange);color:#0a0b0d;border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;">Download DSP Manual PDF</a>
+            </div>
+
+            <!-- 1. Overview -->
+            <section id="overview" class="manual-section">
+                <h2>1. Overview</h2>
+                <p>Carbonator is an analog saturation plugin with 5 circuit-modeled flavors and a single Fizz knob. One knob, five characters, endless tone-shaping possibilities. $20 one-time purchase — no subscription, no iLok, no account required.</p>
+
+                <div class="spec-grid">
+                    <div class="spec-item">
+                        <div class="spec-label">Formats</div>
+                        <div class="spec-value">VST3, AU, AAX, Standalone</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">macOS</div>
+                        <div class="spec-value">10.13+ (Apple Silicon native)</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">Windows</div>
+                        <div class="spec-value">Windows 10+</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">Version</div>
+                        <div class="spec-value">2.2.0</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">Price</div>
+                        <div class="spec-value">$20 one-time</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">License</div>
+                        <div class="spec-value">Up to 3 machines</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. Installation -->
+            <section id="installation" class="manual-section">
+                <h2>2. Installation</h2>
+
+                <h3>macOS</h3>
+                <ol class="steps">
+                    <li>Download the macOS installer from your email or the Carbonated Audio website</li>
+                    <li>Run the <code>.pkg</code> installer</li>
+                    <li>Select the formats you want to install (VST3, AU, AAX, Standalone)</li>
+                    <li>Restart your DAW</li>
+                </ol>
+
+                <h3>Windows</h3>
+                <ol class="steps">
+                    <li>Download the Windows installer from your email or the Carbonated Audio website</li>
+                    <li>Run the installer</li>
+                    <li>VST3 and Standalone are installed automatically</li>
+                    <li>Restart your DAW</li>
+                </ol>
+
+                <h3>Default Install Paths</h3>
+
+                <div class="path-block">
+                    <span class="path-label">macOS VST3</span>
+                    <code>/Library/Audio/Plug-Ins/VST3/</code>
+                </div>
+
+                <div class="path-block">
+                    <span class="path-label">macOS AU</span>
+                    <code>/Library/Audio/Plug-Ins/Components/</code>
+                </div>
+
+                <div class="path-block">
+                    <span class="path-label">macOS AAX</span>
+                    <code>/Library/Application Support/Avid/Audio/Plug-Ins/</code>
+                </div>
+
+                <div class="path-block">
+                    <span class="path-label">Windows VST3</span>
+                    <code>C:\Program Files\Common Files\VST3\</code>
+                </div>
+            </section>
+
+            <!-- 3. Activation -->
+            <section id="activation" class="manual-section">
+                <h2>3. Activation</h2>
+                <ol class="steps">
+                    <li>Open Carbonator (standalone or inside your DAW)</li>
+                    <li>Click the <strong>key icon</strong> in the top-right corner</li>
+                    <li>Paste your license key (received via email after purchase)</li>
+                    <li>Click <strong>Activate</strong></li>
+                </ol>
+                <p>Your license works on up to <strong>3 machines simultaneously</strong>. No iLok, no dongle, no account needed. Once activated, Carbonator works offline forever.</p>
+            </section>
+
+            <!-- 4. Interface Guide -->
+            <section id="interface" class="manual-section">
+                <h2>4. Interface Guide</h2>
+                <ul>
+                    <li><strong>Fizz Knob</strong> — The main control. Morphs drive, compression, EQ, and makeup gain simultaneously. 0% = clean, 100% = full saturation.</li>
+                    <li><strong>Flavor Selector</strong> — Choose between Cola, Cherry, Grape, Lemon-Lime, and Orange Cream.</li>
+                    <li><strong>Carbonated Toggle</strong> — Enables Carbonated mode, which blends all 5 circuits together.</li>
+                    <li><strong>Level Display</strong> — Shows the current Fizz percentage.</li>
+                    <li><strong>Bypass</strong> — Standard plugin bypass.</li>
+                </ul>
+            </section>
+
+            <!-- 5. The 5 Flavors -->
+            <section id="flavors" class="manual-section">
+                <h2>5. The 5 Flavors</h2>
+
+                <div class="flavor-card">
+                    <div class="flavor-name">Cola</div>
+                    <div class="flavor-style">Console-style warmth</div>
+                    <div class="flavor-desc">Punchy, round, and controlled. Cola delivers the classic console character — a warm push with gentle compression that adds weight without smearing transients.</div>
+                    <div class="flavor-meta">
+                        <span class="flavor-tag"><strong>Best on:</strong> drums, mix bus, full mixes</span>
+                        <span class="flavor-tag"><strong>Character:</strong> warm push with gentle compression</span>
+                    </div>
+                </div>
+
+                <div class="flavor-card">
+                    <div class="flavor-name">Cherry</div>
+                    <div class="flavor-style">Tube-style aggression</div>
+                    <div class="flavor-desc">Raw, gritty, and forward. Cherry brings harmonic-rich tube drive with real edge — the kind of saturation that makes elements cut through a dense mix.</div>
+                    <div class="flavor-meta">
+                        <span class="flavor-tag"><strong>Best on:</strong> bass, guitars, aggressive vocals</span>
+                        <span class="flavor-tag"><strong>Character:</strong> harmonic-rich drive with edge</span>
+                    </div>
+                </div>
+
+                <div class="flavor-card">
+                    <div class="flavor-name">Grape</div>
+                    <div class="flavor-style">Vintage lo-fi character</div>
+                    <div class="flavor-desc">Dusty, saturated, and nostalgic. Grape adds that vintage lo-fi color — bit-crushed warmth that makes everything sound like it came off a cassette you love.</div>
+                    <div class="flavor-meta">
+                        <span class="flavor-tag"><strong>Best on:</strong> vocals, synths, lo-fi beats</span>
+                        <span class="flavor-tag"><strong>Character:</strong> bit-crushed warmth with color</span>
+                    </div>
+                </div>
+
+                <div class="flavor-card">
+                    <div class="flavor-name">Lemon-Lime</div>
+                    <div class="flavor-style">Bright harmonic saturation</div>
+                    <div class="flavor-desc">Airy, present, and sparkly. Lemon-Lime enhances upper harmonics to add presence and shimmer without harsh resonance — like turning on the "expensive" switch.</div>
+                    <div class="flavor-meta">
+                        <span class="flavor-tag"><strong>Best on:</strong> vocals needing presence, acoustic instruments, hi-hats</span>
+                        <span class="flavor-tag"><strong>Character:</strong> upper harmonic enhancement</span>
+                    </div>
+                </div>
+
+                <div class="flavor-card">
+                    <div class="flavor-name">Orange Cream</div>
+                    <div class="flavor-style">Tape-style smoothness</div>
+                    <div class="flavor-desc">Creamy, warm, and forgiving. Orange Cream is the most versatile flavor — smooth tape compression with warmth that flatters anything you put through it.</div>
+                    <div class="flavor-meta">
+                        <span class="flavor-tag"><strong>Best on:</strong> everything — the most versatile flavor</span>
+                        <span class="flavor-tag"><strong>Character:</strong> smooth tape compression with warmth</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 6. Carbonated Mode -->
+            <section id="carbonated-mode" class="manual-section">
+                <h2>6. Carbonated Mode</h2>
+                <p>Carbonated mode blends all 5 saturation circuits simultaneously, creating a unique, complex harmonic character that no single flavor can achieve on its own.</p>
+                <ul>
+                    <li>Activate it using the <strong>Carbonated toggle</strong> on the interface</li>
+                    <li>The Fizz knob controls the blend intensity</li>
+                    <li>Creates rich, multi-layered harmonic content</li>
+                    <li>Great for when you want "something special" that no single flavor provides</li>
+                </ul>
+            </section>
+
+            <!-- 7. Recommended Settings -->
+            <section id="recommended-settings" class="manual-section">
+                <h2>7. Recommended Settings</h2>
+
+                <div class="setting-row">
+                    <span class="setting-use">Subtle warmth</span>
+                    <span class="setting-recipe">Any flavor at <span class="setting-fizz">15-30% Fizz</span></span>
+                </div>
+                <div class="setting-row">
+                    <span class="setting-use">Vocal character</span>
+                    <span class="setting-recipe">Grape or Lemon-Lime at <span class="setting-fizz">40-60% Fizz</span></span>
+                </div>
+                <div class="setting-row">
+                    <span class="setting-use">Drum punch</span>
+                    <span class="setting-recipe">Cola at <span class="setting-fizz">50-70% Fizz</span></span>
+                </div>
+                <div class="setting-row">
+                    <span class="setting-use">Bass grit</span>
+                    <span class="setting-recipe">Cherry at <span class="setting-fizz">40-65% Fizz</span></span>
+                </div>
+                <div class="setting-row">
+                    <span class="setting-use">Mix bus glue</span>
+                    <span class="setting-recipe">Orange Cream at <span class="setting-fizz">20-40% Fizz</span></span>
+                </div>
+                <div class="setting-row">
+                    <span class="setting-use">Creative destruction</span>
+                    <span class="setting-recipe">Carbonated mode at <span class="setting-fizz">80-100% Fizz</span></span>
+                </div>
+            </section>
+
+            <!-- 8. DAW Compatibility -->
+            <section id="daw-compatibility" class="manual-section">
+                <h2>8. DAW Compatibility</h2>
+
+                <div class="daw-table-wrapper">
+                    <table class="daw-table">
+                        <thead>
+                            <tr>
+                                <th>DAW</th>
+                                <th>macOS</th>
+                                <th>Windows</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="daw-name">Logic Pro</td>
+                                <td><span class="format-tag">AU</span> <span class="format-tag">VST3</span></td>
+                                <td class="na">--</td>
+                            </tr>
+                            <tr>
+                                <td class="daw-name">Pro Tools</td>
+                                <td><span class="format-tag">AAX</span></td>
+                                <td class="na">--</td>
+                            </tr>
+                            <tr>
+                                <td class="daw-name">Ableton Live</td>
+                                <td><span class="format-tag">AU</span> <span class="format-tag">VST3</span></td>
+                                <td><span class="format-tag">VST3</span></td>
+                            </tr>
+                            <tr>
+                                <td class="daw-name">FL Studio</td>
+                                <td><span class="format-tag">VST3</span></td>
+                                <td><span class="format-tag">VST3</span></td>
+                            </tr>
+                            <tr>
+                                <td class="daw-name">Studio One</td>
+                                <td><span class="format-tag">AU</span> <span class="format-tag">VST3</span></td>
+                                <td><span class="format-tag">VST3</span></td>
+                            </tr>
+                            <tr>
+                                <td class="daw-name">Cubase / Nuendo</td>
+                                <td><span class="format-tag">VST3</span></td>
+                                <td><span class="format-tag">VST3</span></td>
+                            </tr>
+                            <tr>
+                                <td class="daw-name">Reaper</td>
+                                <td><span class="format-tag">AU</span> <span class="format-tag">VST3</span></td>
+                                <td><span class="format-tag">VST3</span></td>
+                            </tr>
+                            <tr>
+                                <td class="daw-name">Bitwig</td>
+                                <td><span class="format-tag">VST3</span></td>
+                                <td><span class="format-tag">VST3</span></td>
+                            </tr>
+                            <tr>
+                                <td class="daw-name">GarageBand</td>
+                                <td><span class="format-tag">AU</span></td>
+                                <td class="na">--</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- 9. Troubleshooting -->
+            <section id="troubleshooting" class="manual-section">
+                <h2>9. Troubleshooting</h2>
+
+                <div class="troubleshoot-item">
+                    <div class="issue">Plugin not showing in my DAW</div>
+                    <div class="fix">Open your DAW's preferences and rescan your plugin folders. On macOS, make sure the correct format is installed (AU for Logic/GarageBand, VST3 for most others, AAX for Pro Tools). On Windows, verify the VST3 is in <code>C:\Program Files\Common Files\VST3\</code>.</div>
+                </div>
+
+                <div class="troubleshoot-item">
+                    <div class="issue">Audio cutting out after 60 seconds</div>
+                    <div class="fix">You're running the free demo, which has a 60-second playback limit. Purchase and activate a license to unlock unlimited use.</div>
+                </div>
+
+                <div class="troubleshoot-item">
+                    <div class="issue">High CPU usage</div>
+                    <div class="fix">Make sure you're running the latest version (v2.2.0). If CPU is still high, increase your DAW's audio buffer size in preferences.</div>
+                </div>
+
+                <div class="troubleshoot-item">
+                    <div class="issue">Activation failed</div>
+                    <div class="fix">Check your internet connection and make sure the license key was pasted correctly with no extra spaces before or after. If the issue persists, email us at <a href="mailto:mixedbysoda@gmail.com" style="color: var(--orange);">mixedbysoda@gmail.com</a>.</div>
+                </div>
+            </section>
+
+            <!-- 10. Support -->
+            <section id="support" class="manual-section">
+                <h2>10. Support</h2>
+                <p>Need help? We typically respond within 24 hours.</p>
+
+                <div class="support-links">
+                    <a href="mailto:mixedbysoda@gmail.com" class="support-link">
+                        <span class="icon">&#9993;</span>
+                        mixedbysoda@gmail.com
+                    </a>
+                    <a href="https://carbonatedaudio.com" class="support-link" target="_blank">
+                        <span class="icon">&#127760;</span>
+                        carbonatedaudio.com
+                    </a>
+                    <a href="https://instagram.com/carbonatedaudio" class="support-link" target="_blank" rel="noopener">
+                        <span class="icon">&#128247;</span>
+                        @carbonatedaudio
+                    </a>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-left">
+            <span class="footer-text">&copy; 2026 Carbonated Audio. All rights reserved. &nbsp;·&nbsp; <a href="/terms" style="color:inherit;text-decoration:none;opacity:0.8;">Terms</a> &nbsp;·&nbsp; <a href="/privacy" style="color:inherit;text-decoration:none;opacity:0.8;">Privacy</a> &nbsp;·&nbsp; <a href="/eula" style="color:inherit;text-decoration:none;opacity:0.8;">EULA</a></span>
+        </div>
+        <div class="footer-links">
+            <a href="/manual">Manual</a>
+            <a href="/press">Press</a>
+            <a href="mailto:mixedbysoda@gmail.com">Support</a>
+            <a href="mailto:mixedbysoda@gmail.com">Contact</a>
+        </div>
+    </footer>
+
+    <script>
+    // Mobile hamburger menu
+    (function() {
+        var btn = document.getElementById('hamburgerBtn');
+        var menu = document.getElementById('mobileMenu');
+        if (!btn || !menu) return;
+        btn.addEventListener('click', function() {
+            btn.classList.toggle('active');
+            menu.classList.toggle('active');
+            document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : '';
+        });
+        menu.querySelectorAll('a').forEach(function(link) {
+            link.addEventListener('click', function() {
+                btn.classList.remove('active');
+                menu.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+    })();
+
+    // Smooth scroll for ToC links
+    document.querySelectorAll('.toc-link').forEach(function(link) {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            var target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                var offset = 90;
+                var top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+                window.scrollTo({ top: top, behavior: 'smooth' });
+            }
+        });
+    });
+
+    // IntersectionObserver for active ToC highlighting
+    (function() {
+        var sections = document.querySelectorAll('.manual-section');
+        var tocLinks = document.querySelectorAll('.toc-link');
+        if (!sections.length || !tocLinks.length) return;
+
+        var observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    var id = entry.target.id;
+                    tocLinks.forEach(function(link) {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === '#' + id) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }, {
+            rootMargin: '-80px 0px -60% 0px',
+            threshold: 0
+        });
+
+        sections.forEach(function(section) {
+            observer.observe(section);
+        });
+    })();
+
+    // GA4 event: manual page view
+    if (typeof gtag === 'function') {
+        gtag('event', 'manual_view', {
+            event_category: 'documentation',
+            event_label: 'manual_page'
+        });
+    }
+    </script>
+
+</body>
+</html>

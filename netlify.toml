@@ -1,0 +1,143 @@
+[build]
+  publish = "."
+  functions = "netlify/functions"
+
+[functions]
+  node_bundler = "esbuild"
+
+# Run drip emails daily at 10am UTC (6am ET)
+[functions."drip-day3"]
+  schedule = "0 10 * * *"
+
+[functions."drip-day7"]
+  schedule = "0 10 * * *"
+
+[functions."review-request"]
+  schedule = "0 10 * * *"
+
+# Redirect the .netlify.app subdomain to the apex domain to kill duplicate-content
+# (GSC auto-registered carbinated-audio.netlify.app as a separate property 2026-04-12).
+[[redirects]]
+  from = "https://carbinated-audio.netlify.app/*"
+  to = "https://carbonatedaudio.com/:splat"
+  status = 301
+  force = true
+
+# Pretty URLs for product pages
+[[redirects]]
+  from = "/carbonator"
+  to = "/carbonator.html"
+  status = 200
+
+[[redirects]]
+  from = "/desipper"
+  to = "/desipper.html"
+  status = 200
+
+[[redirects]]
+  from = "/de-sipper"
+  to = "/desipper.html"
+  status = 301
+
+[[redirects]]
+  from = "/ontap"
+  to = "/ontap.html"
+  status = 200
+
+[[redirects]]
+  from = "/on-tap"
+  to = "/ontap.html"
+  status = 301
+
+[[redirects]]
+  from = "/pour"
+  to = "/pour.html"
+  status = 200
+
+[[redirects]]
+  from = "/tonic"
+  to = "/tonic.html"
+  status = 200
+
+# SEO comparison pages (pretty URLs)
+[[redirects]]
+  from = "/tonic-vs-renaissance-comp"
+  to = "/tonic-vs-renaissance-comp.html"
+  status = 200
+
+[[redirects]]
+  from = "/tonic-vs-fabfilter-pro-c"
+  to = "/tonic-vs-fabfilter-pro-c.html"
+  status = 200
+
+[[redirects]]
+  from = "/tonic-vs-stock-compressor"
+  to = "/tonic-vs-stock-compressor.html"
+  status = 200
+
+[[redirects]]
+  from = "/desipper-vs-soothe"
+  to = "/desipper-vs-soothe.html"
+  status = 200
+
+[[redirects]]
+  from = "/desipper-vs-spitfish"
+  to = "/desipper-vs-spitfish.html"
+  status = 200
+
+[[redirects]]
+  from = "/pour-vs-ozone-imager"
+  to = "/pour-vs-ozone-imager.html"
+  status = 200
+
+# Manual hub and per-plugin manual pages
+[[redirects]]
+  from = "/manual"
+  to = "/manual.html"
+  status = 200
+
+[[redirects]]
+  from = "/manual/carbonator"
+  to = "/manual-carbonator.html"
+  status = 200
+
+[[redirects]]
+  from = "/manual/pour"
+  to = "/manual-pour.html"
+  status = 200
+
+[[redirects]]
+  from = "/manual/ontap"
+  to = "/manual-ontap.html"
+  status = 200
+
+[[redirects]]
+  from = "/manual/on-tap"
+  to = "/manual-ontap.html"
+  status = 301
+
+[[redirects]]
+  from = "/manual/desipper"
+  to = "/manual-desipper.html"
+  status = 200
+
+[[redirects]]
+  from = "/manual/de-sipper"
+  to = "/manual-desipper.html"
+  status = 301
+
+# Pretty URLs for legal pages
+[[redirects]]
+  from = "/terms"
+  to = "/terms.html"
+  status = 200
+
+[[redirects]]
+  from = "/privacy"
+  to = "/privacy.html"
+  status = 200
+
+[[redirects]]
+  from = "/eula"
+  to = "/eula.html"
+  status = 200
