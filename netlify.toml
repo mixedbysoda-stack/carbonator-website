@@ -15,6 +15,65 @@
 [functions."review-request"]
   schedule = "0 10 * * *"
 
+# ---------------------------------------------------------------------------
+# HEADERS
+# ---------------------------------------------------------------------------
+
+# Global security headers (applies to every response, including HTML).
+# Cache-Control here is the HTML default: always revalidate so content
+# updates go live instantly. Asset-specific blocks below override per type.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# Static assets. Filenames are NOT content-hashed, so 1yr `immutable` is
+# unsafe (a redeploy would be invisible to repeat visitors for a year).
+# 7-day max-age + 1-day stale-while-revalidate: fast repeat visits, but a
+# redeploy is picked up within a day via background revalidation.
+[[headers]]
+  for = "/*.webp"
+  [headers.values]
+    Cache-Control = "public, max-age=604800, stale-while-revalidate=86400"
+
+[[headers]]
+  for = "/*.png"
+  [headers.values]
+    Cache-Control = "public, max-age=604800, stale-while-revalidate=86400"
+
+[[headers]]
+  for = "/*.jpg"
+  [headers.values]
+    Cache-Control = "public, max-age=604800, stale-while-revalidate=86400"
+
+[[headers]]
+  for = "/*.svg"
+  [headers.values]
+    Cache-Control = "public, max-age=604800, stale-while-revalidate=86400"
+
+[[headers]]
+  for = "/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=604800, stale-while-revalidate=86400"
+
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=604800, stale-while-revalidate=86400"
+
+[[headers]]
+  for = "/*.woff2"
+  [headers.values]
+    Cache-Control = "public, max-age=604800, stale-while-revalidate=86400"
+
+[[headers]]
+  for = "/*.mp4"
+  [headers.values]
+    Cache-Control = "public, max-age=604800, stale-while-revalidate=86400"
+
 # Redirect the .netlify.app subdomain to the apex domain to kill duplicate-content
 # (GSC auto-registered carbinated-audio.netlify.app as a separate property 2026-04-12).
 [[redirects]]
