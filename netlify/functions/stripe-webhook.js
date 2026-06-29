@@ -16,6 +16,7 @@ const SUBJECTS = {
   bundle: "Your Carbonated Audio Bundle — License Keys & Downloads",
   vocal_bundle: "Your Vocal Chain Bundle — License Keys & Downloads",
   mixbus_bundle: "Your Mix Bus Bundle — License Keys & Downloads",
+  apd_bundle: "Your Carbonated Audio 3-in-1 Bundle — License Keys & Downloads",
 };
 
 const QUICK_START = {
@@ -67,6 +68,12 @@ const QUICK_START = {
     '<strong style="color:#ffffff;">Rescan plugins</strong> in your DAW.',
     '<strong style="color:#ffffff;">Mix bus moves:</strong> On Tap for sidechain ducking on bass/synths, Pour for width on stereo buses.',
   ],
+  apd_bundle: [
+    '<strong style="color:#ffffff;">Install Carbonator, De-Sipper, and On Tap</strong> using the download links above.',
+    '<strong style="color:#ffffff;">Activate each plugin</strong> with its matching license key — each key is plugin-specific.',
+    '<strong style="color:#ffffff;">Rescan plugins</strong> in your DAW.',
+    '<strong style="color:#ffffff;">Use them:</strong> Carbonator for saturation, De-Sipper for de-essing, On Tap for sidechain ducking.',
+  ],
 };
 
 const BODY_COPY = {
@@ -78,6 +85,8 @@ const BODY_COPY = {
     `<p style="color:#a09bb5;font-size:15px;line-height:1.7;margin:0;">Welcome to the Vocal Chain Bundle — you now own Carbonator and De-Sipper. License keys, downloads, and a quick-start checklist are below.</p>`,
   mixbus_bundle:
     `<p style="color:#a09bb5;font-size:15px;line-height:1.7;margin:0;">Welcome to the Mix Bus Bundle — you now own On Tap and Pour. License keys, downloads, and a quick-start checklist are below.</p>`,
+  apd_bundle:
+    `<p style="color:#a09bb5;font-size:15px;line-height:1.7;margin:0;">Welcome — you now own the 3-in-1 Bundle: Carbonator, De-Sipper, and On Tap. Each license key, download pair, and a quick-start checklist are below.</p>`,
 };
 
 exports.handler = async (event) => {
@@ -157,6 +166,7 @@ exports.handler = async (event) => {
       bundle: "Your 4 license keys + downloads",
       vocal_bundle: "Your Vocal Chain Bundle — 2 license keys + downloads",
       mixbus_bundle: "Your Mix Bus Bundle — 2 license keys + downloads",
+      apd_bundle: "Your 3-in-1 Bundle — 3 license keys + downloads",
     };
 
     emailHtml = buildEmail("support", {
