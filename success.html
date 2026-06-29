@@ -511,7 +511,7 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
                 <p class="license-note" id="license-note-text">Paste this key into the Carbonator plugin to activate it. Each key works on up to 3 machines.</p>
             </div>
 
-            <div class="download-section">
+            <div class="download-section" id="download-section">
                 <h2 id="download-heading">Download Carbonator</h2>
                 <div class="download-grid">
                     <div class="download-card">
@@ -543,7 +543,10 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
                 </div>
             </div>
 
-            <div class="instructions">
+            <!-- Bundle delivery (populated by JS when the order is a bundle) -->
+            <div id="bundle-section" style="display:none;"></div>
+
+            <div class="instructions" id="instructions-section">
                 <h2>Installation</h2>
 
                 <div class="instruction-step">
@@ -651,28 +654,69 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
                 const data = await res.json();
 
                 if (data.verified) {
-                    // Populate download URLs from the server
-                    document.getElementById('mac-download').href = data.downloads.mac;
-                    document.getElementById('win-download').href = data.downloads.windows;
                     const productName = data.product_name || 'Carbonator';
-                    document.getElementById('download-heading').textContent =
-                        `Download ${productName} v${data.version}`;
                     document.getElementById('product-name-heading').textContent = productName;
-                    document.getElementById('license-note-text').textContent =
-                        `Paste this key into the ${productName} plugin to activate it. Each key works on up to 3 machines.`;
 
-                    // Show license key if available
-                    if (data.license_key) {
-                        document.getElementById('license-key-text').textContent = data.license_key;
-                        document.getElementById('license-section').style.display = 'block';
-                        document.getElementById('copy-key-btn').addEventListener('click', function() {
-                            navigator.clipboard.writeText(data.license_key).then(function() {
-                                document.getElementById('copy-key-btn').textContent = 'Copied!';
-                                setTimeout(function() {
-                                    document.getElementById('copy-key-btn').textContent = 'Copy';
-                                }, 2000);
+                    if (data.is_bundle && Array.isArray(data.items)) {
+                        // BUNDLE: render one card per included plugin
+                        const h1 = document.querySelector('#state-verified h1');
+                        if (h1) h1.innerHTML = 'Thank you for buying <span class="accent">' + productName + '</span>';
+                        ['license-section', 'download-section', 'instructions-section'].forEach(function(id) {
+                            const el = document.getElementById(id);
+                            if (el) el.style.display = 'none';
+                        });
+
+                        const dlSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>';
+                        const esc = function(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); };
+                        let html = '<div class="download-section"><h2>Your ' + data.items.length + ' plugins</h2>';
+                        data.items.forEach(function(it, i) {
+                            html += '<div class="license-section" style="margin-bottom:20px;">';
+                            html += '<h2 style="margin-top:0;">' + esc(it.product_name) + '</h2>';
+                            if (it.license_key) {
+                                html += '<div class="license-key-box"><code id="bk-' + i + '">' + esc(it.license_key) + '</code>'
+                                     + '<button class="copy-btn" data-bk="' + i + '">Copy</button></div>';
+                                html += '<p class="license-note">Paste this key into ' + esc(it.product_name) + ' to activate it. Works on up to 3 machines.</p>';
+                            }
+                            html += '<div class="download-grid">';
+                            html += '<div class="download-card"><div class="os-icon">&#63743;</div><div class="os-name">macOS</div><div class="os-detail">VST3, AU, AAX</div><a class="download-btn" href="' + esc(it.downloads && it.downloads.mac) + '">' + dlSvg + ' Download .pkg</a></div>';
+                            html += '<div class="download-card"><div class="os-icon">&#9783;</div><div class="os-name">Windows</div><div class="os-detail">64-bit VST3</div><a class="download-btn" href="' + esc(it.downloads && it.downloads.windows) + '">' + dlSvg + ' Download</a></div>';
+                            html += '</div></div>';
+                        });
+                        html += '</div>';
+                        const bundle = document.getElementById('bundle-section');
+                        bundle.innerHTML = html;
+                        bundle.style.display = 'block';
+                        bundle.querySelectorAll('.copy-btn[data-bk]').forEach(function(btn) {
+                            btn.addEventListener('click', function() {
+                                const code = document.getElementById('bk-' + btn.getAttribute('data-bk')).textContent;
+                                navigator.clipboard.writeText(code).then(function() {
+                                    btn.textContent = 'Copied!';
+                                    setTimeout(function() { btn.textContent = 'Copy'; }, 2000);
+                                });
                             });
                         });
+                    } else {
+                        // SINGLE PRODUCT
+                        document.getElementById('mac-download').href = data.downloads.mac;
+                        document.getElementById('win-download').href = data.downloads.windows;
+                        document.getElementById('download-heading').textContent =
+                            `Download ${productName} v${data.version}`;
+                        document.getElementById('license-note-text').textContent =
+                            `Paste this key into the ${productName} plugin to activate it. Each key works on up to 3 machines.`;
+
+                        // Show license key if available
+                        if (data.license_key) {
+                            document.getElementById('license-key-text').textContent = data.license_key;
+                            document.getElementById('license-section').style.display = 'block';
+                            document.getElementById('copy-key-btn').addEventListener('click', function() {
+                                navigator.clipboard.writeText(data.license_key).then(function() {
+                                    document.getElementById('copy-key-btn').textContent = 'Copied!';
+                                    setTimeout(function() {
+                                        document.getElementById('copy-key-btn').textContent = 'Copy';
+                                    }, 2000);
+                                });
+                            });
+                        }
                     }
 
                     // Generate and show referral link
@@ -715,7 +759,7 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
                     }
 
                     // GA4: fire purchase event
-                    var priceByProduct = { carbonator: 20, desipper: 20, ontap: 20, pour: 20, bundle: 60, vocal_bundle: 35, mixbus_bundle: 30 };
+                    var priceByProduct = { carbonator: 20, desipper: 20, ontap: 20, pour: 20, bundle: 60, vocal_bundle: 35, mixbus_bundle: 30, apd_bundle: 20 };
                     var purchaseValue = priceByProduct[data.product] || 20;
                     if (typeof gtag === 'function') {
                         gtag('event', 'purchase', {

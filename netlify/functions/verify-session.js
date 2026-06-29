@@ -56,6 +56,42 @@ exports.handler = async (event) => {
       // Detect product from session metadata or default to carbonator
       const productId = session.metadata?.product || "carbonator";
       const product = PRODUCTS[productId] || PRODUCTS.carbonator;
+
+      // Bundle: return one item per included plugin (name, downloads, key).
+      // Keys are regenerated deterministically from email + session.created, so
+      // this works even if the webhook's metadata writeback failed (restricted key).
+      if (product.isBundle) {
+        const items = (product.includes || []).map((id) => {
+          const inc = PRODUCTS[id];
+          const secret = process.env[inc.secretEnv];
+          const key =
+            session.metadata?.[`license_key_${id}`] ||
+            (secret && email
+              ? generateActivationKey(email, session.created, secret)
+              : null);
+          return {
+            product: id,
+            product_name: inc.name,
+            version: inc.version,
+            downloads: inc.downloads,
+            license_key: key,
+          };
+        });
+
+        return {
+          statusCode: 200,
+          headers,
+          body: JSON.stringify({
+            verified: true,
+            product: productId,
+            product_name: product.name,
+            is_bundle: true,
+            items,
+            customer_email: email,
+          }),
+        };
+      }
+
       const licenseSecret = process.env[product.secretEnv];
 
       let licenseKey = session.metadata?.license_key || null;

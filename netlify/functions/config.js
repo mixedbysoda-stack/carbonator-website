@@ -80,6 +80,12 @@ const PRODUCTS = {
     isBundle: true,
     includes: ["ontap", "pour"],
   },
+  apd_bundle: {
+    name: "APD Exclusive 3-in-1 Bundle",
+    price: 55,
+    isBundle: true,
+    includes: ["carbonator", "desipper", "ontap"],
+  },
 };
 
 /**
