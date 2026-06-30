@@ -113,26 +113,32 @@
   to = "/pour.html"
   status = 200
 
+# Tonic temporarily removed from the store (trademark name change pending).
+# 301 the old product + comparison URLs home so inbound links don't 404.
+# Re-point these once the renamed plugin ships.
 [[redirects]]
   from = "/tonic"
-  to = "/tonic.html"
-  status = 200
+  to = "/"
+  status = 301
+  force = true
 
-# SEO comparison pages (pretty URLs)
 [[redirects]]
   from = "/tonic-vs-renaissance-comp"
-  to = "/tonic-vs-renaissance-comp.html"
-  status = 200
+  to = "/"
+  status = 301
+  force = true
 
 [[redirects]]
   from = "/tonic-vs-fabfilter-pro-c"
-  to = "/tonic-vs-fabfilter-pro-c.html"
-  status = 200
+  to = "/"
+  status = 301
+  force = true
 
 [[redirects]]
   from = "/tonic-vs-stock-compressor"
-  to = "/tonic-vs-stock-compressor.html"
-  status = 200
+  to = "/"
+  status = 301
+  force = true
 
 [[redirects]]
   from = "/desipper-vs-soothe"

@@ -51,10 +51,10 @@ const QUICK_START = {
     '<strong style="color:#ffffff;">Use it:</strong> Insert Tonic on a vocal track. Start with Threshold around -12dB, Ratio 4:1, taste to fit.',
   ],
   bundle: [
-    '<strong style="color:#ffffff;">Install all five plugins</strong> using the download links above.',
+    '<strong style="color:#ffffff;">Install all four plugins</strong> using the download links above.',
     '<strong style="color:#ffffff;">Activate each plugin</strong> with its matching license key — each key is plugin-specific.',
     '<strong style="color:#ffffff;">Rescan plugins</strong> in your DAW.',
-    '<strong style="color:#ffffff;">Stack them:</strong> Carbonator for saturation, De-Sipper for vocals, Tonic for vocal compression, On Tap for sidechain, Pour for imaging.',
+    '<strong style="color:#ffffff;">Stack them:</strong> Carbonator for saturation, De-Sipper for vocals, On Tap for sidechain, Pour for imaging.',
   ],
   vocal_bundle: [
     '<strong style="color:#ffffff;">Install Carbonator and De-Sipper</strong> using the download links above.',
@@ -80,7 +80,7 @@ const BODY_COPY = {
   single: (productName) =>
     `<p style="color:#a09bb5;font-size:15px;line-height:1.7;margin:0;">Your ${productName} license key and downloads are below. If anything breaks on install, just reply to this email.</p>`,
   bundle:
-    `<p style="color:#a09bb5;font-size:15px;line-height:1.7;margin:0;">You now own all five Carbonated Audio plugins. Each license key, download pair, and a quick-start checklist are below.</p>`,
+    `<p style="color:#a09bb5;font-size:15px;line-height:1.7;margin:0;">You now own all four Carbonated Audio plugins — Carbonator, De-Sipper, On Tap, and Pour. Each license key, download pair, and a quick-start checklist are below.</p>`,
   vocal_bundle:
     `<p style="color:#a09bb5;font-size:15px;line-height:1.7;margin:0;">Welcome to the Vocal Chain Bundle — you now own Carbonator and De-Sipper. License keys, downloads, and a quick-start checklist are below.</p>`,
   mixbus_bundle:

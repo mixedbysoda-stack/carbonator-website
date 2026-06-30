@@ -127,21 +127,6 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
                                 "priceCurrency": "USD"
                             }
                         }
-                    },
-                    {
-                        "@type": "ListItem",
-                        "position": 5,
-                        "item": {
-                            "@type": "SoftwareApplication",
-                            "name": "Tonic",
-                            "url": "https://carbonatedaudio.com/tonic",
-                            "applicationCategory": "MultimediaApplication",
-                            "offers": {
-                                "@type": "Offer",
-                                "price": "20.00",
-                                "priceCurrency": "USD"
-                            }
-                        }
                     }
                 ]
             }
@@ -1317,9 +1302,10 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
             <p class="hero-subtitle">Audio plugins built for producers who hear the difference.</p>
             <div class="hero-buttons">
                 <a href="#products" class="btn-hero-ghost">Explore Plugins</a>
-                <a href="https://buy.stripe.com/eVqeVdcZ3axc13b46T3oA0d" class="btn-hero-solid">Get All 5 Plugins &mdash; $75</a>
+                <!-- BUNDLE_CHECKOUT_TODO: replace href with the new $60 Stripe Payment Link (Checkout metadata: product=bundle). Old $75 link eVqeVdcZ3axc13b46T3oA0d delivered Tonic — do NOT reuse. -->
+                <a href="__NEW_BUNDLE_LINK__" class="btn-hero-solid">Get All 4 Plugins &mdash; $60</a>
             </div>
-            <p style="margin-top:14px;font-size:13px;color:#a09bb5;text-align:center;">or 4 interest-free payments of ~$19 &mdash; Klarna &middot; Afterpay &middot; Affirm at checkout</p>
+            <p style="margin-top:14px;font-size:13px;color:#a09bb5;text-align:center;">or 4 interest-free payments of $15 &mdash; Klarna &middot; Afterpay &middot; Affirm at checkout</p>
             <div class="hero-stats">
                 <div class="hero-stat">
                     <span class="hero-stat-value">5 Plugins</span>
@@ -1374,7 +1360,7 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
         <!-- Section 2: Product Showcase -->
         <section class="products-section" id="products">
             <p class="section-label scroll-reveal">THE LINEUP</p>
-            <h2 class="section-title scroll-reveal">Five Plugins. One Mission.</h2>
+            <h2 class="section-title scroll-reveal">Four Plugins. One Mission.</h2>
             <div class="products-grid">
                 <!-- Carbonator -->
                 <div class="product-card scroll-reveal" data-accent="orange">
@@ -1488,42 +1474,16 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
                     </div>
                 </div>
 
-                <!-- Tonic -->
-                <div class="product-card scroll-reveal" style="--glow-color: rgba(168,85,247,0.22);">
-                    <div class="product-card-img-wrapper" style="display:flex;align-items:center;justify-content:center;padding:20px;background:radial-gradient(ellipse at center, rgba(168,85,247,0.10) 0%, transparent 70%);">
-                        <picture><source srcset="/tonic-screenshot.webp" type="image/webp"><img src="/tonic-screenshot.png" alt="Tonic — opto-tube vocal compressor plugin by Carbonated Audio" width="1077" height="633" style="width:100%;max-width:360px;border-radius:8px;filter:drop-shadow(0 8px 32px rgba(168,85,247,0.4));" loading="lazy"></picture>
-                    </div>
-                    <div class="product-card-body">
-                        <h3 class="product-card-name">Tonic</h3>
-                        <p class="product-card-tagline">Opto-tube vocal compression. Pro vocal glue, indie price.</p>
-                        <ul class="product-card-features" style="--feature-dot: #a855f7;">
-                            <li>Opto cell with thermal memory</li>
-                            <li>Dual time-circuit (FIX / MAN / F+M)</li>
-                            <li>Tube push-pull + transformer iron</li>
-                            <li>VST3 / AU / AAX, macOS + Windows</li>
-                        </ul>
-                        <div class="product-card-footer">
-                            <span class="product-card-price">$20</span>
-                            <a href="/tonic" class="product-card-cta" style="background:linear-gradient(135deg,#a855f7,#7b2fff);color:#fff;">
-                                Learn more about Tonic <span class="arrow">&rarr;</span>
-                            </a>
-                        </div>
-                        <div style="display:flex;gap:10px;margin-top:12px;">
-                            <a href="https://buy.stripe.com/14A8wP8IN48OcLT0UH3oA0c" style="flex:1;text-align:center;padding:10px;border-radius:8px;background:linear-gradient(135deg,#a855f7,#7b2fff);color:#fff;font-weight:600;font-size:13px;text-decoration:none;">Buy — $20</a>
-                            <a href="/tonic#pricing" style="flex:1;text-align:center;padding:10px;border-radius:8px;border:1px solid rgba(168,85,247,0.3);color:#a855f7;font-weight:600;font-size:13px;text-decoration:none;">Learn More</a>
-                        </div>
-                        <p style="font-size:11px;color:#a09bb5;margin-top:8px;text-align:center;">or 4 payments of $5 with Klarna / Afterpay</p>
-                    </div>
-                </div>
             </div>
 
             <!-- Bundle CTA -->
             <div class="scroll-reveal" style="margin-top:48px;text-align:center;padding:32px 24px;border-radius:16px;border:1px solid rgba(255,255,255,0.08);background:linear-gradient(135deg,rgba(255,107,43,0.06),rgba(0,212,255,0.06));">
-                <p style="font-size:14px;color:#a09bb5;margin-bottom:6px;font-weight:500;letter-spacing:1px;text-transform:uppercase;">Complete Bundle — Save $25</p>
-                <p style="font-size:22px;font-weight:700;color:#fff;margin-bottom:4px;">Get all 5 plugins for <span style="background:linear-gradient(135deg,#ff6b2b,#00d4ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">$75</span> <span style="font-size:15px;color:#6b6580;font-weight:400;text-decoration:line-through;">$100</span></p>
-                <p style="font-size:14px;color:#a09bb5;margin-bottom:14px;">Carbonator + De-Sipper + On Tap + Pour + Tonic. Saturation, de-essing, sidechain ducking, stereo imaging, and opto-tube vocal compression in one checkout.</p>
-                <p style="font-size:13px;color:#a09bb5;margin-bottom:20px;">or 4 interest-free payments of ~$19 with Klarna, Afterpay, or Affirm</p>
-                <a href="https://buy.stripe.com/eVqeVdcZ3axc13b46T3oA0d" style="padding:14px 36px;border-radius:10px;background:linear-gradient(135deg,#ff6b2b,#00d4ff);color:#fff;font-weight:700;font-size:15px;text-decoration:none;display:inline-block;">Get the Bundle — $75</a>
+                <p style="font-size:14px;color:#a09bb5;margin-bottom:6px;font-weight:500;letter-spacing:1px;text-transform:uppercase;">Complete Bundle — Save $20</p>
+                <p style="font-size:22px;font-weight:700;color:#fff;margin-bottom:4px;">Get all 4 plugins for <span style="background:linear-gradient(135deg,#ff6b2b,#00d4ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">$60</span> <span style="font-size:15px;color:#6b6580;font-weight:400;text-decoration:line-through;">$80</span></p>
+                <p style="font-size:14px;color:#a09bb5;margin-bottom:14px;">Carbonator + De-Sipper + On Tap + Pour. Saturation, de-essing, sidechain ducking, and stereo imaging in one checkout.</p>
+                <p style="font-size:13px;color:#a09bb5;margin-bottom:20px;">or 4 interest-free payments of $15 with Klarna, Afterpay, or Affirm</p>
+                <!-- BUNDLE_CHECKOUT_TODO: replace href with the new $60 Stripe Payment Link (Checkout metadata: product=bundle). Old $75 link eVqeVdcZ3axc13b46T3oA0d delivered Tonic — do NOT reuse. -->
+                <a href="__NEW_BUNDLE_LINK__" style="padding:14px 36px;border-radius:10px;background:linear-gradient(135deg,#ff6b2b,#00d4ff);color:#fff;font-weight:700;font-size:15px;text-decoration:none;display:inline-block;">Get the Bundle — $60</a>
             </div>
         </section>
 
@@ -1643,36 +1603,30 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
                     <a href="https://buy.stripe.com/7sY28raQV34KeU1bzl3oA09" class="pricing-btn" data-color="vocal">Get Vocal Chain &mdash; $35</a>
                 </div>
 
-                <!-- Complete Bundle (Featured — 5 plugins) -->
+                <!-- Complete Bundle (Featured — 4 plugins) -->
                 <div class="pricing-card featured scroll-reveal">
                     <span class="pricing-badge">BEST VALUE</span>
                     <div class="pricing-card-header">
                         <div class="pricing-card-name">Complete Bundle</div>
-                        <div class="pricing-card-desc">All 5 plugins, one price</div>
+                        <div class="pricing-card-desc">All 4 plugins, one price</div>
                     </div>
                     <div class="pricing-price">
-                        <span class="pricing-original">$100</span>
-                        <span class="pricing-dollar">$</span><span class="pricing-amount">75</span>
+                        <span class="pricing-original">$80</span>
+                        <span class="pricing-dollar">$</span><span class="pricing-amount">60</span>
                         <div class="pricing-period">one-time payment</div>
-                        <div style="font-size:12px;color:#a09bb5;margin-top:8px;">or 4 payments of ~$19 &middot; Klarna &middot; Afterpay &middot; Affirm</div>
-                    </div>
-                    <div style="margin:14px 0 20px;padding:14px 16px;border-radius:12px;background:linear-gradient(135deg,rgba(255,107,43,0.12),rgba(204,51,255,0.12));border:1px solid rgba(255,107,43,0.35);text-align:center;">
-                        <div style="font-size:11px;font-weight:700;letter-spacing:1.5px;color:#ff6b2b;text-transform:uppercase;margin-bottom:6px;">🎟️ KVR Deal &mdash; $10 off</div>
-                        <div style="font-size:15px;color:#fff;font-weight:600;margin-bottom:4px;">Pay <strong>$65</strong> with code <code style="padding:2px 8px;border-radius:6px;background:rgba(255,255,255,0.1);font-family:'JetBrains Mono',monospace;font-size:14px;color:#ffb088;">KVRSIP</code> at checkout</div>
-                        <div style="font-size:11px;color:#a09bb5;margin-bottom:4px;">Buying just one? Use <code style="padding:1px 6px;border-radius:5px;background:rgba(255,255,255,0.08);font-family:'JetBrains Mono',monospace;font-size:11px;color:#ffb088;">KVRSIP10</code> for 10% off any single plugin</div>
-                        <div style="font-size:12px;color:#a09bb5;" id="kvrsip-countdown">Ends May 30, 2026</div>
+                        <div style="font-size:12px;color:#a09bb5;margin-top:8px;">or 4 payments of $15 &middot; Klarna &middot; Afterpay &middot; Affirm</div>
                     </div>
                     <ul class="pricing-features">
                         <li><span class="check">&#10003;</span> Carbonator (full license)</li>
                         <li><span class="check">&#10003;</span> De-Sipper (full license)</li>
                         <li><span class="check">&#10003;</span> On Tap (full license)</li>
                         <li><span class="check">&#10003;</span> Pour (full license)</li>
-                        <li><span class="check">&#10003;</span> Tonic (full license)</li>
                         <li><span class="check">&#10003;</span> VST3, AU, AAX &mdash; macOS + Windows</li>
-                        <li><span class="check">&#10003;</span> Free updates for all five</li>
-                        <li><span class="check">&#10003;</span> Save $25 off individual prices</li>
+                        <li><span class="check">&#10003;</span> Free updates for all four</li>
+                        <li><span class="check">&#10003;</span> Save $20 off individual prices</li>
                     </ul>
-                    <a href="https://buy.stripe.com/eVqeVdcZ3axc13b46T3oA0d" class="pricing-btn" data-color="purple">Get the Bundle &mdash; $65 with KVRSIP</a>
+                    <!-- BUNDLE_CHECKOUT_TODO: replace href with the new $60 Stripe Payment Link (Checkout metadata: product=bundle). Old $75 link eVqeVdcZ3axc13b46T3oA0d delivered Tonic — do NOT reuse. -->
+                    <a href="__NEW_BUNDLE_LINK__" class="pricing-btn" data-color="purple">Get the Bundle &mdash; $60</a>
                 </div>
 
                 <!-- Mix Bus Bundle (2 plugins) -->
@@ -1708,9 +1662,10 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
             <h2 class="final-cta-title scroll-reveal">Ready to level up your sound?</h2>
             <p class="final-cta-desc scroll-reveal">Join producers already using Carbonated Audio in their workflow.</p>
             <div class="final-cta-buttons scroll-reveal">
-                <a href="https://buy.stripe.com/eVqeVdcZ3axc13b46T3oA0d" class="btn-hero-solid">Get All 5 Plugins &mdash; $75</a>
+                <!-- BUNDLE_CHECKOUT_TODO: replace href with the new $60 Stripe Payment Link (Checkout metadata: product=bundle). Old $75 link eVqeVdcZ3axc13b46T3oA0d delivered Tonic — do NOT reuse. -->
+                <a href="__NEW_BUNDLE_LINK__" class="btn-hero-solid">Get All 4 Plugins &mdash; $60</a>
             </div>
-            <p class="scroll-reveal" style="margin-top:14px;font-size:13px;color:#a09bb5;text-align:center;">or 4 interest-free payments of ~$19 &mdash; Klarna &middot; Afterpay &middot; Affirm</p>
+            <p class="scroll-reveal" style="margin-top:14px;font-size:13px;color:#a09bb5;text-align:center;">or 4 interest-free payments of $15 &mdash; Klarna &middot; Afterpay &middot; Affirm</p>
         </section>
 
         <!-- Footer -->
