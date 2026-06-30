@@ -64,9 +64,12 @@ const PRODUCTS = {
   },
   bundle: {
     name: "Carbonated Audio Complete Bundle",
-    price: 75,
+    price: 60,
     isBundle: true,
-    includes: ["carbonator", "desipper", "ontap", "pour", "tonic"],
+    // Tonic temporarily removed from the bundle pending a trademark name change.
+    // Its product definition + activation function are kept below so existing
+    // owners' licenses still validate. Re-add to includes once the rename ships.
+    includes: ["carbonator", "desipper", "ontap", "pour"],
   },
   vocal_bundle: {
     name: "Vocal Chain Bundle",
