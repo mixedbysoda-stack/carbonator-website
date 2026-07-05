@@ -13,6 +13,7 @@ const SUBJECTS = {
   ontap: "Your On Tap License Key & Download Links",
   pour: "Your Pour License Key & Download Links",
   tonic: "Your Tonic License Key & Download Links",
+  octane: "Your OCTANE License Key & Download Links",
   bundle: "Your Carbonated Audio Bundle — License Keys & Downloads",
   vocal_bundle: "Your Vocal Chain Bundle — License Keys & Downloads",
   mixbus_bundle: "Your Mix Bus Bundle — License Keys & Downloads",
@@ -49,6 +50,12 @@ const QUICK_START = {
     '<strong style="color:#ffffff;">Windows:</strong> Run the .exe installer — it places the VST3 in the standard plugin folder automatically.',
     '<strong style="color:#ffffff;">Activate:</strong> Open Tonic, paste your license key, click Activate.',
     '<strong style="color:#ffffff;">Use it:</strong> Insert Tonic on a vocal track. Start with Threshold around -12dB, Ratio 4:1, taste to fit.',
+  ],
+  octane: [
+    '<strong style="color:#ffffff;">macOS:</strong> Open the .pkg installer and pick your formats (VST3, AU, AAX).',
+    '<strong style="color:#ffffff;">Windows:</strong> Run the .exe installer — it places the VST3 in the standard plugin folder automatically.',
+    '<strong style="color:#ffffff;">Activate:</strong> Open OCTANE, paste your license key, click Activate.',
+    '<strong style="color:#ffffff;">Use it:</strong> Drop OCTANE on any track, throw the shifter into a gear, and drive it with the input knob.',
   ],
   bundle: [
     '<strong style="color:#ffffff;">Install all four plugins</strong> using the download links above.',
