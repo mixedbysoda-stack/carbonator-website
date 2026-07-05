@@ -63,13 +63,13 @@ const PRODUCTS = {
     secretEnv: "TONIC_LICENSE_SECRET",
   },
   octane: {
-    name: "OCTANE",
+    name: "FIZZFUEL",
     version: "1.0.0",
-    price: 20,
+    price: 29,
     downloads: {
-      // Release URLs go live when v1.0.0 ships (repo mixedbysoda-stack/octane)
-      mac: `https://github.com/mixedbysoda-stack/octane/releases/download/v1.0.0/OCTANE-v1.0.0-Installer.pkg`,
-      windows: `https://github.com/mixedbysoda-stack/octane/releases/download/v1.0.0/OCTANE-v1.0.0-Windows-Installer.exe`,
+      // Release assets on mixedbysoda-stack/octane (repo must be public for these to resolve)
+      mac: `https://github.com/mixedbysoda-stack/octane/releases/download/v1.0.0/FIZZFUEL-v1.0.0-Installer.pkg`,
+      windows: `https://github.com/mixedbysoda-stack/octane/releases/download/v1.0.0/FIZZFUEL-v1.0.0-Windows-Installer.exe`,
     },
     secretEnv: "OCTANE_LICENSE_SECRET",
   },
