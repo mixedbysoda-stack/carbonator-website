@@ -67,9 +67,10 @@ const PRODUCTS = {
     version: "1.0.0",
     price: 29,
     downloads: {
-      // Release assets on mixedbysoda-stack/octane (repo must be public for these to resolve)
+      // Release assets on mixedbysoda-stack/octane (public repo)
       mac: `https://github.com/mixedbysoda-stack/octane/releases/download/v1.0.0/FIZZFUEL-v1.0.0-Installer.pkg`,
-      windows: `https://github.com/mixedbysoda-stack/octane/releases/download/v1.0.0/FIZZFUEL-v1.0.0-Windows-Installer.exe`,
+      // Windows = zipped VST3 (unzip into your VST3 folder). Built in CI; smoke-test on real Windows before heavy PC promotion.
+      windows: `https://github.com/mixedbysoda-stack/octane/releases/download/v1.0.0/FIZZFUEL-v1.0.0-Windows-VST3.zip`,
     },
     secretEnv: "OCTANE_LICENSE_SECRET",
   },
