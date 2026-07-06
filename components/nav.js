@@ -43,6 +43,12 @@
                                 <div class="dropdown-desc">M/S stereo imager</div>
                             </div>
                         </a>
+                        <a href="/fizzfuel">
+                            <div>
+                                <div class="dropdown-label">FIZZFUEL</div>
+                                <div class="dropdown-desc">6-effect gearbox</div>
+                            </div>
+                        </a>
                     </div>
                 </div>
                 <a href="/manual"${isActive('manual') ? ' class="active"' : ''}>Manual</a>
@@ -62,6 +68,7 @@
             <a href="/desipper">De-Sipper</a>
             <a href="/ontap">On Tap</a>
             <a href="/pour">Pour</a>
+            <a href="/fizzfuel">FIZZFUEL</a>
             <a href="/manual">Manual</a>
             <a href="/about">About</a>
             <a href="/faq">FAQ</a>
