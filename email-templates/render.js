@@ -85,7 +85,7 @@ const PRODUCT_ACCENTS = {
     color: "#cc33ff",
     colorAlt: "#ff6b2b",
     gradient: "linear-gradient(135deg,#ff6b2b,#cc33ff,#00d4ff)",
-    url: "https://buy.stripe.com/eVqeVdcZ3axc13b46T3oA0d",
+    url: "https://buy.stripe.com/aFa4gzbUZfRwdPXdHt3oA0g",
     price: 75,
   },
   vocal_bundle: {
@@ -158,6 +158,9 @@ ${pre}
             </p>
             <p style="color:${BRAND.textMuted};font-size:11px;line-height:1.6;margin:8px 0 0;">
               Built by producers, for producers. Reply to this email and a human will read it.
+            </p>
+            <p style="color:#6b6580;font-size:11px;line-height:1.6;margin:8px 0 0;">
+              Don't want these emails? <a href="mailto:hello@carbonatedaudio.com?subject=Unsubscribe" style="color:#6b6580;text-decoration:underline;">Unsubscribe</a> and we'll take you off the list.
             </p>
           </td>
         </tr>

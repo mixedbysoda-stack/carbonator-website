@@ -1428,12 +1428,12 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
         <div class="demo-gate">
             <button class="demo-gate-close" onclick="closeDemoGate()">&times;</button>
             <h3>Get the Free Demo</h3>
-            <p>Enter your email and we'll start the download.</p>
+            <p>The FIZZFUEL demo is almost ready. Drop your email and we'll send it to you the moment it's out.</p>
             <form id="demoGateForm" onsubmit="return submitDemoGate(event)">
                 <input type="email" class="demo-gate-input" id="demoGateContact"
                        placeholder="you@email.com" autocomplete="email" required>
                 <div class="demo-gate-error" id="demoGateError"></div>
-                <button type="submit" class="demo-gate-submit">Download Demo</button>
+                <button type="submit" class="demo-gate-submit">Notify Me</button>
             </form>
             <div class="demo-gate-fine">No spam, ever. Just your download link and occasional updates from Carbonated Audio.</div>
         </div>
@@ -1470,12 +1470,12 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
         errorEl.textContent = '';
 
         var btn = document.querySelector('.demo-gate-submit');
-        btn.textContent = 'Preparing download...';
+        btn.textContent = 'Saving...';
         btn.disabled = true;
 
         if (typeof gtag === 'function') gtag('event', 'demo_download', { event_category: 'conversion', event_label: 'fizzfuel-demo-gate' });
 
-        var refSource = new URLSearchParams(window.location.search).get('ref') || 'ontap-demo-gate';
+        var refSource = new URLSearchParams(window.location.search).get('ref') || 'fizzfuel-demo-gate';
         fetch('/.netlify/functions/capture-lead', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -1487,19 +1487,11 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
         }).catch(function() {});
 
         setTimeout(function() {
-            closeDemoGate();
-            btn.textContent = 'Download Demo';
-            btn.disabled = false;
-
-            var a = document.createElement('a');
-            a.href = (/Win/i.test(navigator.platform || navigator.userAgent))
-                ? 'https://github.com/mixedbysoda-stack/ontap/releases/download/v1.0.0-demo/OnTap-v1.0.0-Demo-Windows-Installer.exe'
-                : 'https://github.com/mixedbysoda-stack/ontap/releases/download/v1.0.0-demo/OnTap-Demo-macOS.pkg';
-            a.download = '';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-        }, 300);
+            btn.textContent = "You're on the list \u2713";
+            var p = document.querySelector('.demo-gate p');
+            if (p) p.textContent = "Done \u2014 we'll email you the FIZZFUEL demo as soon as it drops.";
+            setTimeout(closeDemoGate, 2200);
+        }, 400);
 
         return false;
     }
@@ -1590,7 +1582,7 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
 
     <div class="bundle-sticky-cta" id="bundleStickyCta" role="region" aria-label="Bundle offer">
         <span class="bundle-sticky-cta-text">Get all 4 plugins &mdash; Carbonator + De-Sipper + FIZZFUEL + Pour &mdash; for <strong>$60</strong> (save $29)</span>
-        <a href="mailto:mixedbysoda@gmail.com?subject=Complete%20Bundle%20%E2%80%94%20notify%20me%20when%20it%27s%20back" class="bundle-sticky-cta-btn" id="bundleStickyCtaBtn">Get the Bundle &rarr;</a>
+        <a href="https://buy.stripe.com/aFa4gzbUZfRwdPXdHt3oA0g" class="bundle-sticky-cta-btn" id="bundleStickyCtaBtn">Get the Bundle &rarr;</a>
         <button type="button" class="bundle-sticky-cta-close" id="bundleStickyCtaClose" aria-label="Dismiss bundle offer">&times;</button>
     </div>
 

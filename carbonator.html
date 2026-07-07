@@ -2434,33 +2434,6 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
     <canvas id="silk-bg"></canvas>
 
     <div class="content-wrapper">
-        <!-- Launch Countdown Banner -->
-        <div class="launch-banner" id="launchBanner">
-            <div class="launch-banner-inner">
-                <span class="launch-banner-text">
-                    Sale: <span class="original-price">$35</span> <span class="launch-price">$20</span> &mdash; Offer ends soon!
-                </span>
-                <div class="countdown-units" id="countdown">
-                    <div class="countdown-unit">
-                        <span class="countdown-value" id="cd-days">00</span>
-                        <span class="countdown-label">Days</span>
-                    </div>
-                    <div class="countdown-unit">
-                        <span class="countdown-value" id="cd-hours">00</span>
-                        <span class="countdown-label">Hrs</span>
-                    </div>
-                    <div class="countdown-unit">
-                        <span class="countdown-value" id="cd-mins">00</span>
-                        <span class="countdown-label">Min</span>
-                    </div>
-                    <div class="countdown-unit">
-                        <span class="countdown-value" id="cd-secs">00</span>
-                        <span class="countdown-label">Sec</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <!-- Navigation -->
         <nav>
             <a href="/" class="nav-logo">
@@ -2979,7 +2952,7 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
                             <span class="pricing-original">$35</span>
                             <span class="pricing-dollar">$</span><span class="pricing-amount">20</span>
                         </div>
-                        <div class="pricing-period">one-time payment &mdash; launch price ends May 30</div>
+                        <div class="pricing-period">one-time payment &mdash; no subscription</div>
                         <div style="font-size:12px;color:#a09bb5;margin-top:8px;">or 4 payments of $5 &middot; Klarna &middot; Afterpay</div>
                     </div>
                     <ul class="pricing-features">
@@ -4974,47 +4947,6 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
     })();
     </script>
 
-    <!-- Launch Countdown Timer -->
-    <script>
-    (function() {
-        // Set launch end date: March 31, 2026 (matches Stripe coupon expiry)
-        var launchEnd = new Date('2026-05-30T23:59:59-04:00').getTime();
-        var banner = document.getElementById('launchBanner');
-        var daysEl = document.getElementById('cd-days');
-        var hoursEl = document.getElementById('cd-hours');
-        var minsEl = document.getElementById('cd-mins');
-        var secsEl = document.getElementById('cd-secs');
-
-        function pad(n) { return n < 10 ? '0' + n : n; }
-
-        function update() {
-            var now = Date.now();
-            var diff = launchEnd - now;
-
-            if (diff <= 0) {
-                banner.classList.add('expired');
-                daysEl.textContent = '00';
-                hoursEl.textContent = '00';
-                minsEl.textContent = '00';
-                secsEl.textContent = '00';
-                return;
-            }
-
-            var days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            var hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            var mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            var secs = Math.floor((diff % (1000 * 60)) / 1000);
-
-            daysEl.textContent = pad(days);
-            hoursEl.textContent = pad(hours);
-            minsEl.textContent = pad(mins);
-            secsEl.textContent = pad(secs);
-        }
-
-        update();
-        setInterval(update, 1000);
-    })();
-    </script>
 
     <!-- FAQ Accordion + Scroll Reveal -->
     <script>
@@ -5575,7 +5507,7 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
 
     <div class="bundle-sticky-cta" id="bundleStickyCta" role="region" aria-label="Bundle offer">
         <span class="bundle-sticky-cta-text">Get all 4 plugins &mdash; Carbonator + De-Sipper + On Tap + Pour &mdash; for <strong>$60</strong> (save $20)</span>
-        <a href="mailto:mixedbysoda@gmail.com?subject=Complete%20Bundle%20%E2%80%94%20notify%20me%20when%20it%27s%20back" class="bundle-sticky-cta-btn" id="bundleStickyCtaBtn">Get the Bundle &rarr;</a>
+        <a href="https://buy.stripe.com/aFa4gzbUZfRwdPXdHt3oA0g" class="bundle-sticky-cta-btn" id="bundleStickyCtaBtn">Get the Bundle &rarr;</a>
         <button type="button" class="bundle-sticky-cta-close" id="bundleStickyCtaClose" aria-label="Dismiss bundle offer">&times;</button>
     </div>
 

@@ -3,12 +3,13 @@
 // Finds leads where email2 was sent 4+ days ago (7 days from signup) but no email3 yet.
 
 const { getBlobStore } = require("./lib/store");
+const { isSuppressed } = require("./lib/suppression");
 const { Resend } = require("resend");
 const { PRODUCTS } = require("./config");
 const { buildEmail, PRODUCT_ACCENTS } = require("../../email-templates/render");
 
 const FROM_EMAIL = "Carbonated Audio <hello@carbonatedaudio.com>";
-const BUNDLE_URL = "https://buy.stripe.com/eVqeVdcZ3axc13b46T3oA0d";
+const BUNDLE_URL = "https://buy.stripe.com/aFa4gzbUZfRwdPXdHt3oA0g";
 const FOUR_DAYS = 4 * 24 * 60 * 60 * 1000;
 
 const SUBJECTS = {
@@ -16,9 +17,23 @@ const SUBJECTS = {
   desipper: "Ready to unlock De-Sipper? $20, no subscription.",
   ontap: "Ready to unlock On Tap? $20, no subscription.",
   pour: "Ready to unlock Pour? $20, no subscription.",
+  fizzfuel: "FIZZFUEL — 6 effects, one shifter, $29.",
 };
 
 const CONVERT = {
+  fizzfuel: {
+    headline: "Six effects. One shifter. Ready when you are.",
+    features: [
+      "All 6 effect gears — Drive, Reverb, Delay, Pitch, Filter + clean A/B",
+      "20+ styles across the effects",
+      "Tempo-synced delay, FDN reverb, real-time pitch",
+      "Use on up to 3 machines",
+      "No subscription — pay once, own forever",
+    ],
+    quote: "Six effects. One shifter. Throw it in gear.",
+    quoteAuthor: "— the FIZZFUEL motto",
+    priceLine: "$29 one-time",
+  },
   carbonator: {
     headline: "Tired of the demo cycle? Unlock the full version.",
     features: [
@@ -30,7 +45,7 @@ const CONVERT = {
     ],
     quote: "The Lemon-Lime on my vocal chain is crazy. An absolute staple.",
     quoteAuthor: "— ZakMabry",
-    priceLine: "$20 — launch price, goes to $35 after May 30",
+    priceLine: "$20 one-time",
   },
   desipper: {
     headline: "Tired of the demo cycle? Unlock De-Sipper.",
@@ -76,6 +91,7 @@ const CONVERT = {
 function getProductFromSource(source) {
   if (!source) return "carbonator";
   const s = source.toLowerCase();
+  if (s.includes("fizzfuel") || s.includes("octane")) return "fizzfuel";
   if (s.includes("pour")) return "pour";
   if (s.includes("ontap")) return "ontap";
   if (s.includes("desipper")) return "desipper";
@@ -108,8 +124,8 @@ function buildDay7Body(product) {
   const appendix = `
     <hr style="border:none;border-top:1px solid #2a2440;margin:28px 0;">
     <p style="color:#a09bb5;font-size:14px;line-height:1.7;margin:0;text-align:center;">
-      Want all 5 plugins? Grab the
-      <a href="${BUNDLE_URL}" style="color:#4ecca3;text-decoration:none;font-weight:600;">Complete Bundle for $75</a>
+      Want all 4 plugins? Grab the
+      <a href="${BUNDLE_URL}" style="color:#4ecca3;text-decoration:none;font-weight:600;">Complete Bundle for $60</a>
       &mdash; save $25.
     </p>
   `;
@@ -143,6 +159,7 @@ exports.handler = async () => {
     try {
       const lead = await store.get(blob.key, { type: "json" });
       if (!lead || !lead.contact) continue;
+      if (isSuppressed(lead.contact)) continue; // unsubscribed
       if (lead.drip_status !== "email2_sent") continue;
       if (!lead.email2_sent_at) continue;
       const elapsed = now - new Date(lead.email2_sent_at).getTime();

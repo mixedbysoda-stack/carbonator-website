@@ -1,0 +1,9 @@
+# Carbonated Audio — Do-Not-Contact List
+# One email per line. Lines starting with # are comments.
+# Check this list before sending any outbound blast (KVR, customer announcements, promos).
+# Inbound auto-replies (hourly monitor) are exempt — those only fire when the user emails us.
+
+frankbugbee10@gmail.com  # unsubscribed 2026-04-28 after KVRSIP blast (was Apr-22 triple-grab lead)
+
+# NOTE: the machine-enforced list lives at netlify/functions/lib/suppression.js
+# — keep both in sync when adding an unsubscribe.

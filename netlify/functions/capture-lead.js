@@ -205,7 +205,7 @@ function buildWelcomeEmail(email) {
             Questions? Just reply to this email.
           </p>
           <p style="color:#6b6580;font-size:12px;margin:8px 0 0;">
-            &copy; ${new Date().getFullYear()} Carbonated Audio &middot; <a href="https://carbonatedaudio.com" style="color:#6b6580;">carbonatedaudio.com</a>
+            &copy; ${new Date().getFullYear()} Carbonated Audio &middot; <a href="https://carbonatedaudio.com" style="color:#6b6580;">carbonatedaudio.com</a><br><a href="mailto:hello@carbonatedaudio.com?subject=Unsubscribe" style="color:#6b6580;">Unsubscribe</a>
           </p>
         </td></tr>
 
@@ -258,7 +258,7 @@ function buildDesipperWelcomeEmail(email) {
             Questions? Just reply to this email.
           </p>
           <p style="color:#6b6580;font-size:12px;margin:8px 0 0;">
-            &copy; ${new Date().getFullYear()} Carbonated Audio &middot; <a href="https://carbonatedaudio.com" style="color:#6b6580;">carbonatedaudio.com</a>
+            &copy; ${new Date().getFullYear()} Carbonated Audio &middot; <a href="https://carbonatedaudio.com" style="color:#6b6580;">carbonatedaudio.com</a><br><a href="mailto:hello@carbonatedaudio.com?subject=Unsubscribe" style="color:#6b6580;">Unsubscribe</a>
           </p>
         </td></tr>
 

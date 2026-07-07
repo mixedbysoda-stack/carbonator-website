@@ -3,12 +3,13 @@
 // Finds leads where email1 was sent 3+ days ago but no email2 yet.
 
 const { getBlobStore } = require("./lib/store");
+const { isSuppressed } = require("./lib/suppression");
 const { Resend } = require("resend");
 const { PRODUCTS } = require("./config");
 const { buildEmail, PRODUCT_ACCENTS } = require("../../email-templates/render");
 
 const FROM_EMAIL = "Carbonated Audio <hello@carbonatedaudio.com>";
-const BUNDLE_URL = "https://buy.stripe.com/eVqeVdcZ3axc13b46T3oA0d";
+const BUNDLE_URL = "https://buy.stripe.com/aFa4gzbUZfRwdPXdHt3oA0g";
 const THREE_DAYS = 3 * 24 * 60 * 60 * 1000;
 
 const SUBJECTS = {
@@ -16,9 +17,21 @@ const SUBJECTS = {
   desipper: "How's the De-Sipper demo treating you? 🎤",
   ontap: "How's On Tap working out? 🎚️",
   pour: "How's the Pour demo treating you? 🌊",
+  fizzfuel: "Still thinking about FIZZFUEL? 🏁",
 };
 
 const SPOTLIGHT = {
+  fizzfuel: {
+    headline: "FIZZFUEL — thanks for your interest",
+    body: `<p style="color:#a09bb5;font-size:15px;line-height:1.7;margin:0 0 16px;">You signed up for the FIZZFUEL demo — it's almost ready, and you'll be the first to get it when it drops.</p>
+           <p style="color:#a09bb5;font-size:15px;line-height:1.7;margin:0 0 16px;">Meanwhile, here's what's waiting under the hood:</p>`,
+    features: [
+      "<strong style=\"color:#ffffff;\">6 gears</strong> — Drive, Reverb, Delay, Pitch, Filter + clean A/B",
+      "<strong style=\"color:#ffffff;\">20+ styles</strong> — from tape warmth to shimmer and self-oscillating echoes",
+      "<strong style=\"color:#ffffff;\">The shifter</strong> — throw the stick, glitch-free crossfades between effects",
+    ],
+    ctaText: "See FIZZFUEL",
+  },
   carbonator: {
     headline: "How's the demo going so far?",
     body: `<p style="color:#a09bb5;font-size:15px;line-height:1.7;margin:0 0 16px;">Just checking in — have you had a chance to drop Carbonator on a track yet? I'd love to hear what you think.</p>
@@ -69,6 +82,7 @@ const SPOTLIGHT = {
 function getProductFromSource(source) {
   if (!source) return "carbonator";
   const s = source.toLowerCase();
+  if (s.includes("fizzfuel") || s.includes("octane")) return "fizzfuel";
   if (s.includes("pour")) return "pour";
   if (s.includes("ontap")) return "ontap";
   if (s.includes("desipper")) return "desipper";
@@ -97,7 +111,7 @@ function buildDay3Body(product, contact) {
     </p>
     <p style="color:#a09bb5;font-size:14px;line-height:1.7;margin:0 0 16px;">${otherProducts}</p>
     <p style="color:#a09bb5;font-size:14px;line-height:1.7;margin:0;">
-      Or grab all 5 plugins in our <a href="${BUNDLE_URL}" style="color:#4ecca3;text-decoration:none;font-weight:600;">Complete Bundle for $75</a> &mdash; save $25.
+      Or grab all 4 plugins in our <a href="${BUNDLE_URL}" style="color:#4ecca3;text-decoration:none;font-weight:600;">Complete Bundle for $60</a> &mdash; save $20.
     </p>
   `;
 
@@ -130,6 +144,7 @@ exports.handler = async () => {
     try {
       const lead = await store.get(blob.key, { type: "json" });
       if (!lead || !lead.contact) continue;
+      if (isSuppressed(lead.contact)) continue; // unsubscribed
       if (lead.drip_status !== "email1_sent") continue;
       if (!lead.email1_sent_at) continue;
       const elapsed = now - new Date(lead.email1_sent_at).getTime();
