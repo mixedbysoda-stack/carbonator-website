@@ -32,6 +32,14 @@ const BRAND = {
 };
 
 const PRODUCT_ACCENTS = {
+  fizzfuel: {
+    name: "FIZZFUEL",
+    color: "#ff6b2b",
+    colorAlt: "#ffd700",
+    gradient: "linear-gradient(135deg,#ff6b2b,#ffd700)",
+    url: "https://carbonatedaudio.com/fizzfuel",
+    price: 29,
+  },
   carbonator: {
     name: "Carbonator",
     color: "#ff6b2b",
