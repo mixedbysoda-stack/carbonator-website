@@ -759,8 +759,18 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
                     }
 
                     // GA4: fire purchase event
-                    var priceByProduct = { carbonator: 20, desipper: 20, ontap: 20, pour: 20, bundle: 60, vocal_bundle: 35, mixbus_bundle: 30, apd_bundle: 20 };
+                    var priceByProduct = { carbonator: 20, desipper: 20, ontap: 20, pour: 20, fizzfuel: 29, octane: 29, bundle: 60, vocal_bundle: 35, mixbus_bundle: 30, apd_bundle: 20 };
                     var purchaseValue = priceByProduct[data.product] || 20;
+                    // Meta Pixel: Purchase (enables conversion-optimized retargeting)
+                    if (typeof fbq === 'function') {
+                        fbq('track', 'Purchase', {
+                            value: purchaseValue,
+                            currency: 'USD',
+                            content_name: data.product_name || data.product,
+                            content_ids: [data.product],
+                            content_type: 'product'
+                        });
+                    }
                     if (typeof gtag === 'function') {
                         gtag('event', 'purchase', {
                             currency: 'USD',

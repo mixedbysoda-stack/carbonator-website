@@ -3,6 +3,7 @@
 // Checks Stripe for purchases 7+ days old, sends review request if not already sent
 
 const { getBlobStore } = require("./lib/store");
+const { isSuppressed } = require("./lib/suppression");
 const { Resend } = require("resend");
 
 const FROM_EMAIL = "Carbonated Audio <hello@carbonatedaudio.com>";
@@ -33,6 +34,7 @@ exports.handler = async () => {
     try {
       const buyer = await buyerStore.get(blob.key, { type: "json" });
       if (!buyer || !buyer.email) continue;
+      if (isSuppressed(buyer.email)) continue; // unsubscribed
       if (!buyer.purchased_at) continue;
 
       const elapsed = now - new Date(buyer.purchased_at).getTime();
@@ -112,7 +114,7 @@ function buildReviewEmail(email) {
 
         <tr><td align="center" style="padding-top:32px;">
           <p style="color:#6b6580;font-size:12px;margin:0;">
-            &copy; ${new Date().getFullYear()} Carbonated Audio &middot; <a href="https://carbonatedaudio.com" style="color:#6b6580;">carbonatedaudio.com</a>
+            &copy; ${new Date().getFullYear()} Carbonated Audio &middot; <a href="https://carbonatedaudio.com" style="color:#6b6580;">carbonatedaudio.com</a><br><a href="mailto:hello@carbonatedaudio.com?subject=Unsubscribe" style="color:#6b6580;">Unsubscribe</a>
           </p>
         </td></tr>
 
