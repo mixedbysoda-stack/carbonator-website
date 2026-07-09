@@ -74,6 +74,17 @@ const PRODUCTS = {
     },
     secretEnv: "OCTANE_LICENSE_SECRET",
   },
+  still: {
+    name: "Still",
+    version: "1.0.0",
+    price: 0, // FREE — email-gated lead magnet, no Stripe, no licensing
+    downloads: {
+      // Signed + notarized installer on mixedbysoda-stack/still (public repo)
+      mac: `https://github.com/mixedbysoda-stack/still/releases/download/v1.0.0/Still-v1.0.0-Installer.pkg`,
+      // Windows CI build pending — slot populated when it ships
+      windows: null,
+    },
+  },
   bundle: {
     name: "Carbonated Audio Complete Bundle",
     price: 60,

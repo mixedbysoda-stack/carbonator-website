@@ -72,6 +72,7 @@ exports.handler = async (event) => {
   }
 
   // Send Email 1 immediately — welcome + download link
+  const isStillLead = source && source.includes("still");
   const isDesipperLead = source && source.includes("desipper");
   const isOnTapLead = source && source.includes("ontap");
   if (process.env.RESEND_API_KEY) {
@@ -81,16 +82,20 @@ exports.handler = async (event) => {
         from: FROM_EMAIL,
         reply_to: "mixedbysoda@gmail.com",
         to: contact,
-        subject: isOnTapLead
-          ? "Your On Tap Demo is ready 🎚️"
-          : isDesipperLead
-            ? "Your De-Sipper Demo is ready 🎤"
-            : "Your Carbonator Demo is ready 🎛️",
-        html: isOnTapLead
-          ? buildOnTapWelcomeEmail(contact)
-          : isDesipperLead
-            ? buildDesipperWelcomeEmail(contact)
-            : buildWelcomeEmail(contact),
+        subject: isStillLead
+          ? "Still is yours — free noise suppressor 💧"
+          : isOnTapLead
+            ? "Your On Tap Demo is ready 🎚️"
+            : isDesipperLead
+              ? "Your De-Sipper Demo is ready 🎤"
+              : "Your Carbonator Demo is ready 🎛️",
+        html: isStillLead
+          ? buildStillWelcomeEmail(contact)
+          : isOnTapLead
+            ? buildOnTapWelcomeEmail(contact)
+            : isDesipperLead
+              ? buildDesipperWelcomeEmail(contact)
+              : buildWelcomeEmail(contact),
       });
 
       // Update drip status
@@ -119,11 +124,13 @@ exports.handler = async (event) => {
       await resend.emails.send({
         from: FROM_EMAIL,
         to: "mixedbysoda@gmail.com",
-        subject: isOnTapLead
-          ? `🔔 New On Tap Lead: ${contact}`
-          : isDesipperLead
-            ? `🔔 New De-Sipper Lead: ${contact}`
-            : `🔔 New Carbonator Lead: ${contact}`,
+        subject: isStillLead
+          ? `🔔 New Still Lead (FREE download): ${contact}`
+          : isOnTapLead
+            ? `🔔 New On Tap Lead: ${contact}`
+            : isDesipperLead
+              ? `🔔 New De-Sipper Lead: ${contact}`
+              : `🔔 New Carbonator Lead: ${contact}`,
         html: `
           <div style="font-family:Arial,sans-serif;padding:20px;background:#0d0a1a;color:#fff;">
             <h2 style="color:#ff6b2b;">New Lead Captured</h2>
@@ -146,6 +153,39 @@ exports.handler = async (event) => {
     body: JSON.stringify({ success: true }),
   };
 };
+
+function buildStillWelcomeEmail(contact) {
+  return `<!DOCTYPE html><html><head><meta charset="utf-8"></head>
+<body style="margin:0;padding:0;background-color:#0d0a1a;font-family:Arial,Helvetica,sans-serif;">
+<table width="100%" cellpadding="0" cellspacing="0" style="background-color:#0d0a1a;padding:40px 20px;"><tr><td align="center">
+<table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;">
+<tr><td align="center" style="padding-bottom:32px;"><span style="font-size:28px;font-weight:800;color:#fff;">Carbonated Audio</span></td></tr>
+<tr><td style="background-color:#0c161e;border-radius:16px;padding:40px 32px;">
+<h1 style="color:#fff;font-size:24px;text-align:center;margin:0 0 8px;">Still is yours. Free.</h1>
+<p style="color:#8fa8b0;font-size:16px;text-align:center;margin:0 0 32px;">One dial. Background noise gone. No account, no trial, no catch — free forever.</p>
+<div style="text-align:center;margin:0 0 32px;">
+<a href="https://github.com/mixedbysoda-stack/still/releases/download/v1.0.0/Still-v1.0.0-Installer.pkg" style="background:linear-gradient(135deg,#2e8f85,#6fc7bc);color:#07201c;padding:14px 32px;border-radius:10px;text-decoration:none;font-weight:700;font-size:16px;display:inline-block;">Download Still for macOS</a>
+<p style="color:#5c7078;font-size:12px;margin:10px 0 0;">Signed &amp; notarized installer &middot; VST3 / AU / AAX &middot; Windows coming soon</p>
+</div>
+<hr style="border:none;border-top:1px solid #1d2f3a;margin:0 0 24px;">
+<h2 style="color:#fff;font-size:18px;margin:0 0 16px;">How to use it (30 seconds):</h2>
+<table width="100%" cellpadding="0" cellspacing="0" style="font-size:14px;color:#8fa8b0;">
+<tr><td style="padding:6px 0;"><strong style="color:#6fc7bc;">1. Install</strong> — open the installer, pick your formats, rescan in your DAW.</td></tr>
+<tr><td style="padding:6px 0;"><strong style="color:#6fc7bc;">2. Drop it on a noisy vocal</strong> — it adapts to the noise floor automatically. No learn button.</td></tr>
+<tr><td style="padding:6px 0;"><strong style="color:#6fc7bc;">3. Raise SUPPRESS until the noise is gone</strong> — the amber ring shows how much it's removing.</td></tr>
+<tr><td style="padding:6px 0;"><strong style="color:#6fc7bc;">Δ NOISE</strong> — hit it to hear exactly what's being removed. If you hear voice in there, back the dial off.</td></tr>
+</table>
+<hr style="border:none;border-top:1px solid #1d2f3a;margin:24px 0;">
+<p style="color:#8fa8b0;font-size:14px;margin:0;text-align:center;">
+Cleaning up vocals? Still pairs beautifully with <a href="https://carbonatedaudio.com/desipper" style="color:#00d4ff;text-decoration:none;font-weight:600;">De-Sipper</a> ($20) for sibilance — or grab the whole <a href="https://carbonatedaudio.com/bundle" style="color:#ff6b2b;text-decoration:none;font-weight:600;">Complete Bundle</a>.
+</p>
+</td></tr>
+<tr><td align="center" style="padding-top:32px;">
+<p style="color:#6b6580;font-size:12px;margin:0;">Questions? Reply to this email.</p>
+<p style="color:#6b6580;font-size:12px;margin:8px 0 0;">&copy; ${new Date().getFullYear()} Carbonated Audio &middot; <a href="https://carbonatedaudio.com" style="color:#6b6580;">carbonatedaudio.com</a><br><a href="mailto:hello@carbonatedaudio.com?subject=Unsubscribe" style="color:#6b6580;">Unsubscribe</a></p>
+</td></tr>
+</table></td></tr></table></body></html>`;
+}
 
 function buildWelcomeEmail(email) {
   return `
