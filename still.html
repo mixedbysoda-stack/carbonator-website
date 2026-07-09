@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({"gtm.start":
+new Date().getTime(),event:"gtm.js"});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
+"https://www.googletagmanager.com/gtm.js?id="+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,"script","dataLayer","GTM-5QVG68CF");</script>
+    <!-- End Google Tag Manager -->
+    <!-- Meta Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version="2.0";n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,"script","https://connect.facebook.net/en_US/fbevents.js");fbq("init","1682413179857373");fbq("track","PageView");
+    </script>
+    <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1682413179857373&ev=PageView&noscript=1"/></noscript>
+    <!-- End Meta Pixel Code -->
+    <title>Free Noise Suppressor Plugin — Still (One Dial, Zero Latency, No Account)</title>
+    <meta name="description" content="Still is a 100% free noise suppressor plugin for vocals. One dial removes background hiss, hum, and room noise in real time. Zero latency, no learn step, no account. VST3/AU/AAX.">
+    <meta name="keywords" content="free noise suppressor plugin, free noise reduction VST, remove background noise vocal, noise removal plugin free, hiss removal, hum removal, vocal cleanup plugin, free denoiser, Still, Carbonated Audio">
+    <meta name="author" content="Carbonated Audio">
+
+    <!-- Open Graph / Social Sharing -->
+    <meta property="og:type" content="product">
+    <meta property="og:title" content="Still — Free One-Dial Noise Suppressor (VST3/AU/AAX)">
+    <meta property="og:description" content="Background noise gone with one dial. Adaptive, zero latency, artifact-free. Free forever — no account, no trial, no catch.">
+    <meta property="og:url" content="https://carbonatedaudio.com/still">
+    <meta property="og:site_name" content="Carbonated Audio">
+    <meta property="og:image" content="https://carbonatedaudio.com/assets/still-screenshot.png">
+    <meta property="og:image:alt" content="Still noise suppressor plugin interface — one large suppress dial by Carbonated Audio">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Still — Free One-Dial Noise Suppressor">
+    <meta name="twitter:description" content="Background noise gone with one dial. Free forever. VST3/AU/AAX.">
+    <meta name="twitter:image" content="https://carbonatedaudio.com/assets/still-screenshot.png">
+
+    <!-- Canonical -->
+    <link rel="canonical" href="https://carbonatedaudio.com/still">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Still",
+        "alternateName": "Still Noise Suppressor by Carbonated Audio",
+        "applicationCategory": "MultimediaApplication",
+        "softwareVersion": "1.0.0",
+        "operatingSystem": ["macOS 11+"],
+        "description": "Still is a free real-time noise suppressor plugin for vocal recordings. A single adaptive dial removes background hiss, hum, and room noise with zero latency and no learn step. VST3, AU, and AAX.",
+        "url": "https://carbonatedaudio.com/still",
+        "image": "https://carbonatedaudio.com/assets/still-screenshot.png",
+        "screenshot": "https://carbonatedaudio.com/assets/still-screenshot.png",
+        "author": { "@type": "Organization", "name": "Carbonated Audio", "url": "https://carbonatedaudio.com" },
+        "offers": { "@type": "Offer", "price": "0.00", "priceCurrency": "USD", "availability": "https://schema.org/InStock" }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            { "@type": "Question", "name": "Is Still really free?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — free forever. No account, no trial period, no feature locks, no future paywall. You enter your email, you get the download link. That's the whole deal." } },
+            { "@type": "Question", "name": "How is Still different from other free noise reduction plugins?", "acceptedAnswer": { "@type": "Answer", "text": "Most free tools either need a noise-profile learn step, bury you in sliders, or add the watery 'underwater' artifacts of FFT processing. Still is one dial, fully adaptive with no learn step, and processes in the time domain — so that artifact class is impossible by design. Zero added latency." } },
+            { "@type": "Question", "name": "What formats and systems does Still support?", "acceptedAnswer": { "@type": "Answer", "text": "VST3, AU, and AAX on macOS 11 or later (Apple Silicon and Intel, signed and notarized). A Windows build is in progress — leave your email and you'll be the first to know." } },
+            { "@type": "Question", "name": "What kind of noise does it remove?", "acceptedAnswer": { "@type": "Answer", "text": "Steady background noise: preamp hiss, room tone, air conditioning, fan rumble, electrical hum. It continuously tracks the noise floor in 8 frequency bands and expands it away while leaving the voice untouched." } }
+        ]
+    }
+    </script>
+
+    <link rel="stylesheet" href="/shared.css">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <style>
+        :root {
+            --still-ink: #07101a;
+            --still-panel: #0c161e;
+            --still-teal: #6fc7bc;
+            --still-teal-deep: #2e8f85;
+            --still-amber: #c98a4e;
+            --still-text: #dcebee;
+            --still-muted: #8fa8b0;
+            --still-line: #1d2f3a;
+        }
+        .still-hero {
+            background: linear-gradient(178deg, var(--still-panel) 0%, var(--still-ink) 70%);
+            border-bottom: 1px solid var(--still-line);
+            padding: 72px 24px 56px;
+            text-align: center;
+        }
+        .still-free-pill {
+            display: inline-block; background: var(--still-teal); color: #07201c;
+            font-size: 13px; font-weight: 800; letter-spacing: 0.08em;
+            padding: 4px 14px; border-radius: 20px; margin-bottom: 20px;
+        }
+        .still-hero h1 {
+            font-size: clamp(2rem, 5vw, 3.2rem); color: #fff; margin: 0 0 14px;
+            line-height: 1.15; letter-spacing: -0.01em;
+        }
+        .still-hero h1 .teal { color: var(--still-teal); }
+        .still-hero .sub {
+            color: var(--still-muted); font-size: 1.15rem; max-width: 560px;
+            margin: 0 auto 34px; line-height: 1.55;
+        }
+        .still-gate {
+            max-width: 480px; margin: 0 auto;
+            display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;
+        }
+        .still-gate input {
+            flex: 1 1 260px; padding: 15px 18px; font-size: 16px;
+            background: var(--still-ink); color: var(--still-text);
+            border: 1px solid var(--still-line); border-radius: 10px; outline: none;
+        }
+        .still-gate input:focus { border-color: var(--still-teal); }
+        .still-gate button {
+            flex: 0 0 auto; padding: 15px 28px; font-size: 16px; font-weight: 700;
+            background: linear-gradient(135deg, var(--still-teal-deep), var(--still-teal));
+            color: #07201c; border: none; border-radius: 10px; cursor: pointer;
+        }
+        .still-gate button:disabled { opacity: 0.6; cursor: wait; }
+        .still-gate-note { color: #5c7078; font-size: 12.5px; margin-top: 12px; }
+        .still-gate-note a { color: var(--still-muted); }
+        .still-success {
+            display: none; max-width: 480px; margin: 0 auto;
+            background: rgba(111,199,188,0.1); border: 1px solid var(--still-teal-deep);
+            border-radius: 10px; padding: 16px 20px; color: var(--still-text); font-size: 15px;
+        }
+        .still-shot { text-align: center; padding: 56px 24px 8px; }
+        .still-shot img {
+            max-width: 620px; width: 100%; border-radius: 12px;
+            border: 1px solid var(--still-line);
+            box-shadow: 0 30px 60px -20px rgba(2,10,16,0.7);
+        }
+        .still-section { max-width: 960px; margin: 0 auto; padding: 56px 24px; }
+        .still-section h2 { color: #fff; font-size: 1.7rem; text-align: center; margin: 0 0 36px; }
+        .still-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; }
+        .still-card {
+            background: var(--still-panel); border: 1px solid var(--still-line);
+            border-radius: 12px; padding: 24px;
+        }
+        .still-card h3 { color: var(--still-teal); font-size: 1.05rem; margin: 0 0 10px; }
+        .still-card p { color: var(--still-muted); font-size: 0.95rem; line-height: 1.55; margin: 0; }
+        .still-steps { counter-reset: step; max-width: 640px; margin: 0 auto; }
+        .still-step {
+            display: flex; gap: 18px; align-items: flex-start; padding: 16px 0;
+            border-bottom: 1px solid var(--still-line);
+        }
+        .still-step:last-child { border-bottom: none; }
+        .still-step .num {
+            flex: 0 0 36px; height: 36px; border-radius: 50%;
+            background: var(--still-panel); border: 1px solid var(--still-teal-deep);
+            color: var(--still-teal); font-weight: 700; display: flex;
+            align-items: center; justify-content: center;
+        }
+        .still-step p { color: var(--still-muted); margin: 6px 0 0; line-height: 1.5; }
+        .still-step strong { color: var(--still-text); }
+        .still-faq details {
+            background: var(--still-panel); border: 1px solid var(--still-line);
+            border-radius: 10px; padding: 16px 20px; margin-bottom: 12px;
+        }
+        .still-faq summary { color: var(--still-text); font-weight: 600; cursor: pointer; }
+        .still-faq p { color: var(--still-muted); margin: 12px 0 0; line-height: 1.55; }
+        .still-cross {
+            background: var(--still-panel); border-top: 1px solid var(--still-line);
+            text-align: center; padding: 48px 24px;
+        }
+        .still-cross p { color: var(--still-muted); max-width: 560px; margin: 0 auto 8px; line-height: 1.6; }
+        .still-cross a { color: #00d4ff; font-weight: 600; text-decoration: none; }
+        .still-cross a.bundle { color: #ff6b2b; }
+    </style>
+</head>
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5QVG68CF" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+    <div id="site-nav" data-active="still"></div>
+
+    <section class="still-hero">
+        <span class="still-free-pill">100% FREE — FOREVER</span>
+        <h1>Background noise, gone.<br><span class="teal">One dial.</span></h1>
+        <p class="sub">Still removes hiss, hum, and room noise from vocal recordings in real time. Fully adaptive — no learn step, no settings maze, no underwater artifacts. Just raise the dial until the noise is gone.</p>
+
+        <form class="still-gate" id="stillGate" autocomplete="email">
+            <input type="email" id="stillEmail" placeholder="your@email.com" required aria-label="Email address">
+            <button type="submit" id="stillBtn">Get Still Free</button>
+        </form>
+        <div class="still-success" id="stillSuccess">
+            💧 Your download is starting — and a backup link is on its way to your inbox. Make some noise disappear.
+        </div>
+        <p class="still-gate-note">Signed &amp; notarized macOS installer &middot; VST3 / AU / AAX &middot; Windows soon<br>No account. No trial. No rug-pull. Unsubscribe anytime.</p>
+    </section>
+
+    <div class="still-shot">
+        <img src="/assets/still-screenshot.png" alt="Still noise suppressor interface — a single large SUPPRESS dial with a live gain-reduction ring, delta noise solo button, and output trim" width="620" height="400" loading="eager">
+    </div>
+
+    <section class="still-section">
+        <h2>Why one dial beats a rack of sliders</h2>
+        <div class="still-grid">
+            <div class="still-card">
+                <h3>Adaptive — no learn step</h3>
+                <p>Still tracks your noise floor continuously across 8 frequency bands. No noise-profile capture, no "hold quiet for 5 seconds." Drop it in and turn the dial.</p>
+            </div>
+            <div class="still-card">
+                <h3>No underwater artifacts</h3>
+                <p>Still works in the time domain — not FFT — so the watery, chirpy artifacts of typical noise removers are impossible by design. Its worst case is gentle, musical softening.</p>
+            </div>
+            <div class="still-card">
+                <h3>Zero latency</h3>
+                <p>0 samples of delay. Track through it, monitor through it, mix with it — no timing smear, no delay compensation drama.</p>
+            </div>
+            <div class="still-card">
+                <h3>Δ NOISE — hear what it removes</h3>
+                <p>One button solos exactly what Still is taking out. If you hear your voice in there, back off the dial. Total confidence, zero guesswork.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="still-section">
+        <h2>Noise-free in 30 seconds</h2>
+        <div class="still-steps">
+            <div class="still-step"><div class="num">1</div><div><strong>Install</strong><p>Run the signed installer, pick VST3 / AU / AAX, rescan plugins in your DAW.</p></div></div>
+            <div class="still-step"><div class="num">2</div><div><strong>Drop Still on a noisy track</strong><p>Vocals, podcasts, voiceover, guitar DI — anything with steady background noise.</p></div></div>
+            <div class="still-step"><div class="num">3</div><div><strong>Raise SUPPRESS until the noise disappears</strong><p>The amber ring shows live gain reduction. The waveform shows what's kept (teal) vs. removed (amber).</p></div></div>
+        </div>
+    </section>
+
+    <section class="still-section still-faq">
+        <h2>Questions, answered</h2>
+        <details><summary>Is Still really free?</summary><p>Yes — free forever. No account, no trial period, no locked features, no "free during beta" bait. You enter your email, you get the plugin. We make our money on our paid plugins; Still is our hello.</p></details>
+        <details><summary>What noise does it remove?</summary><p>Steady background noise: preamp hiss, room tone, AC and fan rumble, electrical hum. For sudden one-off sounds (coughs, chair squeaks) you'll still want an editor — that's a different job.</p></details>
+        <details><summary>Mac? Windows? Formats?</summary><p>Right now: macOS 11+ (Apple Silicon + Intel, signed and notarized), VST3 / AU / AAX — yes, it loads in Pro Tools. Windows is in the works; you'll get an email the day it ships.</p></details>
+        <details><summary>Why do you ask for my email?</summary><p>It's the price of free: we send your download link, a Windows-release heads-up, and occasional news about our plugins. One-click unsubscribe, and we never sell or share your address.</p></details>
+    </section>
+
+    <section class="still-cross">
+        <p><strong style="color:#fff;">Cleaning up a vocal chain?</strong> Still handles the noise — <a href="/desipper">De-Sipper</a> ($20) handles the sibilance, and <a href="/carbonator">Carbonator</a> ($20) adds the warmth. Or grab the <a class="bundle" href="/bundle">Complete Bundle</a> and finish the whole chain.</p>
+    </section>
+
+    <div id="site-footer"></div>
+
+    <script>
+        document.getElementById('stillGate').addEventListener('submit', function (e) {
+            e.preventDefault();
+            var contact = document.getElementById('stillEmail').value.trim();
+            if (!contact) return;
+            var btn = document.getElementById('stillBtn');
+            btn.textContent = 'Sending…';
+            btn.disabled = true;
+
+            if (typeof gtag === 'function') gtag('event', 'free_download', { event_category: 'conversion', event_label: 'still-download' });
+            if (typeof fbq === 'function') fbq('track', 'Lead', { content_name: 'Still Free Download' });
+
+            var refSource = new URLSearchParams(window.location.search).get('ref') || 'still-download';
+
+            fetch('/.netlify/functions/capture-lead', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ contact: contact, source: refSource })
+            }).catch(function () {});
+
+            setTimeout(function () {
+                document.getElementById('stillGate').style.display = 'none';
+                document.getElementById('stillSuccess').style.display = 'block';
+
+                var a = document.createElement('a');
+                a.href = 'https://github.com/mixedbysoda-stack/still/releases/download/v1.0.0/Still-v1.0.0-Installer.pkg';
+                a.download = '';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            }, 700);
+        });
+    </script>
+
+    <script src="/components/nav.js?v=20260708-still"></script>
+    <script src="/components/footer.js"></script>
+</body>
+</html>

@@ -49,6 +49,12 @@
                                 <div class="dropdown-desc">6-effect gearbox</div>
                             </div>
                         </a>
+                        <a href="/still">
+                            <div>
+                                <div class="dropdown-label">Still <span style="background:#6fc7bc;color:#07201c;font-size:10px;font-weight:800;padding:1px 6px;border-radius:4px;vertical-align:1px;">FREE</span></div>
+                                <div class="dropdown-desc">Noise suppressor</div>
+                            </div>
+                        </a>
                     </div>
                 </div>
                 <a href="/manual"${isActive('manual') ? ' class="active"' : ''}>Manual</a>
@@ -69,6 +75,7 @@
             <a href="/ontap">On Tap</a>
             <a href="/pour">Pour</a>
             <a href="/fizzfuel">FIZZFUEL</a>
+            <a href="/still">Still (Free)</a>
             <a href="/manual">Manual</a>
             <a href="/about">About</a>
             <a href="/faq">FAQ</a>
