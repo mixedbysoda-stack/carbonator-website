@@ -183,6 +183,7 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
 
         <form class="still-gate" id="stillGate" autocomplete="email">
             <input type="email" id="stillEmail" placeholder="your@email.com" required aria-label="Email address">
+            <input type="text" id="stillHp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-5000px;opacity:0;height:0;width:0;">
             <button type="submit" id="stillBtn">Get Still Free</button>
         </form>
         <div class="still-success" id="stillSuccess">
@@ -249,18 +250,22 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
             btn.textContent = 'Sending…';
             btn.disabled = true;
 
-            if (typeof gtag === 'function') gtag('event', 'free_download', { event_category: 'conversion', event_label: 'still-download' });
-            if (typeof fbq === 'function') fbq('track', 'Lead', { content_name: 'Still Free Download' });
-
             var refSource = new URLSearchParams(window.location.search).get('ref') || 'still-download';
+            var hp = document.getElementById('stillHp');
 
             fetch('/.netlify/functions/capture-lead', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ contact: contact, source: refSource })
-            }).catch(function () {});
+                body: JSON.stringify({ contact: contact, source: refSource, website: hp ? hp.value : '' })
+            }).then(function (res) {
+                if (!res.ok) throw new Error('capture failed');
+                return res.json();
+            }).then(function (data) {
+                if (data && data.success === false) throw new Error('capture failed');
 
-            setTimeout(function () {
+                if (typeof gtag === 'function') gtag('event', 'free_download', { event_category: 'conversion', event_label: refSource });
+                if (typeof fbq === 'function') fbq('track', 'Lead', { content_name: 'Still Free Download' });
+
                 document.getElementById('stillGate').style.display = 'none';
                 document.getElementById('stillSuccess').style.display = 'block';
 
@@ -270,11 +275,16 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
                 document.body.appendChild(a);
                 a.click();
                 document.body.removeChild(a);
-            }, 700);
+            }).catch(function () {
+                btn.textContent = 'Get Still Free';
+                btn.disabled = false;
+                var note = document.querySelector('.still-gate-note');
+                if (note) note.innerHTML = '<span style="color:#ffb4a2;">Hmm — that didn\'t go through. Try again, or email mixedbysoda@gmail.com and we\'ll send it to you directly.</span>';
+            });
         });
     </script>
 
     <script src="/components/nav.js?v=20260708-still"></script>
-    <script src="/components/footer.js"></script>
+    <script src="/components/footer.js?v=20260711"></script>
 </body>
 </html>

@@ -20,13 +20,20 @@ exports.handler = async (event) => {
     return { statusCode: 405, headers, body: JSON.stringify({ success: false }) };
   }
 
-  let contact, source;
+  let contact, source, honeypot;
   try {
     const body = JSON.parse(event.body);
     contact = (body.contact || "").trim();
     source = body.source || "demo-gate";
+    honeypot = (body.website || "").trim();
   } catch {
     return { statusCode: 400, headers, body: JSON.stringify({ success: false, error: "Invalid body" }) };
+  }
+
+  // Honeypot: real users never fill the hidden "website" field. Pretend success, store nothing.
+  if (honeypot) {
+    console.log(`Honeypot tripped (source=${source}) — dropping silently`);
+    return { statusCode: 200, headers, body: JSON.stringify({ success: true }) };
   }
 
   if (!contact) {
