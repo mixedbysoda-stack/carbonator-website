@@ -30,13 +30,13 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
     <meta property="og:site_name" content="Carbonated Audio">
     <meta name="twitter:card" content="summary_large_image">
 
-    <!-- Google Fonts -->
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-    <!-- v2 Design System -->
-    <link rel="stylesheet" href="/v2.css?v=20260711-v2">
+    <!-- Shared Styles -->
+    <link rel="stylesheet" href="/shared.css">
 
     <!-- GA4 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z9L20HJ4M0"></script>
@@ -149,437 +149,1787 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
     }
     </script>
 
-    <!-- Homepage-only v2 patterns (lineup rows, bundle cards, Still band) -->
     <style>
-    /* Lineup — full-width mini-hero rows */
-    .v2-lineup { max-width: var(--container); margin: 56px auto 0; padding-left: var(--gutter); padding-right: var(--gutter); }
-    .v2-row {
-        display: grid;
-        grid-template-columns: 132px 1fr auto;
-        gap: clamp(20px, 3vw, 36px);
-        align-items: center;
-        padding: 28px 0;
-        border-bottom: 1px solid var(--line);
-    }
-    .v2-row:first-child { border-top: 1px solid var(--line); }
-    .v2-row-media {
-        width: 132px;
-        height: 132px;
-        background: var(--ink-2);
-        border: 1px solid var(--line);
-        border-radius: var(--radius);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 12px;
-        overflow: hidden;
-    }
-    .v2-row-media img { max-width: 100%; max-height: 108px; width: auto; height: auto; object-fit: contain; border-radius: 6px; }
-    .v2-row-name {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        font-family: var(--font-display);
-        font-size: clamp(1.25rem, 2vw, 1.625rem);
-        font-weight: 700;
-        letter-spacing: -0.015em;
-        color: var(--text-hi);
-        margin-bottom: 6px;
-    }
-    .v2-row-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--accent); flex: 0 0 auto; }
-    .v2-row-job { color: var(--text-md); max-width: 52ch; }
-    .v2-row-badge {
-        font-family: var(--font-mono);
-        font-size: 0.625rem;
-        font-weight: 700;
-        letter-spacing: 0.08em;
-        padding: 3px 9px;
-        border-radius: 999px;
-        border: 1px solid var(--accent);
-        color: var(--accent);
-    }
-    .v2-row-actions { display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
-    .v2-btn--sm { padding: 11px 20px; min-height: 44px; }
-    .v2-row-link { font-size: var(--t-ui); font-weight: 500; color: var(--text-md); transition: color 150ms; }
-    .v2-row-link:hover { color: var(--text-hi); }
-    @media (max-width: 768px) {
-        .v2-row { grid-template-columns: 92px 1fr; }
-        .v2-row-media { width: 92px; height: 92px; padding: 8px; }
-        .v2-row-media img { max-height: 76px; }
-        .v2-row-actions { grid-column: 1 / -1; flex-direction: row; align-items: center; justify-content: flex-start; }
-    }
+        /* ========================================
+           Plugin Spotlight (Pour video reveal)
+           ======================================== */
+        .plugin-spotlight {
+            position: relative;
+            padding: 80px 24px 100px;
+            text-align: center;
+            overflow: hidden;
+        }
+        .spotlight-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #4fb8d4;
+            margin-bottom: 18px;
+            padding: 7px 16px;
+            border-radius: 999px;
+            background: rgba(79, 184, 212, 0.08);
+            border: 1px solid rgba(79, 184, 212, 0.25);
+        }
+        .spotlight-eyebrow::before {
+            content: '';
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: #4fb8d4;
+            box-shadow: 0 0 12px #4fb8d4;
+            animation: pulseGlow 2.5s ease-in-out infinite;
+        }
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50%      { opacity: 0.45; transform: scale(0.7); }
+        }
+        .spotlight-title {
+            font-size: clamp(40px, 6vw, 72px);
+            font-weight: 900;
+            letter-spacing: -1.5px;
+            line-height: 1.1;
+            color: #fff;
+            margin-bottom: 14px;
+        }
+        .spotlight-title .pour-letter {
+            display: inline-block;
+            background: linear-gradient(135deg, #4fb8d4 0%, #ec4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            opacity: 0;
+            transform: translateY(40px);
+            animation: pourLetterIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+        .spotlight-title .pour-letter:nth-child(1) { animation-delay: 0.05s; }
+        .spotlight-title .pour-letter:nth-child(2) { animation-delay: 0.15s; }
+        .spotlight-title .pour-letter:nth-child(3) { animation-delay: 0.25s; }
+        .spotlight-title .pour-letter:nth-child(4) { animation-delay: 0.35s; }
+        @keyframes pourLetterIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .spotlight-subtitle {
+            font-size: clamp(15px, 1.6vw, 18px);
+            color: #a09bb5;
+            max-width: 540px;
+            margin: 0 auto 44px;
+            font-weight: 500;
+        }
 
-    /* Bundle pricing — 3 cards, v2 surfaces */
-    .v2-pricing { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; max-width: 1060px; margin: 48px auto 0; padding-left: var(--gutter); padding-right: var(--gutter); }
-    .v2-price-card {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        background: var(--ink-2);
-        border: 1px solid var(--line);
-        border-radius: var(--radius-lg);
-        padding: 34px 28px 30px;
-        text-align: left;
-        transition: border-color 150ms var(--ease-out);
-    }
-    .v2-price-card:hover { border-color: rgba(255, 255, 255, 0.18); }
-    .v2-price-card--featured { border-color: rgba(255, 255, 255, 0.22); }
-    .v2-price-badge {
-        position: absolute;
-        top: -11px;
-        left: 50%;
-        transform: translateX(-50%);
-        font-family: var(--font-mono);
-        font-size: 0.6875rem;
-        font-weight: 500;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-        color: var(--ink-0);
-        background: var(--accent);
-        padding: 4px 14px;
-        border-radius: 999px;
-        white-space: nowrap;
-    }
-    .v2-price-name { font-family: var(--font-display); font-size: 1.125rem; font-weight: 700; color: var(--text-hi); }
-    .v2-price-desc { font-size: var(--t-caption); color: var(--text-lo); margin-top: 3px; }
-    .v2-price-amount { font-family: var(--font-mono); font-size: 2.75rem; font-weight: 500; color: var(--text-hi); letter-spacing: -0.02em; line-height: 1; margin-top: 22px; }
-    .v2-price-was { font-family: var(--font-mono); font-size: 1.125rem; color: var(--text-lo); text-decoration: line-through; margin-right: 10px; font-weight: 400; }
-    .v2-price-period { font-size: var(--t-caption); color: var(--text-lo); margin-top: 6px; }
-    .v2-price-bnpl { font-size: 0.75rem; color: var(--text-lo); margin-top: 8px; }
-    .v2-price-features { list-style: none; margin: 24px 0 26px; padding: 0; display: flex; flex-direction: column; gap: 10px; flex: 1; }
-    .v2-price-features li { font-size: 0.875rem; color: var(--text-md); display: flex; gap: 10px; align-items: baseline; }
-    .v2-price-features .check { color: var(--accent); font-family: var(--font-mono); flex: 0 0 auto; }
-    .v2-price-card .v2-btn { width: 100%; }
-    @media (max-width: 900px) {
-        .v2-pricing { grid-template-columns: 1fr; max-width: 480px; }
-        .v2-price-card--featured { order: -1; }
-    }
+        /* Cinematic video frame with animated border-beam */
+        .spotlight-video-wrap {
+            position: relative;
+            max-width: 1100px;
+            margin: 0 auto;
+            border-radius: 20px;
+            padding: 2px;
+            background: conic-gradient(from 0deg, #4fb8d4, #ec4899, #4fb8d4, #2a88a8, #4fb8d4);
+            background-size: 200% 200%;
+            animation: borderBeam 8s linear infinite;
+            box-shadow:
+                0 30px 80px -20px rgba(79, 184, 212, 0.45),
+                0 0 0 1px rgba(79, 184, 212, 0.08),
+                0 0 120px -20px rgba(236, 72, 153, 0.25);
+            transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease;
+        }
+        @keyframes borderBeam {
+            0%   { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+        .spotlight-video-wrap:hover {
+            transform: translateY(-4px) scale(1.005);
+            box-shadow:
+                0 40px 100px -20px rgba(79, 184, 212, 0.6),
+                0 0 0 1px rgba(79, 184, 212, 0.15),
+                0 0 160px -10px rgba(236, 72, 153, 0.35);
+        }
+        .spotlight-video {
+            display: block;
+            width: 100%;
+            border-radius: 18px;
+            background: #000;
+            cursor: pointer;
+        }
+        .spotlight-video-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding: 0 0 22px;
+            pointer-events: none;
+            border-radius: 20px;
+            background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 35%);
+            opacity: 0;
+            transition: opacity 0.35s ease;
+        }
+        .spotlight-video-wrap:hover .spotlight-video-overlay { opacity: 1; }
+        .spotlight-sound-hint {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 999px;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.15);
+            color: #fff;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            pointer-events: none;
+        }
+        .spotlight-sound-hint.is-playing-sound { display: none; }
 
-    /* Still free band */
-    .v2-still-band {
-        max-width: 960px;
-        margin: 0 auto;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 28px;
-        flex-wrap: wrap;
-        background: var(--ink-2);
-        border: 1px solid var(--line);
-        border-radius: var(--radius-lg);
-        padding: 34px 38px;
-    }
-    .v2-still-band-copy { flex: 1; min-width: 260px; }
-    .v2-still-band h2 { font-size: var(--t-feature); font-weight: 500; letter-spacing: -0.015em; margin: 10px 0 8px; }
-    .v2-still-band p { font-size: 0.9375rem; color: var(--text-md); max-width: 52ch; }
+        .spotlight-cta-row {
+            margin-top: 36px;
+            display: inline-flex;
+            align-items: center;
+            gap: 14px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .spotlight-cta-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 32px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #4fb8d4 0%, #2a88a8 100%);
+            color: #fff;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 15px;
+            letter-spacing: 0.3px;
+            box-shadow: 0 10px 30px -10px rgba(79, 184, 212, 0.7);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .spotlight-cta-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 36px -8px rgba(79, 184, 212, 0.9);
+        }
+        .spotlight-cta-ghost {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 28px;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(79, 184, 212, 0.35);
+            color: #4fb8d4;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        .spotlight-cta-ghost:hover {
+            background: rgba(79,184,212,0.08);
+        }
+
+        /* ========================================
+           Hero
+           ======================================== */
+        .hero {
+            text-align: center;
+            padding: 120px 40px 80px;
+            position: relative;
+            min-height: 85vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-title {
+            font-size: clamp(48px, 8vw, 96px);
+            font-weight: 900;
+            letter-spacing: -2px;
+            line-height: 1.05;
+            background: linear-gradient(135deg, #ff6b2b 0%, #ff3366 40%, #cc33ff 70%, #00d4ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 24px;
+            animation: gradientShift 8s ease infinite;
+            background-size: 200% 200%;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .hero-subtitle {
+            font-size: clamp(18px, 2.5vw, 24px);
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-bottom: 40px;
+            max-width: 600px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 56px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn-hero-ghost {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 32px;
+            min-height: 52px;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            text-decoration: none;
+            color: var(--text-primary);
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .btn-hero-ghost:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.45);
+        }
+
+        .btn-hero-solid {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 32px;
+            min-height: 52px;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 700;
+            text-decoration: none;
+            color: #fff;
+            background: linear-gradient(135deg, #cc33ff, #ff3366);
+            border: none;
+            transition: all 0.25s ease;
+            cursor: pointer;
+            box-shadow: 0 4px 24px rgba(204, 51, 255, 0.3);
+        }
+
+        .btn-hero-solid:hover {
+            box-shadow: 0 6px 32px rgba(204, 51, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .hero-stats {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat-value {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-primary);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .hero-stat-divider {
+            width: 1px;
+            height: 28px;
+            background: var(--border);
+        }
+
+        /* ========================================
+           Section Typography
+           ======================================== */
+        .section-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--text-muted);
+            text-align: center;
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+
+        .section-desc {
+            font-size: 16px;
+            color: var(--text-secondary);
+            text-align: center;
+            max-width: 560px;
+            margin: -28px auto 48px;
+            line-height: 1.7;
+        }
+
+        /* ========================================
+           Product Showcase
+           ======================================== */
+        .products-section {
+            padding: 80px 60px 100px;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            position: relative;
+            overflow: hidden;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 0;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 20px;
+            background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), var(--glow-color, rgba(255,107,43,0.12)), transparent 40%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .product-card:hover::before {
+            opacity: 1;
+        }
+
+        .product-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 24px 64px rgba(0, 0, 0, 0.4);
+        }
+
+        .product-card[data-accent="orange"] {
+            --glow-color: rgba(255, 107, 43, 0.15);
+        }
+
+        .product-card[data-accent="cyan"] {
+            --glow-color: rgba(0, 212, 255, 0.15);
+        }
+
+        .product-card[data-accent="purple"] {
+            --glow-color: rgba(204, 51, 255, 0.18);
+        }
+
+        .product-card-img-wrapper {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            border-bottom: 1px solid var(--border);
+            position: relative;
+        }
+
+        .product-card-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .product-card-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(ellipse at center, rgba(0, 212, 255, 0.12) 0%, var(--bg-card-darker) 70%);
+            font-size: 48px;
+            font-weight: 900;
+            color: var(--cyan);
+            letter-spacing: -1px;
+            text-shadow: 0 0 40px rgba(0, 212, 255, 0.4);
+        }
+
+        .product-card-body {
+            padding: 24px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .product-card-name {
+            font-size: 22px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .product-card-tagline {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+
+        .product-card-features {
+            list-style: none;
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .product-card-features li {
+            font-size: 12px;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .product-card-features li::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .product-card[data-accent="orange"] .product-card-features li::before {
+            background: var(--orange);
+        }
+
+        .product-card[data-accent="cyan"] .product-card-features li::before {
+            background: var(--cyan);
+        }
+
+        .product-card[data-accent="purple"] .product-card-features li::before {
+            background: #cc33ff;
+        }
+
+        .product-card .product-card-features[style*="--feature-dot"] li::before {
+            background: var(--feature-dot);
+        }
+
+        .product-card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .product-card-price {
+            font-size: 22px;
+            font-weight: 800;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .product-card-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 12px 24px;
+            min-height: 48px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            color: #fff;
+            transition: all 0.25s ease;
+        }
+
+        .product-card-cta[data-color="orange"] {
+            background: var(--orange);
+        }
+        .product-card-cta[data-color="orange"]:hover {
+            background: var(--orange-light);
+            box-shadow: 0 4px 24px rgba(255, 107, 43, 0.4);
+            transform: translateY(-1px);
+        }
+
+        .product-card-cta[data-color="cyan"] {
+            background: var(--cyan);
+            color: #0d0a1a;
+        }
+        .product-card-cta[data-color="cyan"]:hover {
+            background: #33dfff;
+            box-shadow: 0 4px 24px rgba(0, 212, 255, 0.4);
+            transform: translateY(-1px);
+        }
+
+        .product-card-cta[data-color="purple"] {
+            background: linear-gradient(135deg, #cc33ff, #ff3366);
+        }
+        .product-card-cta[data-color="purple"]:hover {
+            box-shadow: 0 4px 24px rgba(204, 51, 255, 0.4);
+            transform: translateY(-1px);
+        }
+
+        .product-card-cta .arrow {
+            transition: transform 0.2s;
+        }
+        .product-card-cta:hover .arrow {
+            transform: translateX(3px);
+        }
+
+        /* ========================================
+           Testimonials
+           ======================================== */
+        .testimonials-section {
+            padding: 80px 60px 100px;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .testimonial-card {
+            background: var(--bg-card-darker);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px;
+            transition: border-color 0.3s, transform 0.3s;
+        }
+
+        .testimonial-card:hover {
+            border-color: rgba(255, 107, 43, 0.3);
+            transform: translateY(-4px);
+        }
+
+        .testimonial-stars {
+            color: var(--yellow);
+            font-size: 14px;
+            letter-spacing: 2px;
+            margin-bottom: 16px;
+        }
+
+        .testimonial-text {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .testimonial-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--orange), var(--magenta));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .testimonial-name {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .testimonial-role {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        /* ========================================
+           Press Bar
+           ======================================== */
+        .press-bar {
+            text-align: center;
+            padding: 48px 40px 64px;
+        }
+
+        .press-logos {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 48px;
+            flex-wrap: wrap;
+        }
+
+        .press-name {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-muted);
+            letter-spacing: 0.5px;
+            transition: color 0.2s;
+            white-space: nowrap;
+            text-decoration: none;
+        }
+
+        .press-name:hover {
+            color: var(--text-secondary);
+        }
+
+        .press-dot {
+            color: var(--border);
+            font-size: 8px;
+        }
+
+        /* ========================================
+           Why Section
+           ======================================== */
+        .why-section {
+            padding: 80px 60px 100px;
+        }
+
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        .why-card {
+            text-align: center;
+            padding: 40px 28px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            background: var(--bg-card-darker);
+            transition: border-color 0.3s, transform 0.3s;
+        }
+
+        .why-card:hover {
+            border-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-4px);
+        }
+
+        .why-icon {
+            font-size: 36px;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .why-card h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .why-card p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* ========================================
+           Pricing Section
+           ======================================== */
+        .pricing-section {
+            padding: 80px 60px 100px;
+        }
+
+        .pricing-grid {
+            display: flex;
+            align-items: stretch;
+            justify-content: center;
+            gap: 24px;
+            max-width: 1080px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+        }
+
+        .pricing-card {
+            flex: 1;
+            max-width: 340px;
+            min-width: 280px;
+            background: var(--bg-card-darker);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 40px 32px;
+            position: relative;
+            transition: transform 0.3s, border-color 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-6px);
+        }
+
+        .pricing-card.featured {
+            border-color: rgba(204, 51, 255, 0.5);
+            background: linear-gradient(180deg, rgba(204, 51, 255, 0.06), var(--bg-card-darker) 40%);
+            box-shadow: 0 8px 40px rgba(204, 51, 255, 0.12), 0 0 60px rgba(204, 51, 255, 0.05);
+        }
+
+        .pricing-card.featured:hover {
+            box-shadow: 0 12px 50px rgba(204, 51, 255, 0.2), 0 0 80px rgba(204, 51, 255, 0.08);
+        }
+
+        /* Animated gradient border on featured card */
+        .pricing-card.featured::after {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: -1px;
+            right: -1px;
+            bottom: -1px;
+            background: conic-gradient(from var(--border-angle, 0deg), rgba(255,107,43,0.4), rgba(204,51,255,0.3), rgba(0,212,255,0.3), rgba(255,107,43,0.4));
+            border-radius: 21px;
+            z-index: -1;
+            animation: rotateBorder 6s linear infinite;
+        }
+
+        @keyframes rotateBorder {
+            to { --border-angle: 360deg; }
+        }
+
+        @property --border-angle {
+            syntax: '<angle>';
+            initial-value: 0deg;
+            inherits: false;
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 6px 20px;
+            background: linear-gradient(135deg, #cc33ff, #ff3366);
+            border-radius: 50px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            white-space: nowrap;
+            color: #fff;
+        }
+
+        .pricing-card-header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .pricing-card-name {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .pricing-card-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .pricing-price {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .pricing-dollar {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-secondary);
+            vertical-align: super;
+        }
+
+        .pricing-amount {
+            font-size: 60px;
+            font-weight: 900;
+            letter-spacing: -2px;
+            line-height: 1;
+        }
+
+        .pricing-card.featured .pricing-amount {
+            background: linear-gradient(135deg, var(--orange), #cc33ff, var(--cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            background-size: 200% 200%;
+            animation: gradientShift 8s ease infinite;
+        }
+
+        .pricing-original {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-decoration: line-through;
+            margin-right: 6px;
+        }
+
+        .pricing-period {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-top: 6px;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 32px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .pricing-features li {
+            font-size: 14px;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pricing-features li .check {
+            color: var(--text-muted);
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .pricing-btn {
+            display: block;
+            width: 100%;
+            padding: 14px 24px;
+            min-height: 52px;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 700;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.25s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .pricing-btn[data-color="orange"] {
+            background: var(--orange);
+            color: #fff;
+        }
+        .pricing-btn[data-color="orange"]:hover {
+            background: var(--orange-light);
+            box-shadow: 0 4px 24px rgba(255, 107, 43, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .pricing-btn[data-color="purple"] {
+            background: linear-gradient(135deg, #cc33ff, #ff3366);
+            color: #fff;
+            box-shadow: 0 4px 24px rgba(204, 51, 255, 0.3);
+        }
+        .pricing-btn[data-color="purple"]:hover {
+            box-shadow: 0 6px 32px rgba(204, 51, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .pricing-btn[data-color="cyan"] {
+            background: var(--cyan);
+            color: #0d0a1a;
+        }
+        .pricing-btn[data-color="cyan"]:hover {
+            background: #33dfff;
+            box-shadow: 0 4px 24px rgba(0, 212, 255, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .pricing-btn[data-color="vocal"] {
+            background: linear-gradient(135deg, #ff6b2b, #4fb8d4);
+            color: #fff;
+            box-shadow: 0 4px 24px rgba(255, 107, 43, 0.25);
+        }
+        .pricing-btn[data-color="vocal"]:hover {
+            box-shadow: 0 6px 32px rgba(255, 107, 43, 0.45);
+            transform: translateY(-2px);
+        }
+
+        .pricing-btn[data-color="mix"] {
+            background: linear-gradient(135deg, #00d4ff, #7b68ee);
+            color: #fff;
+            box-shadow: 0 4px 24px rgba(0, 212, 255, 0.25);
+        }
+        .pricing-btn[data-color="mix"]:hover {
+            box-shadow: 0 6px 32px rgba(123, 104, 238, 0.45);
+            transform: translateY(-2px);
+        }
+
+        /* Bundle-tier card tints — escalating color intensity by bundle size */
+        .pricing-card.vocal-bundle {
+            border-color: rgba(255, 107, 43, 0.28);
+            background: linear-gradient(180deg, rgba(255, 107, 43, 0.05), var(--bg-card-darker) 45%);
+            box-shadow: 0 6px 28px rgba(255, 107, 43, 0.08);
+        }
+        .pricing-card.vocal-bundle:hover {
+            box-shadow: 0 10px 36px rgba(255, 107, 43, 0.14);
+        }
+        .pricing-card.vocal-bundle .pricing-amount {
+            background: linear-gradient(135deg, #ff6b2b, #4fb8d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .pricing-card.mix-bundle {
+            border-color: rgba(0, 212, 255, 0.28);
+            background: linear-gradient(180deg, rgba(0, 212, 255, 0.05), var(--bg-card-darker) 45%);
+            box-shadow: 0 6px 28px rgba(0, 212, 255, 0.08);
+        }
+        .pricing-card.mix-bundle:hover {
+            box-shadow: 0 10px 36px rgba(123, 104, 238, 0.14);
+        }
+        .pricing-card.mix-bundle .pricing-amount {
+            background: linear-gradient(135deg, #00d4ff, #7b68ee);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .pricing-trust {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 13px;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .pricing-trust svg {
+            flex-shrink: 0;
+        }
+
+        /* ========================================
+           Final CTA
+           ======================================== */
+        .final-cta {
+            text-align: center;
+            padding: 100px 40px 120px;
+            position: relative;
+        }
+
+        .final-cta-title {
+            font-size: clamp(28px, 4vw, 42px);
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+
+        .final-cta-desc {
+            font-size: 17px;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            max-width: 480px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.7;
+        }
+
+        .final-cta-buttons {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* ========================================
+           Scroll Reveal
+           ======================================== */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .scroll-reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ========================================
+           Reduced Motion
+           ======================================== */
+        @media (prefers-reduced-motion: reduce) {
+            .hero-title {
+                animation: none;
+            }
+            .product-card,
+            .pricing-card,
+            .testimonial-card,
+            .why-card {
+                transition: none;
+            }
+            .product-card-cta .arrow {
+                transition: none;
+            }
+            .scroll-reveal {
+                opacity: 1;
+                transform: none;
+                transition: none;
+            }
+            #silk-bg {
+                display: none;
+            }
+            .pricing-card.featured::after {
+                animation: none;
+            }
+        }
+
+        /* ========================================
+           Responsive
+           ======================================== */
+        @media (max-width: 1024px) {
+            .products-section {
+                padding: 60px 20px 80px;
+            }
+            .why-section {
+                padding: 60px 20px 80px;
+            }
+            .pricing-section {
+                padding: 60px 20px 80px;
+            }
+            .testimonials-section {
+                padding: 60px 20px 80px;
+            }
+            .testimonial-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 80px 20px 60px;
+                min-height: 75vh;
+            }
+            .products-grid {
+                grid-template-columns: 1fr;
+                max-width: 480px;
+            }
+            .testimonial-grid {
+                grid-template-columns: 1fr;
+                max-width: 480px;
+            }
+            .why-grid {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+                margin: 0 auto;
+            }
+            .pricing-grid {
+                flex-direction: column;
+                align-items: center;
+            }
+            .pricing-card {
+                max-width: 400px;
+                width: 100%;
+            }
+            /* Reorder so Bundle appears first on mobile */
+            .pricing-card.featured {
+                order: -1;
+            }
+            .press-logos {
+                gap: 24px;
+            }
+            .hero-stats {
+                gap: 24px;
+            }
+            .section-title {
+                font-size: 28px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero {
+                padding: 60px 16px 40px;
+                min-height: auto;
+            }
+            .hero-subtitle {
+                font-size: 16px;
+            }
+            .hero-buttons {
+                flex-direction: column;
+                width: 100%;
+                max-width: 320px;
+            }
+            .hero-buttons a {
+                width: 100%;
+                text-align: center;
+                justify-content: center;
+            }
+            .hero-stats {
+                gap: 16px;
+            }
+            .hero-stat-value {
+                font-size: 13px;
+            }
+            .products-section,
+            .why-section,
+            .pricing-section,
+            .testimonials-section {
+                padding: 48px 16px 64px;
+            }
+            .press-bar {
+                padding: 32px 16px 48px;
+            }
+            .final-cta {
+                padding: 64px 16px 80px;
+            }
+            .final-cta-buttons {
+                flex-direction: column;
+                width: 100%;
+                max-width: 320px;
+                margin: 0 auto;
+            }
+            .final-cta-buttons a {
+                width: 100%;
+                text-align: center;
+                justify-content: center;
+            }
+        }
     </style>
 </head>
-
-<body data-product="hub">
+<body>
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5QVG68CF"
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
+    <canvas id="silk-bg"></canvas>
 
-    <!-- Navigation -->
-    <div id="site-nav" data-active="home"></div>
+    <div class="content-wrapper">
+        <!-- Nav -->
+        <div id="site-nav" data-active="home"></div>
 
-    <!-- ============ HERO ============ -->
-    <header class="v2-hero v2-glow" style="min-height:80svh;justify-content:center;padding-bottom:64px;">
-        <svg class="v2-bubbles v2-bubbles--hero v2-bubbles--float" viewBox="0 0 880 640" aria-hidden="true">
-            <circle cx="140" cy="480" r="90"/>
-            <circle cx="300" cy="300" r="46"/>
-            <circle cx="480" cy="520" r="150"/>
-            <circle cx="660" cy="240" r="70"/>
-            <circle cx="770" cy="440" r="34"/>
-            <circle cx="230" cy="140" r="22"/>
-        </svg>
-        <span class="v2-eyebrow v2-eyebrow--mute">Carbonated Audio</span>
-        <h1 class="v2-h1">Plugins with taste.</h1>
-        <p class="v2-lede" style="max-width:42ch;">Six effects, hand-coded by one producer. No subscriptions, no bloat &mdash; throw one on a track and hear it move.</p>
-        <div class="v2-cta-row">
-            <a href="https://buy.stripe.com/aFa4gzbUZfRwdPXdHt3oA0g" class="v2-btn">Get All 4 &mdash; <span class="v2-price">$60</span></a>
-            <a href="/still?ref=still-home-hero-v2" class="v2-btn-ghost">Start with Still &mdash; Free</a>
-        </div>
-        <p class="v2-bnpl">or 4 interest-free payments of $15 &mdash; Klarna &middot; Afterpay &middot; Affirm at checkout</p>
-        <p class="v2-hero-micro" style="margin-top:18px;margin-bottom:0;">VST3 &middot; AU &middot; AAX &mdash; macOS + Windows &middot; Pay once, own forever &middot; Pay in 4 available</p>
-    </header>
-
-    <!-- ============ PROOF MARQUEE ============ -->
-    <section class="v2-proof">
-        <div class="v2-marquee" aria-hidden="true">
-            <div class="v2-marquee-track">
-                <span>HIP-HOP</span><span>POP</span><span>R&amp;B</span><span>TRAP</span><span>INDIE</span><span>ABLETON LIVE</span><span>PRO TOOLS</span><span>LOGIC PRO</span><span>FL STUDIO</span><span>STUDIO ONE</span><span>CUBASE</span><span>REAPER</span>
-                <span>HIP-HOP</span><span>POP</span><span>R&amp;B</span><span>TRAP</span><span>INDIE</span><span>ABLETON LIVE</span><span>PRO TOOLS</span><span>LOGIC PRO</span><span>FL STUDIO</span><span>STUDIO ONE</span><span>CUBASE</span><span>REAPER</span>
+        <!-- Section 1: Hero -->
+        <section class="hero">
+            <h1 class="hero-title">Carbonated Audio</h1>
+            <p class="hero-subtitle">Audio plugins built for producers who hear the difference.</p>
+            <div class="hero-buttons">
+                <a href="#products" class="btn-hero-ghost">Explore Plugins</a>
+                <a href="https://buy.stripe.com/aFa4gzbUZfRwdPXdHt3oA0g" class="btn-hero-solid">Get All 4 Plugins &mdash; $60</a>
             </div>
-        </div>
-        <div class="v2-center v2-reveal">
-            <p class="v2-quote">&ldquo;An absolute staple of my mixing chain now.&rdquo;</p>
-            <p class="v2-quote-attr">&mdash; Zak Mabry, producer</p>
-        </div>
-        <p class="v2-press v2-reveal" style="--i:1;">As featured on <strong>KVR Audio</strong> &middot; <strong>Rekkerd</strong> &middot; <strong>AudioNewsRoom</strong> &middot; <strong>Audio Plugin Guy</strong> &middot; <strong>MusicRadar</strong></p>
-        <p class="v2-counters">6 plugins &middot; 1 developer &middot; $0 subscriptions</p>
-    </section>
-
-    <!-- ============ A/B AUDIO DEMO (Carbonator) ============ -->
-    <section class="v2-section v2-ab v2-glow v2-band-alt" id="hear-it" style="--accent:#f2703a;--accent-dim:#8a3d1e;">
-        <div class="v2-container v2-center">
-            <span class="v2-eyebrow v2-reveal">Hear it first</span>
-            <h2 class="v2-h2 v2-reveal" style="--i:1;">Don't take our word for it.<br>Take your ears.</h2>
-            <p class="v2-body v2-reveal" style="--i:2;">One button. Bypass in, bypass out. If you can't hear it, don't buy it.</p>
-            <div id="ab-demo" data-product="carbonator"></div>
-            <div class="v2-cta-row v2-reveal" style="margin-top:36px;--i:3;">
-                <a href="https://buy.stripe.com/aFafZhgbffRw6nv0UH3oA00" class="v2-btn">Get Carbonator &mdash; <span class="v2-price">$20</span></a>
-            </div>
-            <p class="v2-bnpl">or 4 payments of $5 &mdash; Klarna &middot; Afterpay at checkout</p>
-        </div>
-    </section>
-
-    <!-- ============ THE LINEUP ============ -->
-    <section class="v2-section" id="products">
-        <div class="v2-container v2-center">
-            <span class="v2-eyebrow v2-eyebrow--mute v2-reveal">The lineup</span>
-            <h2 class="v2-h2 v2-reveal" style="--i:1;">Six plugins. One signal chain.</h2>
-            <p class="v2-body v2-reveal" style="--i:2;">Saturate it. De-ess it. Duck it. Widen it. Drive it. Quiet it. Twenty bucks a job &mdash; or take the bundle.</p>
-        </div>
-        <div class="v2-lineup">
-
-            <!-- FIZZFUEL -->
-            <div class="v2-row v2-reveal" style="--accent:#f2703a;--accent-dim:#8a3d1e;">
-                <div class="v2-row-media">
-                    <picture>
-                        <source srcset="/fizzfuel-screenshot.webp" type="image/webp">
-                        <img src="/fizzfuel-screenshot.png" alt="FIZZFUEL — six-effect gearbox plugin" width="420" height="700" loading="lazy">
-                    </picture>
+            <p style="margin-top:14px;font-size:13px;color:#a09bb5;text-align:center;">or 4 interest-free payments of $15 &mdash; Klarna &middot; Afterpay &middot; Affirm at checkout</p>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <span class="hero-stat-value">6 Plugins &middot; 1 Free</span>
                 </div>
-                <div>
-                    <h3 class="v2-row-name"><span class="v2-row-dot"></span>FIZZFUEL</h3>
-                    <p class="v2-row-job">Drive it. Six effects on one shifter &mdash; tape warmth to full redline, thrown like a gear.</p>
+                <div class="hero-stat-divider"></div>
+                <div class="hero-stat">
+                    <span class="hero-stat-value">From $20</span>
                 </div>
-                <div class="v2-row-actions">
-                    <a href="https://buy.stripe.com/6oUeVd7EJ6gW13b6f13oA0f" class="v2-btn v2-btn--sm">Buy &mdash; <span class="v2-price">$29</span></a>
-                    <a href="/fizzfuel" class="v2-row-link">Learn more &rarr;</a>
+                <div class="hero-stat-divider"></div>
+                <div class="hero-stat">
+                    <span class="hero-stat-value">VST3 / AU / AAX</span>
+                </div>
+                <div class="hero-stat-divider"></div>
+                <div class="hero-stat">
+                    <span class="hero-stat-value">macOS + Windows</span>
                 </div>
             </div>
+        </section>
 
-            <!-- Carbonator -->
-            <div class="v2-row v2-reveal" style="--accent:#f2703a;--accent-dim:#8a3d1e;--i:1;">
-                <div class="v2-row-media">
-                    <picture>
-                        <source srcset="/carbonator-screenshot.webp" type="image/webp">
-                        <img src="/carbonator-screenshot.png" alt="Carbonator — analog saturation plugin" width="451" height="588" loading="lazy">
-                    </picture>
+        <!-- Section 1.2: Still free-plugin band -->
+        <section class="still-band scroll-reveal" style="max-width:900px;margin:18px auto 0;padding:26px 32px;display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:wrap;background:linear-gradient(135deg, rgba(46,143,133,0.16), rgba(111,199,188,0.07));border:1px solid rgba(111,199,188,0.35);border-radius:16px;">
+            <div style="text-align:left;min-width:260px;flex:1;">
+                <span style="display:inline-block;background:#6fc7bc;color:#07201c;font-size:11px;font-weight:800;letter-spacing:.08em;padding:3px 10px;border-radius:20px;margin-bottom:8px;">NEW + 100% FREE</span>
+                <h2 style="font-size:22px;color:#fff;margin:0 0 6px;font-weight:800;">Still &mdash; background noise, gone with one dial.</h2>
+                <p style="font-size:14px;color:#a09bb5;margin:0;line-height:1.6;">Our free noise suppressor. No account, no trial, no catch &mdash; free forever. macOS today, Windows on the way.</p>
+            </div>
+            <a href="/still?ref=still-home-band" style="padding:14px 28px;border-radius:10px;background:linear-gradient(135deg,#2e8f85,#6fc7bc);color:#07201c;font-weight:700;text-decoration:none;white-space:nowrap;">Get Still Free &rarr;</a>
+        </section>
+
+        <!-- Section 1.5: Plugin Spotlight — Pour cinematic reveal -->
+        <section class="plugin-spotlight scroll-reveal" id="spotlight">
+            <span class="spotlight-eyebrow">New — Plugin Spotlight</span>
+            <h2 class="spotlight-title">
+                <span class="pour-letter">F</span><span class="pour-letter">I</span><span class="pour-letter">Z</span><span class="pour-letter">Z</span><span class="pour-letter">F</span><span class="pour-letter">U</span><span class="pour-letter">E</span><span class="pour-letter">L</span>
+            </h2>
+            <p class="spotlight-subtitle">Six effects on one shifter &mdash; Drive, Reverb, Delay, Pitch, Filter. Throw it in gear.</p>
+            <div style="display:flex;justify-content:center;margin:12px 0 4px;">
+                <img src="/fizzfuel-screenshot.png" alt="FIZZFUEL multi-effect gearbox plugin interface" width="420" height="700"
+                     style="width:100%;max-width:300px;height:auto;border-radius:18px;filter:drop-shadow(0 14px 44px rgba(255,107,43,0.38));" loading="lazy">
+            </div>
+            <div class="spotlight-cta-row">
+                <a href="https://buy.stripe.com/6oUeVd7EJ6gW13b6f13oA0f" class="spotlight-cta-primary">Get FIZZFUEL — $29</a>
+                <a href="/fizzfuel" class="spotlight-cta-ghost">Learn more about FIZZFUEL <span class="arrow">&rarr;</span></a>
+            </div>
+        </section>
+
+        <!-- Section 2: Product Showcase -->
+        <section class="products-section" id="products">
+            <p class="section-label scroll-reveal">THE LINEUP</p>
+            <h2 class="section-title scroll-reveal">Six Plugins. One Mission.</h2>
+            <div class="products-grid">
+                <!-- FIZZFUEL (flagship) -->
+                <div class="product-card scroll-reveal" data-accent="orange">
+                    <div class="product-card-img-wrapper" style="display:flex;align-items:center;justify-content:center;padding:24px 20px;background:radial-gradient(ellipse at center, rgba(255,107,43,0.10) 0%, transparent 70%);">
+                        <img src="/fizzfuel-screenshot.png" alt="FIZZFUEL — six-effect gearbox plugin" width="420" height="700" style="width:100%;max-width:230px;border-radius:16px;filter:drop-shadow(0 8px 32px rgba(255,107,43,0.4));" loading="lazy">
+                    </div>
+                    <div class="product-card-body">
+                        <h3 class="product-card-name">FIZZFUEL <span style="font-size:11px;vertical-align:middle;background:linear-gradient(135deg,#ff6b2b,#ff3366);color:#fff;padding:2px 8px;border-radius:20px;font-weight:700;letter-spacing:.04em;">NEW</span></h3>
+                        <p class="product-card-tagline">Six effects on a shifter. Throw it in gear.</p>
+                        <ul class="product-card-features">
+                            <li>6-gear multi-effect gearbox</li>
+                            <li>Saturation, FDN reverb, tempo delay, pitch, filter</li>
+                            <li>20+ styles, glitch-free crossfades</li>
+                            <li>VST3, AU, AAX &mdash; Pro Tools signed</li>
+                        </ul>
+                        <div class="product-card-footer">
+                            <span class="product-card-price">$29</span>
+                            <a href="/fizzfuel" class="product-card-cta" data-color="orange">
+                                Learn more about FIZZFUEL <span class="arrow">&rarr;</span>
+                            </a>
+                        </div>
+                        <div style="display:flex;gap:10px;margin-top:12px;">
+                            <a href="https://buy.stripe.com/6oUeVd7EJ6gW13b6f13oA0f" style="flex:1;text-align:center;padding:10px;border-radius:8px;background:linear-gradient(135deg,#ff6b2b,#ff3366);color:#fff;font-weight:600;font-size:13px;text-decoration:none;">Buy — $29</a>
+                        </div>
+                        <p style="font-size:11px;color:#a09bb5;margin-top:8px;text-align:center;">or 4 payments of $7.25 with Klarna / Afterpay</p>
+                    </div>
                 </div>
-                <div>
-                    <h3 class="v2-row-name"><span class="v2-row-dot"></span>Carbonator</h3>
-                    <p class="v2-row-job">Saturate it. Five flavors of circuit-modeled color on one knob.</p>
+
+                <!-- Still (free) -->
+                <div class="product-card scroll-reveal" data-accent="cyan">
+                    <div class="product-card-img-wrapper" style="display:flex;align-items:center;justify-content:center;padding:30px 20px;background:radial-gradient(ellipse at center, rgba(111,199,188,0.10) 0%, transparent 70%);">
+                        <img src="/assets/still-screenshot.png" alt="Still — free one-dial noise suppressor plugin" width="620" height="400" style="width:100%;max-width:280px;border-radius:16px;filter:drop-shadow(0 8px 32px rgba(111,199,188,0.35));" loading="lazy">
+                    </div>
+                    <div class="product-card-body">
+                        <h3 class="product-card-name">Still <span style="font-size:11px;vertical-align:middle;background:#6fc7bc;color:#07201c;padding:2px 8px;border-radius:20px;font-weight:800;letter-spacing:.04em;">FREE</span></h3>
+                        <p class="product-card-tagline">Background noise, gone. One dial.</p>
+                        <ul class="product-card-features">
+                            <li>Adaptive noise suppression &mdash; no learn step</li>
+                            <li>Zero latency, feather-light CPU</li>
+                            <li>Free forever &mdash; no trial, no rug-pull</li>
+                            <li>VST3, AU, AAX &mdash; macOS (Windows soon)</li>
+                        </ul>
+                        <div class="product-card-footer">
+                            <span class="product-card-price" style="color:#6fc7bc;">FREE</span>
+                            <a href="/still?ref=still-home-grid" class="product-card-cta" data-color="cyan">
+                                Get Still Free <span class="arrow">&rarr;</span>
+                            </a>
+                        </div>
+                    </div>
                 </div>
-                <div class="v2-row-actions">
-                    <a href="https://buy.stripe.com/aFafZhgbffRw6nv0UH3oA00" class="v2-btn v2-btn--sm">Buy &mdash; <span class="v2-price">$20</span></a>
-                    <a href="/carbonator" class="v2-row-link">Learn more &rarr;</a>
+
+                <!-- Carbonator -->
+                <div class="product-card scroll-reveal" data-accent="orange">
+                    <div class="product-card-img-wrapper" style="display:flex;align-items:center;justify-content:center;padding:30px 20px;background:radial-gradient(ellipse at center, rgba(255,107,43,0.08) 0%, transparent 70%);">
+                        <picture><source srcset="/carbonator-screenshot.webp" type="image/webp"><img src="/carbonator-screenshot.png" alt="Carbonator — analog saturation plugin" width="451" height="588" style="width:100%;max-width:280px;border-radius:16px;filter:drop-shadow(0 8px 32px rgba(255,107,43,0.4));" loading="lazy"></picture>
+                    </div>
+                    <div class="product-card-body">
+                        <h3 class="product-card-name">Carbonator</h3>
+                        <p class="product-card-tagline">5 flavors of analog saturation. One knob. Endless character.</p>
+                        <ul class="product-card-features">
+                            <li>5 circuit-modeled saturation flavors</li>
+                            <li>One-knob Carbonated mode</li>
+                            <li>VST3, AU, AAX on macOS + Windows</li>
+                            <li>Zero latency, low CPU</li>
+                        </ul>
+                        <div class="product-card-footer">
+                            <span class="product-card-price">$20</span>
+                            <a href="/carbonator" class="product-card-cta" data-color="orange">
+                                Learn more about Carbonator <span class="arrow">&rarr;</span>
+                            </a>
+                        </div>
+                        <div style="display:flex;gap:10px;margin-top:12px;">
+                            <a href="https://buy.stripe.com/aFafZhgbffRw6nv0UH3oA00" style="flex:1;text-align:center;padding:10px;border-radius:8px;background:linear-gradient(135deg,#ff6b2b,#ff3366);color:#fff;font-weight:600;font-size:13px;text-decoration:none;">Buy — $20</a>
+                            <a href="/carbonator#demo" style="flex:1;text-align:center;padding:10px;border-radius:8px;border:1px solid rgba(255,107,43,0.3);color:#ff6b2b;font-weight:600;font-size:13px;text-decoration:none;">Try Demo</a>
+                        </div>
+                        <p style="font-size:11px;color:#a09bb5;margin-top:8px;text-align:center;">or 4 payments of $5 with Klarna / Afterpay</p>
+                    </div>
                 </div>
+
+                <!-- De-Sipper -->
+                <div class="product-card scroll-reveal" data-accent="cyan">
+                    <div class="product-card-img-wrapper" style="display:flex;align-items:center;justify-content:center;padding:30px 20px;background:radial-gradient(ellipse at center, rgba(0,212,255,0.08) 0%, transparent 70%);">
+                        <picture><source srcset="/desipper-screenshot.webp" type="image/webp"><img src="/desipper-screenshot.png" alt="De-Sipper — transparent de-esser plugin" width="795" height="570" style="width:100%;max-width:320px;border-radius:12px;filter:drop-shadow(0 8px 32px rgba(0,212,255,0.3));" loading="lazy"></picture>
+                    </div>
+                    <div class="product-card-body">
+                        <h3 class="product-card-name">De-Sipper</h3>
+                        <p class="product-card-tagline">Transparent de-essing that preserves your vocal character.</p>
+                        <ul class="product-card-features">
+                            <li>Surgical sibilance control</li>
+                            <li>Preserves vocal body and air</li>
+                            <li>Real-time frequency display</li>
+                            <li>Works on vocals, cymbals, and more</li>
+                        </ul>
+                        <div class="product-card-footer">
+                            <span class="product-card-price">$20</span>
+                            <a href="/desipper" class="product-card-cta" data-color="cyan">
+                                Learn more about De-Sipper <span class="arrow">&rarr;</span>
+                            </a>
+                        </div>
+                        <div style="display:flex;gap:10px;margin-top:12px;">
+                            <a href="https://buy.stripe.com/9B6bJ11gl7l0aDLgTF3oA0b" style="flex:1;text-align:center;padding:10px;border-radius:8px;background:linear-gradient(135deg,#00d4ff,#0066ff);color:#fff;font-weight:600;font-size:13px;text-decoration:none;">Buy — $20</a>
+                            <a href="/desipper#demo" style="flex:1;text-align:center;padding:10px;border-radius:8px;border:1px solid rgba(0,212,255,0.3);color:#00d4ff;font-weight:600;font-size:13px;text-decoration:none;">Try Demo</a>
+                        </div>
+                        <p style="font-size:11px;color:#a09bb5;margin-top:8px;text-align:center;">or 4 payments of $5 with Klarna / Afterpay</p>
+                    </div>
+                </div>
+
+                <!-- On Tap -->
+                <div class="product-card scroll-reveal" data-accent="purple">
+                    <div class="product-card-img-wrapper" style="display:flex;align-items:center;justify-content:center;padding:20px;background:radial-gradient(ellipse at center, rgba(168,85,247,0.08) 0%, transparent 70%);">
+                        <picture><source srcset="/ontap-screenshot.webp" type="image/webp"><img src="/ontap-screenshot.png" alt="On Tap — sidechain ducking plugin by Carbonated Audio" width="879" height="516" style="width:100%;max-width:340px;border-radius:12px;filter:drop-shadow(0 8px 32px rgba(168,85,247,0.4));" loading="lazy"></picture>
+                    </div>
+                    <div class="product-card-body">
+                        <h3 class="product-card-name">On Tap</h3>
+                        <p class="product-card-tagline">Instant sidechain ducking. 16 curves. No compressor routing required.</p>
+                        <ul class="product-card-features">
+                            <li>16 hand-crafted ducking curves</li>
+                            <li>Sync, MIDI, and Audio trigger modes</li>
+                            <li>Band-split crossover filter</li>
+                            <li>Zero latency, anti-click smoothing</li>
+                        </ul>
+                        <div class="product-card-footer">
+                            <span class="product-card-price">$20</span>
+                            <a href="/ontap" class="product-card-cta" data-color="purple">
+                                Learn more about On Tap <span class="arrow">&rarr;</span>
+                            </a>
+                        </div>
+                        <div style="display:flex;gap:10px;margin-top:12px;">
+                            <a href="https://buy.stripe.com/5kQcN51gl6gWfY51YL3oA04" style="flex:1;text-align:center;padding:10px;border-radius:8px;background:linear-gradient(135deg,#a855f7,#7c3aed);color:#fff;font-weight:600;font-size:13px;text-decoration:none;">Buy — $20</a>
+                            <a href="/ontap#demo" style="flex:1;text-align:center;padding:10px;border-radius:8px;border:1px solid rgba(168,85,247,0.3);color:#a855f7;font-weight:600;font-size:13px;text-decoration:none;">Try Demo</a>
+                        </div>
+                        <p style="font-size:11px;color:#a09bb5;margin-top:8px;text-align:center;">or 4 payments of $5 with Klarna / Afterpay</p>
+                    </div>
+                </div>
+
+                <!-- Pour -->
+                <div class="product-card scroll-reveal" style="--glow-color: rgba(79,184,212,0.18);">
+                    <div class="product-card-img-wrapper" style="display:flex;align-items:center;justify-content:center;padding:20px;background:radial-gradient(ellipse at center, rgba(79,184,212,0.08) 0%, transparent 70%);">
+                        <picture><source srcset="/pour-screenshot.webp" type="image/webp"><img src="/pour-screenshot.png" alt="Pour — M/S stereo imager plugin by Carbonated Audio" width="1147" height="499" style="width:100%;max-width:360px;border-radius:8px;filter:drop-shadow(0 8px 32px rgba(79,184,212,0.35));" loading="lazy"></picture>
+                    </div>
+                    <div class="product-card-body">
+                        <h3 class="product-card-name">Pour</h3>
+                        <p class="product-card-tagline">M/S stereo imaging with a live vectorscope. Pour it wider.</p>
+                        <ul class="product-card-features" style="--feature-dot: #4fb8d4;">
+                            <li>Shuffle + Space (Blumlein stereo shuffling)</li>
+                            <li>Width, Rotation, Asymmetry</li>
+                            <li>Live polar vectorscope</li>
+                            <li>Zero latency, VST3 / AU / AAX</li>
+                        </ul>
+                        <div class="product-card-footer">
+                            <span class="product-card-price">$20</span>
+                            <a href="/pour" class="product-card-cta" style="background:linear-gradient(135deg,#4fb8d4,#2a88a8);color:#fff;">
+                                Learn more about Pour <span class="arrow">&rarr;</span>
+                            </a>
+                        </div>
+                        <div style="display:flex;gap:10px;margin-top:12px;">
+                            <a href="https://buy.stripe.com/bJe4gz0ch7l0aDL9rd3oA07" style="flex:1;text-align:center;padding:10px;border-radius:8px;background:linear-gradient(135deg,#4fb8d4,#2a88a8);color:#fff;font-weight:600;font-size:13px;text-decoration:none;">Buy — $20</a>
+                            <a href="/pour#demo" style="flex:1;text-align:center;padding:10px;border-radius:8px;border:1px solid rgba(79,184,212,0.3);color:#4fb8d4;font-weight:600;font-size:13px;text-decoration:none;">Try Demo</a>
+                        </div>
+                        <p style="font-size:11px;color:#a09bb5;margin-top:8px;text-align:center;">or 4 payments of $5 with Klarna / Afterpay</p>
+                    </div>
+                </div>
+
             </div>
 
-            <!-- De-Sipper -->
-            <div class="v2-row v2-reveal" style="--accent:#3fc1e3;--accent-dim:#1d5a6b;--i:2;">
-                <div class="v2-row-media">
-                    <picture>
-                        <source srcset="/desipper-screenshot.webp" type="image/webp">
-                        <img src="/desipper-screenshot.png" alt="De-Sipper — transparent de-esser plugin" width="795" height="570" loading="lazy">
-                    </picture>
+            <!-- Bundle CTA -->
+            <div class="scroll-reveal" style="margin-top:48px;text-align:center;padding:32px 24px;border-radius:16px;border:1px solid rgba(255,255,255,0.08);background:linear-gradient(135deg,rgba(255,107,43,0.06),rgba(0,212,255,0.06));">
+                <p style="font-size:14px;color:#a09bb5;margin-bottom:6px;font-weight:500;letter-spacing:1px;text-transform:uppercase;">Complete Bundle — Save $20</p>
+                <p style="font-size:22px;font-weight:700;color:#fff;margin-bottom:4px;">Get all 4 plugins for <span style="background:linear-gradient(135deg,#ff6b2b,#00d4ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">$60</span> <span style="font-size:15px;color:#6b6580;font-weight:400;text-decoration:line-through;">$80</span></p>
+                <p style="font-size:14px;color:#a09bb5;margin-bottom:14px;">Carbonator + De-Sipper + On Tap + Pour. Saturation, de-essing, sidechain ducking, and stereo imaging in one checkout.</p>
+                <p style="font-size:13px;color:#a09bb5;margin-bottom:20px;">or 4 interest-free payments of $15 with Klarna, Afterpay, or Affirm</p>
+                <a href="https://buy.stripe.com/aFa4gzbUZfRwdPXdHt3oA0g" style="padding:14px 36px;border-radius:10px;background:linear-gradient(135deg,#ff6b2b,#00d4ff);color:#fff;font-weight:700;font-size:15px;text-decoration:none;display:inline-block;">Get the Bundle — $60</a>
+            </div>
+        </section>
+
+        <!-- Section 3: Testimonials -->
+        <section class="testimonials-section" id="reviews">
+            <p class="section-label scroll-reveal">WHAT PRODUCERS ARE SAYING</p>
+            <h2 class="section-title scroll-reveal">Hear It From The Community</h2>
+            <div class="testimonial-grid">
+                <div class="testimonial-card scroll-reveal">
+                    <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                    <p class="testimonial-text">"The Lemon-Lime on my vocal chain is crazy. An absolute staple."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">Z</div>
+                        <div>
+                            <div class="testimonial-name">ZakMabry</div>
+                            <div class="testimonial-role">Producer</div>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <h3 class="v2-row-name"><span class="v2-row-dot"></span>De-Sipper</h3>
-                    <p class="v2-row-job">De-ess it. Sibilance gone, vocal body and air intact.</p>
+                <div class="testimonial-card scroll-reveal">
+                    <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                    <p class="testimonial-text">"Each flavor has a new texture you can't find using any other plugin."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">L</div>
+                        <div>
+                            <div class="testimonial-name">Landsharkszn</div>
+                            <div class="testimonial-role">Producer</div>
+                        </div>
+                    </div>
                 </div>
-                <div class="v2-row-actions">
-                    <a href="https://buy.stripe.com/9B6bJ11gl7l0aDLgTF3oA0b" class="v2-btn v2-btn--sm">Buy &mdash; <span class="v2-price">$20</span></a>
-                    <a href="/desipper" class="v2-row-link">Learn more &rarr;</a>
+                <div class="testimonial-card scroll-reveal">
+                    <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                    <p class="testimonial-text">"Every preset sounds amazing. It's rare you find a plugin where you can load something up and it instantly sounds good."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">P</div>
+                        <div>
+                            <div class="testimonial-name">Pradoproducedit</div>
+                            <div class="testimonial-role">Producer</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card scroll-reveal">
+                    <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                    <p class="testimonial-text">"You have a wonderful Carbonator plugin! I really like the SOUND!!!"</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">L</div>
+                        <div>
+                            <div class="testimonial-name">Leonid Fedorov</div>
+                            <div class="testimonial-role">Touring Artist, Israel</div>
+                        </div>
+                    </div>
                 </div>
             </div>
+        </section>
 
-            <!-- On Tap -->
-            <div class="v2-row v2-reveal" style="--accent:#a06ee0;--accent-dim:#4d3572;--i:3;">
-                <div class="v2-row-media">
-                    <picture>
-                        <source srcset="/ontap-screenshot.webp" type="image/webp">
-                        <img src="/ontap-screenshot.png" alt="On Tap — sidechain ducking plugin" width="879" height="516" loading="lazy">
-                    </picture>
-                </div>
-                <div>
-                    <h3 class="v2-row-name"><span class="v2-row-dot"></span>On Tap</h3>
-                    <p class="v2-row-job">Duck it. Sixteen sidechain curves, zero compressor routing.</p>
-                </div>
-                <div class="v2-row-actions">
-                    <a href="https://buy.stripe.com/5kQcN51gl6gWfY51YL3oA04" class="v2-btn v2-btn--sm">Buy &mdash; <span class="v2-price">$20</span></a>
-                    <a href="/ontap" class="v2-row-link">Learn more &rarr;</a>
-                </div>
+        <!-- Section 4: Press Bar -->
+        <section class="press-bar scroll-reveal">
+            <p class="section-label">AS FEATURED ON</p>
+            <div class="press-logos">
+                <a class="press-name" href="https://www.audiopluginguy.com/news-carbinated-audio-releases-carbonator-an-analog-saturation-plugin/" target="_blank" rel="noopener">Audio Plugin Guy</a>
+                <span class="press-dot">&bull;</span>
+                <a class="press-name" href="https://rekkerd.org/carbinated-audio-releases-carbonator-saturation-effect-plugin/" target="_blank" rel="noopener">Rekkerd.org</a>
+                <span class="press-dot">&bull;</span>
+                <a class="press-name" href="https://www.kvraudio.com/product/carbonator-by-carbinated-audio" target="_blank" rel="noopener">KVR Audio</a>
+                <span class="press-dot">&bull;</span>
+                <a class="press-name" href="https://audionewsroom.net/2026/03/carbonator-five-flavors-of-circuit-modeled-saturation.html" target="_blank" rel="noopener">AudioNewsRoom</a>
             </div>
+        </section>
 
-            <!-- Pour -->
-            <div class="v2-row v2-reveal" style="--accent:#5fb0c9;--accent-dim:#2b5563;--i:4;">
-                <div class="v2-row-media">
-                    <picture>
-                        <source srcset="/pour-screenshot.webp" type="image/webp">
-                        <img src="/pour-screenshot.png" alt="Pour — M/S stereo imager plugin" width="1147" height="499" loading="lazy">
-                    </picture>
+        <!-- Section 5: Why Carbonated Audio -->
+        <section class="why-section">
+            <h2 class="section-title scroll-reveal">Why <span class="accent">Carbonated Audio</span></h2>
+            <div class="why-grid">
+                <div class="why-card scroll-reveal">
+                    <span class="why-icon" aria-hidden="true">&#x221E;</span>
+                    <h3>No Subscriptions</h3>
+                    <p>Buy once, own forever. No recurring fees, no iLok, no subscription fatigue.</p>
                 </div>
-                <div>
-                    <h3 class="v2-row-name"><span class="v2-row-dot"></span>Pour</h3>
-                    <p class="v2-row-job">Widen it. M/S stereo imaging with a live vectorscope.</p>
+                <div class="why-card scroll-reveal">
+                    <span class="why-icon" aria-hidden="true">&#x266B;</span>
+                    <h3>Producer-First Design</h3>
+                    <p>Built by producers, for producers. Every control earns its place on the UI.</p>
                 </div>
-                <div class="v2-row-actions">
-                    <a href="https://buy.stripe.com/bJe4gz0ch7l0aDL9rd3oA07" class="v2-btn v2-btn--sm">Buy &mdash; <span class="v2-price">$20</span></a>
-                    <a href="/pour" class="v2-row-link">Learn more &rarr;</a>
-                </div>
-            </div>
-
-            <!-- Still (free) -->
-            <div class="v2-row v2-reveal" style="--accent:#6fc7bc;--accent-dim:#33635c;--i:5;">
-                <div class="v2-row-media">
-                    <img src="/assets/still-screenshot.png" alt="Still — free one-dial noise suppressor plugin" width="620" height="400" loading="lazy">
-                </div>
-                <div>
-                    <h3 class="v2-row-name"><span class="v2-row-dot"></span>Still <span class="v2-row-badge">FREE</span></h3>
-                    <p class="v2-row-job">Quiet it. Background noise gone with one dial &mdash; free forever.</p>
-                </div>
-                <div class="v2-row-actions">
-                    <a href="/still?ref=still-home-lineup-v2" class="v2-btn v2-btn--sm">Get Still &mdash; <span class="v2-price">Free</span></a>
-                    <a href="/still?ref=still-home-lineup-v2" class="v2-row-link">Learn more &rarr;</a>
+                <div class="why-card scroll-reveal">
+                    <span class="why-icon" aria-hidden="true">&#x25C8;</span>
+                    <h3>Studio-Grade Quality</h3>
+                    <p>Circuit-modeled DSP that stands up to plugins 10x the price.</p>
                 </div>
             </div>
+        </section>
 
-        </div>
-    </section>
+        <!-- Section 6: Pricing -->
+        <section class="pricing-section" id="pricing">
+            <p class="section-label scroll-reveal">SIMPLE PRICING</p>
+            <h2 class="section-title scroll-reveal">Get the Full Toolkit</h2>
+            <p class="section-desc scroll-reveal">No subscriptions. No upsells. Pay once, own it forever.</p>
+            <div class="pricing-grid">
+                <!-- Vocal Chain Bundle (2 plugins) -->
+                <div class="pricing-card vocal-bundle scroll-reveal">
+                    <div class="pricing-card-header">
+                        <div class="pricing-card-name">Vocal Chain</div>
+                        <div class="pricing-card-desc">Saturation + de-ess, 2 plugins</div>
+                    </div>
+                    <div class="pricing-price">
+                        <span class="pricing-original">$45</span>
+                        <span class="pricing-dollar">$</span><span class="pricing-amount">35</span>
+                        <div class="pricing-period">one-time payment</div>
+                        <div style="font-size:12px;color:#a09bb5;margin-top:8px;">or 4 payments of $8.75 &middot; Klarna &middot; Afterpay</div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><span class="check">&#10003;</span> Carbonator (full license)</li>
+                        <li><span class="check">&#10003;</span> De-Sipper (full license)</li>
+                        <li><span class="check">&#10003;</span> VST3, AU, AAX &mdash; macOS + Windows</li>
+                        <li><span class="check">&#10003;</span> Free updates for both</li>
+                        <li><span class="check">&#10003;</span> Save $5</li>
+                    </ul>
+                    <a href="https://buy.stripe.com/7sY28raQV34KeU1bzl3oA09" class="pricing-btn" data-color="vocal">Get Vocal Chain &mdash; $35</a>
+                </div>
 
-    <!-- ============ DEV STORY ============ -->
-    <section class="v2-section v2-band-alt">
-        <div class="v2-story">
-            <span class="v2-eyebrow v2-reveal">Who makes this</span>
-            <h2 class="v2-h2 v2-reveal" style="--i:1;">One producer. Every line of code.</h2>
-            <p class="v2-reveal" style="--i:2;">I'm Soda. I mix records, and I got tired of plugins built by committees and rented by the month. So I learned to build my own &mdash; six of them so far, each one small, opinionated, and finished. When you email support, I answer.</p>
-            <div class="v2-reveal" style="--i:3;margin-top:28px;">
-                <a href="/about" class="v2-btn-ghost">Read the story &rarr;</a>
+                <!-- Complete Bundle (Featured — 4 plugins) -->
+                <div class="pricing-card featured scroll-reveal">
+                    <span class="pricing-badge">BEST VALUE</span>
+                    <div class="pricing-card-header">
+                        <div class="pricing-card-name">Complete Bundle</div>
+                        <div class="pricing-card-desc">All 4 plugins, one price</div>
+                    </div>
+                    <div class="pricing-price">
+                        <span class="pricing-original">$80</span>
+                        <span class="pricing-dollar">$</span><span class="pricing-amount">60</span>
+                        <div class="pricing-period">one-time payment</div>
+                        <div style="font-size:12px;color:#a09bb5;margin-top:8px;">or 4 payments of $15 &middot; Klarna &middot; Afterpay &middot; Affirm</div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><span class="check">&#10003;</span> Carbonator (full license)</li>
+                        <li><span class="check">&#10003;</span> De-Sipper (full license)</li>
+                        <li><span class="check">&#10003;</span> On Tap (full license)</li>
+                        <li><span class="check">&#10003;</span> Pour (full license)</li>
+                        <li><span class="check">&#10003;</span> VST3, AU, AAX &mdash; macOS + Windows</li>
+                        <li><span class="check">&#10003;</span> Free updates for all four</li>
+                        <li><span class="check">&#10003;</span> Save $20 off individual prices</li>
+                    </ul>
+                    <a href="https://buy.stripe.com/aFa4gzbUZfRwdPXdHt3oA0g" class="pricing-btn" data-color="purple">Get the Bundle &mdash; $60</a>
+                </div>
+
+                <!-- Mix Bus Bundle (2 plugins) -->
+                <div class="pricing-card mix-bundle scroll-reveal">
+                    <div class="pricing-card-header">
+                        <div class="pricing-card-name">Mix Bus</div>
+                        <div class="pricing-card-desc">Ducking + imaging, 2 plugins</div>
+                    </div>
+                    <div class="pricing-price">
+                        <span class="pricing-original">$40</span>
+                        <span class="pricing-dollar">$</span><span class="pricing-amount">30</span>
+                        <div class="pricing-period">one-time payment</div>
+                        <div style="font-size:12px;color:#a09bb5;margin-top:8px;">or 4 payments of $7.50 &middot; Klarna &middot; Afterpay</div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><span class="check">&#10003;</span> On Tap (full license)</li>
+                        <li><span class="check">&#10003;</span> Pour (full license)</li>
+                        <li><span class="check">&#10003;</span> VST3, AU, AAX &mdash; macOS + Windows</li>
+                        <li><span class="check">&#10003;</span> Free updates for both</li>
+                        <li><span class="check">&#10003;</span> Save $10</li>
+                    </ul>
+                    <a href="https://buy.stripe.com/28EeVdcZ3gVA27f1YL3oA0a" class="pricing-btn" data-color="mix">Get Mix Bus &mdash; $30</a>
+                </div>
             </div>
-        </div>
-    </section>
+            <p class="pricing-trust scroll-reveal">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1L2 4v4c0 3.5 2.6 6.5 6 7.5 3.4-1 6-4 6-7.5V4L8 1z" stroke="#6b6580" stroke-width="1.2" fill="none"/><path d="M5.5 8L7 9.5 10.5 6" stroke="#6b6580" stroke-width="1.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Secure checkout via Stripe. Instant license delivery via email.
+            </p>
+        </section>
 
-    <!-- ============ BUNDLE PRICING ============ -->
-    <section class="v2-section" id="pricing">
-        <div class="v2-container v2-center">
-            <span class="v2-eyebrow v2-eyebrow--mute v2-reveal">Simple pricing</span>
-            <h2 class="v2-h2 v2-reveal" style="--i:1;">Get the full toolkit.</h2>
-            <p class="v2-body v2-reveal" style="--i:2;">No subscriptions. No upsells. Pay once, own it forever.</p>
-        </div>
-        <div class="v2-pricing">
-
-            <!-- Vocal Chain Bundle (2 plugins) -->
-            <div class="v2-price-card v2-reveal">
-                <div class="v2-price-name">Vocal Chain</div>
-                <div class="v2-price-desc">Saturation + de-ess, 2 plugins</div>
-                <div class="v2-price-amount"><span class="v2-price-was">$45</span>$35</div>
-                <div class="v2-price-period">one-time payment</div>
-                <div class="v2-price-bnpl">or 4 payments of $8.75 &middot; Klarna &middot; Afterpay</div>
-                <ul class="v2-price-features">
-                    <li><span class="check">&#10003;</span> Carbonator (full license)</li>
-                    <li><span class="check">&#10003;</span> De-Sipper (full license)</li>
-                    <li><span class="check">&#10003;</span> VST3, AU, AAX &mdash; macOS + Windows</li>
-                    <li><span class="check">&#10003;</span> Free updates for both</li>
-                    <li><span class="check">&#10003;</span> Save $5</li>
-                </ul>
-                <a href="https://buy.stripe.com/7sY28raQV34KeU1bzl3oA09" class="v2-btn">Get Vocal Chain &mdash; <span class="v2-price">$35</span></a>
+        <!-- Section 7: Final CTA -->
+        <section class="final-cta">
+            <h2 class="final-cta-title scroll-reveal">Ready to level up your sound?</h2>
+            <p class="final-cta-desc scroll-reveal">Join producers already using Carbonated Audio in their workflow.</p>
+            <div class="final-cta-buttons scroll-reveal">
+                <a href="https://buy.stripe.com/aFa4gzbUZfRwdPXdHt3oA0g" class="btn-hero-solid">Get All 4 Plugins &mdash; $60</a>
             </div>
+            <p class="scroll-reveal" style="margin-top:14px;font-size:13px;color:#a09bb5;text-align:center;">or 4 interest-free payments of $15 &mdash; Klarna &middot; Afterpay &middot; Affirm</p>
+        </section>
 
-            <!-- Complete Bundle (Featured — 4 plugins) -->
-            <div class="v2-price-card v2-price-card--featured v2-reveal" style="--i:1;">
-                <span class="v2-price-badge">Best value</span>
-                <div class="v2-price-name">Complete Bundle</div>
-                <div class="v2-price-desc">All 4 plugins, one price</div>
-                <div class="v2-price-amount"><span class="v2-price-was">$80</span>$60</div>
-                <div class="v2-price-period">one-time payment</div>
-                <div class="v2-price-bnpl">or 4 payments of $15 &middot; Klarna &middot; Afterpay &middot; Affirm</div>
-                <ul class="v2-price-features">
-                    <li><span class="check">&#10003;</span> Carbonator (full license)</li>
-                    <li><span class="check">&#10003;</span> De-Sipper (full license)</li>
-                    <li><span class="check">&#10003;</span> On Tap (full license)</li>
-                    <li><span class="check">&#10003;</span> Pour (full license)</li>
-                    <li><span class="check">&#10003;</span> VST3, AU, AAX &mdash; macOS + Windows</li>
-                    <li><span class="check">&#10003;</span> Free updates for all four</li>
-                    <li><span class="check">&#10003;</span> Save $20 off individual prices</li>
-                </ul>
-                <a href="https://buy.stripe.com/aFa4gzbUZfRwdPXdHt3oA0g" class="v2-btn">Get the Bundle &mdash; <span class="v2-price">$60</span></a>
-            </div>
-
-            <!-- Mix Bus Bundle (2 plugins) -->
-            <div class="v2-price-card v2-reveal" style="--i:2;">
-                <div class="v2-price-name">Mix Bus</div>
-                <div class="v2-price-desc">Ducking + imaging, 2 plugins</div>
-                <div class="v2-price-amount"><span class="v2-price-was">$40</span>$30</div>
-                <div class="v2-price-period">one-time payment</div>
-                <div class="v2-price-bnpl">or 4 payments of $7.50 &middot; Klarna &middot; Afterpay</div>
-                <ul class="v2-price-features">
-                    <li><span class="check">&#10003;</span> On Tap (full license)</li>
-                    <li><span class="check">&#10003;</span> Pour (full license)</li>
-                    <li><span class="check">&#10003;</span> VST3, AU, AAX &mdash; macOS + Windows</li>
-                    <li><span class="check">&#10003;</span> Free updates for both</li>
-                    <li><span class="check">&#10003;</span> Save $10</li>
-                </ul>
-                <a href="https://buy.stripe.com/28EeVdcZ3gVA27f1YL3oA0a" class="v2-btn">Get Mix Bus &mdash; <span class="v2-price">$30</span></a>
-            </div>
-
-        </div>
-        <p class="v2-trust v2-center v2-reveal" style="margin-top:30px;">Secure checkout via Stripe &middot; instant license delivery via email</p>
-    </section>
-
-    <!-- ============ STILL FREE BAND ============ -->
-    <section style="padding:0 var(--gutter) var(--space-section);">
-        <div class="v2-still-band v2-reveal" style="--accent:#6fc7bc;--accent-dim:#33635c;">
-            <div class="v2-still-band-copy">
-                <span class="v2-row-badge">100% FREE</span>
-                <h2>Still &mdash; background noise, gone with one dial.</h2>
-                <p>Our free noise suppressor. No account, no trial, no catch &mdash; free forever. macOS today, Windows on the way.</p>
-            </div>
-            <a href="/still?ref=still-home-band" class="v2-btn">Get Still Free &rarr;</a>
-        </div>
-    </section>
-
-    <!-- ============ FINAL CTA ============ -->
-    <section class="v2-section v2-final v2-band-alt">
-        <div class="v2-container v2-center">
-            <h2 class="v2-h2 v2-reveal">Crack one open.</h2>
-            <div class="v2-cta-row v2-reveal" style="--i:1;">
-                <a href="https://buy.stripe.com/aFa4gzbUZfRwdPXdHt3oA0g" class="v2-btn">Get All 4 &mdash; <span class="v2-price">$60</span></a>
-                <a href="/still?ref=still-home-final-v2" class="v2-btn-ghost">Start with Still &mdash; Free</a>
-            </div>
-            <p class="v2-bnpl">or 4 interest-free payments of $15 &mdash; Klarna &middot; Afterpay &middot; Affirm at checkout</p>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <div id="site-footer"></div>
+        <!-- Footer -->
+        <div id="site-footer"></div>
+    </div>
 
     <!-- Shared Components -->
-    <script src="/components/nav.js?v=20260711-v2"></script>
-    <script src="/components/footer.js?v=20260711-v2"></script>
-    <script src="/components/ab-demo.js?v=20260711-v2"></script>
+    <script src="/components/nav.js?v=20260708-still"></script>
+    <script src="/components/footer.js?v=20260711"></script>
 
-    <!-- v2 scroll reveal + nav compress -->
+    <!-- Product Card Spotlight Glow -->
+    <script>
+        document.querySelectorAll('.product-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                card.style.setProperty('--mouse-x', (e.clientX - rect.left) + 'px');
+                card.style.setProperty('--mouse-y', (e.clientY - rect.top) + 'px');
+            });
+        });
+    </script>
+
+    <!-- Pour Spotlight: autoplay-on-visible + click-to-unmute -->
     <script>
     (function() {
-        var io = new IntersectionObserver(function(entries) {
-            entries.forEach(function(e) {
-                if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
-            });
-        }, { threshold: 0.1 });
-        document.querySelectorAll('.v2-reveal').forEach(function(el) { io.observe(el); });
+        const video = document.getElementById('pour-spotlight-video');
+        const hint  = document.getElementById('pour-sound-hint');
+        if (!video) return;
 
-        var nav = document.getElementById('site-nav');
-        function onScroll() {
-            if (!nav) return;
-            nav.classList.toggle('v2-nav-compressed', window.scrollY > 80);
+        // Autoplay when ≥40% visible, pause when out of view
+        const visObs = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    video.play().catch(() => {});
+                } else {
+                    video.pause();
+                }
+            });
+        }, { threshold: 0.4 });
+        visObs.observe(video);
+
+        // Click anywhere on the video → unmute + restart from f1 for the full reel with sound
+        video.addEventListener('click', () => {
+            if (video.muted) {
+                video.muted = false;
+                video.currentTime = 0;
+                video.play();
+                if (hint) hint.classList.add('is-playing-sound');
+            } else {
+                video.muted = true;
+                if (hint) hint.classList.remove('is-playing-sound');
+            }
+        });
+    })();
+    </script>
+
+    <!-- Scroll Reveal with IntersectionObserver -->
+    <script>
+    (function() {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, i) => {
+                if (entry.isIntersecting) {
+                    // Stagger siblings for grid items
+                    const parent = entry.target.parentElement;
+                    const siblings = parent ? Array.from(parent.querySelectorAll('.scroll-reveal')) : [];
+                    const index = siblings.indexOf(entry.target);
+                    const delay = index >= 0 ? index * 80 : 0;
+
+                    setTimeout(() => {
+                        entry.target.classList.add('revealed');
+                    }, delay);
+
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -40px 0px'
+        });
+
+        document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
+    })();
+    </script>
+
+    <!-- Smooth Scroll for anchor links -->
+    <script>
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+        link.addEventListener('click', (e) => {
+            const target = document.querySelector(link.getAttribute('href'));
+            if (target) {
+                e.preventDefault();
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+    </script>
+
+    <!-- Silk WebGL Background -->
+    <script>
+    (function() {
+        const canvas = document.getElementById('silk-bg');
+        if (!canvas) return;
+
+        // Respect reduced motion
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+        const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+        if (!gl) return;
+
+        function resize() {
+            const dpr = Math.min(window.devicePixelRatio || 1, 2);
+            canvas.width = window.innerWidth * dpr;
+            canvas.height = window.innerHeight * dpr;
+            canvas.style.width = window.innerWidth + 'px';
+            canvas.style.height = window.innerHeight + 'px';
+            gl.viewport(0, 0, canvas.width, canvas.height);
         }
-        window.addEventListener('scroll', onScroll, { passive: true });
-        onScroll();
+        resize();
+        window.addEventListener('resize', resize);
+
+        const vertSrc = `
+            attribute vec2 a_position;
+            void main() {
+                gl_Position = vec4(a_position, 0.0, 1.0);
+            }
+        `;
+
+        const fragSrc = `
+            precision mediump float;
+            uniform float u_time;
+            uniform vec2 u_resolution;
+
+            vec3 palette(float t) {
+                vec3 a = vec3(0.15, 0.08, 0.35);
+                vec3 b = vec3(0.12, 0.10, 0.25);
+                vec3 c = vec3(1.0, 1.0, 1.0);
+                vec3 d = vec3(0.75, 0.33, 0.60);
+                return a + b * cos(6.28318 * (c * t + d));
+            }
+
+            void main() {
+                vec2 uv = gl_FragCoord.xy / u_resolution;
+                float t = u_time * 0.15;
+
+                float n = sin(uv.x * 3.0 + t) * cos(uv.y * 2.5 - t * 0.7)
+                        + sin(uv.y * 4.0 + t * 1.3) * 0.5
+                        + cos((uv.x + uv.y) * 2.0 - t * 0.5) * 0.4;
+
+                n = n * 0.5 + 0.5;
+
+                vec3 col = palette(n + t * 0.1);
+                col *= 0.45;
+
+                // Subtle vignette
+                float vig = 1.0 - length((uv - 0.5) * 1.2);
+                vig = smoothstep(0.0, 0.7, vig);
+                col *= vig;
+
+                gl_FragColor = vec4(col, 1.0);
+            }
+        `;
+
+        function compileShader(src, type) {
+            const s = gl.createShader(type);
+            gl.shaderSource(s, src);
+            gl.compileShader(s);
+            if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) {
+                console.warn('Shader error:', gl.getShaderInfoLog(s));
+                gl.deleteShader(s);
+                return null;
+            }
+            return s;
+        }
+
+        const vert = compileShader(vertSrc, gl.VERTEX_SHADER);
+        const frag = compileShader(fragSrc, gl.FRAGMENT_SHADER);
+        if (!vert || !frag) return;
+
+        const program = gl.createProgram();
+        gl.attachShader(program, vert);
+        gl.attachShader(program, frag);
+        gl.linkProgram(program);
+        if (!gl.getProgramParameter(program, gl.LINK_STATUS)) return;
+        gl.useProgram(program);
+
+        // Fullscreen quad
+        const buf = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
+            -1, -1,  1, -1,  -1, 1,
+            -1,  1,  1, -1,   1, 1
+        ]), gl.STATIC_DRAW);
+
+        const aPos = gl.getAttribLocation(program, 'a_position');
+        gl.enableVertexAttribArray(aPos);
+        gl.vertexAttribPointer(aPos, 2, gl.FLOAT, false, 0, 0);
+
+        const uTime = gl.getUniformLocation(program, 'u_time');
+        const uRes = gl.getUniformLocation(program, 'u_resolution');
+
+        function render(ts) {
+            gl.uniform1f(uTime, ts * 0.001);
+            gl.uniform2f(uRes, canvas.width, canvas.height);
+            gl.drawArrays(gl.TRIANGLES, 0, 6);
+            requestAnimationFrame(render);
+        }
+        requestAnimationFrame(render);
     })();
     </script>
 
