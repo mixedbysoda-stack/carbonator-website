@@ -36,10 +36,10 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-    <!-- Shared Styles -->
-    <link rel="stylesheet" href="/shared.css">
+    <!-- v2 Design System -->
+    <link rel="stylesheet" href="/v2.css?v=20260711-v2">
 
     <!-- GA4 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z9L20HJ4M0"></script>
@@ -76,60 +76,83 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
     </script>
 
     <style>
-        :root {
-            --bg: #0a0814;
-            --panel: #15101f;
-            --border: rgba(255,255,255,0.08);
-            --text: #ffffff;
-            --text-muted: #a09bb5;
-            --accent: #ff6b2b;
-            --accent-2: #cc33ff;
-            --carbonator: #e85d26;
-            --desipper: #00bcd4;
-            --ontap: #b794ff;
-            --pour: #4ade80;
+        /* Bundle page — v2 restyle. Tokens come from v2.css; body[data-product="hub"]
+           sets the silver-white brand accent. Conversion machinery untouched. */
+
+        .container { max-width: var(--container); margin: 0 auto; padding: 0 var(--gutter); }
+
+        /* ---- Sticky top nav (bundle keeps its own minimal nav) ---- */
+        .top-nav {
+            position: sticky;
+            top: 0;
+            background: color-mix(in srgb, var(--ink-0) 85%, transparent);
+            -webkit-backdrop-filter: blur(14px);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--line);
+            padding: 14px var(--gutter);
+            z-index: 100;
         }
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-            min-height: 100vh;
+        .top-nav-inner {
+            max-width: var(--container);
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
         }
-        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
-        .hero {
-            padding: 100px 24px 60px;
-            text-align: center;
-            background: radial-gradient(ellipse at top, rgba(255,107,43,0.15), transparent 70%),
-                        radial-gradient(ellipse at bottom, rgba(204,51,255,0.1), transparent 70%);
-        }
-        .eyebrow {
-            display: inline-block;
-            font-size: 12px;
+        .top-nav-logo {
+            color: var(--text-hi);
+            font-family: var(--font-display);
             font-weight: 700;
-            letter-spacing: 2px;
+            font-size: 16px;
+            letter-spacing: -0.01em;
+        }
+        .top-nav-cta {
+            background: var(--accent);
+            color: #0a0910;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-size: var(--t-ui);
+            font-weight: 600;
+            white-space: nowrap;
+            transition: transform 150ms var(--ease-out), box-shadow 150ms var(--ease-out);
+        }
+        .top-nav-cta:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 24px -8px color-mix(in srgb, var(--accent) 60%, transparent);
+        }
+
+        /* ---- Hero ---- */
+        .hero {
+            padding: clamp(72px, 10vh, 110px) var(--gutter) clamp(56px, 8vh, 80px);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero > * { position: relative; z-index: 1; }
+        .hero > .v2-bubbles { position: absolute; z-index: 0; }
+        .eyebrow {
+            display: block;
+            font-family: var(--font-mono);
+            font-size: var(--t-eyebrow);
+            font-weight: 500;
+            letter-spacing: 0.18em;
             text-transform: uppercase;
-            color: var(--accent);
-            padding: 8px 16px;
-            border: 1px solid var(--accent);
-            border-radius: 999px;
+            color: var(--text-lo);
             margin-bottom: 24px;
         }
         h1 {
-            font-size: clamp(40px, 7vw, 64px);
-            font-weight: 900;
-            line-height: 1.05;
-            letter-spacing: -0.02em;
+            font-size: clamp(2.5rem, 6.5vw, 4.5rem);
+            font-weight: 700;
+            line-height: 1.02;
+            letter-spacing: -0.03em;
             margin-bottom: 20px;
-            background: linear-gradient(135deg, #fff 0%, #cc33ff 50%, #ff6b2b 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--text-hi);
         }
         .hero-sub {
-            font-size: 19px;
-            color: var(--text-muted);
+            font-size: var(--t-lede);
+            line-height: 1.5;
+            color: var(--text-md);
             max-width: 640px;
             margin: 0 auto 40px;
         }
@@ -139,183 +162,194 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
             justify-content: center;
             gap: 16px;
             margin-bottom: 12px;
+            font-family: var(--font-mono);
         }
         .price {
-            font-size: 64px;
-            font-weight: 900;
-            color: #fff;
+            font-size: clamp(3rem, 7vw, 4.5rem);
+            font-weight: 500;
+            color: var(--text-hi);
+            letter-spacing: -0.02em;
             line-height: 1;
         }
         .price-strike {
-            font-size: 28px;
-            color: var(--text-muted);
+            font-size: 1.5rem;
+            color: var(--text-lo);
             text-decoration: line-through;
         }
         .price-save {
             display: inline-block;
-            font-size: 13px;
-            font-weight: 700;
-            color: #4ade80;
-            background: rgba(74,222,128,0.12);
-            padding: 6px 12px;
+            font-family: var(--font-mono);
+            font-size: var(--t-eyebrow);
+            font-weight: 500;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--accent);
+            border: 1px solid var(--line);
+            padding: 8px 16px;
             border-radius: 999px;
-            margin-bottom: 24px;
+            margin-bottom: 28px;
         }
         .cta {
-            display: inline-block;
-            padding: 18px 40px;
-            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
-            color: #fff;
-            text-decoration: none;
-            font-weight: 800;
-            font-size: 16px;
-            border-radius: 999px;
-            transition: transform 0.2s, box-shadow 0.2s;
-            box-shadow: 0 8px 24px rgba(255,107,43,0.4);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 16px 30px;
+            min-height: 52px;
+            background: var(--accent);
+            color: #0a0910;
+            font-family: var(--font-body);
+            font-size: var(--t-ui);
+            font-weight: 600;
+            line-height: 1.4;
+            border: 1px solid transparent;
+            border-radius: 12px;
+            transition: transform 150ms var(--ease-out), box-shadow 150ms var(--ease-out);
         }
-        .cta:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(255,107,43,0.5); }
+        .cta:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 24px -8px color-mix(in srgb, var(--accent) 60%, transparent);
+        }
         .bnpl-note {
-            font-size: 14px;
-            color: var(--text-muted);
+            font-size: var(--t-caption);
+            color: var(--text-lo);
             margin-top: 16px;
         }
-        .grid-section { padding: 60px 24px; }
+
+        /* ---- Sections ---- */
+        .grid-section { padding: clamp(56px, 8vh, 88px) var(--gutter); }
+        .grid-section.band { background: var(--ink-1); }
         .section-title {
-            font-size: clamp(28px, 4vw, 40px);
-            font-weight: 800;
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+            font-weight: 700;
+            letter-spacing: -0.025em;
+            line-height: 1.05;
             text-align: center;
-            margin-bottom: 8px;
-            color: #fff;
+            margin-bottom: 10px;
+            color: var(--text-hi);
         }
         .section-desc {
             text-align: center;
-            color: var(--text-muted);
+            color: var(--text-md);
             max-width: 540px;
-            margin: 0 auto 40px;
-            font-size: 17px;
+            margin: 0 auto 44px;
+            font-size: 1.0625rem;
         }
+
+        /* ---- Plugin cards ---- */
         .plugin-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 16px;
         }
         .plugin-card {
-            background: var(--panel);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 28px;
-            transition: transform 0.2s, border-color 0.2s;
-            position: relative;
-            overflow: hidden;
+            background: var(--ink-2);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            padding: 26px 24px;
+            transition: border-color 150ms var(--ease-out);
         }
-        .plugin-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; height: 3px;
-            background: var(--card-accent, var(--accent));
-        }
-        .plugin-card.carb { --card-accent: var(--carbonator); }
-        .plugin-card.desi { --card-accent: var(--desipper); }
-        .plugin-card.onta { --card-accent: var(--ontap); }
-        .plugin-card.pour { --card-accent: var(--pour); }
-        .plugin-card:hover { transform: translateY(-4px); border-color: var(--card-accent); }
+        .plugin-card:hover { border-color: rgba(255, 255, 255, 0.18); }
+        .plugin-card.carb { --card-accent: #f2703a; }
+        .plugin-card.desi { --card-accent: #3fc1e3; }
+        .plugin-card.onta { --card-accent: #a06ee0; }
+        .plugin-card.pour { --card-accent: #5fb0c9; }
         .plugin-card h3 {
-            font-size: 22px;
-            font-weight: 800;
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            font-weight: 700;
             margin-bottom: 4px;
-            color: #fff;
+            color: var(--text-hi);
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
+        .plugin-card h3::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--text-lo);
+            flex: 0 0 auto;
+            transition: background 150ms;
+        }
+        .plugin-card:hover h3::before { background: var(--card-accent, var(--accent)); }
         .plugin-tag {
             display: inline-block;
-            font-size: 11px;
-            font-weight: 600;
-            letter-spacing: 1px;
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            font-weight: 500;
+            letter-spacing: 0.14em;
             text-transform: uppercase;
-            color: var(--card-accent);
+            color: var(--text-lo);
             margin-bottom: 12px;
         }
         .plugin-card p {
-            color: var(--text-muted);
-            font-size: 15px;
+            color: var(--text-md);
+            font-size: 0.9375rem;
             line-height: 1.55;
             margin-bottom: 16px;
         }
         .plugin-card .single-price {
             display: block;
-            font-size: 13px;
-            color: var(--text-muted);
-            border-top: 1px solid var(--border);
+            font-family: var(--font-mono);
+            font-size: var(--t-caption);
+            color: var(--text-lo);
+            border-top: 1px solid var(--line);
             padding-top: 12px;
         }
+
+        /* ---- Bundle math ---- */
         .math-box {
             max-width: 540px;
-            margin: 40px auto 0;
-            background: var(--panel);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 28px 32px;
+            margin: 44px auto 0;
+            background: var(--ink-2);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            padding: 26px 30px;
         }
         .math-row {
             display: flex;
             justify-content: space-between;
-            padding: 8px 0;
-            border-bottom: 1px solid var(--border);
-            font-size: 15px;
+            gap: 16px;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--line);
+            font-size: 0.9375rem;
         }
-        .math-row:last-child { border-bottom: none; padding-top: 16px; font-size: 17px; font-weight: 700; color: #fff; }
-        .math-row .label { color: var(--text-muted); }
-        .math-row .val { color: #fff; font-weight: 600; }
-        .math-row.save .val { color: #4ade80; font-weight: 700; }
+        .math-row:last-child { border-bottom: none; padding-top: 16px; font-size: 1.0625rem; font-weight: 600; color: var(--text-hi); }
+        .math-row .label { color: var(--text-md); }
+        .math-row .val { color: var(--text-hi); font-family: var(--font-mono); font-weight: 500; }
+        .math-row.save .val { color: var(--accent); font-weight: 500; }
+
         .trust-row {
             text-align: center;
-            color: var(--text-muted);
-            font-size: 14px;
+            color: var(--text-lo);
+            font-size: var(--t-ui);
             margin-top: 40px;
         }
-        .trust-row strong { color: #fff; }
+        .trust-row strong { color: var(--text-hi); font-weight: 600; }
+
+        /* ---- Final CTA ---- */
         .final-cta {
-            padding: 80px 24px;
+            padding: clamp(72px, 10vh, 110px) var(--gutter);
             text-align: center;
-            background: linear-gradient(180deg, transparent 0%, rgba(255,107,43,0.08) 100%);
+            background: var(--ink-1);
         }
+
+        /* ---- Footer ---- */
         .footer {
-            padding: 40px 24px;
+            padding: 34px var(--gutter);
             text-align: center;
-            border-top: 1px solid var(--border);
-            color: var(--text-muted);
-            font-size: 14px;
+            border-top: 1px solid var(--line);
+            color: var(--text-lo);
+            font-family: var(--font-mono);
+            font-size: 13px;
         }
-        .footer a { color: var(--text-muted); text-decoration: none; margin: 0 12px; }
-        .footer a:hover { color: var(--accent); }
-        .top-nav {
-            position: sticky;
-            top: 0;
-            background: rgba(10,8,20,0.85);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border);
-            padding: 14px 24px;
-            z-index: 100;
-        }
-        .top-nav-inner {
-            max-width: 1100px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .top-nav-logo { color: #fff; font-weight: 800; text-decoration: none; font-size: 16px; }
-        .top-nav-cta {
-            background: linear-gradient(135deg, var(--accent), var(--accent-2));
-            color: #fff;
-            text-decoration: none;
-            padding: 10px 20px;
-            border-radius: 999px;
-            font-size: 14px;
-            font-weight: 700;
-        }
+        .footer a { color: var(--text-md); margin: 0 10px; transition: color 150ms; }
+        .footer a:hover { color: var(--text-hi); }
     </style>
 </head>
-<body>
+<body data-product="hub">
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5QVG68CF" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
@@ -326,7 +360,15 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
         </div>
     </nav>
 
-    <section class="hero">
+    <section class="hero v2-glow">
+        <svg class="v2-bubbles v2-bubbles--hero v2-bubbles--float" viewBox="0 0 880 640" aria-hidden="true">
+            <circle cx="140" cy="480" r="90"/>
+            <circle cx="300" cy="300" r="46"/>
+            <circle cx="480" cy="520" r="150"/>
+            <circle cx="660" cy="240" r="70"/>
+            <circle cx="770" cy="440" r="34"/>
+            <circle cx="230" cy="140" r="22"/>
+        </svg>
         <div class="container">
             <span class="eyebrow">Complete Bundle</span>
             <h1>All four plugins.<br>One small bill.</h1>
@@ -385,33 +427,33 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
         </div>
     </section>
 
-    <section class="grid-section" style="padding-top:20px;">
+    <section class="grid-section band">
         <div class="container">
             <h2 class="section-title">Everything you'd expect</h2>
             <p class="section-desc">No subscriptions. No "perpetual fallback." No telemetry. Buy once, own forever.</p>
 
             <div class="plugin-grid">
-                <div class="plugin-card" style="--card-accent: #fff;">
+                <div class="plugin-card">
                     <h3>VST3 / AU / AAX</h3>
                     <p>Every plugin ships as VST3, AU, and AAX (PACE-signed for Pro Tools). Standalone apps included.</p>
                 </div>
-                <div class="plugin-card" style="--card-accent: #fff;">
+                <div class="plugin-card">
                     <h3>macOS + Windows</h3>
                     <p>Universal binaries on Apple Silicon + Intel Macs. Native Windows builds. Notarized and signed.</p>
                 </div>
-                <div class="plugin-card" style="--card-accent: #fff;">
+                <div class="plugin-card">
                     <h3>Lifetime updates</h3>
                     <p>Free updates for the life of every plugin. Buy once, and every future version lands in your account at no extra cost.</p>
                 </div>
-                <div class="plugin-card" style="--card-accent: #fff;">
+                <div class="plugin-card">
                     <h3>Use on 3 machines</h3>
                     <p>One license, three computers. Studio, laptop, backup &mdash; covered.</p>
                 </div>
-                <div class="plugin-card" style="--card-accent: #fff;">
+                <div class="plugin-card">
                     <h3>30-day refund</h3>
                     <p>Try the bundle for 30 days. Don't love it? Email us, full refund, no questions.</p>
                 </div>
-                <div class="plugin-card" style="--card-accent: #fff;">
+                <div class="plugin-card">
                     <h3>Pay in 4</h3>
                     <p>Buy the bundle for $60 today, or split into 4 payments of $15 with Klarna, Afterpay, or Affirm.</p>
                 </div>
