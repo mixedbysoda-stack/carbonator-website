@@ -70,116 +70,123 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
     }
     </script>
 
-    <link rel="stylesheet" href="/shared.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- v2 Design System -->
+    <link rel="stylesheet" href="/v2.css?v=20260711-v2">
     <link rel="icon" type="image/png" href="/favicon.png">
     <style>
-        :root {
-            --still-ink: #07101a;
-            --still-panel: #0c161e;
-            --still-teal: #6fc7bc;
-            --still-teal-deep: #2e8f85;
-            --still-amber: #c98a4e;
-            --still-text: #dcebee;
-            --still-muted: #8fa8b0;
-            --still-line: #1d2f3a;
-        }
-        .still-hero {
-            background: linear-gradient(178deg, var(--still-panel) 0%, var(--still-ink) 70%);
-            border-bottom: 1px solid var(--still-line);
-            padding: 72px 24px 56px;
-            text-align: center;
-        }
-        .still-free-pill {
-            display: inline-block; background: var(--still-teal); color: #07201c;
-            font-size: 13px; font-weight: 800; letter-spacing: 0.08em;
-            padding: 4px 14px; border-radius: 20px; margin-bottom: 20px;
-        }
-        .still-hero h1 {
-            font-size: clamp(2rem, 5vw, 3.2rem); color: #fff; margin: 0 0 14px;
-            line-height: 1.15; letter-spacing: -0.01em;
-        }
-        .still-hero h1 .teal { color: var(--still-teal); }
-        .still-hero .sub {
-            color: var(--still-muted); font-size: 1.15rem; max-width: 560px;
-            margin: 0 auto 34px; line-height: 1.55;
-        }
+        /* Still — page-specific layer on top of v2.css (email gate + light layout) */
+        .still-hero .v2-h1 { font-size: clamp(2.75rem, 6vw, 4.5rem); }
         .still-gate {
-            max-width: 480px; margin: 0 auto;
-            display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;
+            width: 100%; max-width: 500px; margin: 28px auto 0;
+            display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;
+            position: relative; z-index: 1;
         }
-        .still-gate input {
-            flex: 1 1 260px; padding: 15px 18px; font-size: 16px;
-            background: var(--still-ink); color: var(--still-text);
-            border: 1px solid var(--still-line); border-radius: 10px; outline: none;
+        .still-gate input[type="email"] {
+            flex: 1 1 260px; padding: 14px 18px; min-height: 52px; font-size: 16px;
+            background: var(--ink-2); color: var(--text-hi);
+            border: 1px solid var(--line); border-radius: 12px; outline: none;
+            font-family: var(--font-body);
+            transition: border-color 150ms var(--ease-out);
         }
-        .still-gate input:focus { border-color: var(--still-teal); }
+        .still-gate input[type="email"]::placeholder { color: var(--text-lo); }
+        .still-gate input[type="email"]:focus { border-color: var(--accent); }
         .still-gate button {
-            flex: 0 0 auto; padding: 15px 28px; font-size: 16px; font-weight: 700;
-            background: linear-gradient(135deg, var(--still-teal-deep), var(--still-teal));
-            color: #07201c; border: none; border-radius: 10px; cursor: pointer;
+            flex: 0 0 auto;
+            display: inline-flex; align-items: center; justify-content: center;
+            padding: 16px 30px; min-height: 52px;
+            background: var(--accent); color: #0a0910;
+            border: 1px solid transparent; border-radius: 12px;
+            font-family: var(--font-body); font-size: var(--t-ui); font-weight: 600; line-height: 1.4;
+            cursor: pointer;
+            transition: transform 150ms var(--ease-out), box-shadow 150ms var(--ease-out);
         }
-        .still-gate button:disabled { opacity: 0.6; cursor: wait; }
-        .still-gate-note { color: #5c7078; font-size: 12.5px; margin-top: 12px; }
-        .still-gate-note a { color: var(--still-muted); }
+        .still-gate button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 24px -8px color-mix(in srgb, var(--accent) 60%, transparent);
+        }
+        .still-gate button:disabled { opacity: 0.6; cursor: wait; transform: none; box-shadow: none; }
+        .still-gate-note {
+            color: var(--text-lo); font-size: var(--t-caption); line-height: 1.7;
+            margin-top: 16px; position: relative; z-index: 1;
+        }
+        .still-gate-note a { color: var(--text-md); }
         .still-success {
-            display: none; max-width: 480px; margin: 0 auto;
-            background: rgba(111,199,188,0.1); border: 1px solid var(--still-teal-deep);
-            border-radius: 10px; padding: 16px 20px; color: var(--still-text); font-size: 15px;
+            display: none; width: 100%; max-width: 500px; margin: 28px auto 0;
+            background: color-mix(in srgb, var(--accent) 8%, transparent);
+            border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+            border-radius: 12px; padding: 16px 20px;
+            color: var(--text-hi); font-size: 15px;
+            position: relative; z-index: 1;
         }
-        .still-shot { text-align: center; padding: 56px 24px 8px; }
-        .still-shot img {
-            max-width: 620px; width: 100%; border-radius: 12px;
-            border: 1px solid var(--still-line);
-            box-shadow: 0 30px 60px -20px rgba(2,10,16,0.7);
+        .still-hero .v2-plinth img { max-width: min(620px, 88vw); }
+        .still-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 16px; max-width: 1040px; margin: 44px auto 0;
         }
-        .still-section { max-width: 960px; margin: 0 auto; padding: 56px 24px; }
-        .still-section h2 { color: #fff; font-size: 1.7rem; text-align: center; margin: 0 0 36px; }
-        .still-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; }
         .still-card {
-            background: var(--still-panel); border: 1px solid var(--still-line);
-            border-radius: 12px; padding: 24px;
+            background: var(--ink-2); border: 1px solid var(--line);
+            border-radius: var(--radius); padding: 28px 26px; text-align: left;
+            transition: border-color 150ms var(--ease-out);
         }
-        .still-card h3 { color: var(--still-teal); font-size: 1.05rem; margin: 0 0 10px; }
-        .still-card p { color: var(--still-muted); font-size: 0.95rem; line-height: 1.55; margin: 0; }
-        .still-steps { counter-reset: step; max-width: 640px; margin: 0 auto; }
+        .still-card:hover { border-color: rgba(255, 255, 255, 0.18); }
+        .still-card h3 {
+            font-family: var(--font-display); font-size: 1.0625rem; font-weight: 700;
+            letter-spacing: -0.01em; color: var(--text-hi); margin-bottom: 10px;
+        }
+        .still-card p { color: var(--text-md); font-size: 0.9375rem; line-height: 1.6; }
+        .still-steps { max-width: var(--container-narrow); margin: 24px auto 0; text-align: left; }
         .still-step {
-            display: flex; gap: 18px; align-items: flex-start; padding: 16px 0;
-            border-bottom: 1px solid var(--still-line);
+            display: flex; gap: 22px; align-items: flex-start;
+            padding: 24px 0; border-bottom: 1px solid var(--line);
         }
         .still-step:last-child { border-bottom: none; }
         .still-step .num {
-            flex: 0 0 36px; height: 36px; border-radius: 50%;
-            background: var(--still-panel); border: 1px solid var(--still-teal-deep);
-            color: var(--still-teal); font-weight: 700; display: flex;
-            align-items: center; justify-content: center;
+            flex: 0 0 auto; padding-top: 4px;
+            font-family: var(--font-mono); font-size: var(--t-eyebrow);
+            letter-spacing: 0.14em; color: var(--accent);
         }
-        .still-step p { color: var(--still-muted); margin: 6px 0 0; line-height: 1.5; }
-        .still-step strong { color: var(--still-text); }
-        .still-faq details {
-            background: var(--still-panel); border: 1px solid var(--still-line);
-            border-radius: 10px; padding: 16px 20px; margin-bottom: 12px;
+        .still-step strong {
+            display: block; font-family: var(--font-display); font-weight: 700;
+            font-size: 1.0625rem; letter-spacing: -0.01em; color: var(--text-hi);
         }
-        .still-faq summary { color: var(--still-text); font-weight: 600; cursor: pointer; }
-        .still-faq p { color: var(--still-muted); margin: 12px 0 0; line-height: 1.55; }
-        .still-cross {
-            background: var(--still-panel); border-top: 1px solid var(--still-line);
-            text-align: center; padding: 48px 24px;
+        .still-step p { color: var(--text-md); margin: 6px 0 0; line-height: 1.6; max-width: 62ch; }
+        .still-cross p { max-width: 620px; margin: 0 auto; line-height: 1.7; color: var(--text-md); }
+        .still-cross strong { color: var(--text-hi); }
+        .still-cross a {
+            color: var(--text-hi); text-decoration: underline;
+            text-underline-offset: 3px; text-decoration-color: rgba(255, 255, 255, 0.25);
+            transition: text-decoration-color 150ms;
         }
-        .still-cross p { color: var(--still-muted); max-width: 560px; margin: 0 auto 8px; line-height: 1.6; }
-        .still-cross a { color: #00d4ff; font-weight: 600; text-decoration: none; }
-        .still-cross a.bundle { color: #ff6b2b; }
+        .still-cross a:hover { text-decoration-color: var(--accent); }
+        @media (max-width: 480px) {
+            .still-gate button { flex: 1 1 100%; }
+        }
     </style>
 </head>
-<body>
+<body data-product="still">
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5QVG68CF" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <div id="site-nav" data-active="still"></div>
 
-    <section class="still-hero">
-        <span class="still-free-pill">100% FREE — FOREVER</span>
-        <h1>Background noise, gone.<br><span class="teal">One dial.</span></h1>
-        <p class="sub">Still removes hiss, hum, and room noise from vocal recordings in real time. Fully adaptive — no learn step, no settings maze, no underwater artifacts. Just raise the dial until the noise is gone.</p>
+    <!-- ============ HERO + EMAIL GATE ============ -->
+    <header class="v2-hero still-hero v2-glow">
+        <svg class="v2-bubbles v2-bubbles--hero v2-bubbles--float" viewBox="0 0 880 640" aria-hidden="true">
+            <circle cx="140" cy="480" r="90"/>
+            <circle cx="300" cy="300" r="46"/>
+            <circle cx="480" cy="520" r="150"/>
+            <circle cx="660" cy="240" r="70"/>
+            <circle cx="770" cy="440" r="34"/>
+            <circle cx="230" cy="140" r="22"/>
+        </svg>
+        <span class="v2-eyebrow">100% free &mdash; forever &middot; VST3 &middot; AU &middot; AAX</span>
+        <h1 class="v2-h1">Background noise, gone.<br><span class="v2-accent-word">One dial.</span></h1>
+        <p class="v2-lede" style="max-width:48ch;margin-top:18px;">Still removes hiss, hum, and room noise from vocal recordings in real time. Fully adaptive &mdash; no learn step, no settings maze, no underwater artifacts. Just raise the dial until the noise is gone.</p>
 
         <form class="still-gate" id="stillGate" autocomplete="email">
             <input type="email" id="stillEmail" placeholder="your@email.com" required aria-label="Email address">
@@ -190,53 +197,83 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
             💧 Your download is starting — and a backup link is on its way to your inbox. Make some noise disappear.
         </div>
         <p class="still-gate-note">Signed &amp; notarized macOS installer &middot; VST3 / AU / AAX &middot; Windows soon<br>No account. No trial. No rug-pull. Unsubscribe anytime.</p>
-    </section>
 
-    <div class="still-shot">
-        <img src="/assets/still-screenshot.png" alt="Still noise suppressor interface — a single large SUPPRESS dial with a live gain-reduction ring, delta noise solo button, and output trim" width="620" height="400" loading="eager">
-    </div>
+        <div class="v2-hero-plinth-wrap">
+            <div class="v2-plinth">
+                <img src="/assets/still-screenshot.png" alt="Still noise suppressor interface — a single large SUPPRESS dial with a live gain-reduction ring, delta noise solo button, and output trim" width="620" height="400" loading="eager">
+            </div>
+        </div>
+    </header>
 
-    <section class="still-section">
-        <h2>Why one dial beats a rack of sliders</h2>
-        <div class="still-grid">
-            <div class="still-card">
-                <h3>Adaptive — no learn step</h3>
-                <p>Still tracks your noise floor continuously across 8 frequency bands. No noise-profile capture, no "hold quiet for 5 seconds." Drop it in and turn the dial.</p>
-            </div>
-            <div class="still-card">
-                <h3>No underwater artifacts</h3>
-                <p>Still works in the time domain — not FFT — so the watery, chirpy artifacts of typical noise removers are impossible by design. Its worst case is gentle, musical softening.</p>
-            </div>
-            <div class="still-card">
-                <h3>Zero latency</h3>
-                <p>0 samples of delay. Track through it, monitor through it, mix with it — no timing smear, no delay compensation drama.</p>
-            </div>
-            <div class="still-card">
-                <h3>Δ NOISE — hear what it removes</h3>
-                <p>One button solos exactly what Still is taking out. If you hear your voice in there, back off the dial. Total confidence, zero guesswork.</p>
+    <!-- ============ WHY ONE DIAL ============ -->
+    <section class="v2-section v2-band-alt">
+        <div class="v2-container v2-center">
+            <span class="v2-eyebrow v2-reveal">01 / The dial</span>
+            <h2 class="v2-h2 v2-reveal" style="--i:1;">Why one dial beats a rack of sliders</h2>
+            <div class="still-grid">
+                <div class="still-card v2-reveal">
+                    <h3>Adaptive &mdash; no learn step</h3>
+                    <p>Still tracks your noise floor continuously across 8 frequency bands. No noise-profile capture, no "hold quiet for 5 seconds." Drop it in and turn the dial.</p>
+                </div>
+                <div class="still-card v2-reveal" style="--i:1;">
+                    <h3>No underwater artifacts</h3>
+                    <p>Still works in the time domain &mdash; not FFT &mdash; so the watery, chirpy artifacts of typical noise removers are impossible by design. Its worst case is gentle, musical softening.</p>
+                </div>
+                <div class="still-card v2-reveal" style="--i:2;">
+                    <h3>Zero latency</h3>
+                    <p>0 samples of delay. Track through it, monitor through it, mix with it &mdash; no timing smear, no delay compensation drama.</p>
+                </div>
+                <div class="still-card v2-reveal" style="--i:3;">
+                    <h3>&Delta; NOISE &mdash; hear what it removes</h3>
+                    <p>One button solos exactly what Still is taking out. If you hear your voice in there, back off the dial. Total confidence, zero guesswork.</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <section class="still-section">
-        <h2>Noise-free in 30 seconds</h2>
-        <div class="still-steps">
-            <div class="still-step"><div class="num">1</div><div><strong>Install</strong><p>Run the signed installer, pick VST3 / AU / AAX, rescan plugins in your DAW.</p></div></div>
-            <div class="still-step"><div class="num">2</div><div><strong>Drop Still on a noisy track</strong><p>Vocals, podcasts, voiceover, guitar DI — anything with steady background noise.</p></div></div>
-            <div class="still-step"><div class="num">3</div><div><strong>Raise SUPPRESS until the noise disappears</strong><p>The amber ring shows live gain reduction. The waveform shows what's kept (teal) vs. removed (amber).</p></div></div>
+    <!-- ============ WHY I BUILT THIS ============ -->
+    <section class="v2-section">
+        <div class="v2-story">
+            <span class="v2-eyebrow v2-reveal">02 / Who makes this</span>
+            <h2 class="v2-h2 v2-reveal" style="--i:1;">Free forever. On purpose.</h2>
+            <p class="v2-reveal" style="--i:2;">I'm Soda. I mix records and hand-code every Carbonated Audio plugin myself. Still is free because it's our hello &mdash; the easiest way for you to hear how I build things before you ever spend a dollar.</p>
+            <p class="v2-reveal" style="--i:3;">You may have watched a favorite free noise tool grow a price tag once enough people depended on it. That won't happen here. No rug-pull &mdash; free forever is the deal, in writing, on this page.</p>
+            <p class="v2-reveal" style="--i:4;">And it's one dial because noise removal shouldn't be a science project. You have a noisy take and a deadline. Raise the dial until the noise is gone, then get back to the record.</p>
+            <p class="v2-signoff v2-reveal" style="--i:5;">&mdash; Soda, Carbonated Audio</p>
         </div>
     </section>
 
-    <section class="still-section still-faq">
-        <h2>Questions, answered</h2>
-        <details><summary>Is Still really free?</summary><p>Yes — free forever. No account, no trial period, no locked features, no "free during beta" bait. You enter your email, you get the plugin. We make our money on our paid plugins; Still is our hello.</p></details>
-        <details><summary>What noise does it remove?</summary><p>Steady background noise: preamp hiss, room tone, AC and fan rumble, electrical hum. For sudden one-off sounds (coughs, chair squeaks) you'll still want an editor — that's a different job.</p></details>
-        <details><summary>Mac? Windows? Formats?</summary><p>Right now: macOS 11+ (Apple Silicon + Intel, signed and notarized), VST3 / AU / AAX — yes, it loads in Pro Tools. Windows is in the works; you'll get an email the day it ships.</p></details>
-        <details><summary>Why do you ask for my email?</summary><p>It's the price of free: we send your download link, a Windows-release heads-up, and occasional news about our plugins. One-click unsubscribe, and we never sell or share your address.</p></details>
+    <!-- ============ SETUP ============ -->
+    <section class="v2-section v2-band-alt">
+        <div class="v2-container-narrow v2-center">
+            <span class="v2-eyebrow v2-reveal">03 / Setup</span>
+            <h2 class="v2-h2 v2-reveal" style="--i:1;">Noise-free in 30 seconds</h2>
+            <div class="still-steps">
+                <div class="still-step v2-reveal"><div class="num">01</div><div><strong>Install</strong><p>Run the signed installer, pick VST3 / AU / AAX, rescan plugins in your DAW.</p></div></div>
+                <div class="still-step v2-reveal" style="--i:1;"><div class="num">02</div><div><strong>Drop Still on a noisy track</strong><p>Vocals, podcasts, voiceover, guitar DI &mdash; anything with steady background noise.</p></div></div>
+                <div class="still-step v2-reveal" style="--i:2;"><div class="num">03</div><div><strong>Raise SUPPRESS until the noise disappears</strong><p>The amber ring shows live gain reduction. The waveform shows what's kept (teal) vs. removed (amber).</p></div></div>
+            </div>
+        </div>
     </section>
 
-    <section class="still-cross">
-        <p><strong style="color:#fff;">Cleaning up a vocal chain?</strong> Still handles the noise — <a href="/desipper">De-Sipper</a> ($20) handles the sibilance, and <a href="/carbonator">Carbonator</a> ($20) adds the warmth. Or grab the <a class="bundle" href="/bundle">Complete Bundle</a> and finish the whole chain.</p>
+    <!-- ============ FAQ ============ -->
+    <section class="v2-section" id="faq">
+        <div class="v2-faq">
+            <span class="v2-eyebrow v2-reveal">FAQ</span>
+            <h2 class="v2-h2 v2-reveal" style="--i:1;">Questions, answered</h2>
+            <details><summary>Is Still really free?</summary><div class="v2-faq-a">Yes — free forever. No account, no trial period, no locked features, no "free during beta" bait. You enter your email, you get the plugin. We make our money on our paid plugins; Still is our hello.</div></details>
+            <details><summary>What noise does it remove?</summary><div class="v2-faq-a">Steady background noise: preamp hiss, room tone, AC and fan rumble, electrical hum. For sudden one-off sounds (coughs, chair squeaks) you'll still want an editor — that's a different job.</div></details>
+            <details><summary>Mac? Windows? Formats?</summary><div class="v2-faq-a">Right now: macOS 11+ (Apple Silicon + Intel, signed and notarized), VST3 / AU / AAX — yes, it loads in Pro Tools. Windows is in the works; you'll get an email the day it ships.</div></details>
+            <details><summary>Why do you ask for my email?</summary><div class="v2-faq-a">It's the price of free: we send your download link, a Windows-release heads-up, and occasional news about our plugins. One-click unsubscribe, and we never sell or share your address.</div></details>
+        </div>
+    </section>
+
+    <!-- ============ CROSS-SELL ============ -->
+    <section class="v2-section v2-band-alt still-cross">
+        <div class="v2-container v2-center">
+            <span class="v2-eyebrow v2-eyebrow--mute v2-reveal">Complete the chain</span>
+            <p class="v2-reveal" style="--i:1;"><strong>Cleaning up a vocal chain?</strong> Still handles the noise &mdash; <a href="/desipper">De-Sipper</a> ($20) handles the sibilance, and <a href="/carbonator">Carbonator</a> ($20) adds the warmth. Or grab the <a class="bundle" href="/bundle">Complete Bundle</a> and finish the whole chain.</p>
+        </div>
     </section>
 
     <div id="site-footer"></div>
@@ -284,7 +321,27 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
         });
     </script>
 
-    <script src="/components/nav.js?v=20260708-still"></script>
-    <script src="/components/footer.js?v=20260711"></script>
+    <script src="/components/nav.js?v=20260711-v2"></script>
+    <script src="/components/footer.js?v=20260711-v2"></script>
+
+    <!-- v2 scroll reveal + nav compress -->
+    <script>
+    (function() {
+        var io = new IntersectionObserver(function(entries) {
+            entries.forEach(function(e) {
+                if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.v2-reveal').forEach(function(el) { io.observe(el); });
+
+        var nav = document.getElementById('site-nav');
+        function onScroll() {
+            if (!nav) return;
+            nav.classList.toggle('v2-nav-compressed', window.scrollY > 80);
+        }
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+    })();
+    </script>
 </body>
 </html>
