@@ -189,10 +189,10 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-    <!-- Shared Styles -->
-    <link rel="stylesheet" href="/shared.css">
+    <!-- v2 Design System -->
+    <link rel="stylesheet" href="/v2.css?v=20260711-v2">
 
     <!-- GA4 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z9L20HJ4M0"></script>
@@ -202,1241 +202,315 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
         gtag('js', new Date());
         gtag('config', 'G-Z9L20HJ4M0');
     </script>
-
-    <style>
-        /* ========================================
-           On Tap — Page-Specific Styles
-           Purple accent theme
-           ======================================== */
-
-        :root {
-            --accent: #a855f7;
-            --accent-dark: #7c3aed;
-            --accent-glow: rgba(168, 85, 247, 0.15);
-            --accent-border: rgba(168, 85, 247, 0.2);
-            --accent-border-hover: rgba(168, 85, 247, 0.4);
-        }
-
-        /* Override shared accent for this page */
-        .section-title .accent {
-            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        /* ---- Hero ---- */
-        .hero {
-            min-height: 75vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 120px 40px 80px;
-            position: relative;
-        }
-
-        .hero-title {
-            font-size: clamp(56px, 10vw, 96px);
-            font-weight: 900;
-            letter-spacing: -2px;
-            line-height: 1;
-            background: linear-gradient(135deg, #a855f7, #7c3aed);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 16px;
-        }
-
-        .hero-lines {
-            font-size: clamp(28px, 5vw, 48px);
-            font-weight: 800;
-            line-height: 1.2;
-            margin-bottom: 24px;
-            color: var(--text-primary);
-        }
-
-        .hero-lines span {
-            display: block;
-        }
-
-        .hero-desc {
-            font-size: 18px;
-            color: var(--text-secondary);
-            max-width: 560px;
-            margin: 0 auto 8px;
-            line-height: 1.7;
-        }
-
-        .hero-byline {
-            font-size: 14px;
-            color: var(--text-muted);
-            margin-bottom: 32px;
-            font-weight: 500;
-        }
-
-        .hero-screenshot {
-            max-width: 600px;
-            width: 100%;
-            border-radius: 16px;
-            margin-bottom: 40px;
-            box-shadow: 0 24px 80px rgba(168, 85, 247, 0.12), 0 0 0 1px rgba(168, 85, 247, 0.1);
-        }
-
-        .hero-ctas {
-            display: flex;
-            gap: 16px;
-            flex-wrap: wrap;
-            justify-content: center;
-            margin-bottom: 40px;
-        }
-
-        .btn-primary {
-            padding: 16px 32px;
-            min-height: 48px;
-            background: linear-gradient(135deg, #a855f7, #7c3aed);
-            border: none;
-            border-radius: 12px;
-            color: #fff;
-            font-size: 16px;
-            font-weight: 700;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 32px rgba(168, 85, 247, 0.3);
-        }
-
-        .btn-secondary {
-            padding: 16px 32px;
-            min-height: 48px;
-            background: transparent;
-            border: 1px solid var(--accent-border);
-            border-radius: 12px;
-            color: var(--accent);
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.2s;
-        }
-
-        .btn-secondary:hover {
-            border-color: var(--accent-border-hover);
-            background: rgba(168, 85, 247, 0.05);
-        }
-
-        .hero-stats {
-            display: flex;
-            gap: 40px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .hero-stat {
-            text-align: center;
-        }
-
-        .hero-stat-value {
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--text-primary);
-        }
-
-        .hero-stat-label {
-            font-size: 13px;
-            color: var(--text-muted);
-            margin-top: 2px;
-        }
-
-        .hero-stat-divider {
-            width: 1px;
-            background: var(--border);
-            align-self: stretch;
-        }
-
-        /* ---- Features ---- */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 24px;
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .feature-card {
-            background: rgba(26, 20, 48, 0.6);
-            border: 1px solid var(--accent-border);
-            border-radius: 16px;
-            padding: 32px;
-            transition: border-color 0.3s, transform 0.2s;
-        }
-
-        .feature-card:hover {
-            border-color: var(--accent-border-hover);
-            transform: translateY(-2px);
-        }
-
-        .feature-icon {
-            width: 48px;
-            height: 48px;
-            margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--accent-glow);
-            border-radius: 12px;
-        }
-
-        .feature-icon svg {
-            width: 24px;
-            height: 24px;
-            stroke: var(--accent);
-            fill: none;
-            stroke-width: 2;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-        }
-
-        .feature-card h3 {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 8px;
-            color: var(--text-primary);
-        }
-
-        .feature-card p {
-            font-size: 15px;
-            color: var(--text-secondary);
-            line-height: 1.6;
-        }
-
-        /* ---- How It Works ---- */
-        .how-it-works {
-            background: rgba(21, 16, 37, 0.5);
-        }
-
-        .steps {
-            display: flex;
-            gap: 32px;
-            max-width: 900px;
-            margin: 0 auto;
-            position: relative;
-        }
-
-        .steps::before {
-            content: '';
-            position: absolute;
-            top: 40px;
-            left: calc(16.66% + 24px);
-            right: calc(16.66% + 24px);
-            height: 2px;
-            background: linear-gradient(90deg, var(--accent), var(--accent-dark));
-            opacity: 0.3;
-        }
-
-        .step {
-            flex: 1;
-            text-align: center;
-        }
-
-        .step-number {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
-            color: #fff;
-            font-weight: 800;
-            font-size: 20px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 16px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .step h3 {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 8px;
-            color: var(--text-primary);
-        }
-
-        .step p {
-            font-size: 14px;
-            color: var(--text-secondary);
-            line-height: 1.6;
-        }
-
-        /* ---- Compatibility ---- */
-        .compat-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 24px;
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .compat-card {
-            background: rgba(26, 20, 48, 0.6);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 28px;
-            text-align: center;
-        }
-
-        .compat-card h3 {
-            font-size: 15px;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 12px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .compat-badges {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            justify-content: center;
-        }
-
-        .compat-badge {
-            background: var(--accent-glow);
-            border: 1px solid var(--accent-border);
-            border-radius: 8px;
-            padding: 6px 14px;
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--accent);
-            font-family: 'JetBrains Mono', monospace;
-        }
-
-        .compat-card p {
-            font-size: 14px;
-            color: var(--text-secondary);
-            line-height: 1.6;
-        }
-
-        /* ---- Pricing ---- */
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 24px;
-            max-width: 720px;
-            margin: 0 auto;
-        }
-
-        .pricing-card {
-            background: rgba(26, 20, 48, 0.6);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 40px 32px;
-            text-align: center;
-            position: relative;
-            transition: border-color 0.3s;
-        }
-
-        .pricing-card.featured {
-            border-color: var(--accent);
-            box-shadow: 0 0 40px rgba(168, 85, 247, 0.08);
-        }
-
-        .pricing-badge {
-            position: absolute;
-            top: -12px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
-            color: #fff;
-            font-size: 12px;
-            font-weight: 700;
-            padding: 4px 16px;
-            border-radius: 20px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .pricing-card h3 {
-            font-size: 20px;
-            font-weight: 700;
-            margin-bottom: 8px;
-            color: var(--text-primary);
-        }
-
-        .pricing-price {
-            font-size: 48px;
-            font-weight: 900;
-            color: var(--text-primary);
-            margin-bottom: 4px;
-        }
-
-        .pricing-subtitle {
-            font-size: 14px;
-            color: var(--text-muted);
-            margin-bottom: 24px;
-        }
-
-        .pricing-features {
-            list-style: none;
-            text-align: left;
-            margin-bottom: 32px;
-        }
-
-        .pricing-features li {
-            padding: 8px 0;
-            font-size: 14px;
-            color: var(--text-secondary);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .pricing-features li::before {
-            content: '';
-            width: 18px;
-            height: 18px;
-            min-width: 18px;
-            background: var(--accent-glow);
-            border-radius: 50%;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23a855f7' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: 12px;
-        }
-
-        .btn-pricing {
-            width: 100%;
-            justify-content: center;
-        }
-
-        /* ---- FAQ ---- */
-        .faq-list {
-            max-width: 720px;
-            margin: 0 auto;
-        }
-
-        .faq-item {
-            border-bottom: 1px solid var(--border);
-        }
-
-        .faq-question {
-            width: 100%;
-            background: none;
-            border: none;
-            padding: 20px 0;
-            text-align: left;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 16px;
-            color: var(--text-primary);
-            font-size: 16px;
-            font-weight: 600;
-            font-family: inherit;
-            transition: color 0.2s;
-        }
-
-        .faq-question:hover {
-            color: var(--accent);
-        }
-
-        .faq-icon {
-            width: 24px;
-            height: 24px;
-            min-width: 24px;
-            position: relative;
-            transition: transform 0.3s;
-        }
-
-        .faq-icon::before,
-        .faq-icon::after {
-            content: '';
-            position: absolute;
-            background: var(--accent);
-            border-radius: 2px;
-            transition: transform 0.3s;
-        }
-
-        .faq-icon::before {
-            width: 14px;
-            height: 2px;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-
-        .faq-icon::after {
-            width: 2px;
-            height: 14px;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-
-        .faq-item.active .faq-icon::after {
-            transform: translate(-50%, -50%) rotate(90deg);
-        }
-
-        .faq-answer {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-        }
-
-        .faq-answer-inner {
-            padding: 0 0 20px;
-            font-size: 15px;
-            color: var(--text-secondary);
-            line-height: 1.7;
-        }
-
-        /* ---- Cross-Sell ---- */
-        .cross-sell {
-            text-align: center;
-            background: rgba(21, 16, 37, 0.5);
-        }
-
-        .cross-sell-label {
-            font-size: 14px;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-weight: 600;
-            margin-bottom: 24px;
-        }
-
-        .cross-sell-cards {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .cross-sell-card {
-            display: inline-flex;
-            align-items: center;
-            gap: 20px;
-            background: rgba(26, 20, 48, 0.6);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 24px 32px;
-            text-decoration: none;
-            transition: border-color 0.3s, transform 0.2s;
-        }
-
-        .cross-sell-card:hover {
-            border-color: rgba(255, 107, 43, 0.4);
-            transform: translateY(-2px);
-        }
-
-        .cross-sell-card.cyan:hover {
-            border-color: rgba(0, 212, 255, 0.4);
-        }
-
-        .cross-sell-icon {
-            width: 56px;
-            height: 56px;
-            border-radius: 12px;
-            overflow: hidden;
-            flex-shrink: 0;
-        }
-
-        .cross-sell-icon img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .cross-sell-info {
-            text-align: left;
-        }
-
-        .cross-sell-name {
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--text-primary);
-        }
-
-        .cross-sell-desc {
-            font-size: 14px;
-            color: var(--text-secondary);
-        }
-
-        .cross-sell-price {
-            font-size: 14px;
-            color: #ff6b2b;
-            font-weight: 600;
-            margin-top: 4px;
-        }
-
-        .cross-sell-price.cyan {
-            color: #00d4ff;
-        }
-
-        /* ---- Responsive ---- */
-        @media (max-width: 768px) {
-            .hero {
-                padding: 100px 20px 60px;
-            }
-
-            .hero-screenshot {
-                max-width: 100%;
-            }
-
-            .features-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .steps {
-                flex-direction: column;
-                gap: 24px;
-            }
-
-            .steps::before {
-                display: none;
-            }
-
-            .pricing-grid {
-                grid-template-columns: 1fr;
-                max-width: 400px;
-            }
-
-            .hero-stats {
-                gap: 24px;
-            }
-
-            .cross-sell-card {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .cross-sell-info {
-                text-align: center;
-            }
-
-            .why-grid {
-                grid-template-columns: 1fr;
-                max-width: 400px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero-ctas {
-                flex-direction: column;
-                width: 100%;
-                padding: 0 16px;
-            }
-
-            .btn-primary, .btn-secondary {
-                width: 100%;
-                justify-content: center;
-            }
-
-            .compat-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* ---- Guarantee Line ---- */
-        .guarantee-line {
-            font-size: 14px;
-            color: var(--text-muted);
-            margin-bottom: 24px;
-            font-weight: 500;
-        }
-
-        /* ---- Press/Trust Bar ---- */
-        .press-bar {
-            text-align: center;
-            padding: 32px 40px;
-            border-top: 1px solid rgba(255, 255, 255, 0.06);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-        }
-
-        .press-bar-text {
-            font-size: 14px;
-            color: var(--text-muted);
-            margin-bottom: 8px;
-            font-weight: 500;
-        }
-
-        .press-bar-outlets {
-            font-size: 15px;
-            color: var(--text-secondary);
-            font-weight: 600;
-            letter-spacing: 0.5px;
-        }
-
-        /* ---- Why Section ---- */
-        .why-section {
-            background: rgba(21, 16, 37, 0.5);
-        }
-
-        .why-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .why-card {
-            background: rgba(26, 20, 48, 0.6);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 32px 24px;
-            text-align: center;
-            transition: border-color 0.3s;
-        }
-
-        .why-card:hover {
-            border-color: var(--accent-border-hover);
-        }
-
-        .why-icon {
-            margin-bottom: 16px;
-        }
-
-        .why-card h3 {
-            font-size: 17px;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 8px;
-        }
-
-        .why-card p {
-            font-size: 14px;
-            color: var(--text-secondary);
-            line-height: 1.6;
-        }
-
-        /* ---- Pricing Single Card ---- */
-        .pricing-single {
-            grid-template-columns: 1fr !important;
-            max-width: 440px !important;
-        }
-
-        /* ---- Scroll Reveal ---- */
-        .scroll-reveal {
-            opacity: 0;
-            transform: translateY(24px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-
-        .scroll-reveal.visible {
-            opacity: 1;
-            transform: none;
-        }
-
-        /* Reduced motion */
-        @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after {
-                animation-duration: 0.01ms !important;
-                transition-duration: 0.01ms !important;
-            }
-            #silk-bg {
-                display: none;
-            }
-        }
-    </style>
 </head>
 
-<body>
+<body data-product="ontap">
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5QVG68CF"
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
 
-    <!-- Silk WebGL Background -->
-    <canvas id="silk-bg"></canvas>
+    <!-- Navigation -->
+    <div id="site-nav" data-active="ontap"></div>
 
-    <div class="content-wrapper">
-
-        <!-- Navigation -->
-        <div id="site-nav" data-active="ontap"></div>
-
-        <!-- Hero Section -->
-        <section class="hero">
-            <h1 class="hero-title">On Tap</h1>
-            <div class="hero-lines">
-                <span>Instant sidechain</span>
-                <span>ducking.</span>
-                <span>No routing.</span>
+    <!-- ============ HERO ============ -->
+    <header class="v2-hero v2-glow">
+        <svg class="v2-bubbles v2-bubbles--hero v2-bubbles--float" viewBox="0 0 880 640" aria-hidden="true">
+            <circle cx="140" cy="480" r="90"/>
+            <circle cx="300" cy="300" r="46"/>
+            <circle cx="480" cy="520" r="150"/>
+            <circle cx="660" cy="240" r="70"/>
+            <circle cx="770" cy="440" r="34"/>
+            <circle cx="230" cy="140" r="22"/>
+        </svg>
+        <span class="v2-eyebrow">VST3 &middot; AU &middot; AAX &mdash; macOS</span>
+        <h1 class="v2-h1">On <span class="v2-accent-word">Tap</span></h1>
+        <p class="v2-hero-tag" style="margin-top:20px;">Instant sidechain ducking. No routing.</p>
+        <p class="v2-lede" style="max-width:44ch;">16 hand-crafted ducking curves. 3 trigger modes. Band-split crossover. Drop it on any track and get that sidechain pump without touching a compressor.</p>
+        <div class="v2-cta-row">
+            <a href="https://buy.stripe.com/5kQcN51gl6gWfY51YL3oA04" class="v2-btn">Get On Tap &mdash; <span class="v2-price">$20</span></a>
+            <a href="#" class="v2-btn-ghost" onclick="openDemoGate(event)">Try the free demo</a>
+        </div>
+        <p class="v2-bnpl">or 4 interest-free payments of $5 &mdash; Klarna &middot; Afterpay at checkout</p>
+        <p class="v2-hero-micro">Pay once, own forever &middot; Pay in 4 available</p>
+        <div class="v2-hero-plinth-wrap">
+            <div class="v2-plinth">
+                <picture>
+                    <source srcset="/ontap-screenshot.webp" type="image/webp">
+                    <img src="/ontap-screenshot.png" alt="On Tap plugin interface showing ducking curves and trigger controls" width="879" height="516" fetchpriority="high" style="max-width:min(560px,88vw);height:auto;">
+                </picture>
             </div>
-            <p class="hero-desc">16 hand-crafted ducking curves. 3 trigger modes. Band-split crossover. Drop it on any track and get that sidechain pump without touching a compressor.</p>
-            <p class="hero-byline">by Carbonated Audio</p>
-            <video class="hero-screenshot" width="600" height="400" autoplay muted loop playsinline preload="metadata" poster="/ontap-screenshot.png" aria-label="On Tap plugin demo">
-                <source src="/assets/videos/ontap-promo.mp4" type="video/mp4">
-                <img src="/ontap-screenshot.png" alt="On Tap plugin interface showing ducking curves and trigger controls" width="600" height="400">
-            </video>
-            <div class="hero-ctas">
-                <a href="https://buy.stripe.com/5kQcN51gl6gWfY51YL3oA04" class="btn-primary">Get On Tap — $20</a>
-                <a href="#" class="btn-secondary" onclick="openDemoGate(event)">Try Free Demo</a>
+        </div>
+    </header>
+
+    <!-- ============ PROOF STRIP ============ -->
+    <section class="v2-proof">
+        <div class="v2-marquee" aria-hidden="true">
+            <div class="v2-marquee-track">
+                <span>EDM</span><span>HIP-HOP</span><span>POP</span><span>HOUSE</span><span>TRAP</span><span>ABLETON LIVE</span><span>PRO TOOLS</span><span>LOGIC PRO</span><span>FL STUDIO</span><span>STUDIO ONE</span><span>CUBASE</span><span>REAPER</span>
+                <span>EDM</span><span>HIP-HOP</span><span>POP</span><span>HOUSE</span><span>TRAP</span><span>ABLETON LIVE</span><span>PRO TOOLS</span><span>LOGIC PRO</span><span>FL STUDIO</span><span>STUDIO ONE</span><span>CUBASE</span><span>REAPER</span>
             </div>
-            <p style="margin-top:12px;font-size:13px;color:#a09bb5;text-align:center;">or 4 interest-free payments of $5 &mdash; Klarna &middot; Afterpay at checkout</p>
-            <div class="hero-stats">
-                <div class="hero-stat">
-                    <div class="hero-stat-value">$20</div>
-                    <div class="hero-stat-label">One-Time</div>
-                </div>
-                <div class="hero-stat-divider"></div>
-                <div class="hero-stat">
-                    <div class="hero-stat-value">VST3 / AU / AAX</div>
-                    <div class="hero-stat-label">All Formats</div>
-                </div>
-                <div class="hero-stat-divider"></div>
-                <div class="hero-stat">
-                    <div class="hero-stat-value">16 Curves</div>
-                    <div class="hero-stat-label">Ready to Go</div>
-                </div>
-            </div>
-        </section>
+        </div>
+        <p class="v2-press v2-reveal">From the makers of <strong>Carbonator</strong> &mdash; as featured on <strong>Audio Plugin Guy</strong> &middot; <strong>Rekkerd.org</strong> &middot; <strong>KVR Audio</strong> &middot; <strong>AudioNewsRoom</strong></p>
+        <p class="v2-counters">6 plugins &middot; 1 developer &middot; $0 subscriptions</p>
+    </section>
 
-        <!-- Press/Trust Bar -->
-        <section class="press-bar">
-            <p class="press-bar-text">From the makers of Carbonator — featured on:</p>
-            <p class="press-bar-outlets">Audio Plugin Guy &bull; Rekkerd.org &bull; KVR Audio &bull; AudioNewsRoom</p>
-        </section>
+    <!-- ============ A/B DEMO ============ -->
+    <section class="v2-section v2-ab v2-glow v2-band-alt" id="hear-it">
+        <div class="v2-container v2-center">
+            <span class="v2-eyebrow v2-reveal">Hear it first</span>
+            <h2 class="v2-h2 v2-reveal" style="--i:1;">Don't take our word for it.<br>Take your ears.</h2>
+            <p class="v2-body v2-reveal" style="--i:2;">One button. Bypass in, bypass out. If you can't hear it, don't buy it.</p>
+            <div id="ab-demo" data-product="ontap"></div>
+        </div>
+    </section>
 
-        <!-- Features Section -->
-        <section id="features">
-            <h2 class="section-title">Sidechain <span class="accent">On Demand</span></h2>
-            <div class="features-grid">
+    <!-- ============ WHY I BUILT THIS ============ -->
+    <section class="v2-section">
+        <div class="v2-story">
+            <span class="v2-eyebrow v2-reveal">Who makes this</span>
+            <h2 class="v2-h2 v2-reveal" style="--i:1;">Why I built a ducker.</h2>
+            <p class="v2-reveal" style="--i:2;">I'm Soda. I mix records, and getting a simple sidechain pump used to mean routing spaghetti: send the kick to a bus, feed the bus into a compressor's key input, pray the DAW cooperates, then fight attack and release settings for ten minutes to fake a shape I could already hear in my head.</p>
+            <p class="v2-reveal" style="--i:3;">So I built the pump into one insert. Drop On Tap on the bass, the pads, whatever needs to breathe &mdash; pick one of 16 curves, pick a trigger, done. No bus, no key input, no second plugin. The shape you hear in your head is just there, on tap.</p>
+            <p class="v2-reveal" style="--i:4;">Every line of code is mine, and On Tap runs in my own sessions every week. When you email support, I'm the one who answers.</p>
+            <p class="v2-signoff v2-reveal" style="--i:5;">&mdash; Soda, Carbonated Audio</p>
+        </div>
+    </section>
 
-                <!-- 1. 16 Ducking Curves -->
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
-                    </div>
-                    <h3>16 Ducking Curves</h3>
-                    <p>Sidechain pump, sub bass, kick trim, reverse chain, rhythm FX, and more. Hand-crafted shapes ready to drop in.</p>
-                </div>
+    <!-- ============ FEATURE SPLITS ============ -->
+    <section class="v2-band-alt" style="padding-top:calc(var(--space-section)/2);padding-bottom:calc(var(--space-section)/2);">
 
-                <!-- 2. 3 Trigger Modes -->
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                    </div>
-                    <h3>3 Trigger Modes</h3>
-                    <p>Sync locks to your DAW's tempo. MIDI triggers from any note. Audio triggers from an incoming signal. Pick what fits your workflow.</p>
-                </div>
-
-                <!-- 3. Band-Split Crossover -->
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-                    </div>
-                    <h3>Band-Split Crossover</h3>
-                    <p>Duck only above or below a frequency. Crossover from 20Hz to 5.12kHz lets you sidechain just the bass or just the top end.</p>
-                </div>
-
-                <!-- 4. Adjustable Curve Length -->
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 24 24"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
-                    </div>
-                    <h3>Full Control</h3>
-                    <p>Mix knob, slope offset, shift amount, and draggable end marker. Dial in the exact feel from subtle dips to hard pumps.</p>
-                </div>
-
-                <!-- 5. Anti-Click -->
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 24 24"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M9 12l2 2 4-4"/></svg>
-                    </div>
-                    <h3>Anti-Click Smoothing</h3>
-                    <p>Built-in smoothing eliminates pops and clicks at gain transitions, even at aggressive settings.</p>
-                </div>
-
-                <!-- 6. Zero Latency -->
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-                    </div>
-                    <h3>Zero Latency</h3>
-                    <p>No lookahead delay. On Tap processes in real-time with low CPU usage. Safe for tracking and live use.</p>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- How It Works Section -->
-        <section class="how-it-works">
-            <h2 class="section-title">How It <span class="accent">Works</span></h2>
-            <div class="steps">
-                <div class="step">
-                    <div class="step-number">1</div>
-                    <h3>Insert On Tap</h3>
-                    <p>Drop it on any track — bass, pads, synths, vocals, master bus. VST3, AU, or AAX.</p>
-                </div>
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <h3>Pick a curve</h3>
-                    <p>Browse 16 ducking shapes. Pick a pump style, set your trigger mode, and set the length.</p>
-                </div>
-                <div class="step">
-                    <div class="step-number">3</div>
-                    <h3>Adjust the mix</h3>
-                    <p>Blend dry and wet with the mix knob. Dial in slope and shift for the perfect pocket.</p>
+        <div class="v2-split">
+            <div class="v2-split-media v2-reveal">
+                <div class="v2-split-frame v2-crop-upper">
+                    <picture>
+                        <source srcset="/ontap-screenshot.webp" type="image/webp">
+                        <img src="/ontap-screenshot.png" alt="On Tap ducking curve display detail" loading="lazy" width="879" height="516">
+                    </picture>
                 </div>
             </div>
-        </section>
+            <div class="v2-split-copy v2-reveal" style="--i:1;">
+                <span class="v2-eyebrow">01 / Curves</span>
+                <h3 class="v2-h3">16 shapes, ready to drop in.</h3>
+                <p class="v2-body">Classic sidechain pump, sub bass ducking, kick trim, reverse chain, rhythm FX, and more &mdash; hand-crafted gain shapes with a draggable end marker for length. Find the feel without drawing automation.</p>
+            </div>
+        </div>
 
-        <!-- Compatibility Section -->
-        <section id="compatibility">
-            <h2 class="section-title"><span class="accent">Compatibility</span></h2>
-            <div class="compat-grid">
-                <div class="compat-card">
-                    <h3>Formats</h3>
-                    <div class="compat-badges">
-                        <span class="compat-badge">VST3</span>
-                        <span class="compat-badge">AU</span>
-                        <span class="compat-badge">AAX</span>
-                    </div>
-                </div>
-                <div class="compat-card">
-                    <h3>macOS</h3>
-                    <p>10.13+ (High Sierra and later)<br>Intel + Apple Silicon native</p>
-                </div>
-                <div class="compat-card">
-                    <h3>Windows</h3>
-                    <p>Demo available now<br>Paid version coming soon</p>
-                </div>
-                <div class="compat-card">
-                    <h3>DAWs</h3>
-                    <p>Pro Tools, Logic Pro, Ableton Live, FL Studio, Studio One, Cubase, Reaper, and more</p>
+        <div class="v2-split v2-split--flip">
+            <div class="v2-split-media v2-reveal">
+                <div class="v2-split-frame v2-crop-center">
+                    <picture>
+                        <source srcset="/ontap-screenshot.webp" type="image/webp">
+                        <img src="/ontap-screenshot.png" alt="On Tap trigger mode controls detail" loading="lazy" width="879" height="516">
+                    </picture>
                 </div>
             </div>
-        </section>
+            <div class="v2-split-copy v2-reveal" style="--i:1;">
+                <span class="v2-eyebrow">02 / Triggers</span>
+                <h3 class="v2-h3">Three ways to fire it.</h3>
+                <p class="v2-body">Sync locks the duck to your DAW's tempo. MIDI fires the curve from any note. Audio triggers from an incoming signal's envelope. Pick the mode that fits the track &mdash; no key input, no bus routing.</p>
+            </div>
+        </div>
 
-        <!-- Why On Tap Section -->
-        <section class="why-section">
-            <h2 class="section-title">Why <span class="accent">On Tap</span></h2>
-            <div class="why-grid">
-                <div class="why-card">
-                    <div class="why-icon">
-                        <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
-                    </div>
-                    <h3>No Compressor Required</h3>
-                    <p>Traditional sidechain requires routing a kick to a compressor. On Tap skips all that. Just insert and go.</p>
-                </div>
-                <div class="why-card">
-                    <div class="why-icon">
-                        <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-                    </div>
-                    <h3>From a Trusted Brand</h3>
-                    <p>Made by Carbonated Audio, featured on KVR Audio, Rekkerd.org, Audio Plugin Guy, and AudioNewsRoom.</p>
-                </div>
-                <div class="why-card">
-                    <div class="why-icon">
-                        <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M12 8v4l3 3"/></svg>
-                    </div>
-                    <h3>One-Time Purchase</h3>
-                    <p>Pay $20 once. No subscriptions, no iLok, no recurring fees. Free updates forever.</p>
+        <div class="v2-split">
+            <div class="v2-split-media v2-reveal">
+                <div class="v2-split-frame v2-crop-lower">
+                    <picture>
+                        <source srcset="/ontap-screenshot.webp" type="image/webp">
+                        <img src="/ontap-screenshot.png" alt="On Tap crossover and mix controls detail" loading="lazy" width="879" height="516">
+                    </picture>
                 </div>
             </div>
-        </section>
-
-        <!-- Pricing Section -->
-        <section id="pricing">
-            <h2 class="section-title">Simple <span class="accent">Pricing</span></h2>
-            <div class="pricing-grid pricing-single">
-
-                <!-- Full Version Card -->
-                <div class="pricing-card featured">
-                    <div class="pricing-badge">Launch Price</div>
-                    <h3>Full Version</h3>
-                    <div class="pricing-price">$20</div>
-                    <div class="pricing-subtitle">one-time purchase</div>
-                    <div style="font-size:12px;color:#a09bb5;margin-top:6px;">or 4 payments of $5 &middot; Klarna &middot; Afterpay</div>
-                    <ul class="pricing-features">
-                        <li>All 16 ducking curves</li>
-                        <li>All 3 trigger modes</li>
-                        <li>Band-split crossover</li>
-                        <li>All plugin formats</li>
-                        <li>3 machine activations</li>
-                        <li>Free updates</li>
-                        <li>Email support</li>
-                    </ul>
-                    <a href="https://buy.stripe.com/5kQcN51gl6gWfY51YL3oA04" class="btn-primary btn-pricing">Get On Tap — $20</a>
-                    <a href="#" class="btn-secondary" style="display:inline-block; margin-top:12px; text-align:center;" onclick="openDemoGate(event)">Try Free Demo</a>
-                </div>
-
+            <div class="v2-split-copy v2-reveal" style="--i:1;">
+                <span class="v2-eyebrow">03 / Crossover</span>
+                <h3 class="v2-h3">Duck the bass. Keep the top.</h3>
+                <p class="v2-body">The band-split crossover (20Hz&ndash;5.12kHz) ducks only part of the spectrum &mdash; drop just the sub under the kick while the highs ride through, or pump only the top end. Mix knob and anti-click smoothing keep it clean at any setting.</p>
             </div>
-        </section>
+        </div>
 
-        <!-- FAQ Section -->
-        <section id="faq">
-            <h2 class="section-title">Frequently <span class="accent">Asked</span></h2>
-            <div class="faq-list">
-                <div class="faq-item">
-                    <button class="faq-question">What is sidechain ducking?<span class="faq-icon"></span></button>
-                    <div class="faq-answer"><div class="faq-answer-inner">Sidechain ducking is a mixing technique where one sound's volume dips in response to another — usually a kick drum pushing down the bass or pads. It creates that rhythmic "pumping" effect heard in electronic, pop, and hip-hop music. On Tap gives you this effect without needing to route a compressor.</div></div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question">Do I need a compressor or sidechain routing?<span class="faq-icon"></span></button>
-                    <div class="faq-answer"><div class="faq-answer-inner">No. That's the whole point of On Tap. Traditional sidechain requires routing a kick to a compressor input. On Tap uses its own ducking curves and trigger modes — just insert it on a track and you're done. No bus routing needed.</div></div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question">What are the trigger modes?<span class="faq-icon"></span></button>
-                    <div class="faq-answer"><div class="faq-answer-inner">On Tap has 3 trigger modes. <strong>Sync</strong> locks the ducking to your DAW's tempo automatically. <strong>MIDI</strong> triggers the curve from any MIDI note. <strong>Audio</strong> triggers from an incoming audio signal's envelope. Each mode gives you a different level of control over timing.</div></div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question">What are the 16 curves?<span class="faq-icon"></span></button>
-                    <div class="faq-answer"><div class="faq-answer-inner">16 hand-crafted gain reduction shapes designed for different musical contexts — classic sidechain pump, sub bass ducking, kick trim, reverse chain, rhythm FX patterns, and more. Each curve has a different character so you can find the right feel without drawing your own automation.</div></div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question">What is the band-split crossover?<span class="faq-icon"></span></button>
-                    <div class="faq-answer"><div class="faq-answer-inner">The crossover filter lets you duck only part of the frequency spectrum. Set it to duck only below 200Hz and your bass dips while the highs stay untouched. Or duck only the top end for a different rhythmic effect. The range goes from 20Hz to 5.12kHz.</div></div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question">What formats are supported?<span class="faq-icon"></span></button>
-                    <div class="faq-answer"><div class="faq-answer-inner">On Tap is available as VST3, AU, and AAX. macOS (Intel + Apple Silicon) is fully supported. A Windows demo build is available now — paid Windows version is coming soon.</div></div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question">How many computers can I use it on?<span class="faq-icon"></span></button>
-                    <div class="faq-answer"><div class="faq-answer-inner">Up to 3 machines with one license. If you need to move an activation, just deactivate on the old machine and activate on the new one.</div></div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question">Is there a free trial?<span class="faq-icon"></span></button>
-                    <div class="faq-answer"><div class="faq-answer-inner">Yes! <a href="#" onclick="openDemoGate(event)" style="color:#a855f7;">Download the free demo here.</a> It includes all features with a periodic silence cycle (60 seconds on, 10 seconds muted) so you can fully evaluate On Tap before purchasing.</div></div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question">Does it add latency?<span class="faq-icon"></span></button>
-                    <div class="faq-answer"><div class="faq-answer-inner">No. On Tap processes with zero latency — no lookahead buffer required. It works seamlessly for tracking, mixing, and live performance.</div></div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question">What's the refund policy?<span class="faq-icon"></span></button>
-                    <div class="faq-answer"><div class="faq-answer-inner">If On Tap isn't right for you, email us within 30 days of purchase and we'll refund your order.</div></div>
+        <div class="v2-split v2-split--flip">
+            <div class="v2-split-media v2-reveal">
+                <div class="v2-split-frame v2-crop-top">
+                    <picture>
+                        <source srcset="/ontap-screenshot.webp" type="image/webp">
+                        <img src="/ontap-screenshot.png" alt="On Tap header and control layout detail" loading="lazy" width="879" height="516">
+                    </picture>
                 </div>
             </div>
-        </section>
+            <div class="v2-split-copy v2-reveal" style="--i:1;">
+                <span class="v2-eyebrow">04 / Price</span>
+                <h3 class="v2-h3">$20. Once.</h3>
+                <p class="v2-body">No subscription, no rental math. VST3, AU, and AAX on macOS, zero latency and low CPU, free updates, three machines per license &mdash; built by one producer who pumps his own mixes with it.</p>
+            </div>
+        </div>
 
-        <!-- Comparison link -->
-        <section style="text-align:center;padding:32px 24px;">
-            <p style="color:var(--text-secondary);font-size:14px;">
-                Comparing options? <a href="/ontap-vs-kickstart" style="color:var(--accent);font-weight:600;">On Tap vs Kickstart 2</a> &mdash; honest feature-by-feature breakdown.
-            </p>
-        </section>
+    </section>
 
-        <!-- Cross-Sell Section -->
-        <section class="cross-sell">
-            <p class="cross-sell-label">Also from Carbonated Audio</p>
-            <div class="cross-sell-cards">
-                <a href="/carbonator" class="cross-sell-card">
-                    <div class="cross-sell-icon">
-                        <picture><source srcset="/logo.webp" type="image/webp"><img src="/logo.png" alt="Carbonator logo" width="56" height="56"></picture>
-                    </div>
-                    <div class="cross-sell-info">
-                        <div class="cross-sell-name">Carbonator</div>
-                        <div class="cross-sell-desc">Analog saturation with 5 unique flavors.</div>
-                        <div class="cross-sell-price">$20 one-time</div>
-                    </div>
+    <!-- ============ HOW IT WORKS ============ -->
+    <section class="v2-section" id="how-it-works">
+        <div class="v2-container v2-center">
+            <span class="v2-eyebrow v2-reveal">How it works</span>
+            <h2 class="v2-h2 v2-reveal" style="--i:1;">Three steps. Then back to the music.</h2>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:var(--space-inner);max-width:900px;margin:56px auto 0;text-align:left;">
+                <div class="v2-reveal">
+                    <span class="v2-eyebrow">01</span>
+                    <h3 class="v2-h3" style="margin-top:10px;">Insert On Tap</h3>
+                    <p class="v2-body">Drop it on any track &mdash; bass, pads, synths, vocals, master bus. VST3, AU, or AAX.</p>
+                </div>
+                <div class="v2-reveal" style="--i:1;">
+                    <span class="v2-eyebrow">02</span>
+                    <h3 class="v2-h3" style="margin-top:10px;">Pick a curve</h3>
+                    <p class="v2-body">Browse 16 ducking shapes. Pick a pump style, set your trigger mode, and set the length.</p>
+                </div>
+                <div class="v2-reveal" style="--i:2;">
+                    <span class="v2-eyebrow">03</span>
+                    <h3 class="v2-h3" style="margin-top:10px;">Adjust the mix</h3>
+                    <p class="v2-body">Blend dry and wet with the mix knob. Dial in slope and shift for the perfect pocket.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ UNDER THE CAP ============ -->
+    <section class="v2-section v2-band-alt" id="compatibility">
+        <div class="v2-specs">
+            <span class="v2-eyebrow v2-reveal">Under the cap</span>
+            <h2 class="v2-h2 v2-reveal" style="--i:1;">The fine print, minus the fine print.</h2>
+            <table class="v2-spec-table v2-reveal" style="--i:2;">
+                <tbody>
+                    <tr><th scope="row">Formats</th><td>VST3 / AU / AAX</td></tr>
+                    <tr><th scope="row">macOS</th><td>10.13+ &middot; Intel + Apple Silicon native</td></tr>
+                    <tr><th scope="row">Windows</th><td>Demo available now &middot; paid version coming soon</td></tr>
+                    <tr><th scope="row">Engine</th><td>16 curves &middot; 3 trigger modes &middot; zero latency, low CPU</td></tr>
+                    <tr><th scope="row">DAWs</th><td>Pro Tools, Logic Pro, Ableton Live, FL Studio, Studio One, Cubase, Reaper, and more</td></tr>
+                    <tr><th scope="row">License</th><td>3 machines &middot; free updates &middot; email support</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- ============ PRICING ============ -->
+    <section class="v2-section" id="pricing">
+        <div class="v2-buy">
+            <span class="v2-eyebrow v2-reveal">Pricing</span>
+            <h2 class="v2-h2 v2-reveal" style="--i:1;">Pay once. Own it.</h2>
+            <div class="v2-buy-price v2-reveal" style="--i:2;">$20</div>
+            <p class="v2-buy-sub v2-reveal" style="--i:3;">one-time &middot; all 16 curves &middot; all 3 trigger modes &middot; free updates</p>
+            <div class="v2-cta-row v2-reveal" style="--i:4;">
+                <a href="https://buy.stripe.com/5kQcN51gl6gWfY51YL3oA04" class="v2-btn">Get On Tap &mdash; <span class="v2-price">$20</span></a>
+                <a href="#" class="v2-btn-ghost" onclick="openDemoGate(event)">Try the free demo</a>
+            </div>
+            <p class="v2-bnpl">or 4 interest-free payments of $5 &mdash; Klarna &middot; Afterpay at checkout</p>
+            <p class="v2-caption" style="margin-top:6px;">Pay once, own forever.</p>
+            <p class="v2-trust" style="margin-top:22px;">Secure checkout via Stripe &middot; instant license delivery</p>
+        </div>
+    </section>
+
+    <!-- ============ FAQ ============ -->
+    <section class="v2-section v2-band-alt" id="faq">
+        <div class="v2-faq">
+            <span class="v2-eyebrow v2-reveal">FAQ</span>
+            <h2 class="v2-h2 v2-reveal" style="--i:1;">Frequently asked.</h2>
+            <details>
+                <summary>What is sidechain ducking?</summary>
+                <div class="v2-faq-a">Sidechain ducking is a mixing technique where one sound's volume dips in response to another — usually a kick drum pushing down the bass or pads. It creates that rhythmic "pumping" effect heard in electronic, pop, and hip-hop music. On Tap gives you this effect without needing to route a compressor.</div>
+            </details>
+            <details>
+                <summary>Do I need a compressor or sidechain routing?</summary>
+                <div class="v2-faq-a">No. That's the whole point of On Tap. Traditional sidechain requires routing a kick to a compressor input. On Tap uses its own ducking curves and trigger modes — just insert it on a track and you're done. No bus routing needed.</div>
+            </details>
+            <details>
+                <summary>What are the trigger modes?</summary>
+                <div class="v2-faq-a">On Tap has 3 trigger modes. <strong>Sync</strong> locks the ducking to your DAW's tempo automatically. <strong>MIDI</strong> triggers the curve from any MIDI note. <strong>Audio</strong> triggers from an incoming audio signal's envelope. Each mode gives you a different level of control over timing.</div>
+            </details>
+            <details>
+                <summary>What are the 16 curves?</summary>
+                <div class="v2-faq-a">16 hand-crafted gain reduction shapes designed for different musical contexts — classic sidechain pump, sub bass ducking, kick trim, reverse chain, rhythm FX patterns, and more. Each curve has a different character so you can find the right feel without drawing your own automation.</div>
+            </details>
+            <details>
+                <summary>What is the band-split crossover?</summary>
+                <div class="v2-faq-a">The crossover filter lets you duck only part of the frequency spectrum. Set it to duck only below 200Hz and your bass dips while the highs stay untouched. Or duck only the top end for a different rhythmic effect. The range goes from 20Hz to 5.12kHz.</div>
+            </details>
+            <details>
+                <summary>What formats are supported?</summary>
+                <div class="v2-faq-a">On Tap is available as VST3, AU, and AAX. macOS (Intel + Apple Silicon) is fully supported. A Windows demo build is available now — paid Windows version is coming soon.</div>
+            </details>
+            <details>
+                <summary>How many computers can I use it on?</summary>
+                <div class="v2-faq-a">Up to 3 machines with one license. If you need to move an activation, just deactivate on the old machine and activate on the new one.</div>
+            </details>
+            <details>
+                <summary>Is there a free trial?</summary>
+                <div class="v2-faq-a">Yes! <a href="#" onclick="openDemoGate(event)" style="color:#a06ee0;">Download the free demo here.</a> It includes all features with a periodic silence cycle (60 seconds on, 10 seconds muted) so you can fully evaluate On Tap before purchasing.</div>
+            </details>
+            <details>
+                <summary>Does it add latency?</summary>
+                <div class="v2-faq-a">No. On Tap processes with zero latency — no lookahead buffer required. It works seamlessly for tracking, mixing, and live performance.</div>
+            </details>
+            <details>
+                <summary>What's the refund policy?</summary>
+                <div class="v2-faq-a">If On Tap isn't right for you, email us within 30 days of purchase and we'll refund your order.</div>
+            </details>
+        </div>
+    </section>
+
+    <!-- Comparison link -->
+    <section style="text-align:center;padding:32px 24px;">
+        <p class="v2-caption" style="margin:0 auto;">
+            Comparing options? <a href="/ontap-vs-kickstart" style="color:var(--accent);font-weight:600;">On Tap vs Kickstart 2</a> &mdash; honest feature-by-feature breakdown.
+        </p>
+    </section>
+
+    <!-- ============ CROSS-SELL ============ -->
+    <section class="v2-section v2-crosssell">
+        <div class="v2-container v2-center">
+            <span class="v2-eyebrow v2-eyebrow--mute v2-reveal">Also from Carbonated Audio</span>
+            <h2 class="v2-h2 v2-reveal" style="--i:1;">Complete the six-pack.</h2>
+            <div class="v2-tiles">
+                <a href="/carbonator" class="v2-tile v2-reveal" style="--tile-accent:#f2703a;">
+                    <span class="v2-tile-name"><span class="v2-tile-dot"></span>Carbonator</span>
+                    <span class="v2-tile-desc">Analog saturation with 5 unique flavors.</span>
+                    <span class="v2-tile-price">$20 one-time</span>
                 </a>
-                <a href="/desipper" class="cross-sell-card cyan">
-                    <div class="cross-sell-icon">
-                        <img src="/desipper-icon.png" alt="De-Sipper logo" width="56" height="56" onerror="this.style.display='none'">
-                    </div>
-                    <div class="cross-sell-info">
-                        <div class="cross-sell-name">De-Sipper</div>
-                        <div class="cross-sell-desc">Transparent de-essing. No artifacts.</div>
-                        <div class="cross-sell-price cyan">$20 one-time</div>
-                    </div>
+                <a href="/desipper" class="v2-tile v2-reveal" style="--tile-accent:#3fc1e3;--i:1;">
+                    <span class="v2-tile-name"><span class="v2-tile-dot"></span>De-Sipper</span>
+                    <span class="v2-tile-desc">Transparent de-essing. No artifacts.</span>
+                    <span class="v2-tile-price">$20 one-time</span>
                 </a>
-                <a href="/still?ref=still-cross-ontap" class="cross-sell-card" style="border-color:rgba(111,199,188,0.35);">
-                    <div class="cross-sell-icon">
-                        <img src="/assets/still-screenshot.png" alt="Still free noise suppressor" width="56" height="56" style="object-fit:cover;border-radius:8px;">
-                    </div>
-                    <div class="cross-sell-info">
-                        <div class="cross-sell-name">Still <span style="font-size:10px;background:#6fc7bc;color:#07201c;padding:1px 7px;border-radius:12px;font-weight:800;vertical-align:middle;">FREE</span></div>
-                        <div class="cross-sell-desc">One-dial noise suppressor. Free forever.</div>
-                        <div class="cross-sell-price" style="color:#6fc7bc;">FREE &mdash; macOS</div>
-                    </div>
+                <a href="/still?ref=still-cross-ontap" class="v2-tile v2-reveal" style="--tile-accent:#6fc7bc;--i:2;">
+                    <span class="v2-tile-name"><span class="v2-tile-dot"></span>Still <span class="v2-tile-badge">FREE</span></span>
+                    <span class="v2-tile-desc">One-dial noise suppressor. Free forever.</span>
+                    <span class="v2-tile-price">FREE &mdash; macOS</span>
                 </a>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Footer -->
-        <div id="site-footer"></div>
-
-    </div>
+    <!-- Footer -->
+    <div id="site-footer"></div>
 
     <!-- Shared Components -->
-    <script src="/components/nav.js?v=20260708-still"></script>
-    <script src="/components/footer.js?v=20260711"></script>
+    <script src="/components/nav.js?v=20260711-v2"></script>
+    <script src="/components/footer.js?v=20260711-v2"></script>
+    <script src="/components/ab-demo.js?v=20260711-v2"></script>
 
-    <!-- Silk WebGL Background (Purple palette) -->
+    <!-- v2 scroll reveal + nav compress -->
     <script>
     (function() {
-        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-        const canvas = document.getElementById('silk-bg');
-        const gl = canvas.getContext('webgl');
-        if (!gl) return;
-
-        function resize() {
-            const dpr = Math.min(window.devicePixelRatio || 1, 2);
-            canvas.width = window.innerWidth * dpr;
-            canvas.height = window.innerHeight * dpr;
-            gl.viewport(0, 0, canvas.width, canvas.height);
-        }
-        resize();
-        window.addEventListener('resize', resize);
-
-        const vsSource = `
-            attribute vec2 aPosition;
-            varying vec2 vUv;
-            void main() {
-                vUv = aPosition * 0.5 + 0.5;
-                gl_Position = vec4(aPosition, 0.0, 1.0);
-            }
-        `;
-
-        const fsSource = `
-            precision mediump float;
-            varying vec2 vUv;
-            uniform float uTime;
-            uniform vec3 uColor;
-            uniform float uSpeed;
-            uniform float uScale;
-            uniform float uRotation;
-            uniform float uNoiseIntensity;
-
-            const float e = 2.71828182845904523536;
-
-            float noise(vec2 texCoord) {
-                float G = e;
-                vec2 r = (G * sin(G * texCoord));
-                return fract(r.x * r.y * (1.0 + texCoord.x));
-            }
-
-            vec2 rotateUvs(vec2 uv, float angle) {
-                float c = cos(angle);
-                float s = sin(angle);
-                mat2 rot = mat2(c, -s, s, c);
-                return rot * uv;
-            }
-
-            void main() {
-                float rnd = noise(gl_FragCoord.xy);
-                vec2 uv = rotateUvs(vUv * uScale, uRotation);
-                vec2 tex = uv * uScale;
-                float tOffset = uSpeed * uTime;
-
-                tex.y += 0.03 * sin(8.0 * tex.x - tOffset);
-
-                float pattern = 0.6 +
-                    0.4 * sin(5.0 * (tex.x + tex.y +
-                    cos(3.0 * tex.x + 5.0 * tex.y) +
-                    0.02 * tOffset) +
-                    sin(20.0 * (tex.x + tex.y - 0.1 * tOffset)));
-
-                vec4 col = vec4(uColor, 1.0) * vec4(vec3(pattern), 1.0) - rnd / 15.0 * uNoiseIntensity;
-                col.a = 1.0;
-                gl_FragColor = col;
-            }
-        `;
-
-        function compile(type, src) {
-            const s = gl.createShader(type);
-            gl.shaderSource(s, src);
-            gl.compileShader(s);
-            return s;
-        }
-
-        const prog = gl.createProgram();
-        gl.attachShader(prog, compile(gl.VERTEX_SHADER, vsSource));
-        gl.attachShader(prog, compile(gl.FRAGMENT_SHADER, fsSource));
-        gl.linkProgram(prog);
-        gl.useProgram(prog);
-
-        const buf = gl.createBuffer();
-        gl.bindBuffer(gl.ARRAY_BUFFER, buf);
-        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
-        const aPos = gl.getAttribLocation(prog, 'aPosition');
-        gl.enableVertexAttribArray(aPos);
-        gl.vertexAttribPointer(aPos, 2, gl.FLOAT, false, 0, 0);
-
-        const uTime = gl.getUniformLocation(prog, 'uTime');
-        const uColor = gl.getUniformLocation(prog, 'uColor');
-        const uSpeed = gl.getUniformLocation(prog, 'uSpeed');
-        const uScale = gl.getUniformLocation(prog, 'uScale');
-        const uRotation = gl.getUniformLocation(prog, 'uRotation');
-        const uNoise = gl.getUniformLocation(prog, 'uNoiseIntensity');
-
-        // Purple silk for On Tap theme
-        gl.uniform3f(uColor, 0.18, 0.04, 0.28);
-        gl.uniform1f(uSpeed, 5.0);
-        gl.uniform1f(uScale, 1.0);
-        gl.uniform1f(uRotation, 0.0);
-        gl.uniform1f(uNoise, 1.5);
-
-        let time = 0;
-        function frame() {
-            time += 0.0016;
-            gl.uniform1f(uTime, time);
-            gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
-            requestAnimationFrame(frame);
-        }
-        requestAnimationFrame(frame);
-    })();
-    </script>
-
-    <!-- FAQ Accordion -->
-    <script>
-    (function() {
-        const items = document.querySelectorAll('.faq-item');
-        items.forEach(item => {
-            const btn = item.querySelector('.faq-question');
-            const answer = item.querySelector('.faq-answer');
-            btn.addEventListener('click', () => {
-                const isActive = item.classList.contains('active');
-                // Close all
-                items.forEach(i => {
-                    i.classList.remove('active');
-                    i.querySelector('.faq-answer').style.maxHeight = null;
-                });
-                // Open clicked if it wasn't active
-                if (!isActive) {
-                    item.classList.add('active');
-                    answer.style.maxHeight = answer.scrollHeight + 'px';
-                }
-            });
-        });
-    })();
-    </script>
-
-    <!-- Scroll Reveal Animations -->
-    <script>
-    (function() {
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(e => {
-                if (e.isIntersecting) {
-                    e.target.classList.add('visible');
-                    observer.unobserve(e.target);
-                }
+        var io = new IntersectionObserver(function(entries) {
+            entries.forEach(function(e) {
+                if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
             });
         }, { threshold: 0.1 });
-        document.querySelectorAll('.feature-card, .pricing-card, .cross-sell-card, .faq-item, .why-card, section > h2, .section-label').forEach(el => {
-            el.classList.add('scroll-reveal');
-            observer.observe(el);
-        });
+        document.querySelectorAll('.v2-reveal').forEach(function(el) { io.observe(el); });
+
+        var nav = document.getElementById('site-nav');
+        function onScroll() {
+            if (!nav) return;
+            nav.classList.toggle('v2-nav-compressed', window.scrollY > 80);
+        }
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
     })();
     </script>
 
