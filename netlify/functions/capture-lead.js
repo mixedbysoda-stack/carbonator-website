@@ -171,7 +171,7 @@ function buildStillWelcomeEmail(contact) {
 <h1 style="color:#fff;font-size:24px;text-align:center;margin:0 0 8px;">Still is yours. Free.</h1>
 <p style="color:#8fa8b0;font-size:16px;text-align:center;margin:0 0 32px;">One dial. Background noise gone. No account, no trial, no catch — free forever.</p>
 <div style="text-align:center;margin:0 0 32px;">
-<a href="https://github.com/mixedbysoda-stack/still/releases/download/v1.0.0/Still-v1.0.0-Installer.pkg" style="background:linear-gradient(135deg,#2e8f85,#6fc7bc);color:#07201c;padding:14px 32px;border-radius:10px;text-decoration:none;font-weight:700;font-size:16px;display:inline-block;">Download Still for macOS</a>
+<a href="https://github.com/mixedbysoda-stack/still/releases/latest/download/Still-Installer.pkg" style="background:linear-gradient(135deg,#2e8f85,#6fc7bc);color:#07201c;padding:14px 32px;border-radius:10px;text-decoration:none;font-weight:700;font-size:16px;display:inline-block;">Download Still for macOS</a>
 <p style="color:#5c7078;font-size:12px;margin:10px 0 0;">Signed &amp; notarized installer &middot; VST3 / AU / AAX &middot; Windows coming soon</p>
 </div>
 <hr style="border:none;border-top:1px solid #1d2f3a;margin:0 0 24px;">
