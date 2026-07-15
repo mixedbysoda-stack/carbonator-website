@@ -80,6 +80,14 @@ const PRODUCT_ACCENTS = {
     url: "https://carbonatedaudio.com/tonic",
     price: 20,
   },
+  still: {
+    name: "Still",
+    color: "#6fc7bc",
+    colorAlt: "#2e8f85",
+    gradient: "linear-gradient(135deg,#2e8f85,#6fc7bc)",
+    url: "https://carbonatedaudio.com/still",
+    price: 0,
+  },
   bundle: {
     name: "Complete Bundle",
     color: "#cc33ff",

@@ -8,6 +8,29 @@ const { Resend } = require("resend");
 
 const FROM_EMAIL = "Carbonated Audio <hello@carbonatedaudio.com>";
 
+// Map the `product` id stored by stripe-webhook onto a display name + URL.
+// Fallback = Carbonator (older buyer blobs have no product field).
+const PRODUCT_INFO = {
+  carbonator: { name: "Carbonator", url: "https://carbonatedaudio.com/carbonator" },
+  desipper: { name: "De-Sipper", url: "https://carbonatedaudio.com/desipper" },
+  ontap: { name: "On Tap", url: "https://carbonatedaudio.com/ontap" },
+  pour: { name: "Pour", url: "https://carbonatedaudio.com/pour" },
+  // Tonic's product page is offline (rename pending) — point owners at the hub.
+  tonic: { name: "Tonic", url: "https://carbonatedaudio.com" },
+  octane: { name: "FIZZFUEL", url: "https://carbonatedaudio.com/fizzfuel" },
+  fizzfuel: { name: "FIZZFUEL", url: "https://carbonatedaudio.com/fizzfuel" },
+  still: { name: "Still", url: "https://carbonatedaudio.com/still" },
+  bundle: { name: "the Complete Bundle", url: "https://carbonatedaudio.com/bundle" },
+  vocal_bundle: { name: "the Vocal Chain Bundle", url: "https://carbonatedaudio.com/bundle" },
+  mixbus_bundle: { name: "the Mix Bus Bundle", url: "https://carbonatedaudio.com/bundle" },
+  apd_bundle: { name: "your APD 3-in-1 Bundle", url: "https://carbonatedaudio.com" },
+};
+
+function getProductInfo(buyer) {
+  const key = (buyer && buyer.product ? String(buyer.product) : "").toLowerCase();
+  return PRODUCT_INFO[key] || PRODUCT_INFO.carbonator;
+}
+
 exports.handler = async () => {
   if (!process.env.RESEND_API_KEY) {
     return { statusCode: 200, body: "No RESEND_API_KEY — skipping" };
@@ -44,12 +67,13 @@ exports.handler = async () => {
       const alreadySent = await store.get(`review_${buyer.email}`).catch(() => null);
       if (alreadySent) continue;
 
+      const info = getProductInfo(buyer);
       await resend.emails.send({
         from: FROM_EMAIL,
         reply_to: "mixedbysoda@gmail.com",
         to: buyer.email,
-        subject: "Quick question about Carbonator",
-        html: buildReviewEmail(buyer.email),
+        subject: `Quick question about ${info.name.replace(/^the |^your /, "")}`,
+        html: buildReviewEmail(buyer.email, info),
       });
 
       await store.set(`review_${buyer.email}`, new Date().toISOString());
@@ -66,7 +90,9 @@ exports.handler = async () => {
   };
 };
 
-function buildReviewEmail(email) {
+function buildReviewEmail(email, info) {
+  const productName = info && info.name ? info.name : "Carbonator";
+  const productUrl = info && info.url ? info.url : "https://carbonatedaudio.com/carbonator";
   return `
 <!DOCTYPE html>
 <html>
@@ -82,10 +108,10 @@ function buildReviewEmail(email) {
 
         <tr><td style="background-color:#1a1430;border-radius:16px;padding:40px 32px;">
 
-          <h1 style="color:#ffffff;font-size:22px;margin:0 0 16px;">How's Carbonator working for you?</h1>
+          <h1 style="color:#ffffff;font-size:22px;margin:0 0 16px;">How's ${productName.replace(/^the |^your /, "")} working for you?</h1>
 
           <p style="color:#a09bb5;font-size:15px;line-height:1.7;margin:0 0 20px;">
-            You've had Carbonator for about a week now — I'd love to hear how it's fitting into your workflow.
+            You've had <a href="${productUrl}" style="color:#a09bb5;">${productName}</a> for about a week now — I'd love to hear how it's fitting into your workflow.
           </p>
 
           <p style="color:#a09bb5;font-size:15px;line-height:1.7;margin:0 0 20px;">
@@ -93,8 +119,8 @@ function buildReviewEmail(email) {
           </p>
 
           <ul style="color:#a09bb5;font-size:15px;line-height:1.8;padding-left:20px;margin:0 0 24px;">
-            <li>Which flavor is your go-to?</li>
             <li>What do you use it on most?</li>
+            <li>What's working — and what's missing?</li>
             <li>Would you recommend it to other producers?</li>
           </ul>
 

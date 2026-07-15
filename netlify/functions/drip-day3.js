@@ -18,6 +18,7 @@ const SUBJECTS = {
   ontap: "How's On Tap working out? 🎚️",
   pour: "How's the Pour demo treating you? 🌊",
   fizzfuel: "Still thinking about FIZZFUEL? 🏁",
+  still: "The Still trick most people miss 🎧",
 };
 
 const SPOTLIGHT = {
@@ -31,6 +32,19 @@ const SPOTLIGHT = {
       "<strong style=\"color:#ffffff;\">The shifter</strong> — throw the stick, glitch-free crossfades between effects",
     ],
     ctaText: "See FIZZFUEL",
+  },
+  still: {
+    headline: "One dial — but here's the trick",
+    body: `<p style="color:#a09bb5;font-size:15px;line-height:1.7;margin:0 0 16px;">Hope Still is already sitting quietly on your noisy tracks. Quick tip that most people miss: <strong style="color:#ffffff;">flip on &Delta; NOISE</strong> and Still solos exactly what it's removing. If all you hear is hiss and room tone, your dial is set right. If you hear voice in there, back the dial off a touch.</p>
+           <p style="color:#a09bb5;font-size:15px;line-height:1.7;margin:0 0 16px;">That's the whole workflow — set the dial, sanity-check with &Delta; NOISE, done:</p>`,
+    features: [
+      "<strong style=\"color:#ffffff;\">&Delta; NOISE solo</strong> — hear only what's being removed, never guess",
+      "<strong style=\"color:#ffffff;\">One dial</strong> — push until the noise is gone, back off if the source dulls",
+      "<strong style=\"color:#ffffff;\">Zero added latency</strong> — leave it on while tracking or mixing",
+    ],
+    ctaText: "Cleaning a vocal? Meet De-Sipper",
+    ctaUrl: "https://carbonatedaudio.com/desipper",
+    footnote: `<p style="color:#a09bb5;font-size:14px;line-height:1.7;margin:16px 0 0;">And if the track you're cleaning is a vocal: Still handles the noise, but sibilance is a different job — <a href="https://carbonatedaudio.com/desipper" style="color:#00d4ff;text-decoration:none;font-weight:600;">De-Sipper ($20)</a> finishes the vocal cleanup.</p>`,
   },
   carbonator: {
     headline: "How's the demo going so far?",
@@ -82,6 +96,7 @@ const SPOTLIGHT = {
 function getProductFromSource(source) {
   if (!source) return "carbonator";
   const s = source.toLowerCase();
+  if (s.includes("still")) return "still";
   if (s.includes("fizzfuel") || s.includes("octane")) return "fizzfuel";
   if (s.includes("pour")) return "pour";
   if (s.includes("ontap")) return "ontap";
@@ -89,12 +104,15 @@ function getProductFromSource(source) {
   return "carbonator";
 }
 
+// Only live, sellable products belong in the "Also from Carbonated Audio" list
+const LIVE_PRODUCTS = ["carbonator", "desipper", "ontap", "pour", "fizzfuel", "still"];
+
 function buildDay3Body(product, contact) {
   const sp = SPOTLIGHT[product] || SPOTLIGHT.carbonator;
   const pacc = PRODUCT_ACCENTS[product] || PRODUCT_ACCENTS.carbonator;
-  const demoUrl = PRODUCTS[product]?.downloads?.mac || pacc.url;
-  const otherProducts = Object.keys(PRODUCT_ACCENTS)
-    .filter((k) => k !== product && k !== "bundle")
+  const demoUrl = sp.ctaUrl || PRODUCTS[product]?.downloads?.mac || pacc.url;
+  const otherProducts = LIVE_PRODUCTS
+    .filter((k) => k !== product && PRODUCT_ACCENTS[k])
     .map((k) => {
       const p = PRODUCT_ACCENTS[k];
       return `<a href="${p.url}" style="color:${p.color};text-decoration:none;font-weight:600;">${p.name}</a>`;
@@ -103,6 +121,7 @@ function buildDay3Body(product, contact) {
 
   const extraBody = `
     ${sp.body}
+    ${sp.footnote || ""}
   `;
   const appendix = `
     <hr style="border:none;border-top:1px solid #2a2440;margin:28px 0;">
