@@ -18,6 +18,7 @@ const SUBJECTS = {
   ontap: "Ready to unlock On Tap? $20, no subscription.",
   pour: "Ready to unlock Pour? $20, no subscription.",
   fizzfuel: "FIZZFUEL — 6 effects, one shifter, $29.",
+  still: "Still was step one. Here's the rest of the chain.",
 };
 
 const CONVERT = {
@@ -33,6 +34,34 @@ const CONVERT = {
     quote: "Six effects. One shifter. Throw it in gear.",
     quoteAuthor: "— the FIZZFUEL motto",
     priceLine: "$29 one-time",
+  },
+  still: {
+    headline: "The vocal chain, in order: Still → De-Sipper → Carbonator",
+    body: `
+    <p style="color:#a09bb5;font-size:15px;line-height:1.7;margin:0 0 16px;">
+      A week in, Still should have the hiss and room tone handled — for free, forever.
+      But noise is only step one of a clean vocal. The full chain looks like this:
+    </p>
+    <p style="color:#a09bb5;font-size:15px;line-height:1.8;margin:0 0 16px;">
+      <strong style="color:#6fc7bc;">1. Still (free)</strong> — kills the noise floor.<br>
+      <strong style="color:#00d4ff;">2. De-Sipper ($20)</strong> — tames the sibilance the cleanup exposes.<br>
+      <strong style="color:#ff6b2b;">3. Carbonator ($20)</strong> — adds the analog warmth and presence.
+    </p>
+    <p style="color:#a09bb5;font-size:15px;line-height:1.7;margin:0 0 16px;">
+      Quiet, smooth, warm — in that order. Each one is a one-time purchase, no subscription, use on up to 3 machines.
+    </p>
+    `,
+    features: [
+      "Still — adaptive noise floor removal, zero latency, free",
+      "De-Sipper — split-band de-essing with Listen mode, $20",
+      "Carbonator — 5 circuit-modeled saturation flavors, $20",
+      "No subscriptions — pay once, own forever",
+    ],
+    quote: "Finally a de-esser that doesn't make my vocals sound dull.",
+    quoteAuthor: "— De-Sipper user",
+    priceLine: "De-Sipper $20 · Carbonator $20 — or the whole catalog below",
+    ctaText: "Get De-Sipper — $20",
+    ctaUrl: "https://carbonatedaudio.com/desipper",
   },
   carbonator: {
     headline: "Tired of the demo cycle? Unlock the full version.",
@@ -91,6 +120,7 @@ const CONVERT = {
 function getProductFromSource(source) {
   if (!source) return "carbonator";
   const s = source.toLowerCase();
+  if (s.includes("still")) return "still";
   if (s.includes("fizzfuel") || s.includes("octane")) return "fizzfuel";
   if (s.includes("pour")) return "pour";
   if (s.includes("ontap")) return "ontap";
@@ -101,13 +131,18 @@ function getProductFromSource(source) {
 function buildDay7Body(product) {
   const c = CONVERT[product] || CONVERT.carbonator;
   const pacc = PRODUCT_ACCENTS[product] || PRODUCT_ACCENTS.carbonator;
-  const buyUrl = pacc.url;
+  const buyUrl = c.ctaUrl || pacc.url;
 
-  const body = `
+  // Still is free — no demo/mute cycle. Use its own vocal-chain narrative instead.
+  const intro = c.body || `
     <p style="color:#a09bb5;font-size:15px;line-height:1.7;margin:0 0 16px;">
       If you've been running the ${pacc.name} demo, you've probably hit the mute cycle by now.
       The full version removes it completely — unlimited rendering, no interruptions.
     </p>
+  `;
+
+  const body = `
+    ${intro}
     <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:16px 0 20px;">
       <tr>
         <td style="background:#120e22;border:1px solid #2a2440;border-radius:10px;padding:18px;">
@@ -126,7 +161,7 @@ function buildDay7Body(product) {
     <p style="color:#a09bb5;font-size:14px;line-height:1.7;margin:0;text-align:center;">
       Want all 4 plugins? Grab the
       <a href="${BUNDLE_URL}" style="color:#4ecca3;text-decoration:none;font-weight:600;">Complete Bundle for $60</a>
-      &mdash; save $25.
+      &mdash; save $20.
     </p>
   `;
 
@@ -135,10 +170,12 @@ function buildDay7Body(product) {
     headline: c.headline,
     body: body + appendix,
     features: c.features,
-    ctaText: `Get ${pacc.name} — $${pacc.price}`,
+    ctaText: c.ctaText || `Get ${pacc.name} — $${pacc.price}`,
     ctaUrl: buyUrl,
     signatureName: "Soda",
-    preheader: `Full ${pacc.name} for $${pacc.price} — no subscription`,
+    preheader: c.preheader || (product === "still"
+      ? "Still → De-Sipper → Carbonator — the full vocal chain"
+      : `Full ${pacc.name} for $${pacc.price} — no subscription`),
   });
 }
 
