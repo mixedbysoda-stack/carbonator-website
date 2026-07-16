@@ -300,7 +300,9 @@ nav {
 
 .footer-links {
     display: flex;
-    gap: 24px;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px 24px;
 }
 
 .footer-links a {
