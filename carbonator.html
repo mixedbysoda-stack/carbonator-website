@@ -1533,6 +1533,7 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
 
         .demo-flavor-tabs {
             display: flex;
+            flex-wrap: wrap;
             justify-content: center;
             gap: 12px;
             margin-top: 32px;
@@ -2108,6 +2109,11 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
             .signal-chain,
             .param-map {
                 padding: 24px 20px;
+                min-width: 0;
+                max-width: 100%;
+            }
+            .flavor-detail-body {
+                grid-template-columns: minmax(0, 1fr);
             }
             .chain-item-desc {
                 word-break: break-word;
