@@ -1719,5 +1719,23 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
     })();
     </script>
 
+    <!-- GA4 Ecommerce Tracking (feeds the Purchase journey funnel) -->
+    <script>
+    (function() {
+        if (typeof gtag !== 'function') return;
+        var product = { item_id: 'desipper', item_name: 'De-Sipper', price: 20, quantity: 1 };
+        var bundle = { item_id: 'bundle', item_name: 'Complete Bundle', price: 60, quantity: 1 };
+
+        gtag('event', 'view_item', { currency: 'USD', value: product.price, items: [product] });
+
+        document.querySelectorAll('a[href*="buy.stripe.com"]').forEach(function(link) {
+            var item = link.href.indexOf('aFa4gzbUZfRwdPXdHt3oA0g') > -1 ? bundle : product;
+            link.addEventListener('click', function() {
+                gtag('event', 'begin_checkout', { currency: 'USD', value: item.price, items: [item] });
+            });
+        });
+    })();
+    </script>
+
 </body>
 </html>

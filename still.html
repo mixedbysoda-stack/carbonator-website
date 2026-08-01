@@ -272,7 +272,11 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
             }).then(function (data) {
                 if (data && data.success === false) throw new Error('capture failed');
 
-                if (typeof gtag === 'function') gtag('event', 'free_download', { event_category: 'conversion', event_label: refSource });
+                if (typeof gtag === 'function') {
+                    gtag('event', 'free_download', { event_category: 'conversion', event_label: refSource });
+                    // GA4 standard lead event (feeds the Generate leads business-objective report)
+                    gtag('event', 'generate_lead', { event_category: 'conversion', event_label: refSource });
+                }
                 if (typeof fbq === 'function') fbq('track', 'Lead', { content_name: 'Still Free Download' });
 
                 document.getElementById('stillGate').style.display = 'none';
