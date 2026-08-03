@@ -88,6 +88,8 @@ exports.handler = async (event) => {
             is_bundle: true,
             items,
             customer_email: email,
+            amount_total: session.amount_total,
+            currency: session.currency,
           }),
         };
       }
@@ -123,6 +125,8 @@ exports.handler = async (event) => {
           downloads: product.downloads,
           customer_email: email,
           license_key: licenseKey,
+          amount_total: session.amount_total,
+          currency: session.currency,
         }),
       };
     }

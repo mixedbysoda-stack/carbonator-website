@@ -760,31 +760,41 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
                         }
                     }
 
-                    // GA4: fire purchase event
-                    var priceByProduct = { carbonator: 20, desipper: 20, ontap: 20, pour: 20, fizzfuel: 29, octane: 29, bundle: 60, vocal_bundle: 35, mixbus_bundle: 30, apd_bundle: 20 };
-                    var purchaseValue = priceByProduct[data.product] || 20;
-                    // Meta Pixel: Purchase (enables conversion-optimized retargeting)
-                    if (typeof fbq === 'function') {
-                        fbq('track', 'Purchase', {
-                            value: purchaseValue,
-                            currency: 'USD',
-                            content_name: data.product_name || data.product,
-                            content_ids: [data.product],
-                            content_type: 'product'
-                        });
+                    // GA4 / Meta Pixel: fire purchase event using the REAL charged amount,
+                    // not a per-product guess — a $0 promo/NFR redemption must never report as a paid sale.
+                    var amountTotalCents = typeof data.amount_total === 'number' ? data.amount_total : null;
+                    if (amountTotalCents === null) {
+                        // Fallback only for older sessions verified before amount_total was returned.
+                        var priceByProduct = { carbonator: 20, desipper: 20, ontap: 20, pour: 20, fizzfuel: 29, octane: 29, bundle: 60, vocal_bundle: 35, mixbus_bundle: 30, apd_bundle: 20 };
+                        amountTotalCents = (priceByProduct[data.product] || 20) * 100;
                     }
-                    if (typeof gtag === 'function') {
-                        gtag('event', 'purchase', {
-                            currency: 'USD',
-                            value: purchaseValue,
-                            transaction_id: sessionId,
-                            items: [{
-                                item_id: data.product,
-                                item_name: data.product_name || 'Carbonator',
-                                price: purchaseValue,
-                                quantity: 1
-                            }]
-                        });
+                    var purchaseValue = amountTotalCents / 100;
+                    var purchaseCurrency = (data.currency || 'usd').toUpperCase();
+
+                    if (amountTotalCents > 0) {
+                        // Meta Pixel: Purchase (enables conversion-optimized retargeting)
+                        if (typeof fbq === 'function') {
+                            fbq('track', 'Purchase', {
+                                value: purchaseValue,
+                                currency: purchaseCurrency,
+                                content_name: data.product_name || data.product,
+                                content_ids: [data.product],
+                                content_type: 'product'
+                            });
+                        }
+                        if (typeof gtag === 'function') {
+                            gtag('event', 'purchase', {
+                                currency: purchaseCurrency,
+                                value: purchaseValue,
+                                transaction_id: sessionId,
+                                items: [{
+                                    item_id: data.product,
+                                    item_name: data.product_name || 'Carbonator',
+                                    price: purchaseValue,
+                                    quantity: 1
+                                }]
+                            });
+                        }
                     }
 
                     showState(stateVerified);
