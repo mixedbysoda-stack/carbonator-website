@@ -4,6 +4,8 @@
 # Inbound auto-replies (hourly monitor) are exempt — those only fire when the user emails us.
 
 frankbugbee10@gmail.com  # unsubscribed 2026-04-28 after KVRSIP blast (was Apr-22 triple-grab lead)
+tom@thomann.de  # B2B contact opt-out, restored 2026-08-04 (was lost when the repo moved off ~/Desktop/Carbonator/website)
+mangor@web.de  # opt-out, restored 2026-08-04, same gap as above
 
 # NOTE: the machine-enforced list lives at netlify/functions/lib/suppression.js
 # — keep both in sync when adding an unsubscribe.
