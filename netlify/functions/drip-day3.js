@@ -4,6 +4,7 @@
 
 const { getBlobStore } = require("./lib/store");
 const { isSuppressed } = require("./lib/suppression");
+const { loadBuyerEmails } = require("./lib/buyers");
 const { Resend } = require("resend");
 const { PRODUCTS } = require("./config");
 const { buildEmail, PRODUCT_ACCENTS } = require("../../email-templates/render");
@@ -156,6 +157,12 @@ exports.handler = async () => {
   const { blobs } = await store.list();
   const now = Date.now();
 
+  // Never drip purchase pitches at people who already bought. A lead who
+  // converts stays in the leads store forever, so without this they keep
+  // getting "buy it for $20" mail for a plugin they own (observed on the
+  // APD bundle buyers, Jul 2026).
+  const buyerEmails = await loadBuyerEmails();
+
   let sent = 0;
   const results = [];
 
@@ -164,6 +171,7 @@ exports.handler = async () => {
       const lead = await store.get(blob.key, { type: "json" });
       if (!lead || !lead.contact) continue;
       if (isSuppressed(lead.contact)) continue; // unsubscribed
+      if (buyerEmails.has(String(lead.contact).trim().toLowerCase())) continue; // already a customer
       if (lead.drip_status !== "email1_sent") continue;
       if (!lead.email1_sent_at) continue;
       const elapsed = now - new Date(lead.email1_sent_at).getTime();
