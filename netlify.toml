@@ -83,6 +83,104 @@
   force = true
 
 # Pretty URLs for product pages
+# The static files remain the internal publish targets below. Redirect direct
+# .html requests first so search engines see one canonical public URL per page.
+[[redirects]]
+  from = "/index.html"
+  to = "/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/carbonator.html"
+  to = "/carbonator"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/desipper.html"
+  to = "/desipper"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/ontap.html"
+  to = "/ontap"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/pour.html"
+  to = "/pour"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/still.html"
+  to = "/still"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/fizzfuel.html"
+  to = "/fizzfuel"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/bundle.html"
+  to = "/bundle"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/carbonator-vs-decapitator.html"
+  to = "/carbonator-vs-decapitator"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/carbonator-vs-saturn.html"
+  to = "/carbonator-vs-saturn"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/carbonator-vs-free-saturation.html"
+  to = "/carbonator-vs-free-saturation"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/best-cheap-saturation-plugins.html"
+  to = "/best-cheap-saturation-plugins"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/ontap-vs-kickstart.html"
+  to = "/ontap-vs-kickstart"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/desipper-vs-soothe.html"
+  to = "/desipper-vs-soothe"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/desipper-vs-spitfish.html"
+  to = "/desipper-vs-spitfish"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/pour-vs-ozone-imager.html"
+  to = "/pour-vs-ozone-imager"
+  status = 301
+  force = true
+
 [[redirects]]
   from = "/carbonator"
   to = "/carbonator.html"
@@ -111,6 +209,16 @@
 [[redirects]]
   from = "/pour"
   to = "/pour.html"
+  status = 200
+
+[[redirects]]
+  from = "/still"
+  to = "/still.html"
+  status = 200
+
+[[redirects]]
+  from = "/fizzfuel"
+  to = "/fizzfuel.html"
   status = 200
 
 # Tonic temporarily removed from the store (trademark name change pending).
