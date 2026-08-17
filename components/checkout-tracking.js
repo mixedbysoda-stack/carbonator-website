@@ -38,30 +38,41 @@
     event.preventDefault();
     link.dataset.checkoutTracking = 'done';
     var navigated = false;
+    var checkoutEventSent = false;
+    var destination = link.href;
     var campaign = campaignContext();
     campaign.placement = link.dataset.checkoutPlacement || link.closest('section')?.id || 'site_link';
-    function go(destination) {
+    function go(url) {
       if (navigated) return;
       navigated = true;
-      window.location.assign(destination);
+      window.location.assign(url);
     }
     if (typeof gtag === 'function') {
-      gtag('event', 'begin_checkout', {
-        currency: 'USD',
-        value: product.price,
-        items: [{ item_id: product.id, item_name: product.name, price: product.price, quantity: 1 }],
-        checkout_placement: campaign.placement,
-        campaign_source: campaign.source,
-        campaign_medium: campaign.medium,
-        campaign_name: campaign.campaign
-      });
-      // Analytics blockers can prevent the client-ID callback. Never block checkout for it.
-      window.setTimeout(function () { go(link.href); }, 800);
+      function sendCheckoutEvent() {
+        if (checkoutEventSent) return;
+        checkoutEventSent = true;
+        gtag('event', 'begin_checkout', {
+          currency: 'USD',
+          value: product.price,
+          items: [{ item_id: product.id, item_name: product.name, price: product.price, quantity: 1 }],
+          checkout_placement: campaign.placement,
+          campaign_source: campaign.source,
+          campaign_medium: campaign.medium,
+          campaign_name: campaign.campaign,
+          transport_type: 'beacon',
+          event_callback: function () { go(destination); }
+        });
+      }
+      // Send the event before navigating. The callback is best effort; checkout never waits
+      // longer than 1.2 seconds when GA or an extension blocks analytics.
+      window.setTimeout(sendCheckoutEvent, 300);
+      window.setTimeout(function () { go(destination); }, 1200);
       gtag('get', 'G-Z9L20HJ4M0', 'client_id', function (clientId) {
-        var destination = new URL(link.href);
+        var checkoutUrl = new URL(link.href);
         var ref = reference(clientId);
-        if (ref) destination.searchParams.set('client_reference_id', ref);
-        go(destination.toString());
+        if (ref) checkoutUrl.searchParams.set('client_reference_id', ref);
+        destination = checkoutUrl.toString();
+        sendCheckoutEvent();
       });
     } else {
       go(link.href);
