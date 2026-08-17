@@ -10,7 +10,7 @@ const { PRODUCTS } = require("./config");
 const { buildEmail, PRODUCT_ACCENTS } = require("../../email-templates/render");
 
 const FROM_EMAIL = "Carbonated Audio <hello@carbonatedaudio.com>";
-const BUNDLE_URL = "https://buy.stripe.com/aFa4gzbUZfRwdPXdHt3oA0g";
+const BUNDLE_URL = "https://buy.stripe.com/3cI7sL2kpaxcdPX1YL3oA0h?prefilled_promo_code=promo_1U3syYE7QUGObiuvyTc1uBso";
 const THREE_DAYS = 3 * 24 * 60 * 60 * 1000;
 
 const SUBJECTS = {
@@ -44,8 +44,8 @@ const SPOTLIGHT = {
       "<strong style=\"color:#ffffff;\">Zero added latency</strong> — leave it on while tracking or mixing",
     ],
     ctaText: "Cleaning a vocal? Meet De-Sipper",
-    ctaUrl: "https://carbonatedaudio.com/desipper",
-    footnote: `<p style="color:#a09bb5;font-size:14px;line-height:1.7;margin:16px 0 0;">And if the track you're cleaning is a vocal: Still handles the noise, but sibilance is a different job — <a href="https://carbonatedaudio.com/desipper" style="color:#00d4ff;text-decoration:none;font-weight:600;">De-Sipper ($20)</a> finishes the vocal cleanup.</p>`,
+    ctaUrl: "https://carbonatedaudio.com/desipper?utm_source=still_email&utm_medium=email&utm_campaign=still_day3",
+    footnote: `<p style="color:#a09bb5;font-size:14px;line-height:1.7;margin:16px 0 0;">Still handles the noise, but sibilance is a different job — <a href="https://carbonatedaudio.com/desipper?utm_source=still_email&utm_medium=email&utm_campaign=still_day3" style="color:#00d4ff;text-decoration:none;font-weight:600;">De-Sipper ($20)</a> finishes the vocal cleanup.</p>`,
   },
   carbonator: {
     headline: "How's the demo going so far?",
@@ -131,7 +131,7 @@ function buildDay3Body(product, contact) {
     </p>
     <p style="color:#a09bb5;font-size:14px;line-height:1.7;margin:0 0 16px;">${otherProducts}</p>
     <p style="color:#a09bb5;font-size:14px;line-height:1.7;margin:0;">
-      Or grab all 4 plugins in our <a href="${BUNDLE_URL}" style="color:#4ecca3;text-decoration:none;font-weight:600;">Complete Bundle for $60</a> &mdash; save $20.
+      Through September 30, get all 6 Carbonated Audio plugins for <a href="${BUNDLE_URL}" style="color:#4ecca3;text-decoration:none;font-weight:600;">$45</a> &mdash; normally $109, save $64.
     </p>
   `;
 

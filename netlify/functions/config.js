@@ -94,6 +94,13 @@ const PRODUCTS = {
     // owners' licenses still validate. Re-add to includes once the rename ships.
     includes: ["carbonator", "desipper", "ontap", "pour"],
   },
+  september_bundle: {
+    name: "Carbonated Audio All 6 Plugins Bundle",
+    price: 45,
+    isBundle: true,
+    // Public lineup: the four original paid effects, FIZZFUEL, and Still.
+    includes: ["carbonator", "desipper", "ontap", "pour", "octane", "still"],
+  },
   vocal_bundle: {
     name: "Vocal Chain Bundle",
     price: 35,

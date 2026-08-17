@@ -4,6 +4,7 @@ const { getBlobStore } = require("./lib/store");
 const { PRODUCTS, generateActivationKey } = require("./config");
 const { generateRefCode } = require("./referral");
 const { buildEmail } = require("../../email-templates/render");
+const { decodeClientReference, reportPurchase } = require("./lib/ga4");
 
 const FROM_EMAIL = "Carbonated Audio <hello@carbonatedaudio.com>";
 
@@ -15,6 +16,7 @@ const SUBJECTS = {
   tonic: "Your Tonic License Key & Download Links",
   octane: "Your FIZZFUEL License Key & Download Links",
   bundle: "Your Carbonated Audio Bundle — License Keys & Downloads",
+  september_bundle: "Your Carbonated Audio All 6 Plugins Bundle — Downloads & License Keys",
   vocal_bundle: "Your Vocal Chain Bundle — License Keys & Downloads",
   mixbus_bundle: "Your Mix Bus Bundle — License Keys & Downloads",
   apd_bundle: "Your Carbonated Audio 3-in-1 Bundle — License Keys & Downloads",
@@ -63,6 +65,12 @@ const QUICK_START = {
     '<strong style="color:#ffffff;">Rescan plugins</strong> in your DAW.',
     '<strong style="color:#ffffff;">Stack them:</strong> Carbonator for saturation, De-Sipper for vocals, On Tap for sidechain, Pour for imaging.',
   ],
+  september_bundle: [
+    '<strong style="color:#ffffff;">Install your six plugins</strong> using the download links below.',
+    '<strong style="color:#ffffff;">Activate the five paid plugins</strong> with their matching license keys. Still is free and needs no activation.',
+    '<strong style="color:#ffffff;">Rescan plugins</strong> in your DAW after installation.',
+    '<strong style="color:#ffffff;">Your full chain:</strong> Still for noise, De-Sipper for vocals, Carbonator for character, On Tap for ducking, Pour for width, and FIZZFUEL for creative movement.',
+  ],
   vocal_bundle: [
     '<strong style="color:#ffffff;">Install Carbonator and De-Sipper</strong> using the download links above.',
     '<strong style="color:#ffffff;">Activate each plugin</strong> with its matching license key — each key is plugin-specific.',
@@ -88,6 +96,8 @@ const BODY_COPY = {
     `<p style="color:#a09bb5;font-size:15px;line-height:1.7;margin:0;">Your ${productName} license key and downloads are below. If anything breaks on install, just reply to this email.</p>`,
   bundle:
     `<p style="color:#a09bb5;font-size:15px;line-height:1.7;margin:0;">You now own all four Carbonated Audio plugins — Carbonator, De-Sipper, On Tap, and Pour. Each license key, download pair, and a quick-start checklist are below.</p>`,
+  september_bundle:
+    `<p style="color:#a09bb5;font-size:15px;line-height:1.7;margin:0;">Your full Carbonated Audio toolkit is below: Carbonator, De-Sipper, On Tap, Pour, FIZZFUEL, and Still. License keys are included for the five paid plugins; Still is free and needs no activation.</p>`,
   vocal_bundle:
     `<p style="color:#a09bb5;font-size:15px;line-height:1.7;margin:0;">Welcome to the Vocal Chain Bundle — you now own Carbonator and De-Sipper. License keys, downloads, and a quick-start checklist are below.</p>`,
   mixbus_bundle:
@@ -140,6 +150,29 @@ exports.handler = async (event) => {
   const orderId = session.id;
   const refCode = generateRefCode(email);
 
+  // Stripe is the authoritative purchase source. The client reference contains
+  // only the GA browser ID (never an email or payment detail), so GA4 can join
+  // the confirmed purchase to the original visit.
+  if (session.metadata?.ga4_purchase_sent !== "true") {
+    try {
+      const clientId = decodeClientReference(session.client_reference_id);
+      const result = await reportPurchase({
+        clientId,
+        transactionId: session.id,
+        product: { id: productId, name: product.name },
+        amountCents: session.amount_total,
+        currency: session.currency,
+      });
+      if (result.sent) {
+        await stripe.checkout.sessions.update(session.id, {
+          metadata: { ga4_purchase_sent: "true" },
+        });
+      }
+    } catch (err) {
+      console.error("GA4 purchase report failed (non-fatal):", err.message);
+    }
+  }
+
   let emailHtml;
   let emailSubject;
 
@@ -171,6 +204,7 @@ exports.handler = async (event) => {
 
     const preheaderMap = {
       bundle: "Your 4 license keys + downloads",
+      september_bundle: "Your 5 license keys + all 6 downloads",
       vocal_bundle: "Your Vocal Chain Bundle — 2 license keys + downloads",
       mixbus_bundle: "Your Mix Bus Bundle — 2 license keys + downloads",
       apd_bundle: "Your 3-in-1 Bundle — 3 license keys + downloads",
