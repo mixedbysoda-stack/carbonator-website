@@ -6,7 +6,6 @@
 
 const { getBlobStore } = require("./lib/store");
 const { isSuppressed } = require("./lib/suppression");
-const { loadBuyerEmails } = require("./lib/buyers");
 const { Resend } = require("resend");
 const { buildEmail } = require("../../email-templates/render");
 
@@ -18,6 +17,34 @@ const BUNDLE_URL =
 
 function isStillLead(lead) {
   return String(lead?.source || "").toLowerCase().includes("still");
+}
+
+// This is intentionally a cache-only lookup. The shared buyer helper also
+// crawls Stripe history, which is right for a scheduled drip but too slow for
+// a manually invoked campaign function. Stripe's webhook writes this store as
+// each paid checkout completes, keeping this campaign within the function
+// timeout while still excluding known customers.
+async function loadCachedBuyerEmails() {
+  const buyers = new Set();
+  try {
+    const buyerStore = getBlobStore("buyers");
+    const { blobs = [] } = await buyerStore.list();
+    for (const blob of blobs) {
+      let email;
+      try {
+        email = (await buyerStore.get(blob.key, { type: "json" }))?.email;
+      } catch {
+        email = null;
+      }
+      if (!email && blob.key?.startsWith("buyer_")) {
+        email = blob.key.slice("buyer_".length);
+      }
+      if (email) buyers.add(String(email).trim().toLowerCase());
+    }
+  } catch (error) {
+    console.error("Campaign buyer-cache lookup failed:", error.message);
+  }
+  return buyers;
 }
 
 function campaignEmail() {
@@ -44,6 +71,8 @@ exports.handler = async (event) => {
   const suppliedToken = event.queryStringParameters?.token;
   const adminToken = process.env.LEADS_ADMIN_TOKEN;
   const dryRun = event.queryStringParameters?.dry_run === "1";
+  const requestedLimit = Number.parseInt(event.queryStringParameters?.limit, 10);
+  const limit = Number.isInteger(requestedLimit) ? Math.min(Math.max(requestedLimit, 1), 20) : 10;
 
   if (!adminToken || suppliedToken !== adminToken) {
     return { statusCode: 401, body: JSON.stringify({ error: "Unauthorized" }) };
@@ -54,7 +83,7 @@ exports.handler = async (event) => {
 
   const store = getBlobStore("leads");
   const { blobs = [] } = await store.list();
-  const buyers = await loadBuyerEmails();
+  const buyers = await loadCachedBuyerEmails();
   const seenEmails = new Set();
   const candidates = [];
   let excludedBuyers = 0;
@@ -101,7 +130,7 @@ exports.handler = async (event) => {
   const now = new Date().toISOString();
   const html = campaignEmail();
 
-  for (const candidate of candidates) {
+  for (const candidate of candidates.slice(0, limit)) {
     try {
       await resend.emails.send({
         from: FROM_EMAIL,
@@ -129,6 +158,7 @@ exports.handler = async (event) => {
       sent,
       failed: failed.length,
       eligible: candidates.length,
+      attempted: Math.min(candidates.length, limit),
       excluded_buyers: excludedBuyers,
       excluded_suppressed: excludedSuppressed,
       excluded_previously_sent: excludedPreviouslySent,
