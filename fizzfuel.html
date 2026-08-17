@@ -17,14 +17,14 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
     <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1682413179857373&ev=PageView&noscript=1"/></noscript>
     <!-- End Meta Pixel Code -->
     <title>FIZZFUEL — Multi-Effect Gearbox Plugin | Carbonated Audio</title>
-    <meta name="description" content="FIZZFUEL is a six-effect gearbox plugin — Drive, Reverb, Delay, Pitch, and Filter on a manual shifter. 20+ styles, $29 one-time. VST3, AU, AAX for macOS.">
+    <meta name="description" content="FIZZFUEL is a five-effect gearbox plugin — Drive, Reverb, Delay, Pitch, and Filter on a manual shifter, plus a clean reference gear. 20+ styles, $29 one-time.">
     <meta name="keywords" content="multi-effect plugin, saturation plugin, reverb delay pitch filter, creative fx, gearbox plugin, audio plugin, VST3, AU, AAX, FIZZFUEL, Carbonated Audio">
     <meta name="author" content="Carbonated Audio">
 
     <!-- Open Graph / Social Sharing -->
     <meta property="og:type" content="product">
     <meta property="og:title" content="FIZZFUEL — Multi-Effect Gearbox Plugin">
-    <meta property="og:description" content="Six effects on a shifter — Drive, Reverb, Delay, Pitch, Filter. 20+ styles. $29 one-time.">
+    <meta property="og:description" content="Five effects on a shifter, plus a clean reference gear — Drive, Reverb, Delay, Pitch, Filter. 20+ styles. $29 one-time.">
     <meta property="og:url" content="https://carbonatedaudio.com/fizzfuel">
     <meta property="og:site_name" content="Carbonated Audio">
     <meta property="og:image" content="https://carbonatedaudio.com/fizzfuel-screenshot.png">
@@ -37,7 +37,7 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="FIZZFUEL — Multi-Effect Gearbox Plugin">
-    <meta name="twitter:description" content="Six effects on a shifter — Drive, Reverb, Delay, Pitch, Filter. 20+ styles. $29 one-time.">
+    <meta name="twitter:description" content="Five effects on a shifter, plus a clean reference gear — Drive, Reverb, Delay, Pitch, Filter. 20+ styles. $29 one-time.">
     <meta name="twitter:image" content="https://carbonatedaudio.com/fizzfuel-screenshot.png">
 
     <!-- Canonical -->
@@ -53,7 +53,7 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
         "applicationCategory": "MultimediaApplication",
         "softwareVersion": "1.0.0",
         "operatingSystem": ["macOS 10.13+", "Windows 10+"],
-        "description": "FIZZFUEL is a six-effect multi-effect plugin built around a manual gearshift: Drive, Reverb, Delay, Pitch, and Filter, each with multiple styles, plus a clean bypass. Over 20 styles in all. Available as VST3, AU, AAX on macOS. One-time $29 purchase.",
+        "description": "FIZZFUEL is a five-effect multi-effect plugin built around a manual gearshift: Drive, Reverb, Delay, Pitch, and Filter, each with multiple styles, plus a clean reference gear. Over 20 styles in all. Available as VST3, AU, and AAX on macOS, plus VST3 on Windows. One-time $29 purchase.",
         "url": "https://carbonatedaudio.com/fizzfuel",
         "image": "https://carbonatedaudio.com/fizzfuel-screenshot.png",
         "screenshot": "https://carbonatedaudio.com/fizzfuel-screenshot.png",
@@ -88,7 +88,7 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
             "Clutch macro drives per-effect intensity",
             "Glitch-free crossfade between gears",
             "20+ styles across all effects",
-            "VST3, AU, AAX formats",
+            "VST3, AU, AAX on macOS; VST3 on Windows",
             "macOS (Apple Silicon + Intel), Pro Tools signed",
             "One-time $29 purchase",
             "3 machine activations"
@@ -103,7 +103,7 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
         "@context": "https://schema.org",
         "@type": "FAQPage",
         "mainEntity": [
-            {"@type":"Question","name":"What is FIZZFUEL?","acceptedAnswer":{"@type":"Answer","text":"FIZZFUEL is a multi-effect plugin built around a manual gearshift. Throw the stick into a gear to pick one of six effects — Drive, Reverb, Delay, Pitch, Filter, or a clean bypass — and shape it with the clutch and a style selector."}},
+            {"@type":"Question","name":"What is FIZZFUEL?","acceptedAnswer":{"@type":"Answer","text":"FIZZFUEL is a multi-effect plugin built around a manual gearshift. Throw the stick into a gear to pick Drive, Reverb, Delay, Pitch, Filter, or R for a clean reference, then shape it with the clutch and a style selector."}},
             {"@type":"Question","name":"How do you switch between effects?","acceptedAnswer":{"@type":"Answer","text":"Throw the shifter into the gear you want, like a real gearbox. Each of the six positions is a different effect, and switching crossfades smoothly with no clicks — reverb and delay tails ring out as you change gears."}},
             {"@type":"Question","name":"What effects and styles are included?","acceptedAnswer":{"@type":"Answer","text":"Drive (Tape/Tube/Console/Clip/Fuzz), Reverb (Room/Hall/Plate/Canyon), Delay (Slap/1-8/Dotted/Long), Pitch (-Oct/+5th/Detune/Shimmer), and Filter (Telephone/LP Sweep/Tilt/Reso) — over twenty styles, plus a clean A/B gear."}},
             {"@type":"Question","name":"Is the delay tempo-synced?","acceptedAnswer":{"@type":"Answer","text":"Yes. The Delay gear locks to your DAW's tempo — slap, eighth, dotted-eighth, and long divisions — with filtered, self-oscillating feedback on the clutch."}},
@@ -883,6 +883,134 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
                 display: none;
             }
         }
+
+        /* ---- Flagship product-page preview ---- */
+        .product-jump-nav {
+            position: sticky;
+            top: 0;
+            z-index: 25;
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            padding: 14px 20px;
+            background: rgba(10, 6, 19, 0.86);
+            backdrop-filter: blur(18px);
+            border-bottom: 1px solid rgba(255,255,255,.07);
+        }
+        .product-jump-nav a { color: var(--text-secondary); text-decoration: none; font-size: 13px; font-weight: 700; }
+        .product-jump-nav a:hover { color: #fff; }
+        .flagship-hero { min-height: 710px; padding: 104px max(32px, calc((100vw - 1180px) / 2)) 70px; display:grid; grid-template-columns: .96fr 1.04fr; align-items:center; gap: 72px; overflow:hidden; }
+        .referral-welcome { display:none; align-items:center; gap:9px; width:max-content; max-width:100%; margin:0 0 18px; padding:8px 12px; border:1px solid rgba(255,132,73,.42); border-radius:999px; background:rgba(255,113,51,.1); color:#ffd0b8; font:700 11px/1.25 'JetBrains Mono',monospace; letter-spacing:.045em; }
+        .referral-welcome::before { content:''; flex:0 0 auto; width:7px; height:7px; border-radius:50%; background:#ff7641; box-shadow:0 0 13px #ff7641; }
+        .referral-welcome.is-visible { display:flex; }
+        .eyebrow { display:inline-flex; align-items:center; gap:8px; padding:7px 11px; border:1px solid rgba(255,152,76,.4); border-radius:99px; color:#ffc08e; font:700 11px/1 'JetBrains Mono', monospace; letter-spacing:.08em; text-transform:uppercase; }
+        .eyebrow::before { content:''; width:7px; height:7px; border-radius:50%; background:#ff7d35; box-shadow:0 0 16px #ff7d35; }
+        .flagship-hero h1 { margin:21px 0 18px; font-size:clamp(58px, 7vw, 104px); line-height:.9; letter-spacing:-.075em; color:#fff; }
+        .flagship-hero h1 span { display:block; color:#ff7133; }
+        .flagship-hero .hero-desc { margin:0 0 28px; max-width:510px; font-size:18px; line-height:1.65; text-align:left; }
+        .flagship-meta { display:flex; flex-wrap:wrap; gap:10px 18px; margin:26px 0 30px; color:#b8aecb; font-size:13px; font-weight:700; }
+        .flagship-meta span { display:flex; align-items:center; gap:7px; }
+        .flagship-meta span::before { content:'✓'; color:#ff8a50; font-weight:900; }
+        .flagship-visual { --shift-color: 255,113,51; position:relative; min-height:590px; display:flex; justify-content:center; align-items:center; }
+        .flagship-visual::before { content:''; position:absolute; width:430px; height:430px; border-radius:50%; background:radial-gradient(circle, rgba(var(--shift-color),.23), rgba(116,36,255,.1) 44%, transparent 70%); filter:blur(3px); transition:background .45s ease, transform .45s ease; }
+        .flagship-visual.shift-active::before { transform:scale(1.12); background:radial-gradient(circle, rgba(var(--shift-color),.35), rgba(var(--shift-color),.08) 48%, transparent 72%); }
+        .hero-screenshot { position:relative; z-index:1; margin:0; max-width:360px !important; transform:rotate(3.5deg); box-shadow: -22px 28px 80px rgba(0,0,0,.6), 0 0 0 1px rgba(255,130,70,.3); transition:transform .38s cubic-bezier(.2,.9,.2,1), box-shadow .38s ease, filter .38s ease; }
+        .real-gearbox { position:relative; z-index:1; width:420px; height:700px; border:0; border-radius:18px; overflow:hidden; background:#0d0a1a; transform:scale(.857142857) rotate(3.5deg); transform-origin:center; box-shadow:-22px 28px 80px rgba(0,0,0,.6), 0 0 0 1px rgba(255,130,70,.3); }
+        .shift-active .hero-screenshot { transform:rotate(1deg) translateY(-7px); filter:saturate(1.15) brightness(1.08); box-shadow:-22px 28px 80px rgba(0,0,0,.6), 0 0 0 1px rgba(var(--shift-color),.75), 0 0 46px rgba(var(--shift-color),.28); }
+        .shift-simulator { position:relative; z-index:1; width:min(360px, 82vw); transform:rotate(3.5deg); }
+        .shift-simulator .hero-screenshot { width:100%; display:block; transform:none; }
+        .shift-active .shift-simulator { transform:rotate(1deg) translateY(-7px); animation:shiftSettle .42s cubic-bezier(.22,.9,.25,1); }
+        @keyframes shiftSettle { 0% { transform:rotate(3.5deg) translateY(0); } 38% { transform:rotate(-.8deg) translateY(-13px); } 100% { transform:rotate(1deg) translateY(-7px); } }
+        .shift-hotspot { position:absolute; z-index:3; width:17%; aspect-ratio:1; padding:0; border:0; border-radius:50%; background:transparent; cursor:grab; touch-action:none; }
+        .shift-hotspot:focus-visible { outline:2px solid #fff; outline-offset:4px; }
+        .shift-hotspot::after { content:''; position:absolute; inset:15%; border-radius:50%; border:1px solid rgba(var(--shift-color),0); box-shadow:0 0 0 rgba(var(--shift-color),0); transition:border-color .2s, box-shadow .2s, transform .2s; }
+        .shift-simulator:hover .shift-hotspot::after, .shift-simulator:focus-within .shift-hotspot::after { border-color:rgba(255,255,255,.22); }
+        .shift-hotspot.selected::after { border-color:rgba(var(--shift-color),.95); box-shadow:0 0 0 5px rgba(var(--shift-color),.16), 0 0 24px rgba(var(--shift-color),.75); transform:scale(1.14); }
+        .shift-hint { position:absolute; z-index:4; left:50%; bottom:3%; transform:translate(-50%, 8px); width:max-content; color:#fff; background:rgba(18,12,29,.88); border:1px solid rgba(255,255,255,.18); padding:8px 11px; border-radius:8px; font:700 10px/1 'JetBrains Mono',monospace; letter-spacing:.08em; opacity:0; transition:opacity .2s, transform .2s; pointer-events:none; }
+        .shift-simulator:hover .shift-hint, .shift-simulator:focus-within .shift-hint { opacity:1; transform:translate(-50%, 0); }
+        .shift-hotspot[data-gear="drive"] { left:17%; top:51%; }
+        .shift-hotspot[data-gear="delay"] { left:41.5%; top:51%; }
+        .shift-hotspot[data-gear="filter"] { left:66%; top:51%; }
+        .shift-hotspot[data-gear="reverb"] { left:17%; top:76%; }
+        .shift-hotspot[data-gear="pitch"] { left:41.5%; top:76%; }
+        .shift-hotspot[data-gear="clean"] { left:66%; top:76%; }
+        .gear-stamp { position:absolute; z-index:2; right:2%; bottom:14%; padding:15px 17px; min-width:132px; color:#ffd5bf; background:rgba(30,13,27,.86); border:1px solid rgba(255,137,79,.4); border-radius:14px; box-shadow:0 18px 50px rgba(0,0,0,.4); font:700 11px/1.45 'JetBrains Mono', monospace; text-transform:uppercase; letter-spacing:.08em; transition:border-color .3s, box-shadow .3s, color .3s; }
+        .shift-active .gear-stamp { border-color:rgba(var(--shift-color),.85); box-shadow:0 18px 50px rgba(0,0,0,.4), 0 0 25px rgba(var(--shift-color),.2); color:rgb(var(--shift-color)); }
+        .gear-stamp strong { display:block; margin-top:5px; color:#fff; font-size:16px; letter-spacing:0; }
+        .flagship-section { padding:104px max(32px, calc((100vw - 1120px) / 2)); position:relative; }
+        .section-kicker { color:#ff965d; font:700 12px/1 'JetBrains Mono', monospace; letter-spacing:.12em; text-transform:uppercase; margin-bottom:16px; }
+        .flagship-section h2 { margin:0; font-size:clamp(36px, 5vw, 62px); letter-spacing:-.05em; line-height:.98; color:#fff; }
+        .section-intro { max-width:610px; color:var(--text-secondary); font-size:17px; line-height:1.65; margin:20px 0 42px; }
+        .listen-section { background:linear-gradient(145deg, rgba(52,18,39,.72), rgba(17,11,36,.9)); border-top:1px solid rgba(255,133,71,.16); border-bottom:1px solid rgba(255,133,71,.16); }
+        .listen-shell { display:grid; grid-template-columns: .82fr 1.18fr; gap:28px; align-items:stretch; }
+        .listen-copy { padding:42px 12px 32px 0; }
+        .listen-copy h2 { font-size:clamp(40px, 5vw, 62px); }
+        .demo-stage { min-height:390px; padding:22px; border:1px solid rgba(255,255,255,.11); border-radius:24px; background:linear-gradient(145deg, rgba(255,255,255,.08), rgba(0,0,0,.28)); }
+        .demo-note { display:flex; align-items:center; justify-content:space-between; padding:7px 0 17px; color:#bcb1ce; font-size:12px; }
+        .demo-tabs { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:18px; }
+        .demo-tab, .gear-button { font:700 12px/1 Inter, sans-serif; cursor:pointer; border:1px solid rgba(255,255,255,.14); background:rgba(255,255,255,.04); color:#d8d0e4; border-radius:9px; padding:10px 12px; }
+        .demo-tab.active, .gear-button.active { border-color:#ff7641; background:rgba(255,108,51,.18); color:#fff; box-shadow:0 0 20px rgba(255,108,51,.11); }
+        .ab-panel { position:relative; overflow:hidden; min-height:248px; display:grid; place-items:center; border-radius:16px; border:1px solid rgba(255,255,255,.1); background:radial-gradient(circle at 72% 18%, rgba(255,115,50,.23), transparent 34%), linear-gradient(145deg, #17111d, #0b0a13); }
+        .ab-panel::after { content:'A/B AUDIO PREVIEW'; position:absolute; top:18px; left:19px; color:#ffbc97; font:700 10px/1 'JetBrains Mono',monospace; letter-spacing:.13em; }
+        .ab-wheel { width:146px; height:146px; border-radius:50%; border:14px solid rgba(255,255,255,.08); box-shadow:inset 0 0 0 1px rgba(255,148,84,.55), 0 0 50px rgba(255,94,33,.18); display:grid; place-items:center; color:#fff; font:900 17px/1 Inter,sans-serif; letter-spacing:-.04em; }
+        .ab-wheel span { display:block; color:#ff985f; font-size:11px; letter-spacing:.1em; margin-top:5px; text-align:center; }
+        .ab-controls { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:15px; }
+        .ab-mode { border:1px solid rgba(255,255,255,.12); border-radius:11px; padding:13px 15px; color:#a99db8; font:inherit; text-align:left; cursor:pointer; font-size:13px; background:rgba(0,0,0,.15); transition:border-color .2s, background .2s, transform .2s; }
+        .ab-mode:hover { transform:translateY(-1px); border-color:rgba(255,145,83,.5); }
+        .ab-mode.active { border-color:#ff7641; background:rgba(255,108,51,.16); }
+        .ab-mode strong { display:block; margin-bottom:4px; color:#fff; font-size:14px; }
+        .demo-play { position:relative; z-index:2; width:74px; height:74px; border:0; border-radius:50%; color:#fff; background:linear-gradient(145deg, #ff7641, #c93782); box-shadow:0 0 0 12px rgba(255,113,51,.11), 0 14px 34px rgba(0,0,0,.45); font-size:25px; cursor:pointer; transition:transform .2s, box-shadow .2s; }
+        .demo-play:hover { transform:scale(1.06); box-shadow:0 0 0 16px rgba(255,113,51,.12), 0 14px 34px rgba(0,0,0,.45); }
+        .demo-now-playing { position:absolute; bottom:28px; left:0; right:0; text-align:center; color:#ffc3a0; font:700 11px/1 'JetBrains Mono',monospace; letter-spacing:.08em; text-transform:uppercase; }
+        .demo-wave { position:absolute; inset:auto 28px 66px; height:42px; opacity:.5; display:flex; align-items:center; justify-content:space-between; gap:3px; }
+        .demo-wave i { display:block; flex:1; min-width:2px; height:var(--h); background:linear-gradient(#ff9a63, #c83b8a); border-radius:20px; opacity:.55; transform-origin:center; }
+        .demo-stage.playing .demo-wave i { animation:demoPulse .7s ease-in-out infinite alternate; animation-delay:var(--d); }
+        @keyframes demoPulse { to { transform:scaleY(.35); opacity:.95; } }
+        .demo-progress { position:absolute; z-index:3; bottom:16px; left:28px; right:28px; height:3px; overflow:hidden; border-radius:5px; background:rgba(255,255,255,.13); }
+        .demo-progress span { display:block; width:0; height:100%; background:linear-gradient(90deg, #ff7641, #ff79ba); transition:width .1s linear; }
+        .audio-placeholder { margin-top:16px; color:#a99db8; font-size:12px; line-height:1.5; }
+        .gear-layout { display:grid; grid-template-columns: .73fr 1.27fr; gap:44px; align-items:start; }
+        .gear-buttons { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+        .gear-button { text-align:left; min-height:72px; }
+        .gear-button span { display:block; color:#a89db7; font-size:11px; font-weight:600; margin-top:5px; }
+        .gear-detail { min-height:310px; padding:40px; border-radius:24px; border:1px solid rgba(255,141,75,.24); background:linear-gradient(145deg, rgba(54,24,45,.72), rgba(17,11,32,.9)); }
+        .gear-count { color:#ff985d; font:700 12px/1 'JetBrains Mono', monospace; letter-spacing:.1em; text-transform:uppercase; }
+        .gear-detail h3 { margin:14px 0 12px; color:#fff; font-size:38px; letter-spacing:-.045em; }
+        .gear-detail p { margin:0; max-width:510px; color:#c9bed4; line-height:1.65; }
+        .gear-styles { display:flex; flex-wrap:wrap; gap:8px; margin-top:25px; }
+        .gear-styles span { padding:8px 10px; color:#ffc5a6; background:rgba(255,130,62,.12); border:1px solid rgba(255,130,62,.22); border-radius:7px; font:700 11px/1 'JetBrains Mono',monospace; }
+        .control-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+        .control-card { padding:26px; min-height:175px; border:1px solid rgba(255,255,255,.1); border-radius:16px; background:rgba(16,11,29,.5); }
+        .control-index { color:#ff8b50; font:700 12px/1 'JetBrains Mono',monospace; }
+        .control-card h3 { margin:22px 0 8px; color:#fff; font-size:20px; }
+        .control-card p { color:#b5aabe; font-size:14px; line-height:1.55; }
+        .use-case-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+        .use-case { padding:28px; min-height:210px; border-radius:16px; border:1px solid rgba(255,255,255,.1); background:linear-gradient(155deg, rgba(255,115,45,.14), rgba(20,13,34,.5) 60%); }
+        .use-case small { color:#ff9c66; font:700 11px/1 'JetBrains Mono',monospace; letter-spacing:.09em; }
+        .use-case h3 { margin:18px 0 9px; color:#fff; font-size:23px; }
+        .use-case p { margin:0; color:#bfb3cb; line-height:1.55; font-size:14px; }
+        .final-buy { text-align:center; background:radial-gradient(circle at 50% 0, rgba(255,102,44,.22), transparent 52%), rgba(16,10,27,.72); }
+        .final-buy .section-intro { margin-left:auto; margin-right:auto; }
+        .buy-stack { display:flex; flex-direction:column; align-items:center; gap:12px; }
+        .buy-stack .btn-primary { min-width:254px; justify-content:center; }
+        .buy-fine { margin:0; color:#a89db8; font-size:13px; }
+        @media (max-width: 820px) {
+          .product-jump-nav { gap:14px; justify-content:flex-start; overflow-x:auto; }
+          .flagship-hero, .listen-shell, .gear-layout { grid-template-columns:1fr; }
+          .flagship-hero { padding-top:80px; gap:16px; }
+          .flagship-visual { min-height:460px; order:-1; }
+          .gear-stamp { right:5%; }
+          .real-gearbox { transform:scale(.78) rotate(3.5deg); }
+          .listen-copy { padding:0; }
+          .control-grid, .use-case-grid { grid-template-columns:1fr; }
+        }
+        @media (max-width: 500px) {
+          .flagship-section { padding-left:20px; padding-right:20px; }
+          .flagship-hero { padding-left:20px; padding-right:20px; }
+          .gear-buttons { grid-template-columns:1fr; }
+          .gear-detail { padding:28px 22px; }
+          .real-gearbox { transform:scale(.70) rotate(3.5deg); }
+        }
     </style>
 </head>
 
@@ -900,36 +1028,27 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
         <!-- Navigation -->
         <div id="site-nav" data-active="fizzfuel"></div>
 
-        <!-- Hero Section -->
-        <section class="hero">
-            <h1 class="hero-title">FIZZFUEL</h1>
-            <div class="hero-lines">
-                <span>Six effects.</span>
-                <span>One shifter.</span>
-                <span>Throw it in gear.</span>
+        <nav class="product-jump-nav" aria-label="FIZZFUEL page sections">
+            <a href="#sound">Sound demos</a><a href="#gearbox">The gearbox</a><a href="#controls">Controls</a><a href="#uses">Use cases</a><a href="#buy">Buy</a>
+        </nav>
+
+        <!-- Flagship Hero -->
+        <section class="flagship-hero">
+            <div>
+                <p class="referral-welcome" id="referralWelcome" aria-live="polite"></p>
+                <p class="eyebrow">Carbonated Audio presents</p>
+                <h1>Shift your <span>sound.</span></h1>
+                <p class="hero-desc">FIZZFUEL turns a real manual gearbox into your creative effects rack. Throw it into a gear, choose its character, then use the clutch to take your track from clean to completely changed.</p>
+                <div class="flagship-meta"><span>5 effect engines + clean reference</span><span>20+ styles</span><span>Glitch-free shifts</span></div>
+                <div class="hero-ctas">
+                    <a href="#sound" class="btn-secondary">Hear the shift</a>
+                    <a href="https://buy.stripe.com/6oUeVd7EJ6gW13b6f13oA0f" class="btn-primary" data-checkout-placement="hero">Get FIZZFUEL — $29</a>
+                </div>
+                <p class="buy-fine">Own it forever &middot; or 4 payments of $7.25 with Klarna or Afterpay at checkout</p>
             </div>
-            <p class="hero-desc">A saturation gearbox that grew into a multi-effect. Drive, Reverb, Delay, Pitch, and Filter &mdash; throw the stick into a gear, pick a style, and drive it with the clutch. One knob for intensity, glitch-free crossfades between every gear.</p>
-            <p class="hero-byline">by Carbonated Audio</p>
-            <img class="hero-screenshot" src="/fizzfuel-screenshot.png" alt="FIZZFUEL plugin interface — a gearshift selecting one of six effects, with a style selector and per-effect knobs" width="420" height="700" style="max-width:340px;height:auto;border-radius:18px;">
-            <div class="hero-ctas">
-                <a href="https://buy.stripe.com/6oUeVd7EJ6gW13b6f13oA0f" class="btn-primary">Get FIZZFUEL — $29</a>
-            </div>
-            <p style="margin-top:12px;font-size:13px;color:#a09bb5;text-align:center;">or 4 interest-free payments of $7.25 &mdash; Klarna &middot; Afterpay at checkout</p>
-            <div class="hero-stats">
-                <div class="hero-stat">
-                    <div class="hero-stat-value">$29</div>
-                    <div class="hero-stat-label">One-Time</div>
-                </div>
-                <div class="hero-stat-divider"></div>
-                <div class="hero-stat">
-                    <div class="hero-stat-value">VST3 / AU / AAX</div>
-                    <div class="hero-stat-label">All Formats</div>
-                </div>
-                <div class="hero-stat-divider"></div>
-                <div class="hero-stat">
-                    <div class="hero-stat-value">6 Effects</div>
-                    <div class="hero-stat-label">One Shifter</div>
-                </div>
+            <div class="flagship-visual">
+                <iframe class="real-gearbox" src="/assets/fizzfuel-gearbox/" title="Interactive FIZZFUEL gearbox: drag the shifter through the H-gate to select an effect"></iframe>
+                <div class="gear-stamp">Current position<strong>SHIFTED</strong></div>
             </div>
         </section>
 
@@ -939,69 +1058,67 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
             <p class="press-bar-outlets">Audio Plugin Guy &bull; Rekkerd.org &bull; KVR Audio &bull; AudioNewsRoom</p>
         </section>
 
-        <!-- Features Section -->
-        <section id="features">
-            <h2 class="section-title">Six Effects, <span class="accent">One Gearbox</span></h2>
-            <div class="features-grid">
-
-                <div class="feature-card">
-                    <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
-                    <h3>Gear 1 — Drive</h3>
-                    <p>Five saturation flavors in one gear: Tape, Tube, Console, Clip, and Fuzz. From gentle warmth to full redline breakup.</p>
+        <!-- Sound Demo Preview -->
+        <section id="sound" class="flagship-section listen-section">
+            <div class="listen-shell">
+                <div class="listen-copy">
+                    <p class="section-kicker">Hear it before you buy it</p>
+                    <h2>Clean in.<br><span class="accent">Shifted out.</span></h2>
+                    <p class="section-intro">Choose a source, switch from clean to shifted, and hear exactly what each gear gives the track. Every pair is level-matched from the same performance.</p>
                 </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 0 1 18 0"/><path d="M3 12a9 9 0 0 0 18 0"/></svg></div>
-                    <h3>Gear 2 — Reverb</h3>
-                    <p>A true feedback-delay-network reverb. Room, Hall, Plate, and Canyon &mdash; smooth, dense tails with damping and size control.</p>
+                <div class="demo-stage" aria-label="FIZZFUEL sound-demo preview">
+                    <div class="demo-note"><span>SELECT A SOURCE</span><span id="demo-effect-label">REVERB / CANYON</span></div>
+                    <div class="demo-tabs"><button class="demo-tab active" type="button" data-demo="vocal">Vocal</button><button class="demo-tab" type="button" data-demo="drums">Drums</button><button class="demo-tab" type="button" data-demo="synth">Synth</button><button class="demo-tab" type="button" data-demo="transition">Transition</button></div>
+                    <div class="ab-panel">
+                        <div class="demo-wave" aria-hidden="true"><i style="--h:28%;--d:.05s"></i><i style="--h:74%;--d:.2s"></i><i style="--h:45%;--d:.1s"></i><i style="--h:88%;--d:.35s"></i><i style="--h:35%;--d:.15s"></i><i style="--h:62%;--d:.4s"></i><i style="--h:92%;--d:.25s"></i><i style="--h:42%;--d:.5s"></i><i style="--h:70%;--d:.3s"></i><i style="--h:32%;--d:.1s"></i><i style="--h:82%;--d:.45s"></i><i style="--h:53%;--d:.2s"></i><i style="--h:68%;--d:.35s"></i><i style="--h:38%;--d:.15s"></i><i style="--h:90%;--d:.4s"></i><i style="--h:48%;--d:.05s"></i></div>
+                        <button type="button" class="demo-play" id="demo-play" aria-label="Play selected audio example">▶</button>
+                        <div class="demo-now-playing" id="demo-now-playing">VOCAL / CLEAN</div>
+                        <div class="demo-progress" aria-hidden="true"><span id="demo-progress-fill"></span></div>
+                    </div>
+                    <div class="ab-controls"><button class="ab-mode active" type="button" data-mode="clean"><strong>Clean</strong>Your original signal.</button><button class="ab-mode" type="button" data-mode="shifted"><strong>Shifted</strong><span id="demo-shifted-copy">Canyon Reverb</span></button></div>
+                    <p class="audio-placeholder">Tap A/B at any point to compare the exact same moment. Play runs the selected side only.</p>
+                    <audio id="demo-clean-audio" preload="metadata"></audio><audio id="demo-shifted-audio" preload="metadata"></audio>
                 </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
-                    <h3>Gear 3 — Delay</h3>
-                    <p>Tempo-synced echo that locks to your DAW. Slap, 1/8, dotted-eighth, and long, with filtered, self-oscillating feedback.</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="3" x2="12" y2="21"/><polyline points="6 9 12 3 18 9"/><polyline points="6 15 12 21 18 15"/></svg></div>
-                    <h3>Gear 4 — Pitch</h3>
-                    <p>Real-time pitch shifting: octave-down, up-a-fifth, subtle detune-thicken, and a regenerating shimmer.</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M4 21v-7"/><path d="M4 10V3"/><circle cx="4" cy="12" r="2"/><path d="M12 21v-9"/><path d="M12 8V3"/><circle cx="12" cy="10" r="2"/><path d="M20 21v-5"/><path d="M20 12V3"/><circle cx="20" cy="14" r="2"/></svg></div>
-                    <h3>Gear 5 — Filter</h3>
-                    <p>A resonant filter and tone-shaper: Telephone, sweepable low-pass, tilt EQ, and a sharp resonant peak.</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
-                    <h3>The Shifter</h3>
-                    <p>Throw the stick to pick your effect. The clutch drives its intensity, the style selector changes its character, and every gear crossfades glitch-free. R is a clean A/B.</p>
-                </div>
-
             </div>
         </section>
 
-        <!-- How It Works Section -->
-        <section class="how-it-works">
-            <h2 class="section-title">How It <span class="accent">Works</span></h2>
-            <div class="steps">
-                <div class="step">
-                    <div class="step-number">1</div>
-                    <h3>Throw the gear</h3>
-                    <p>Drop FIZZFUEL on any track and shift the stick into a gear &mdash; Drive, Reverb, Delay, Pitch, or Filter.</p>
+        <!-- Interactive Gearbox Guide -->
+        <section id="gearbox" class="flagship-section">
+            <p class="section-kicker">The gearbox</p>
+            <h2>One move.<br><span class="accent">Five directions.</span></h2>
+            <p class="section-intro">This is the part that makes FIZZFUEL feel different: effects are not hidden in menus. Pick a gear, pick its personality, then shape it with the clutch and controls.</p>
+            <div class="gear-layout">
+                <div class="gear-buttons" role="tablist" aria-label="FIZZFUEL effect gears">
+                    <button class="gear-button active" type="button" data-gear="drive"><strong>01 / DRIVE</strong><span>Warmth to redline</span></button>
+                    <button class="gear-button" type="button" data-gear="reverb"><strong>02 / REVERB</strong><span>Space with character</span></button>
+                    <button class="gear-button" type="button" data-gear="delay"><strong>03 / DELAY</strong><span>Tempo-locked echoes</span></button>
+                    <button class="gear-button" type="button" data-gear="pitch"><strong>04 / PITCH</strong><span>Lift, fall, or widen</span></button>
+                    <button class="gear-button" type="button" data-gear="filter"><strong>05 / FILTER</strong><span>Shape the scene</span></button>
+                    <button class="gear-button" type="button" data-gear="clean"><strong>R / CLEAN</strong><span>Instant A/B reference</span></button>
                 </div>
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <h3>Pick a style</h3>
-                    <p>Each gear has its own styles. Tape or Fuzz, Room or Canyon, Slap or Long. Tap to switch.</p>
-                </div>
-                <div class="step">
-                    <div class="step-number">3</div>
-                    <h3>Drive it</h3>
-                    <p>The clutch sets intensity, two knobs shape the effect, and Mix blends it in. Done.</p>
-                </div>
+                <article class="gear-detail" aria-live="polite"><p class="gear-count" id="gear-count">Gear 01</p><h3 id="gear-title">Drive</h3><p id="gear-copy">Take a vocal, drum, or instrument from a little more expensive to properly redlined. Drive has five usable characters, so you can find the attitude before you touch another plugin.</p><div class="gear-styles" id="gear-styles"><span>Tape</span><span>Tube</span><span>Console</span><span>Clip</span><span>Fuzz</span></div></article>
+            </div>
+        </section>
+
+        <section id="controls" class="flagship-section how-it-works">
+            <p class="section-kicker">Know every control</p>
+            <h2>No menu diving.<br><span class="accent">Just movement.</span></h2>
+            <p class="section-intro">The controls are deliberately few because each one is meant to matter. The final build will pair these with close-up interface callouts.</p>
+            <div class="control-grid">
+                <article class="control-card"><p class="control-index">01 / SHIFTER</p><h3>Choose the effect</h3><p>Throw the stick into Drive, Reverb, Delay, Pitch, Filter, or R for a clean reference. Every change crossfades smoothly.</p></article>
+                <article class="control-card"><p class="control-index">02 / STYLE</p><h3>Choose its character</h3><p>Each gear has distinct styles: Tape or Fuzz, Room or Canyon, Slap or Long. The effect stays familiar; the personality changes.</p></article>
+                <article class="control-card"><p class="control-index">03 / CLUTCH + MIX</p><h3>Choose how far it goes</h3><p>The clutch pushes intensity. Shape controls refine the selected gear, and Mix lets you blend the move back into the original signal.</p></article>
+            </div>
+        </section>
+
+        <section id="uses" class="flagship-section">
+            <p class="section-kicker">Built for the session</p>
+            <h2>Make the next<br><span class="accent">idea move.</span></h2>
+            <p class="section-intro">FIZZFUEL is not a pile of effects. It is a quick decision-making tool for moments that need energy, space, or a hard left turn.</p>
+            <div class="use-case-grid">
+                <article class="use-case"><small>VOCALS</small><h3>Make a line feel alive.</h3><p>Warm a lead with Drive, pull it forward with a short Delay, or turn the last word into a moment with Pitch.</p></article>
+                <article class="use-case"><small>DRUMS</small><h3>Make impact feel intentional.</h3><p>Use Console or Clip for urgency, then switch to Filter or Reverb when the arrangement needs a new scene.</p></article>
+                <article class="use-case"><small>TRANSITIONS</small><h3>Make the switch happen.</h3><p>Throw from a clean reference into a shimmer, a resonant sweep, or a long repeat without breaking the creative flow.</p></article>
             </div>
         </section>
 
@@ -1040,8 +1157,8 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
                     <div class="why-icon">
                         <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
                     </div>
-                    <h3>Six Effects in One</h3>
-                    <p>Drive, Reverb, Delay, Pitch, and Filter under one shifter &mdash; over twenty characters without loading five plugins.</p>
+                    <h3>Five Effects + Clean Reference</h3>
+                    <p>Drive, Reverb, Delay, Pitch, and Filter under one shifter, with an instant clean-reference gear &mdash; over twenty characters without loading five plugins.</p>
                 </div>
                 <div class="why-card">
                     <div class="why-icon">
@@ -1073,10 +1190,10 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
                     <div class="pricing-subtitle">one-time purchase</div>
                     <div style="font-size:12px;color:#a09bb5;margin-top:6px;">or 4 payments of $7.25 &middot; Klarna &middot; Afterpay</div>
                     <ul class="pricing-features">
-                        <li>All 6 effect gears</li>
+                        <li>5 effect gears + clean reference</li>
                         <li>Drive &middot; Reverb &middot; Delay &middot; Pitch &middot; Filter</li>
                         <li>20+ styles across the effects</li>
-                        <li>All plugin formats (VST3 / AU / AAX)</li>
+                        <li>VST3 / AU / AAX on macOS; VST3 on Windows</li>
                         <li>3 machine activations</li>
                         <li>Free updates</li>
                         <li>Email support</li>
@@ -1093,7 +1210,7 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
             <div class="faq-list">
                 <div class="faq-item">
                     <button class="faq-question">What is FIZZFUEL?<span class="faq-icon"></span></button>
-                    <div class="faq-answer"><div class="faq-answer-inner">FIZZFUEL is a multi-effect plugin built around a manual gearshift. You throw the stick into a gear to pick one of six effects &mdash; Drive, Reverb, Delay, Pitch, Filter, or a clean bypass &mdash; and shape it with the clutch (intensity) and a style selector. It started life as a saturation gearbox and grew into a full effects rack.</div></div>
+                    <div class="faq-answer"><div class="faq-answer-inner">FIZZFUEL is a multi-effect plugin built around a manual gearshift. You throw the stick into a gear to pick Drive, Reverb, Delay, Pitch, Filter, or R for a clean reference, then shape it with the clutch (intensity) and a style selector. It started life as a saturation gearbox and grew into a full effects rack.</div></div>
                 </div>
                 <div class="faq-item">
                     <button class="faq-question">How do you switch between effects?<span class="faq-icon"></span></button>
@@ -1126,40 +1243,14 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
             </div>
         </section>
 
-        <!-- Cross-Sell Section -->
-        <section class="cross-sell">
-            <p class="cross-sell-label">Also from Carbonated Audio</p>
-            <div class="cross-sell-cards">
-                <a href="/carbonator" class="cross-sell-card">
-                    <div class="cross-sell-icon">
-                        <picture><source srcset="/logo.webp" type="image/webp"><img src="/logo.png" alt="Carbonator logo" width="56" height="56"></picture>
-                    </div>
-                    <div class="cross-sell-info">
-                        <div class="cross-sell-name">Carbonator</div>
-                        <div class="cross-sell-desc">Analog saturation with 5 unique flavors.</div>
-                        <div class="cross-sell-price">$20 one-time</div>
-                    </div>
-                </a>
-                <a href="/desipper" class="cross-sell-card cyan">
-                    <div class="cross-sell-icon">
-                        <img src="/desipper-icon.png" alt="De-Sipper logo" width="56" height="56" onerror="this.style.display='none'">
-                    </div>
-                    <div class="cross-sell-info">
-                        <div class="cross-sell-name">De-Sipper</div>
-                        <div class="cross-sell-desc">Transparent de-essing. No artifacts.</div>
-                        <div class="cross-sell-price cyan">$20 one-time</div>
-                    </div>
-                </a>
-                <a href="/still?ref=still-cross-fizzfuel" class="cross-sell-card" style="border-color:rgba(111,199,188,0.35);">
-                    <div class="cross-sell-icon">
-                        <img src="/assets/still-screenshot.png" alt="Still free noise suppressor" width="56" height="56" style="object-fit:cover;border-radius:8px;">
-                    </div>
-                    <div class="cross-sell-info">
-                        <div class="cross-sell-name">Still <span style="font-size:10px;background:#6fc7bc;color:#07201c;padding:1px 7px;border-radius:12px;font-weight:800;vertical-align:middle;">FREE</span></div>
-                        <div class="cross-sell-desc">One-dial noise suppressor. Free forever.</div>
-                        <div class="cross-sell-price" style="color:#6fc7bc;">FREE &mdash; macOS</div>
-                    </div>
-                </a>
+        <section id="buy" class="flagship-section final-buy">
+            <p class="section-kicker">Ready when the track is</p>
+            <h2>Put it in gear.</h2>
+            <p class="section-intro">FIZZFUEL is one purchase, yours forever. Every gear, every style, every update &mdash; no subscription and no iLok.</p>
+            <div class="buy-stack">
+                <a href="https://buy.stripe.com/6oUeVd7EJ6gW13b6f13oA0f" class="btn-primary">Get FIZZFUEL — $29</a>
+                <p class="buy-fine">VST3 / AU / AAX &middot; macOS + Windows &middot; 3 machine activations</p>
+                <p class="buy-fine">or 4 interest-free payments of $7.25 with Klarna or Afterpay at checkout</p>
             </div>
         </section>
 
@@ -1168,8 +1259,20 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
 
     </div>
 
+    <script>
+    (function() {
+        window.addEventListener('message', function(event) {
+            if (!event.data || event.data.type !== 'fizzfuel-gear-change') return;
+            var stamp = document.querySelector('.gear-stamp strong');
+            if (stamp) stamp.textContent = event.data.gear + ' / ' + event.data.name;
+            var gearButton = document.querySelector('.gear-button[data-gear="' + String(event.data.name).toLowerCase() + '"]');
+            if (gearButton) gearButton.click();
+        });
+    })();
+    </script>
+
     <!-- Shared Components -->
-    <script src="/components/nav.js?v=20260817-menu-sale"></script>
+<script src="/components/nav.js?v=20260817-menu-sale"></script>
     <script src="/components/footer.js?v=20260711"></script>
 
     <!-- Silk WebGL Background (Purple palette) -->
@@ -1310,6 +1413,100 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
                 }
             });
         });
+    })();
+    </script>
+
+    <!-- Flagship product-page preview interactions -->
+    <script>
+    (function() {
+        var gears = {
+            drive: { count: 'Gear 01', title: 'Drive', copy: 'Take a vocal, drum, or instrument from a little more expensive to properly redlined. Drive has five usable characters, so you can find the attitude before you touch another plugin.', styles: ['Tape', 'Tube', 'Console', 'Clip', 'Fuzz'] },
+            reverb: { count: 'Gear 02', title: 'Reverb', copy: 'Build a room around a vocal, push a snare into the back wall, or open a synth into a bigger scene. Smooth tails stay musical while you choose the space.', styles: ['Room', 'Hall', 'Plate', 'Canyon'] },
+            delay: { count: 'Gear 03', title: 'Delay', copy: 'Get tempo-locked echoes without reaching for another window. Use a quick slap for movement, dotted repeats for momentum, or a long line when the track needs a moment.', styles: ['Slap', '1/8', 'Dotted', 'Long'] },
+            pitch: { count: 'Gear 04', title: 'Pitch', copy: 'Turn a line into a new texture: drop it an octave, lift it by a fifth, widen it with detune, or let shimmer carry the transition.', styles: ['-Oct', '+5th', 'Detune', 'Shimmer'] },
+            filter: { count: 'Gear 05', title: 'Filter', copy: 'Take the listener somewhere else. Filter gives you telephone focus, low-pass motion, tilt, and resonance for scene changes that feel deliberate.', styles: ['Telephone', 'LP Sweep', 'Tilt', 'Reso'] },
+            clean: { count: 'Reverse / Reference', title: 'Clean', copy: 'One throw takes you back to the unprocessed signal so you can make decisions with your ears. It is an A/B reference, not another hidden menu.', styles: ['Instant A/B', 'Glitch-free crossfade'] }
+        };
+        document.querySelectorAll('.gear-button').forEach(function(button) {
+            button.addEventListener('click', function() {
+                var gear = gears[button.dataset.gear];
+                document.querySelectorAll('.gear-button').forEach(function(item) { item.classList.remove('active'); });
+                button.classList.add('active');
+                document.getElementById('gear-count').textContent = gear.count;
+                document.getElementById('gear-title').textContent = gear.title;
+                document.getElementById('gear-copy').textContent = gear.copy;
+                document.getElementById('gear-styles').innerHTML = gear.styles.map(function(style) { return '<span>' + style + '</span>'; }).join('');
+            });
+        });
+        var demos = {
+            vocal: { clean: '/assets/fizzfuel-demos/vocal-clean.ogg', shifted: '/assets/fizzfuel-demos/vocal-shifted.ogg', effect: 'REVERB / CANYON', shiftedCopy: 'Canyon Reverb' },
+            drums: { clean: '/assets/fizzfuel-demos/drums-clean.ogg', shifted: '/assets/fizzfuel-demos/drums-shifted.ogg', effect: 'DRIVE / CONSOLE', shiftedCopy: 'Console Drive' },
+            synth: { clean: '/assets/fizzfuel-demos/synth-clean.ogg', shifted: '/assets/fizzfuel-demos/synth-shifted.ogg', effect: 'FILTER / TILT', shiftedCopy: 'Tilt Filter' },
+            transition: { clean: '/assets/fizzfuel-demos/transition-clean.ogg', shifted: '/assets/fizzfuel-demos/transition-shifted.ogg', effect: 'DELAY / LONG', shiftedCopy: 'Long Delay' }
+        };
+        var demoKey = 'vocal';
+        var demoMode = 'clean';
+        var cleanAudio = document.getElementById('demo-clean-audio');
+        var shiftedAudio = document.getElementById('demo-shifted-audio');
+        var demoPlay = document.getElementById('demo-play');
+        var demoStage = document.querySelector('.demo-stage');
+        var demoProgress = document.getElementById('demo-progress-fill');
+        var demoNowPlaying = document.getElementById('demo-now-playing');
+        var demoEffect = document.getElementById('demo-effect-label');
+        var demoShiftedCopy = document.getElementById('demo-shifted-copy');
+
+        function activeDemoAudio() { return demoMode === 'clean' ? cleanAudio : shiftedAudio; }
+        function pauseDemos() {
+            cleanAudio.pause(); shiftedAudio.pause();
+            demoStage.classList.remove('playing');
+            demoPlay.textContent = '▶';
+        }
+        function renderDemo() {
+            var demo = demos[demoKey];
+            demoEffect.textContent = demo.effect;
+            demoShiftedCopy.textContent = demo.shiftedCopy;
+            demoNowPlaying.textContent = demoKey.toUpperCase() + ' / ' + (demoMode === 'clean' ? 'CLEAN' : demo.effect);
+            demoProgress.style.width = '0%';
+            document.querySelectorAll('.demo-tab').forEach(function(item) { item.classList.toggle('active', item.dataset.demo === demoKey); });
+            document.querySelectorAll('.ab-mode').forEach(function(item) { item.classList.toggle('active', item.dataset.mode === demoMode); });
+        }
+        function loadDemo() {
+            var demo = demos[demoKey];
+            cleanAudio.src = demo.clean;
+            shiftedAudio.src = demo.shifted;
+            renderDemo();
+        }
+        function selectDemoMode(mode) {
+            if (mode === demoMode) return;
+            var wasPlaying = !activeDemoAudio().paused;
+            var at = activeDemoAudio().currentTime || 0;
+            pauseDemos();
+            demoMode = mode;
+            var next = activeDemoAudio();
+            next.currentTime = at;
+            renderDemo();
+            if (wasPlaying) next.play().catch(function() {});
+        }
+        demoPlay.addEventListener('click', function() {
+            var audio = activeDemoAudio();
+            if (audio.paused) {
+                audio.play().then(function() { demoStage.classList.add('playing'); demoPlay.textContent = 'Ⅱ'; }).catch(function() {});
+            } else { pauseDemos(); }
+        });
+        [cleanAudio, shiftedAudio].forEach(function(audio) {
+            audio.addEventListener('timeupdate', function() {
+                if (audio !== activeDemoAudio() || !audio.duration) return;
+                demoProgress.style.width = Math.min(100, audio.currentTime / audio.duration * 100) + '%';
+            });
+            audio.addEventListener('ended', pauseDemos);
+        });
+        document.querySelectorAll('.demo-tab').forEach(function(tab) {
+            tab.addEventListener('click', function() { pauseDemos(); demoKey = tab.dataset.demo; loadDemo(); });
+        });
+        document.querySelectorAll('.ab-mode').forEach(function(button) {
+            button.addEventListener('click', function() { selectDemoMode(button.dataset.mode); });
+        });
+        loadDemo();
     })();
     </script>
 
@@ -1485,16 +1682,24 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
 
         if (typeof gtag === 'function') gtag('event', 'demo_download', { event_category: 'conversion', event_label: 'fizzfuel-demo-gate' });
 
-        var refSource = new URLSearchParams(window.location.search).get('ref') || 'fizzfuel-demo-gate';
+        var query = new URLSearchParams(window.location.search);
+        var refSource = query.get('ref') || query.get('utm_source') || 'fizzfuel-demo-gate';
+        var referrer = '';
+        try { referrer = document.referrer ? new URL(document.referrer).origin : ''; } catch (_) {}
         fetch('/.netlify/functions/capture-lead', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ contact: contact, source: refSource })
+            body: JSON.stringify({
+                contact: contact,
+                source: refSource,
+                landing_page: window.location.pathname,
+                referrer: referrer,
+                utm_source: query.get('utm_source') || '',
+                utm_medium: query.get('utm_medium') || '',
+                utm_campaign: query.get('utm_campaign') || ''
+            })
         }).catch(function() {});
 
-        fetch('https://script.google.com/macros/s/AKfycbw8jJUukfTXjT6wAA3RH2zG1Twp5oxCFDNFQiy3_sv7RHciDMZ05LTc8XCVc6eK8CnC/exec?contact=' + encodeURIComponent(contact), {
-            mode: 'no-cors'
-        }).catch(function() {});
 
         setTimeout(function() {
             btn.textContent = "You're on the list \u2713";
@@ -1507,135 +1712,6 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
     }
     </script>
 
-    <!-- ====== Bundle Sticky CTA (5-plugin bundle, $75) ====== -->
-    <style>
-    .bundle-sticky-cta {
-        position: fixed;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        z-index: 50;
-        background: rgba(12, 7, 22, 0.96);
-        backdrop-filter: blur(18px);
-        -webkit-backdrop-filter: blur(18px);
-        border-top: 1px solid rgba(168, 85, 247, 0.4);
-        box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.4);
-        color: #f3e8ff;
-        font-family: inherit;
-        padding: 12px 20px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 14px;
-        transform: translateY(0);
-        transition: transform 0.35s ease;
-    }
-    .bundle-sticky-cta.hidden { transform: translateY(110%); }
-    .bundle-sticky-cta-text {
-        font-size: 14px;
-        line-height: 1.3;
-        color: #ece1ff;
-        flex: 1 1 auto;
-        max-width: 720px;
-    }
-    .bundle-sticky-cta-text strong {
-        color: #d8b4fe;
-        font-weight: 700;
-    }
-    .bundle-sticky-cta-btn {
-        display: inline-block;
-        padding: 10px 22px;
-        background: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%);
-        color: #fff;
-        font-size: 14px;
-        font-weight: 700;
-        text-decoration: none;
-        border-radius: 8px;
-        white-space: nowrap;
-        transition: filter 0.2s, transform 0.2s;
-        box-shadow: 0 4px 14px rgba(168, 85, 247, 0.4);
-    }
-    .bundle-sticky-cta-btn:hover { filter: brightness(1.1); transform: translateY(-1px); }
-    .bundle-sticky-cta-close {
-        background: transparent;
-        border: none;
-        color: rgba(255, 255, 255, 0.55);
-        font-size: 22px;
-        line-height: 1;
-        cursor: pointer;
-        padding: 6px 10px;
-        margin-left: 4px;
-        flex: 0 0 auto;
-        transition: color 0.2s;
-    }
-    .bundle-sticky-cta-close:hover { color: #fff; }
-    body { padding-bottom: 80px; }
-    @media (max-width: 640px) {
-        .bundle-sticky-cta {
-            flex-direction: column;
-            align-items: stretch;
-            text-align: center;
-            gap: 8px;
-            padding: 10px 14px 12px;
-        }
-        .bundle-sticky-cta-text { font-size: 12.5px; max-width: 100%; }
-        .bundle-sticky-cta-btn { padding: 11px 18px; font-size: 13.5px; width: 100%; }
-        .bundle-sticky-cta-close {
-            position: absolute;
-            top: 4px;
-            right: 6px;
-            font-size: 20px;
-        }
-        body { padding-bottom: 140px; }
-    }
-    </style>
-
-    <div class="bundle-sticky-cta" id="bundleStickyCta" role="region" aria-label="Bundle offer">
-        <span class="bundle-sticky-cta-text">Get all 4 plugins &mdash; Carbonator + De-Sipper + On Tap + Pour &mdash; for <strong>$60</strong> (save $20)</span>
-        <a href="https://buy.stripe.com/aFa4gzbUZfRwdPXdHt3oA0g" class="bundle-sticky-cta-btn" id="bundleStickyCtaBtn">Get the Bundle &rarr;</a>
-        <button type="button" class="bundle-sticky-cta-close" id="bundleStickyCtaClose" aria-label="Dismiss bundle offer">&times;</button>
-    </div>
-
-    <script>
-    (function() {
-        var STORAGE_KEY = 'carbonatedAudioBundleCtaDismissed';
-        var bar = document.getElementById('bundleStickyCta');
-        var closeBtn = document.getElementById('bundleStickyCtaClose');
-        var ctaBtn = document.getElementById('bundleStickyCtaBtn');
-        if (!bar || !closeBtn) return;
-
-        function safeStorage() {
-            try { return window.localStorage; } catch (e) { return null; }
-        }
-        var storage = safeStorage();
-        if (storage && storage.getItem(STORAGE_KEY) === '1') {
-            bar.classList.add('hidden');
-            document.body.classList.add('bundle-cta-dismissed');
-            document.body.style.paddingBottom = '';
-        }
-
-        closeBtn.addEventListener('click', function() {
-            bar.classList.add('hidden');
-            document.body.classList.add('bundle-cta-dismissed');
-            document.body.style.paddingBottom = '';
-            if (storage) {
-                try { storage.setItem(STORAGE_KEY, '1'); } catch (e) {}
-            }
-            if (typeof gtag === 'function') {
-                gtag('event', 'bundle_sticky_dismiss', { event_category: 'engagement', event_label: 'fizzfuel' });
-            }
-        });
-
-        if (ctaBtn) {
-            ctaBtn.addEventListener('click', function() {
-                if (typeof gtag === 'function') {
-                    gtag('event', 'bundle_sticky_click', { event_category: 'conversion', event_label: 'fizzfuel' });
-                }
-            });
-        }
-    })();
-    </script>
-
     <!-- GA4 Ecommerce Tracking (feeds the Purchase journey funnel) -->
     <script>
     (function() {
@@ -1645,14 +1721,35 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
 
         gtag('event', 'view_item', { currency: 'USD', value: product.price, items: [product] });
 
-        document.querySelectorAll('a[href*="buy.stripe.com"]').forEach(function(link) {
-            var item = link.href.indexOf('aFa4gzbUZfRwdPXdHt3oA0g') > -1 ? bundle : product;
-            link.addEventListener('click', function() {
-                gtag('event', 'begin_checkout', { currency: 'USD', value: item.price, items: [item] });
-            });
-        });
     })();
     </script>
 
+    <script>
+    // Referral visitors are already warmer than cold homepage traffic. Keep the
+    // main page intact, but acknowledge the source and preserve attribution.
+    (function () {
+        var params = new URLSearchParams(window.location.search);
+        var source = (params.get('utm_source') || params.get('ref') || '').toLowerCase();
+        var referrer = '';
+        try { referrer = new URL(document.referrer || '').hostname.toLowerCase(); } catch (_) {}
+        var labels = {
+            kvr: 'Welcome, KVR producer — hear FIZZFUEL on a real track.',
+            rekkerd: 'Welcome, Rekkerd reader — take FIZZFUEL for a spin.',
+            audioplugindeals: 'Welcome — here is the creative gearbox behind the deal.',
+            audiopluginguy: 'Welcome, Audio Plugin Guy listener — hear the shift.'
+        };
+        var key = source || referrer;
+        var match = Object.keys(labels).find(function (candidate) { return key.indexOf(candidate) !== -1; });
+        if (!match) return;
+        var welcome = document.getElementById('referralWelcome');
+        welcome.textContent = labels[match];
+        welcome.classList.add('is-visible');
+        if (typeof gtag === 'function') {
+            gtag('event', 'referral_landing_view', { partner: match, product: 'fizzfuel' });
+        }
+    })();
+    </script>
+
+<script src="/components/checkout-tracking.js?v=20260805"></script>
 </body>
 </html>
