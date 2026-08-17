@@ -10,7 +10,7 @@ const { PRODUCTS } = require("./config");
 const { buildEmail, PRODUCT_ACCENTS } = require("../../email-templates/render");
 
 const FROM_EMAIL = "Carbonated Audio <hello@carbonatedaudio.com>";
-const BUNDLE_URL = "https://buy.stripe.com/3cI7sL2kpaxcdPX1YL3oA0h?prefilled_promo_code=promo_1U3syYE7QUGObiuvyTc1uBso";
+const BUNDLE_URL = "https://buy.stripe.com/3cI7sL2kpaxcdPX1YL3oA0h?prefilled_promo_code=ALL6FOR45&utm_source=lead_drip&utm_medium=email&utm_campaign=september_bundle&utm_content=day7";
 const FOUR_DAYS = 4 * 24 * 60 * 60 * 1000;
 
 const SUBJECTS = {

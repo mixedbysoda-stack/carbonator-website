@@ -10,7 +10,7 @@ const { PRODUCTS } = require("./config");
 const { buildEmail, PRODUCT_ACCENTS } = require("../../email-templates/render");
 
 const FROM_EMAIL = "Carbonated Audio <hello@carbonatedaudio.com>";
-const BUNDLE_URL = "https://buy.stripe.com/3cI7sL2kpaxcdPX1YL3oA0h?prefilled_promo_code=promo_1U3syYE7QUGObiuvyTc1uBso";
+const BUNDLE_URL = "https://buy.stripe.com/3cI7sL2kpaxcdPX1YL3oA0h?prefilled_promo_code=ALL6FOR45&utm_source=lead_drip&utm_medium=email&utm_campaign=september_bundle&utm_content=day3";
 const THREE_DAYS = 3 * 24 * 60 * 60 * 1000;
 
 const SUBJECTS = {
@@ -24,15 +24,16 @@ const SUBJECTS = {
 
 const SPOTLIGHT = {
   fizzfuel: {
-    headline: "FIZZFUEL — thanks for your interest",
-    body: `<p style="color:#a09bb5;font-size:15px;line-height:1.7;margin:0 0 16px;">You signed up for the FIZZFUEL demo — it's almost ready, and you'll be the first to get it when it drops.</p>
-           <p style="color:#a09bb5;font-size:15px;line-height:1.7;margin:0 0 16px;">Meanwhile, here's what's waiting under the hood:</p>`,
+    headline: "FIZZFUEL is ready to throw in gear",
+    body: `<p style="color:#a09bb5;font-size:15px;line-height:1.7;margin:0 0 16px;">FIZZFUEL is live. It puts Drive, Reverb, Delay, Pitch, and Filter behind one manual gearbox, so changing the energy of a track does not mean opening five separate plugins.</p>
+           <p style="color:#a09bb5;font-size:15px;line-height:1.7;margin:0 0 16px;">Here’s what to try first:</p>`,
     features: [
       "<strong style=\"color:#ffffff;\">6 gears</strong> — Drive, Reverb, Delay, Pitch, Filter + clean A/B",
       "<strong style=\"color:#ffffff;\">20+ styles</strong> — from tape warmth to shimmer and self-oscillating echoes",
       "<strong style=\"color:#ffffff;\">The shifter</strong> — throw the stick, glitch-free crossfades between effects",
     ],
-    ctaText: "See FIZZFUEL",
+    ctaText: "Hear FIZZFUEL in action",
+    ctaUrl: "https://carbonatedaudio.com/fizzfuel?utm_source=lead_drip&utm_medium=email&utm_campaign=fizzfuel_day3&utm_content=primary_cta",
   },
   still: {
     headline: "One dial — but here's the trick",
