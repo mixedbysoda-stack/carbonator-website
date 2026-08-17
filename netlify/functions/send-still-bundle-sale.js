@@ -90,8 +90,20 @@ exports.handler = async (event) => {
   let excludedSuppressed = 0;
   let excludedPreviouslySent = 0;
 
-  for (const blob of blobs) {
-    const lead = await store.get(blob.key, { type: "json" });
+  // Blob reads are independent. Fetching them concurrently keeps the campaign
+  // well inside a serverless request window even as the lead list grows.
+  const leadRecords = await Promise.all(
+    blobs.map(async (blob) => {
+      try {
+        return { blob, lead: await store.get(blob.key, { type: "json" }) };
+      } catch (error) {
+        console.error("Campaign lead read failed:", error.message);
+        return { blob, lead: null };
+      }
+    })
+  );
+
+  for (const { blob, lead } of leadRecords) {
     const email = String(lead?.contact || "").trim().toLowerCase();
     if (!email || !isStillLead(lead) || seenEmails.has(email)) continue;
     seenEmails.add(email);
