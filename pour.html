@@ -991,7 +991,7 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
                 <img src="/pour-screenshot.png" alt="Pour M/S stereo imager interface — vectorscope with Shuffle, Space, Width, Rotation, and Asymmetry controls">
             </video>
             <div class="hero-ctas">
-                <a href="https://buy.stripe.com/bJe4gz0ch7l0aDL9rd3oA07" class="btn-primary">Get Pour — $20</a>
+                <a href="https://buy.stripe.com/bJe4gz0ch7l0aDL9rd3oA07" class="btn-primary" data-checkout-placement="pour_hero">Get Pour — $20</a>
                 <a href="#" class="btn-secondary" onclick="openDemoGate(event)">Try Free Demo</a>
             </div>
             <p style="margin-top:12px;font-size:13px;color:#a09bb5;text-align:center;">or 4 interest-free payments of $5 &mdash; Klarna &middot; Afterpay at checkout</p>
@@ -1179,7 +1179,7 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
                         <li>Free updates</li>
                         <li>Email support</li>
                     </ul>
-                    <a href="https://buy.stripe.com/bJe4gz0ch7l0aDL9rd3oA07" class="btn-primary btn-pricing">Get Pour — $20</a>
+                    <a href="https://buy.stripe.com/bJe4gz0ch7l0aDL9rd3oA07" class="btn-primary btn-pricing" data-checkout-placement="pour_pricing">Get Pour — $20</a>
                     <a href="#" class="btn-secondary" style="display:inline-block; margin-top:12px; text-align:center;" onclick="openDemoGate(event)">Try Free Demo</a>
                 </div>
 
@@ -1279,8 +1279,8 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
     </div>
 
     <!-- Shared Components -->
-    <script src="/components/nav.js?v=20260817-menu-sale"></script>
-    <script src="/components/footer.js?v=20260711"></script>
+<script src="/components/nav.js?v=20260817-menu-sale"></script>
+    <script src="/components/footer.js?v=20260817"></script>
 
     <!-- Silk WebGL Background (Purple palette) -->
     <script>
@@ -1612,9 +1612,6 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
             body: JSON.stringify({ contact: contact, source: refSource + '-' + os })
         }).catch(function() {});
 
-        fetch('https://script.google.com/macros/s/AKfycbw8jJUukfTXjT6wAA3RH2zG1Twp5oxCFDNFQiy3_sv7RHciDMZ05LTc8XCVc6eK8CnC/exec?contact=' + encodeURIComponent(contact), {
-            mode: 'no-cors'
-        }).catch(function() {});
 
         setTimeout(function() {
             closeDemoGate();
@@ -1717,8 +1714,8 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
     </style>
 
     <div class="bundle-sticky-cta" id="bundleStickyCta" role="region" aria-label="Bundle offer">
-        <span class="bundle-sticky-cta-text">Get all 4 plugins &mdash; Carbonator + De-Sipper + On Tap + Pour &mdash; for <strong>$60</strong> (save $20)</span>
-        <a href="https://buy.stripe.com/aFa4gzbUZfRwdPXdHt3oA0g" class="bundle-sticky-cta-btn" id="bundleStickyCtaBtn">Get the Bundle &rarr;</a>
+        <span class="bundle-sticky-cta-text">September sale: all 6 plugins for <strong>$45</strong> &mdash; ends Sep 30</span>
+        <a href="https://buy.stripe.com/3cI7sL2kpaxcdPX1YL3oA0h?prefilled_promo_code=ALL6FOR45" class="bundle-sticky-cta-btn" id="bundleStickyCtaBtn" data-checkout-placement="pour_bundle_sticky">Get All 6 &rarr;</a>
         <button type="button" class="bundle-sticky-cta-close" id="bundleStickyCtaClose" aria-label="Dismiss bundle offer">&times;</button>
     </div>
 
@@ -1771,14 +1768,9 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
 
         gtag('event', 'view_item', { currency: 'USD', value: product.price, items: [product] });
 
-        document.querySelectorAll('a[href*="buy.stripe.com"]').forEach(function(link) {
-            var item = link.href.indexOf('aFa4gzbUZfRwdPXdHt3oA0g') > -1 ? bundle : product;
-            link.addEventListener('click', function() {
-                gtag('event', 'begin_checkout', { currency: 'USD', value: item.price, items: [item] });
-            });
-        });
     })();
     </script>
 
+<script src="/components/checkout-tracking.js?v=20260805"></script>
 </body>
 </html>

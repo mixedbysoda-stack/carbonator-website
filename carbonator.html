@@ -17,7 +17,7 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
     <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1682413179857373&ev=PageView&noscript=1"/></noscript>
     <!-- End Meta Pixel Code -->
     <title>Carbonator — $20 Saturation Plugin with 5 Flavors</title>
-    <meta name="description" content="Carbonator is a $20 saturation plugin with 5 distinct DSP flavors and a Carbonated mode for parallel grit. One-knob control. Free demo. VST3/AU/AAX, macOS + Windows.">
+    <meta name="description" content="Carbonator is a $20 saturation plugin with 5 distinct DSP flavors and a Carbonated mode for parallel grit. Free demo. macOS VST3/AU/AAX; Windows VST3.">
     <meta name="keywords" content="saturation plugin, distortion VST, analog warmth, audio plugin, VST3, AU, AAX, mixing plugin, Carbonator, Carbonated Audio">
     <meta name="author" content="Carbonated Audio">
 
@@ -4609,10 +4609,6 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
             body: JSON.stringify({ contact: contact, source: refSource })
         }).catch(function() {}); // silently swallow errors
 
-        // Also send to Google Sheets as backup
-        fetch('https://script.google.com/macros/s/AKfycbw8jJUukfTXjT6wAA3RH2zG1Twp5oxCFDNFQiy3_sv7RHciDMZ05LTc8XCVc6eK8CnC/exec?contact=' + encodeURIComponent(contact), {
-            mode: 'no-cors'
-        }).catch(function() {});
 
         // Small delay so fetch fires, then close + download
         setTimeout(function() {
@@ -5091,7 +5087,7 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
     <div class="sticky-cta-bar" id="stickyCta">
         <span class="sticky-cta-text">5 saturation circuits. One knob. $20 one-time.</span>
         <a href="#" class="sticky-cta-demo" onclick="openDemoGate(event)">Try Free</a>
-        <a href="https://buy.stripe.com/aFafZhgbffRw6nv0UH3oA00" class="sticky-cta-btn">Get Carbonator &mdash; $20</a>
+        <a href="https://buy.stripe.com/aFafZhgbffRw6nv0UH3oA00" class="sticky-cta-btn" data-checkout-placement="carbonator_sticky">Get Carbonator &mdash; $20</a>
     </div>
 
     <script>
@@ -5339,10 +5335,6 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
                 body: JSON.stringify({ contact: email, source: refSource })
             }).catch(function() {});
 
-            // Google Sheets backup
-            fetch('https://script.google.com/macros/s/AKfycbw8jJUukfTXjT6wAA3RH2zG1Twp5oxCFDNFQiy3_sv7RHciDMZ05LTc8XCVc6eK8CnC/exec?contact=' + encodeURIComponent(email), {
-                mode: 'no-cors'
-            }).catch(function() {});
 
             // GA4 event
             if (typeof gtag === 'function') {
@@ -5413,12 +5405,6 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
                 else if (this.closest('.pricing-card')) location = 'pricing';
                 else if (this.closest('.sticky-cta')) location = 'sticky-bar';
                 gtag('event', 'buy_click', { event_category: 'conversion', event_label: location });
-                // GA4 standard ecommerce: begin_checkout on Buy click (feeds the Purchase journey funnel)
-                gtag('event', 'begin_checkout', {
-                    currency: 'USD',
-                    value: 20,
-                    items: [{ item_id: 'carbonator', item_name: 'Carbonator', price: 20, quantity: 1 }]
-                });
             });
         });
 
@@ -5536,8 +5522,8 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
     </style>
 
     <div class="bundle-sticky-cta" id="bundleStickyCta" role="region" aria-label="Bundle offer">
-        <span class="bundle-sticky-cta-text">Get all 4 plugins &mdash; Carbonator + De-Sipper + On Tap + Pour &mdash; for <strong>$60</strong> (save $20)</span>
-        <a href="https://buy.stripe.com/aFa4gzbUZfRwdPXdHt3oA0g" class="bundle-sticky-cta-btn" id="bundleStickyCtaBtn">Get the Bundle &rarr;</a>
+        <span class="bundle-sticky-cta-text">September sale: all 6 plugins for <strong>$45</strong> &mdash; ends Sep 30</span>
+        <a href="https://buy.stripe.com/3cI7sL2kpaxcdPX1YL3oA0h?prefilled_promo_code=ALL6FOR45" class="bundle-sticky-cta-btn" id="bundleStickyCtaBtn" data-checkout-placement="carbonator_bundle_sticky">Get All 6 &rarr;</a>
         <button type="button" class="bundle-sticky-cta-close" id="bundleStickyCtaClose" aria-label="Dismiss bundle offer">&times;</button>
     </div>
 
@@ -5581,5 +5567,6 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
     })();
     </script>
 
+<script src="/components/checkout-tracking.js?v=20260805"></script>
 </body>
 </html>

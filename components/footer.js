@@ -37,4 +37,8 @@
     var s = document.createElement('script');
     s.src = '/components/lead-capture.js?v=20260711';
     document.body.appendChild(s);
+
+    var checkout = document.createElement('script');
+    checkout.src = '/components/checkout-tracking.js?v=20260805';
+    document.body.appendChild(checkout);
 })();

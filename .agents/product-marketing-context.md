@@ -1,110 +1,92 @@
-# Product Marketing Context
+# Carbonated Audio — Product Marketing Context
 
-*Last updated: 2026-03-24*
+*Last updated: 2026-08-17. Treat this file, the Carbonated Audio Obsidian operating docs, Stripe, and Netlify Blobs as authoritative. Do not reuse old sales totals, compatibility claims, or expired offers from historical notes.*
 
-## Product Overview
-**One-liner:** $20 analog saturation plugin with 5 DSP flavors and one-knob simplicity.
-**What it does:** Carbonator gives music producers instant analog warmth, distortion, and character through 5 unique saturation circuits (Cola, Cherry, Grape, Lemon-Lime, Orange Cream) controlled by a single "Fizz" knob. Plus a signature "Carbonated" mode that blends all 5 circuits together.
-**Product category:** Audio plugin / Saturation & distortion plugin
-**Product type:** Desktop software (audio plugin)
-**Business model:** One-time purchase, $20. Free demo available (60s play / 10s mute cycle). No subscription. License key activates on up to 3 machines.
+## Business snapshot
 
-## Target Audience
-**Target users:** Independent music producers, beatmakers, mixing engineers, home studio owners
-**Decision-makers:** The producer themselves — solo purchase decision
-**Primary use case:** Adding warmth, grit, and character to tracks without complex plugin chains
-**Jobs to be done:**
-- Make digital recordings sound warmer/more analog
-- Add saturation and distortion quickly without menu-diving
-- Get professional-sounding results on a budget
-**Use cases:**
-- Drums: punch and glue (Cola flavor)
-- Vocals: lo-fi character (Grape flavor)
-- Mix bus: subtle warmth and cohesion
-- Bass: tube-style grit (Cherry flavor)
-- Creative destruction: Carbonated mode cranked
+**Company:** Carbonated Audio — independent audio-plugin maker for producers, beatmakers, home-studio artists, and mixing engineers.
 
-## Problems & Pain Points
-**Core problem:** Producers want analog warmth but saturation plugins are either expensive ($100-300+), overly complex, or sound digital/harsh.
-**Why alternatives fall short:**
-- Premium saturation plugins (Soundtoys Decapitator, FabFilter Saturn) cost $100-200+
-- Free saturation plugins sound harsh or have limited character
-- Complex plugins with too many parameters slow down the creative flow
-- Subscription models (Waves, Plugin Alliance) create ongoing costs
-**What it costs them:** Time spent tweaking, money spent on expensive plugins, creative momentum lost to complexity
-**Emotional tension:** "I can hear the difference in pro mixes but can't afford the plugins they use" / "I spend more time tweaking settings than making music"
+**Near-term objective:** make the September bundle and the Still lead path reliably convert, then use measured creator/press/SEO distribution to build toward $5K/month.
 
-## Competitive Landscape
-**Direct:** Soundtoys Decapitator ($199), FabFilter Saturn 2 ($154), Slate Digital ($14.99/mo subscription) — falls short because expensive or subscription-locked
-**Secondary:** Free saturation plugins (Camel Crusher, Softube Saturation Knob) — falls short because limited character, no variety, sound digital
-**Indirect:** Hardware saturation (tape machines, tube preamps) — falls short because $500+ and impractical for bedroom producers
+**Current offer:** all 6 plugins for **$45 through Sep 30, 2026**, normally $109. Public checkout code: `ALL6FOR45`. This is a time-bound campaign, not a permanent price reset.
 
-## Differentiation
-**Key differentiators:**
-- 5 distinct saturation circuits in one plugin (competitors offer 1-2)
-- One-knob "Fizz" control — zero menu-diving
-- $20 one-time (10-15x cheaper than premium competitors)
-- "Carbonated" mode — unique blend of all 5 circuits
-- No subscription, no iLok, no dongles
-**How we do it differently:** One knob controls the entire signal chain per flavor — drive, compression, EQ, harmonics all morph together
-**Why that's better:** Producers get results in seconds, not minutes. Creative flow stays unbroken.
-**Why customers choose us:** Price + sound quality + simplicity. "Sounds like plugins 3x the price."
+**Revenue truth:** use Stripe-confirmed orders, never GA4 alone. GA4 is for traffic, lead, and checkout-intent analysis.
 
-## Objections
-| Objection | Response |
-|-----------|----------|
-| "$20 is suspicious — good plugins cost more" | Try the free demo — all 5 flavors, no limitations except the 60s/10s cycle. Hear it yourself. |
-| "I already have saturation plugins" | Do they give you 5 different characters with one knob? Try Cola on drums and Grape on vocals — the variety is the point. |
-| "Never heard of Carbonated Audio" | We're featured on Audio Plugin Guy, Rekkerd.org, and KVR Audio. The plugin speaks for itself — that's why there's a free demo. |
+## Product lineup
 
-**Anti-persona:** Producers who only use stock plugins and never buy third-party tools. Engineers who need surgical precision (this is a character tool, not a transparent one).
+| Product | Job | Price | Availability / format truth |
+| --- | --- | --- | --- |
+| Carbonator | Five-flavor saturation / character | $20 | macOS: VST3/AU/AAX + Standalone; Windows: VST3 + Standalone |
+| De-Sipper | Transparent vocal de-essing | $20 | macOS: VST3/AU/AAX + Standalone; Windows: VST3 + Standalone |
+| On Tap | MIDI-triggered sidechain ducking | $20 | macOS: VST3/AU/AAX; paid Windows build in progress |
+| Pour | M/S stereo imaging | $20 | macOS: VST3/AU/AAX; Windows build in progress |
+| FIZZFUEL | Gearbox-style creative multi-effect | $29 | macOS: VST3/AU/AAX; Windows: VST3 |
+| Still | Adaptive one-dial noise suppression | Free | macOS: VST3/AU/AAX; Windows build in progress |
 
-## Switching Dynamics
-**Push:** Expensive plugin subscriptions, complex interfaces, harsh-sounding free alternatives
-**Pull:** $20 one-time, one-knob simplicity, 5 flavors = variety, free demo to try first
-**Habit:** "I already have Decapitator/Saturn on my template" — existing workflow inertia
-**Anxiety:** "Will $20 plugin actually sound good?" — addressed by free demo
+**Do not claim:** all six have Windows support, all six have AAX on Windows, universal AAX, endorsements/testimonials not on the page, or a fake customer count.
 
-## Customer Language
-**How they describe the problem:**
-- "I need warmth on my mix but I can't afford Soundtoys"
-- "Free saturation plugins sound harsh"
-- "I spend too long tweaking and not enough time making music"
-**How they describe us:**
-- "Sounds way better than it should for $20"
-- "The Cola flavor on drums is insane"
-- "One knob and done — exactly what I needed"
-**Words to use:** warmth, grit, character, flavor, one-knob, instant, analog, $20, one-time
-**Words to avoid:** cheap (use "affordable"), basic, simple (use "streamlined"), limited
-**Glossary:**
-| Term | Meaning |
-|------|---------|
-| Fizz | The main drive/intensity knob |
-| Flavor | One of 5 saturation circuit types |
-| Carbonated mode | Signature mode that blends all 5 circuits |
-| Cola/Cherry/Grape/Lemon-Lime/Orange Cream | The 5 saturation flavor names |
+## The lead product: Still
 
-## Brand Voice
-**Tone:** Confident, playful, direct — like a producer friend recommending gear
-**Style:** Short punchy sentences. Soda/carbonation metaphors. No corporate speak.
-**Personality:** Bold, fun, no-BS, affordable luxury
+Still is the primary lead magnet. It removes hiss, hum, and room noise in real time with one adaptive control. The free download triggers email delivery and stores a lead in Netlify Blobs, then syncs to the reporting Sheet.
 
-## Proof Points
-**Metrics:** 6 sales, $120 revenue (early stage — growing)
-**Press:**
-- Audio Plugin Guy — published article
-- Rekkerd.org — featured
-- KVR Audio — newsletter feature, listing pending
-- AudioNewsRoom — free write-up published
-**Testimonials:** (placeholder — real testimonials pending from buyers)
-**Value themes:**
-| Theme | Proof |
-|-------|-------|
-| Sounds expensive, costs $20 | Buyer feedback: "sounds like plugins 3x the price" |
-| One-knob simplicity | 5 full signal chains controlled by single Fizz knob |
-| No subscription BS | One-time $20, own forever, 3 machines |
+**Post-download path:** De-Sipper is the primary vocal-chain recommendation; the $45 all-six offer is a small secondary nudge. Never delay, gate, or make the Still download contingent on an upsell.
 
-## Goals
-**Business goal:** Get to 50 sales ($1,000 revenue) — prove product-market fit
-**Conversion action:** Download free demo → Buy $20 license
-**Current metrics:** 6 sales, ~$120 revenue, GA4 live (G-Z9L20HJ4M0), leads captured via Netlify function
+## The flagship creator story: FIZZFUEL
+
+FIZZFUEL’s memorable mechanism is a manual gearbox: Drive, Reverb, Delay, Pitch, Filter, and R for a clean reference. It has 20+ styles and gear changes preserve effect tails.
+
+**Best proof:** level-matched before/after clips and a real screen capture of Gear → R → Gear. Avoid generic "AI plugin ad" visuals or fake UI animation.
+
+## Audience and jobs to be done
+
+- Add warmth, grit, and character without complex menus.
+- Clean a vocal without killing air.
+- Create kick-driven movement without compressor routing.
+- Widen a mix while keeping its center.
+- Change energy with one creative workflow instead of stacking effects.
+- Remove recording noise quickly.
+
+**Core emotional tension:** "I want a sound-changing result fast, without expensive subscriptions, cluttered workflows, or gear that I cannot trust."
+
+## Positioning and tone
+
+**Voice:** confident, playful, direct, producer-to-producer. Short punchy sentences. No corporate language.
+
+**Message hierarchy:**
+
+1. Show/hear the job the plugin solves.
+2. Show the real interface or a real A/B moment.
+3. Explain the one-time price and ownership.
+4. Give the relevant CTA: free Still download, individual product, or time-bound bundle.
+
+**Safe proof:** real UI, actual audio, official product formats, clear price, existing press mentions only where verified. Avoid inflated "better than" claims.
+
+## Acquisition priorities
+
+1. **Press and creator outreach:** strongest existing proof path. Prepare the FIZZFUEL review pack first (three level-matched clips, one gearshift screen recording, installer/license, UTM link).
+2. **SEO comparison/use-case pages:** target exact commercial questions and maintain honest competitor framing.
+3. **Short-form content:** real plugin UI/audio, captions, tracked bundle link. No AI actors.
+4. **Still lead nurture:** value first; use a light bundle offer for engaged people, not an immediate blanket discount sequence.
+5. **Reddit/community:** contribute genuinely and follow each community’s self-promotion rules; do not spam or post low-context buy links.
+
+## Measurement
+
+- **Lead:** `generate_lead` plus Netlify Blobs / Sheet record.
+- **Checkout intent:** `begin_checkout`, including `checkout_placement` and UTM context.
+- **Purchase:** Stripe webhook event sent to GA4; Stripe is authoritative.
+- **Decision window:** after new partner/campaign traffic, wait 7–14 days or 100 qualified bundle-page visits before judging the offer.
+
+## Links and campaign standards
+
+- Bundle: `https://carbonatedaudio.com/bundle`
+- FIZZFUEL: `https://carbonatedaudio.com/fizzfuel`
+- Still: `https://carbonatedaudio.com/still`
+- Use UTM source, medium, campaign, and content on every partner/creator/social link.
+- Current short-form campaign format: `utm_source=shortform&utm_medium=organic_video&utm_campaign=september_bundle&utm_content=[asset]`.
+
+## Current operating constraints
+
+- The $45 offer needs distribution and a verified click-to-checkout sample before paid ads.
+- Do not lower individual prices automatically or extend the September deal without data.
+- KVR deal/news submissions require approval; monitor rather than assuming they are live.
+- Do not claim GA4 purchase journey is complete until a real CTA click is observed in DebugView/Realtime and reconciled with Stripe behavior.

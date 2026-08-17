@@ -53,7 +53,7 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
         "applicationCategory": "MultimediaApplication",
         "softwareVersion": "1.0.0",
         "operatingSystem": ["macOS 10.13+", "Windows 10+"],
-        "description": "De-Sipper is a transparent de-esser plugin that removes harsh sibilance from vocals without artifacts or dullness. Available as VST3, AU, AAX on macOS and Windows. One-time $20 purchase.",
+        "description": "De-Sipper is a transparent de-esser plugin that removes harsh sibilance from vocals without artifacts or dullness. Available as VST3, AU, AAX, and Standalone on macOS; VST3 and Standalone on Windows. One-time $20 purchase.",
         "url": "https://carbonatedaudio.com/desipper",
         "image": "https://carbonatedaudio.com/desipper-screenshot.png",
         "screenshot": "https://carbonatedaudio.com/desipper-screenshot.png",
@@ -85,8 +85,8 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
             "Split-band processing",
             "Real-time visual feedback",
             "Zero-latency processing",
-            "VST3, AU, AAX, Standalone formats",
-            "macOS (Apple Silicon + Intel) and Windows",
+            "macOS: VST3, AU, AAX, Standalone",
+            "Windows: VST3, Standalone",
             "One-time $20 purchase",
             "3 machine activations"
         ],
@@ -964,7 +964,7 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
                 <img src="/desipper-screenshot.png" alt="De-Sipper plugin interface showing transparent de-esser controls" width="600" height="400">
             </video>
             <div class="hero-ctas">
-                <a href="https://buy.stripe.com/9B6bJ11gl7l0aDLgTF3oA0b" class="btn-primary">Get De-Sipper — $20</a>
+                <a href="https://buy.stripe.com/9B6bJ11gl7l0aDLgTF3oA0b" class="btn-primary" data-checkout-placement="desipper_hero">Get De-Sipper — $20</a>
                 <a href="#" class="btn-secondary" onclick="openDemoGate(event)">Try Free Demo</a>
             </div>
             <p style="margin-top:12px;font-size:13px;color:#a09bb5;text-align:center;">or 4 interest-free payments of $5 &mdash; Klarna &middot; Afterpay at checkout</p>
@@ -1151,7 +1151,7 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
                         <li>Free updates</li>
                         <li>Email support</li>
                     </ul>
-                    <a href="https://buy.stripe.com/9B6bJ11gl7l0aDLgTF3oA0b" class="btn-primary btn-pricing">Get De-Sipper — $20</a>
+                    <a href="https://buy.stripe.com/9B6bJ11gl7l0aDLgTF3oA0b" class="btn-primary btn-pricing" data-checkout-placement="desipper_pricing">Get De-Sipper — $20</a>
                     <a href="#" class="btn-secondary" style="display:inline-block; margin-top:12px; text-align:center;" onclick="openDemoGate(event)">Try Free Demo</a>
                 </div>
 
@@ -1244,8 +1244,8 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
     </div>
 
     <!-- Shared Components -->
-    <script src="/components/nav.js?v=20260817-menu-sale"></script>
-    <script src="/components/footer.js?v=20260711"></script>
+<script src="/components/nav.js?v=20260817-menu-sale"></script>
+    <script src="/components/footer.js?v=20260817"></script>
 
     <!-- Silk WebGL Background (Cyan/Blue palette) -->
     <script>
@@ -1567,9 +1567,6 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
             body: JSON.stringify({ contact: contact, source: refSource })
         }).catch(function() {});
 
-        fetch('https://script.google.com/macros/s/AKfycbw8jJUukfTXjT6wAA3RH2zG1Twp5oxCFDNFQiy3_sv7RHciDMZ05LTc8XCVc6eK8CnC/exec?contact=' + encodeURIComponent(contact), {
-            mode: 'no-cors'
-        }).catch(function() {});
 
         setTimeout(function() {
             closeDemoGate();
@@ -1674,8 +1671,8 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
     </style>
 
     <div class="bundle-sticky-cta" id="bundleStickyCta" role="region" aria-label="Bundle offer">
-        <span class="bundle-sticky-cta-text">Get all 4 plugins &mdash; Carbonator + De-Sipper + On Tap + Pour &mdash; for <strong>$60</strong> (save $20)</span>
-        <a href="https://buy.stripe.com/aFa4gzbUZfRwdPXdHt3oA0g" class="bundle-sticky-cta-btn" id="bundleStickyCtaBtn">Get the Bundle &rarr;</a>
+        <span class="bundle-sticky-cta-text">September sale: all 6 plugins for <strong>$45</strong> &mdash; ends Sep 30</span>
+        <a href="https://buy.stripe.com/3cI7sL2kpaxcdPX1YL3oA0h?prefilled_promo_code=ALL6FOR45" class="bundle-sticky-cta-btn" id="bundleStickyCtaBtn" data-checkout-placement="desipper_bundle_sticky">Get All 6 &rarr;</a>
         <button type="button" class="bundle-sticky-cta-close" id="bundleStickyCtaClose" aria-label="Dismiss bundle offer">&times;</button>
     </div>
 
@@ -1728,14 +1725,9 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
 
         gtag('event', 'view_item', { currency: 'USD', value: product.price, items: [product] });
 
-        document.querySelectorAll('a[href*="buy.stripe.com"]').forEach(function(link) {
-            var item = link.href.indexOf('aFa4gzbUZfRwdPXdHt3oA0g') > -1 ? bundle : product;
-            link.addEventListener('click', function() {
-                gtag('event', 'begin_checkout', { currency: 'USD', value: item.price, items: [item] });
-            });
-        });
     })();
     </script>
 
+<script src="/components/checkout-tracking.js?v=20260805"></script>
 </body>
 </html>

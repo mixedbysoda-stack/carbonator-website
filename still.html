@@ -139,6 +139,8 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
         .still-success-actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
         .still-success-buy { background: linear-gradient(135deg, #00a8e8, #00d4ff); color: #07151d; padding: 11px 16px; border-radius: 8px; text-decoration: none; font-weight: 800; }
         .still-success-link { color: var(--still-teal); font-weight: 700; text-decoration: none; }
+        .still-success-offer { margin: 14px 0 0 !important; font-size: 13px; }
+        .still-success-offer a { color: #ff83b8; font-weight: 800; text-decoration: none; }
         .still-shot { text-align: center; padding: 56px 24px 8px; }
         .still-shot img {
             max-width: 620px; width: 100%; border-radius: 12px;
@@ -203,9 +205,10 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
             <h2>💧 Still is on its way.</h2>
             <p>Your download is starting and a backup link is in your inbox. Cleaning a vocal? Still clears the noise; De-Sipper takes care of the harsh S sounds it reveals.</p>
             <div class="still-success-actions">
-                <a class="still-success-buy" href="https://buy.stripe.com/9B6bJ11gl7l0aDLgTF3oA0b">Finish the vocal chain — De-Sipper $20</a>
+                <a class="still-success-buy" href="https://buy.stripe.com/9B6bJ11gl7l0aDLgTF3oA0b" data-checkout-placement="still_post_download_desipper">Finish the vocal chain — De-Sipper $20</a>
                 <a class="still-success-link" href="/desipper?utm_source=still&utm_medium=onsite&utm_campaign=post_download">Hear what De-Sipper does →</a>
             </div>
+            <p class="still-success-offer">September sale: <a href="https://buy.stripe.com/3cI7sL2kpaxcdPX1YL3oA0h?prefilled_promo_code=ALL6FOR45" data-checkout-placement="still_post_download_bundle">all 6 plugins for $45</a> — ends Sep 30.</p>
         </div>
         <p class="still-gate-note">Signed &amp; notarized macOS installer &middot; VST3 / AU / AAX &middot; Windows soon<br>No account. No trial. No rug-pull. Unsubscribe anytime.</p>
     </section>
@@ -321,7 +324,7 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
     </script>
 
     <script src="/components/nav.js?v=20260817-menu-sale"></script>
-    <script src="/components/footer.js?v=20260711"></script>
+    <script src="/components/footer.js?v=20260817"></script>
     <script src="/components/checkout-tracking.js"></script>
 </body>
 </html>

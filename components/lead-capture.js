@@ -3,6 +3,10 @@
 // Loaded directly by standalone pages, or dynamically by footer.js on component pages.
 
 (function () {
+    function captureReferrerOrigin() {
+        try { return document.referrer ? new URL(document.referrer).origin : ''; }
+        catch (_) { return ''; }
+    }
     var mount = document.getElementById('still-lead-capture');
     if (!mount) return;
     // /still has its own full gate — don't double-capture there
@@ -44,14 +48,22 @@
             body: JSON.stringify({
                 contact: contact,
                 source: source,
-                website: document.getElementById('stillCapHp').value
+                website: document.getElementById('stillCapHp').value,
+                landing_page: window.location.pathname,
+                referrer: captureReferrerOrigin(),
+                utm_source: new URLSearchParams(window.location.search).get('utm_source') || '',
+                utm_medium: new URLSearchParams(window.location.search).get('utm_medium') || '',
+                utm_campaign: new URLSearchParams(window.location.search).get('utm_campaign') || ''
             })
         }).then(function (res) {
             if (!res.ok) throw new Error('capture failed');
             return res.json();
         }).then(function (data) {
             if (data && data.success === false) throw new Error('capture failed');
-            if (typeof gtag === 'function') gtag('event', 'free_download', { event_category: 'conversion', event_label: source });
+            if (typeof gtag === 'function') {
+                gtag('event', 'free_download', { event_category: 'conversion', event_label: source });
+                gtag('event', 'generate_lead', { event_category: 'conversion', event_label: source });
+            }
             if (typeof fbq === 'function') fbq('track', 'Lead', { content_name: 'Still Free Download', content_category: source });
             document.getElementById('stillCapForm').style.display = 'none';
             document.getElementById('stillCapSuccess').style.display = 'block';
