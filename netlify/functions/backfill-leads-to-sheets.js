@@ -1,9 +1,11 @@
 const { getBlobStore } = require("./lib/store");
 const { syncLeadToGoogleSheets } = require("./lib/google-sheets");
 
-// One-time recovery endpoint. It is intentionally protected with the existing
-// admin token and can be safely re-run because the Sheet endpoint upserts by
-// email instead of appending duplicates.
+// This endpoint used to replay events directly into the Apps Script upsert.
+// That script correctly avoids duplicate *rows*, but increments Lead Count on
+// every replay, so retrying a batch can inflate event totals. The master Sheet
+// was reconciled directly from Netlify Blobs on Aug 17, 2026. Keep this route
+// unavailable until the Apps Script accepts a durable event id.
 exports.handler = async (event) => {
   const headers = { "Content-Type": "application/json" };
   const queryToken = event.queryStringParameters?.token;
@@ -19,6 +21,15 @@ exports.handler = async (event) => {
     return { statusCode: 503, headers, body: JSON.stringify({ error: "Google Sheets sync is not configured" }) };
   }
 
+  return {
+    statusCode: 409,
+    headers,
+    body: JSON.stringify({
+      error: "Backfill is disabled to protect lead-event counts. Reconcile from Netlify Blobs after deploying an event-id-aware Apps Script.",
+    }),
+  };
+
+  /*
   try {
     const store = getBlobStore("leads");
     const result = await store.list();
@@ -80,4 +91,5 @@ exports.handler = async (event) => {
     console.error("Lead backfill failed:", err.message);
     return { statusCode: 500, headers, body: JSON.stringify({ error: "Backfill failed" }) };
   }
+  */
 };

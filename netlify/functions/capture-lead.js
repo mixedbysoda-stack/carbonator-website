@@ -1,4 +1,5 @@
 const { getBlobStore } = require("./lib/store");
+const { syncLeadToGoogleSheets } = require("./lib/google-sheets");
 const { Resend } = require("resend");
 const { VERSION } = require("./config");
 
@@ -20,12 +21,17 @@ exports.handler = async (event) => {
     return { statusCode: 405, headers, body: JSON.stringify({ success: false }) };
   }
 
-  let contact, source, honeypot;
+  let contact, source, honeypot, landingPage, referrer, utmSource, utmMedium, utmCampaign;
   try {
     const body = JSON.parse(event.body);
     contact = (body.contact || "").trim();
     source = body.source || "demo-gate";
     honeypot = (body.website || "").trim();
+    landingPage = String(body.landing_page || "").slice(0, 300);
+    referrer = String(body.referrer || "").slice(0, 300);
+    utmSource = String(body.utm_source || "").slice(0, 120);
+    utmMedium = String(body.utm_medium || "").slice(0, 120);
+    utmCampaign = String(body.utm_campaign || "").slice(0, 160);
   } catch {
     return { statusCode: 400, headers, body: JSON.stringify({ success: false, error: "Invalid body" }) };
   }
@@ -63,19 +69,34 @@ exports.handler = async (event) => {
   }
 
   const key = `lead_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
+  const lead = {
+    event_id: key,
+    contact,
+    source,
+    timestamp: now,
+    landing_page: landingPage,
+    referrer,
+    utm_source: utmSource,
+    utm_medium: utmMedium,
+    utm_campaign: utmCampaign,
+    ip: event.headers["x-forwarded-for"] || "unknown",
+    drip_status: "email1_pending",
+  };
 
   // Save lead to Blobs (non-blocking — don't let this kill the email)
   try {
     const store = getBlobStore("leads");
-    await store.setJSON(key, {
-      contact,
-      source,
-      timestamp: now,
-      ip: event.headers["x-forwarded-for"] || "unknown",
-      drip_status: "email1_pending",
-    });
+    await store.setJSON(key, lead);
   } catch (storeErr) {
     console.error("Lead store error (non-fatal):", storeErr.message);
+  }
+
+  // The Sheet is the business-facing report; Blobs remains the source of truth.
+  // A sync failure is recorded but must never interrupt the download or drip.
+  try {
+    await syncLeadToGoogleSheets(lead);
+  } catch (sheetErr) {
+    console.error("Google Sheets sync error (non-fatal):", sheetErr.message);
   }
 
   // Send Email 1 immediately — welcome + download link
@@ -109,10 +130,7 @@ exports.handler = async (event) => {
       try {
         const store = getBlobStore("leads");
         await store.setJSON(key, {
-          contact,
-          source,
-          timestamp: now,
-          ip: event.headers["x-forwarded-for"] || "unknown",
+          ...lead,
           drip_status: "email1_sent",
           email1_sent_at: new Date().toISOString(),
         });
@@ -184,7 +202,7 @@ function buildStillWelcomeEmail(contact) {
 </table>
 <hr style="border:none;border-top:1px solid #1d2f3a;margin:24px 0;">
 <p style="color:#8fa8b0;font-size:14px;margin:0;text-align:center;">
-Cleaning up vocals? Still pairs beautifully with <a href="https://carbonatedaudio.com/desipper" style="color:#00d4ff;text-decoration:none;font-weight:600;">De-Sipper</a> ($20) for sibilance — or grab the whole <a href="https://carbonatedaudio.com/bundle" style="color:#ff6b2b;text-decoration:none;font-weight:600;">Complete Bundle</a>.
+Cleaning up vocals? Still clears the noise; <a href="https://carbonatedaudio.com/desipper?utm_source=still_email&utm_medium=email&utm_campaign=still_welcome" style="color:#00d4ff;text-decoration:none;font-weight:600;">De-Sipper</a> ($20) handles the sibilance it reveals. Want the full chain? See the <a href="https://carbonatedaudio.com/bundle?utm_source=still_email&utm_medium=email&utm_campaign=still_welcome" style="color:#ff6b2b;text-decoration:none;font-weight:600;">Complete Bundle</a>.
 </p>
 </td></tr>
 <tr><td align="center" style="padding-top:32px;">

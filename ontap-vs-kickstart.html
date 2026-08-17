@@ -422,7 +422,7 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
                 <li>You need band-split ducking — pump the kick out of just your sub bass without losing the highs of your bassline</li>
                 <li>You like dragging the end marker to dial in curve length per song instead of being stuck with a preset's fixed timing</li>
                 <li>You want all three trigger modes (Sync, MIDI, Audio) so the plugin adapts to whatever sound you're trying to duck against</li>
-                <li>You want to bundle it with other affordable studio plugins from one developer (grab Carbonator, De-Sipper, On Tap, and Pour together in the Complete Bundle for $60)</li>
+                <li>You want a full, affordable plugin toolkit from one developer (all 6 Carbonated Audio plugins are $45 through September 30)</li>
                 <li>You care about saving the $5 difference and putting it toward a plugin you don't already own</li>
             </ul>
         </div>
@@ -448,7 +448,7 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
         <div class="section">
             <h2>The Bottom Line</h2>
             <p>Kickstart 2 earned its reputation. It's the de-facto standard for sidechain ducking in EDM, pop, and hip-hop production, and Cableguys has refined it across multiple versions. If you're on Windows or you already swear by it, there's no reason to switch.</p>
-            <p>But if you're on macOS, On Tap is the more interesting pick in 2026. It's $5 cheaper, it covers the same workflow (insert, pick a curve, trigger by MIDI or sync to tempo), and it adds a band-split crossover that genuinely changes what's possible in the bass-vs-kick fight. It also bundles with three other Carbonated Audio plugins (Carbonator for saturation, De-Sipper for de-essing, Pour for stereo imaging) in the Complete Bundle for $60 total — making it the cheapest way to build a complete indie plugin chain.</p>
+            <p>But if you're on macOS, On Tap is the more interesting pick in 2026. It's $5 cheaper, it covers the same workflow (insert, pick a curve, trigger by MIDI or sync to tempo), and it adds a band-split crossover that genuinely changes what's possible in the bass-vs-kick fight. Through September 30, it is also part of the six-plugin Carbonated Audio collection for $45 total — a straightforward way to build a complete indie plugin chain.</p>
             <p>Try the demo first. The full plugin is free to download with no time limit, and you'll know within 10 minutes whether the band-split workflow clicks for you.</p>
         </div>
 
@@ -517,5 +517,6 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
     document.getElementById('demoGateOverlay').addEventListener('click',function(e){if(e.target===this)closeDemoGate()});
     function submitDemoGate(e){e.preventDefault();var c=document.getElementById('demoGateContact').value.trim(),err=document.getElementById('demoGateError');if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(c)){err.textContent='Please enter a valid email address.';return false}err.textContent='';var btn=document.querySelector('.demo-gate-submit');btn.textContent='Unlocking...';btn.disabled=true;if(typeof gtag==='function')gtag('event','demo_download',{event_category:'conversion',event_label:'ontap-vs-kickstart'});var ref=new URLSearchParams(window.location.search).get('ref')||'ontap-vs-kickstart';fetch('/.netlify/functions/capture-lead',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contact:c,source:ref})}).catch(function(){});setTimeout(function(){closeDemoGate();btn.textContent='Download Now';btn.disabled=false;var a=document.createElement('a');a.href=(/Win/i.test(navigator.platform||navigator.userAgent))?'https://github.com/mixedbysoda-stack/ontap/releases/download/v1.0.0-demo/OnTap-v1.0.0-Demo-Windows-Installer.exe':'https://github.com/mixedbysoda-stack/ontap/releases/download/v1.0.0-demo/OnTap-Demo-macOS.pkg';a.download='';document.body.appendChild(a);a.click();document.body.removeChild(a)},300);return false}
     </script>
+<script src="/components/checkout-tracking.js?v=20260805"></script>
 </body>
 </html>
