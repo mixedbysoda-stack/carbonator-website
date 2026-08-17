@@ -77,7 +77,9 @@ const PRODUCT_ACCENTS = {
     color: "#a855f7",
     colorAlt: "#7b2fff",
     gradient: "linear-gradient(135deg,#a855f7,#7b2fff)",
-    url: "https://carbonatedaudio.com/tonic",
+    // Tonic is retired while its replacement is renamed. Never send customers
+    // to the old 301 route; the closest active product path is FIZZFUEL.
+    url: "https://carbonatedaudio.com/fizzfuel",
     price: 20,
   },
   still: {
