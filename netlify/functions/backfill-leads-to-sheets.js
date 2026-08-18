@@ -21,6 +21,30 @@ exports.handler = async (event) => {
     return { statusCode: 503, headers, body: JSON.stringify({ error: "Google Sheets sync is not configured" }) };
   }
 
+  // Admin-only, non-mutating connection check. The Apps Script validates the
+  // shared token before rejecting the intentionally blank contact, so this
+  // confirms the live Netlify runtime can authenticate without creating a
+  // lead, incrementing a count, or sending an email.
+  if (event.queryStringParameters?.mode === "verify") {
+    try {
+      const response = await fetch(process.env.GOOGLE_SHEETS_WEB_APP_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ sync_token: process.env.GOOGLE_SHEETS_SYNC_TOKEN, contact: "" }),
+      });
+      const result = await response.json().catch(() => null);
+      const connected = response.ok && result?.error === "Missing contact";
+      return {
+        statusCode: connected ? 200 : 502,
+        headers,
+        body: JSON.stringify({ connected }),
+      };
+    } catch (err) {
+      console.error("Google Sheets sync verification failed:", err.message);
+      return { statusCode: 502, headers, body: JSON.stringify({ connected: false }) };
+    }
+  }
+
   return {
     statusCode: 409,
     headers,
