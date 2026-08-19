@@ -2,9 +2,98 @@ const { getBlobStore } = require("./lib/store");
 const { syncLeadToGoogleSheets } = require("./lib/google-sheets");
 const { Resend } = require("resend");
 const { VERSION } = require("./config");
+const crypto = require("crypto");
 
 const FROM_EMAIL = "Carbonated Audio <hello@carbonatedaudio.com>";
 const DEDUPE_WINDOW_MS = 60 * 60 * 1000;
+const DOWNLOAD_GRANT_TTL_MS = 48 * 60 * 60 * 1000;
+const STILL_RATE_LIMIT_WINDOW_MS = 24 * 60 * 60 * 1000;
+const STILL_RATE_LIMIT_MAX = 5;
+
+// These domains exist chiefly to issue throwaway mailboxes. This is deliberately
+// a small, conservative denylist: normal Gmail aliases (name+tag@gmail.com),
+// work addresses, and lesser-known providers must continue to work.
+const DISPOSABLE_EMAIL_DOMAINS = new Set([
+  "10minutemail.com", "dispostable.com", "getnada.com", "guerrillamail.com",
+  "guerrillamailblock.com", "maildrop.cc", "mailinator.com", "sharklasers.com",
+  "tempmail.com", "throwawaymail.com", "trashmail.com", "yopmail.com",
+]);
+
+function getClientIp(event) {
+  const forwarded = String(event.headers["x-forwarded-for"] || "");
+  return (forwarded.split(",")[0] || event.headers["x-nf-client-connection-ip"] || "unknown").trim();
+}
+
+function isValidEmail(value) {
+  if (value.length > 254) return false;
+  const [local, domain, ...extra] = value.split("@");
+  if (extra.length || !local || !domain || local.length > 64) return false;
+  // Requiring an alphanumeric first character prevents spreadsheet-formula
+  // prefixes while still accepting normal aliases such as name+tag@gmail.com.
+  if (!/^[A-Za-z0-9][A-Za-z0-9.!#$%&'*+/=?^_`{|}~-]*$/.test(local)) return false;
+  return /^[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?(?:\.[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?)+$/.test(domain);
+}
+
+function isDisposableEmail(value) {
+  const domain = value.split("@")[1]?.toLowerCase();
+  return Boolean(domain && DISPOSABLE_EMAIL_DOMAINS.has(domain));
+}
+
+async function takeStillRateLimit(event) {
+  const ipHash = crypto.createHash("sha256").update(getClientIp(event)).digest("hex");
+  const key = `still_${ipHash}`;
+  const store = getBlobStore("lead-rate-limits");
+  const now = Date.now();
+  const current = await store.get(key, { type: "json" }).catch(() => null);
+  const fresh = current && now - new Date(current.window_started_at).getTime() < STILL_RATE_LIMIT_WINDOW_MS;
+  const count = fresh ? Number(current.count || 0) : 0;
+  if (count >= STILL_RATE_LIMIT_MAX) return false;
+  await store.setJSON(key, {
+    window_started_at: fresh ? current.window_started_at : new Date(now).toISOString(),
+    count: count + 1,
+  });
+  return true;
+}
+
+function siteOrigin(event) {
+  // A download link must return to the exact deploy that captured the request.
+  // Netlify supplies Host from the request; only accept our production or
+  // deploy-preview hostnames rather than reflecting arbitrary input.
+  const host = String(event.headers.host || "").toLowerCase();
+  const trustedHost = host === "carbonatedaudio.com"
+    || host === "www.carbonatedaudio.com"
+    || /^[a-z0-9-]+--carbinated-audio\.netlify\.app$/.test(host)
+    || host === "carbinated-audio.netlify.app";
+  const siteUrl = trustedHost
+    ? `https://${host}`
+    : String(process.env.DEPLOY_PRIME_URL || process.env.URL || "https://carbonatedaudio.com").replace(/\/$/, "");
+  return siteUrl;
+}
+
+function stillDownloadUrl(event, token) {
+  return `${siteOrigin(event)}/.netlify/functions/download-still?token=${encodeURIComponent(token)}`;
+}
+
+function stillConfirmUrl(event, token) {
+  return `${siteOrigin(event)}/.netlify/functions/verify-still-download?token=${encodeURIComponent(token)}`;
+}
+
+// The emailed button confirms the inbox and downloads in one click. Someone who
+// already grabbed the file on the page loses nothing by using it again; someone
+// who never returns simply stays out of the drip.
+function buildStillWelcomeEmail(event, token) {
+  const url = stillConfirmUrl(event, token);
+  return `<!DOCTYPE html><html><body style="margin:0;padding:32px;background:#0d0a1a;color:#fff;font-family:Arial,Helvetica,sans-serif;">
+  <div style="max-width:560px;margin:0 auto;background:#0c161e;border:1px solid #1d2f3a;border-radius:16px;padding:36px 30px;text-align:center;">
+    <div style="font-size:24px;font-weight:800;margin-bottom:20px;">Carbonated Audio</div>
+    <h1 style="font-size:24px;margin:0 0 12px;">Still is yours. Free.</h1>
+    <p style="color:#a9c4c5;line-height:1.55;margin:0 0 26px;">Your download should already have started on the site. If it did not, this button confirms your email and downloads the installer.</p>
+    <a href="${url}" style="display:inline-block;background:#6fc7bc;color:#07201c;padding:14px 24px;border-radius:10px;text-decoration:none;font-weight:800;">Confirm &amp; download Still</a>
+    <p style="color:#a9c4c5;line-height:1.55;margin:26px 0 0;font-size:14px;">Confirming also puts you on the list for the Windows release. This link works for 48 hours.</p>
+    <p style="color:#6b8a8b;font-size:12px;line-height:1.5;margin:18px 0 0;">Signed &amp; notarized installer &middot; VST3 / AU / AAX &middot; Windows coming soon</p>
+    <p style="color:#6b8a8b;font-size:12px;line-height:1.5;margin:18px 0 0;">Cleaning up vocals? <a href="https://carbonatedaudio.com/desipper?utm_source=still_email&utm_medium=email&utm_campaign=still_welcome" style="color:#00d4ff;text-decoration:none;font-weight:600;">De-Sipper</a> ($20) handles the sibilance Still reveals. Or take the <a href="https://carbonatedaudio.com/bundle?utm_source=still_email&utm_medium=email&utm_campaign=still_welcome" style="color:#ff6b2b;text-decoration:none;font-weight:600;">Complete Bundle</a>.</p>
+  </div></body></html>`;
+}
 
 exports.handler = async (event) => {
   const headers = {
@@ -24,7 +113,7 @@ exports.handler = async (event) => {
   let contact, source, honeypot, landingPage, referrer, utmSource, utmMedium, utmCampaign;
   try {
     const body = JSON.parse(event.body);
-    contact = (body.contact || "").trim();
+    contact = (body.contact || "").trim().toLowerCase();
     source = body.source || "demo-gate";
     honeypot = (body.website || "").trim();
     landingPage = String(body.landing_page || "").slice(0, 300);
@@ -44,6 +133,24 @@ exports.handler = async (event) => {
 
   if (!contact) {
     return { statusCode: 400, headers, body: JSON.stringify({ success: false, error: "Missing contact" }) };
+  }
+
+  const isStillLead = source && source.includes("still");
+  if (isStillLead && !isValidEmail(contact)) {
+    return { statusCode: 400, headers, body: JSON.stringify({ success: false, error: "Enter a valid email address" }) };
+  }
+  if (isStillLead && isDisposableEmail(contact)) {
+    return { statusCode: 400, headers, body: JSON.stringify({ success: false, error: "Please use a permanent email address" }) };
+  }
+  if (isStillLead) {
+    try {
+      if (!await takeStillRateLimit(event)) {
+        return { statusCode: 429, headers, body: JSON.stringify({ success: false, error: "Please check your inbox before requesting another download" }) };
+      }
+    } catch (rateErr) {
+      // A rate-store outage must not make the free download unavailable.
+      console.error("Still rate limit error (non-fatal):", rateErr.message);
+    }
   }
 
   const now = new Date().toISOString();
@@ -80,7 +187,10 @@ exports.handler = async (event) => {
     utm_medium: utmMedium,
     utm_campaign: utmCampaign,
     ip: event.headers["x-forwarded-for"] || "unknown",
-    drip_status: "email1_pending",
+    // Held out of the drip until verify-still-download flips this to
+    // "email1_sent". The download itself is already theirs.
+    drip_status: isStillLead ? "unverified" : "email1_pending",
+    verification_status: isStillLead ? "pending" : "not_required",
   };
 
   // Save lead to Blobs (non-blocking — don't let this kill the email)
@@ -91,8 +201,74 @@ exports.handler = async (event) => {
     console.error("Lead store error (non-fatal):", storeErr.message);
   }
 
+  // A free plugin should not be held behind an inbox round-trip. The visitor
+  // gets a download grant immediately; confirming the email is what earns a
+  // place in the drip, and that is handled by verify-still-download.
+  if (isStillLead) {
+    if (!process.env.RESEND_API_KEY) {
+      return { statusCode: 503, headers, body: JSON.stringify({ success: false, error: "Email delivery is temporarily unavailable" }) };
+    }
+
+    const rawToken = crypto.randomBytes(32).toString("base64url");
+    const tokenHash = crypto.createHash("sha256").update(rawToken).digest("hex");
+    const downloadUrl = stillDownloadUrl(event, rawToken);
+
+    try {
+      await getBlobStore("still-downloads").setJSON(`dl_${tokenHash}`, {
+        lead_key: key,
+        contact,
+        issued_at: now,
+        expires_at: new Date(Date.now() + DOWNLOAD_GRANT_TTL_MS).toISOString(),
+        downloads: 0,
+      });
+    } catch (grantErr) {
+      // Without a stored grant the download link cannot be honoured, so this
+      // is the one failure here worth refusing on.
+      console.error("Still download grant failed:", grantErr.message);
+      await getBlobStore("lead-dedupe").setJSON(dedupeKey, { last_captured: new Date(0).toISOString() }).catch(() => {});
+      return { statusCode: 503, headers, body: JSON.stringify({ success: false, error: "We could not prepare your download. Please try again." }) };
+    }
+
+    // Delivery problems must not cost someone the plugin they just asked for.
+    // They already hold a working link; the email is the drip invitation.
+    try {
+      const resend = new Resend(process.env.RESEND_API_KEY);
+      await resend.emails.send({
+        from: FROM_EMAIL,
+        reply_to: "mixedbysoda@gmail.com",
+        to: contact,
+        subject: "Still is yours — free noise suppressor 💧",
+        html: buildStillWelcomeEmail(event, rawToken),
+      });
+      await getBlobStore("leads").setJSON(key, {
+        ...lead,
+        welcome_sent_at: new Date().toISOString(),
+      }).catch(() => {});
+    } catch (emailErr) {
+      console.error("Still welcome email failed (download still granted):", emailErr.message);
+    }
+
+    try {
+      const resend = new Resend(process.env.RESEND_API_KEY);
+      await resend.emails.send({
+        from: FROM_EMAIL,
+        to: "mixedbysoda@gmail.com",
+        subject: `🔔 New Still Lead (FREE download): ${contact}`,
+        html: `<div style="font-family:Arial,sans-serif;padding:20px;background:#0d0a1a;color:#fff;"><h2 style="color:#6fc7bc;">New Still Lead</h2><p><strong>Email:</strong> ${contact}</p><p><strong>Source:</strong> ${source}</p><p><strong>Time:</strong> ${now}</p><p style="color:#a9c4c5;">Unconfirmed until they click the email button. Drip holds until then.</p></div>`,
+      });
+    } catch (notifyErr) {
+      console.error("Still lead notification failed (non-fatal):", notifyErr.message);
+    }
+
+    return {
+      statusCode: 200,
+      headers,
+      body: JSON.stringify({ success: true, download_url: downloadUrl }),
+    };
+  }
+
   // The Sheet is the business-facing report; Blobs remains the source of truth.
-  // A sync failure is recorded but must never interrupt the download or drip.
+  // A sync failure is recorded but must never interrupt the demo email.
   try {
     await syncLeadToGoogleSheets(lead);
   } catch (sheetErr) {
@@ -100,7 +276,6 @@ exports.handler = async (event) => {
   }
 
   // Send Email 1 immediately — welcome + download link
-  const isStillLead = source && source.includes("still");
   const isDesipperLead = source && source.includes("desipper");
   const isOnTapLead = source && source.includes("ontap");
   if (process.env.RESEND_API_KEY) {
@@ -110,20 +285,16 @@ exports.handler = async (event) => {
         from: FROM_EMAIL,
         reply_to: "mixedbysoda@gmail.com",
         to: contact,
-        subject: isStillLead
-          ? "Still is yours — free noise suppressor 💧"
-          : isOnTapLead
-            ? "Your On Tap Demo is ready 🎚️"
-            : isDesipperLead
-              ? "Your De-Sipper Demo is ready 🎤"
-              : "Your Carbonator Demo is ready 🎛️",
-        html: isStillLead
-          ? buildStillWelcomeEmail(contact)
-          : isOnTapLead
-            ? buildOnTapWelcomeEmail(contact)
-            : isDesipperLead
-              ? buildDesipperWelcomeEmail(contact)
-              : buildWelcomeEmail(contact),
+        subject: isOnTapLead
+          ? "Your On Tap Demo is ready 🎚️"
+          : isDesipperLead
+            ? "Your De-Sipper Demo is ready 🎤"
+            : "Your Carbonator Demo is ready 🎛️",
+        html: isOnTapLead
+          ? buildOnTapWelcomeEmail(contact)
+          : isDesipperLead
+            ? buildDesipperWelcomeEmail(contact)
+            : buildWelcomeEmail(contact),
       });
 
       // Update drip status
@@ -149,13 +320,11 @@ exports.handler = async (event) => {
       await resend.emails.send({
         from: FROM_EMAIL,
         to: "mixedbysoda@gmail.com",
-        subject: isStillLead
-          ? `🔔 New Still Lead (FREE download): ${contact}`
-          : isOnTapLead
-            ? `🔔 New On Tap Lead: ${contact}`
-            : isDesipperLead
-              ? `🔔 New De-Sipper Lead: ${contact}`
-              : `🔔 New Carbonator Lead: ${contact}`,
+        subject: isOnTapLead
+          ? `🔔 New On Tap Lead: ${contact}`
+          : isDesipperLead
+            ? `🔔 New De-Sipper Lead: ${contact}`
+            : `🔔 New Carbonator Lead: ${contact}`,
         html: `
           <div style="font-family:Arial,sans-serif;padding:20px;background:#0d0a1a;color:#fff;">
             <h2 style="color:#ff6b2b;">New Lead Captured</h2>
@@ -178,39 +347,6 @@ exports.handler = async (event) => {
     body: JSON.stringify({ success: true }),
   };
 };
-
-function buildStillWelcomeEmail(contact) {
-  return `<!DOCTYPE html><html><head><meta charset="utf-8"></head>
-<body style="margin:0;padding:0;background-color:#0d0a1a;font-family:Arial,Helvetica,sans-serif;">
-<table width="100%" cellpadding="0" cellspacing="0" style="background-color:#0d0a1a;padding:40px 20px;"><tr><td align="center">
-<table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;">
-<tr><td align="center" style="padding-bottom:32px;"><span style="font-size:28px;font-weight:800;color:#fff;">Carbonated Audio</span></td></tr>
-<tr><td style="background-color:#0c161e;border-radius:16px;padding:40px 32px;">
-<h1 style="color:#fff;font-size:24px;text-align:center;margin:0 0 8px;">Still is yours. Free.</h1>
-<p style="color:#8fa8b0;font-size:16px;text-align:center;margin:0 0 32px;">One dial. Background noise gone. No account, no trial, no catch — free forever.</p>
-<div style="text-align:center;margin:0 0 32px;">
-<a href="https://github.com/mixedbysoda-stack/still/releases/latest/download/Still-Installer.pkg" style="background:linear-gradient(135deg,#2e8f85,#6fc7bc);color:#07201c;padding:14px 32px;border-radius:10px;text-decoration:none;font-weight:700;font-size:16px;display:inline-block;">Download Still for macOS</a>
-<p style="color:#5c7078;font-size:12px;margin:10px 0 0;">Signed &amp; notarized installer &middot; VST3 / AU / AAX &middot; Windows coming soon</p>
-</div>
-<hr style="border:none;border-top:1px solid #1d2f3a;margin:0 0 24px;">
-<h2 style="color:#fff;font-size:18px;margin:0 0 16px;">How to use it (30 seconds):</h2>
-<table width="100%" cellpadding="0" cellspacing="0" style="font-size:14px;color:#8fa8b0;">
-<tr><td style="padding:6px 0;"><strong style="color:#6fc7bc;">1. Install</strong> — open the installer, pick your formats, rescan in your DAW.</td></tr>
-<tr><td style="padding:6px 0;"><strong style="color:#6fc7bc;">2. Drop it on a noisy vocal</strong> — it adapts to the noise floor automatically. No learn button.</td></tr>
-<tr><td style="padding:6px 0;"><strong style="color:#6fc7bc;">3. Raise SUPPRESS until the noise is gone</strong> — the amber ring shows how much it's removing.</td></tr>
-<tr><td style="padding:6px 0;"><strong style="color:#6fc7bc;">Δ NOISE</strong> — hit it to hear exactly what's being removed. If you hear voice in there, back the dial off.</td></tr>
-</table>
-<hr style="border:none;border-top:1px solid #1d2f3a;margin:24px 0;">
-<p style="color:#8fa8b0;font-size:14px;margin:0;text-align:center;">
-Cleaning up vocals? Still clears the noise; <a href="https://carbonatedaudio.com/desipper?utm_source=still_email&utm_medium=email&utm_campaign=still_welcome" style="color:#00d4ff;text-decoration:none;font-weight:600;">De-Sipper</a> ($20) handles the sibilance it reveals. Want the full chain? See the <a href="https://carbonatedaudio.com/bundle?utm_source=still_email&utm_medium=email&utm_campaign=still_welcome" style="color:#ff6b2b;text-decoration:none;font-weight:600;">Complete Bundle</a>.
-</p>
-</td></tr>
-<tr><td align="center" style="padding-top:32px;">
-<p style="color:#6b6580;font-size:12px;margin:0;">Questions? Reply to this email.</p>
-<p style="color:#6b6580;font-size:12px;margin:8px 0 0;">&copy; ${new Date().getFullYear()} Carbonated Audio &middot; <a href="https://carbonatedaudio.com" style="color:#6b6580;">carbonatedaudio.com</a><br><a href="mailto:hello@carbonatedaudio.com?subject=Unsubscribe" style="color:#6b6580;">Unsubscribe</a></p>
-</td></tr>
-</table></td></tr></table></body></html>`;
-}
 
 function buildWelcomeEmail(email) {
   return `

@@ -76,11 +76,15 @@ const PRODUCTS = {
   },
   still: {
     name: "Still",
-    version: "1.0.0",
+    // Display only. The installer itself is resolved via the `latest` release
+    // alias below, so this string can never send anyone an outdated build.
+    version: "1.0.1",
     price: 0, // FREE — email-gated lead magnet, no Stripe, no licensing
     downloads: {
-      // Signed + notarized installer on mixedbysoda-stack/still (public repo)
-      mac: `https://github.com/mixedbysoda-stack/still/releases/download/v1.0.0/Still-v1.0.0-Installer.pkg`,
+      // Resolved through the `latest` release alias so a new tag ships to every
+      // visitor without editing this file. The asset name is intentionally
+      // unversioned — that is what makes the alias resolvable.
+      mac: `https://github.com/mixedbysoda-stack/still/releases/latest/download/Still-Installer.pkg`,
       // Windows CI build pending — slot populated when it ships
       windows: null,
     },

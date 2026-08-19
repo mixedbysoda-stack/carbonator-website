@@ -5,7 +5,7 @@
 // authority for whether a contact already owns a paid Carbonated Audio product.
 
 const { getBlobStore } = require("./lib/store");
-const { isSuppressed } = require("./lib/suppression");
+const { isSuppressedAsync } = require("./lib/suppression");
 const { Resend } = require("resend");
 const { buildEmail } = require("../../email-templates/render");
 
@@ -112,7 +112,7 @@ exports.handler = async (event) => {
       excludedBuyers++;
       continue;
     }
-    if (isSuppressed(email)) {
+    if (await isSuppressedAsync(email)) {
       excludedSuppressed++;
       continue;
     }

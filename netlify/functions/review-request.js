@@ -3,7 +3,7 @@
 // Checks Stripe for purchases 7+ days old, sends review request if not already sent
 
 const { getBlobStore } = require("./lib/store");
-const { isSuppressed } = require("./lib/suppression");
+const { isSuppressedAsync } = require("./lib/suppression");
 const { Resend } = require("resend");
 
 const FROM_EMAIL = "Carbonated Audio <hello@carbonatedaudio.com>";
@@ -57,7 +57,7 @@ exports.handler = async () => {
     try {
       const buyer = await buyerStore.get(blob.key, { type: "json" });
       if (!buyer || !buyer.email) continue;
-      if (isSuppressed(buyer.email)) continue; // unsubscribed
+      if (await isSuppressedAsync(buyer.email)) continue; // unsubscribed, bounced, or complained
       if (!buyer.purchased_at) continue;
 
       const elapsed = now - new Date(buyer.purchased_at).getTime();

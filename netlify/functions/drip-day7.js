@@ -3,7 +3,7 @@
 // Finds leads where email2 was sent 4+ days ago (7 days from signup) but no email3 yet.
 
 const { getBlobStore } = require("./lib/store");
-const { isSuppressed } = require("./lib/suppression");
+const { isSuppressedAsync } = require("./lib/suppression");
 const { loadBuyerEmails } = require("./lib/buyers");
 const { Resend } = require("resend");
 const { PRODUCTS } = require("./config");
@@ -200,7 +200,7 @@ exports.handler = async () => {
     try {
       const lead = await store.get(blob.key, { type: "json" });
       if (!lead || !lead.contact) continue;
-      if (isSuppressed(lead.contact)) continue; // unsubscribed
+      if (await isSuppressedAsync(lead.contact)) continue; // unsubscribed, bounced, or complained
       if (buyerEmails.has(String(lead.contact).trim().toLowerCase())) continue; // already a customer
       if (lead.drip_status !== "email2_sent") continue;
       if (!lead.email2_sent_at) continue;

@@ -70,7 +70,7 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
         "@context": "https://schema.org",
         "@type": "FAQPage",
         "mainEntity": [
-            { "@type": "Question", "name": "Is Still really free?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — free forever. No account, no trial period, no feature locks, no future paywall. You enter your email, you get the download link. That's the whole deal." } },
+            { "@type": "Question", "name": "Is Still really free?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — free forever. No account, no trial period, no feature locks, no future paywall. Enter your email and the download starts immediately. That's the whole deal." } },
             { "@type": "Question", "name": "How is Still different from other free noise reduction plugins?", "acceptedAnswer": { "@type": "Answer", "text": "Most free tools either need a noise-profile learn step, bury you in sliders, or add the watery 'underwater' artifacts of FFT processing. Still is one dial, fully adaptive with no learn step, and processes in the time domain — so that artifact class is impossible by design. Zero added latency." } },
             { "@type": "Question", "name": "What formats and systems does Still support?", "acceptedAnswer": { "@type": "Answer", "text": "VST3, AU, and AAX on macOS 11 or later (Apple Silicon and Intel, signed and notarized). A Windows build is in progress — leave your email and you'll be the first to know." } },
             { "@type": "Question", "name": "What kind of noise does it remove?", "acceptedAnswer": { "@type": "Answer", "text": "Steady background noise: preamp hiss, room tone, air conditioning, fan rumble, electrical hum. It continuously tracks the noise floor in 8 frequency bands and expands it away while leaving the voice untouched." } }
@@ -202,13 +202,14 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
             <button type="submit" id="stillBtn">Get Still Free</button>
         </form>
         <div class="still-success" id="stillSuccess">
-            <h2>💧 Still is on its way.</h2>
-            <p>Your download is starting and a backup link is in your inbox. Cleaning a vocal? Still clears the noise; De-Sipper takes care of the harsh S sounds it reveals.</p>
-            <div class="still-success-actions">
+            <h2>💧 Downloading now.</h2>
+            <p>Still is on its way to your downloads folder. We also emailed you the link &mdash; confirm it there to get the Windows release the day it lands.</p>
+            <a class="still-success-link" id="stillManualDownload" href="#" style="display:none;">Download did not start? Click here &rarr;</a>
+            <div class="still-success-actions" style="display:none;">
                 <a class="still-success-buy" href="https://buy.stripe.com/9B6bJ11gl7l0aDLgTF3oA0b" data-checkout-placement="still_post_download_desipper">Finish the vocal chain — De-Sipper $20</a>
                 <a class="still-success-link" href="/desipper?utm_source=still&utm_medium=onsite&utm_campaign=post_download">Hear what De-Sipper does →</a>
             </div>
-            <p class="still-success-offer">September sale: <a href="https://buy.stripe.com/3cI7sL2kpaxcdPX1YL3oA0h?prefilled_promo_code=ALL6FOR45" data-checkout-placement="still_post_download_bundle">all 6 plugins for $45</a> — ends Sep 30.</p>
+            <p class="still-success-offer" style="display:none;">September sale: <a href="https://buy.stripe.com/3cI7sL2kpaxcdPX1YL3oA0h?prefilled_promo_code=ALL6FOR45" data-checkout-placement="still_post_download_bundle">all 6 plugins for $45</a> — ends Sep 30.</p>
         </div>
         <p class="still-gate-note">Signed &amp; notarized macOS installer &middot; VST3 / AU / AAX &middot; Windows soon<br>No account. No trial. No rug-pull. Unsubscribe anytime.</p>
     </section>
@@ -250,11 +251,11 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
 
     <section class="still-section still-faq">
         <h2>Questions, answered</h2>
-        <details><summary>Is Still really free?</summary><p>Yes — free forever. No account, no trial period, no locked features, no "free during beta" bait. You enter your email, you get the plugin. We make our money on our paid plugins; Still is our hello.</p></details>
+        <details><summary>Is Still really free?</summary><p>Yes — free forever. No account, no trial period, no locked features, no "free during beta" bait. Confirm your email and you get the plugin. We make our money on our paid plugins; Still is our hello.</p></details>
         <details><summary>What noise does it remove?</summary><p>Steady background noise: preamp hiss, room tone, AC and fan rumble, electrical hum. For sudden one-off sounds (coughs, chair squeaks) you'll still want an editor — that's a different job.</p></details>
         <details><summary>Mac? Windows? Formats?</summary><p>Right now: macOS 11+ (Apple Silicon + Intel, signed and notarized), VST3 / AU / AAX — yes, it loads in Pro Tools. Windows is in the works; you'll get an email the day it ships.</p></details>
         <details><summary>What's new in v1.0.1?</summary><p>July 2026 — fixed a bug where suppression could pull down continuous, busy material instead of just the noise (loud audio can now never be attenuated, by design), plus stereo-path hardening. Free updates, forever — that's the deal.</p></details>
-        <details><summary>Why do you ask for my email?</summary><p>It's the price of free: we send your download link, a Windows-release heads-up, and occasional news about our plugins. One-click unsubscribe, and we never sell or share your address.</p></details>
+        <details><summary>Why do you ask for my email?</summary><p>The download starts right away either way. Confirming your email lets us send a Windows-release heads-up and occasional plugin news. One-click unsubscribe, and we never sell or share your address.</p></details>
     </section>
 
     <section class="still-cross">
@@ -293,32 +294,37 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
                     utm_campaign: new URLSearchParams(window.location.search).get('utm_campaign') || ''
                 })
             }).then(function (res) {
-                if (!res.ok) throw new Error('capture failed');
-                return res.json();
+                return res.json().catch(function () { return {}; }).then(function (data) {
+                    if (!res.ok || (data && data.success === false)) throw new Error(data.error || 'That did not go through. Please try again.');
+                    return data;
+                });
             }).then(function (data) {
-                if (data && data.success === false) throw new Error('capture failed');
-
                 if (typeof gtag === 'function') {
-                    gtag('event', 'free_download', { event_category: 'conversion', event_label: refSource });
-                    // GA4 standard lead event (feeds the Generate leads business-objective report)
-                    gtag('event', 'generate_lead', { event_category: 'conversion', event_label: refSource });
+                    gtag('event', 'still_download_started', { event_category: 'engagement', event_label: refSource });
                 }
-                if (typeof fbq === 'function') fbq('track', 'Lead', { content_name: 'Still Free Download' });
 
                 document.getElementById('stillGate').style.display = 'none';
                 document.getElementById('stillSuccess').style.display = 'block';
 
-                var a = document.createElement('a');
-                a.href = 'https://github.com/mixedbysoda-stack/still/releases/latest/download/Still-Installer.pkg';
-                a.download = '';
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-            }).catch(function () {
+                // Start the installer immediately. Navigating a hidden iframe
+                // keeps the page — and its upsell — in front of them, which a
+                // top-level navigation to a file download would not.
+                if (data && data.download_url) {
+                    var sink = document.createElement('iframe');
+                    sink.style.display = 'none';
+                    sink.src = data.download_url;
+                    document.body.appendChild(sink);
+
+                    var manual = document.getElementById('stillManualDownload');
+                    if (manual) { manual.href = data.download_url; manual.style.display = 'inline-block'; }
+                }
+
+            }).catch(function (err) {
                 btn.textContent = 'Get Still Free';
                 btn.disabled = false;
                 var note = document.querySelector('.still-gate-note');
-                if (note) note.innerHTML = '<span style="color:#ffb4a2;">Hmm — that didn\'t go through. Try again, or email mixedbysoda@gmail.com and we\'ll send it to you directly.</span>';
+                if (note) note.textContent = err && err.message ? err.message : 'That did not go through. Please try again.';
+                if (note) note.style.color = '#ffb4a2';
             });
         });
     </script>
