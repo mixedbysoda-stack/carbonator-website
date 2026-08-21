@@ -123,6 +123,7 @@ exports.handler = async (event) => {
           product_name: product.name,
           version: product.version,
           downloads: product.downloads,
+          formats: product.formats || null,
           customer_email: email,
           license_key: licenseKey,
           amount_total: session.amount_total,

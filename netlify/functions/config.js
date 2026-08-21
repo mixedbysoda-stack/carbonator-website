@@ -84,6 +84,10 @@ const PRODUCTS = {
       mac: `https://github.com/mixedbysoda-stack/TALLBOY/releases/latest/download/TALLBOY-Installer.pkg`,
       windows: `https://github.com/mixedbysoda-stack/TALLBOY/releases/latest/download/TALLBOY-Windows-Installer.exe`,
     },
+    // What is actually inside each installer. The success page renders these
+    // verbatim, so they must match the shipped packages — the macOS pkg carries
+    // VST3/AU/AAX and the Windows exe carries VST3 only.
+    formats: { mac: "VST3, AU, AAX", windows: "VST3" },
     secretEnv: "TALLBOY_LICENSE_SECRET",
   },
   still: {
