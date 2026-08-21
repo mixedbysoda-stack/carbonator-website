@@ -15,6 +15,7 @@ const SUBJECTS = {
   pour: "Your Pour License Key & Download Links",
   tonic: "Your Tonic License Key & Download Links",
   octane: "Your FIZZFUEL License Key & Download Links",
+  tallboy: "Your TALLBOY License Key & Download Links",
   bundle: "Your Carbonated Audio Bundle — License Keys & Downloads",
   september_bundle: "Your Carbonated Audio All 6 Plugins Bundle — Downloads & License Keys",
   vocal_bundle: "Your Vocal Chain Bundle — License Keys & Downloads",
@@ -23,6 +24,12 @@ const SUBJECTS = {
 };
 
 const QUICK_START = {
+  tallboy: [
+    '<strong style="color:#ffffff;">macOS:</strong> Open the .pkg installer — it installs the VST3, AU and AAX.',
+    '<strong style="color:#ffffff;">Windows:</strong> Run the .exe installer — it places the VST3 in <code style="background:#2a2440;padding:2px 6px;border-radius:4px;">C:\\Program Files\\Common Files\\VST3\\</code>',
+    '<strong style="color:#ffffff;">Activate:</strong> Open TALLBOY in your DAW and paste the license key above. One key covers 3 machines, and it works offline after that.',
+    '<strong style="color:#ffffff;">Start here:</strong> Put it on a vocal, bass or lead — the chip voice follows pitch, so it needs a single note to track. For drums, eject CHIP and ARP and use CRUSH ROM alone.',
+  ],
   carbonator: [
     '<strong style="color:#ffffff;">macOS:</strong> Open the .pkg installer and choose your formats (VST3, AU, AAX, Standalone).',
     '<strong style="color:#ffffff;">Windows:</strong> Extract the .zip and copy the VST3 to <code style="background:#2a2440;padding:2px 6px;border-radius:4px;">C:\\Program Files\\Common Files\\VST3\\</code>',
