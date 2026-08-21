@@ -27,13 +27,13 @@
             </a>
             <div class="nav-links">
                 <div class="nav-dropdown">
-                    <button class="nav-dropdown-trigger${active === 'carbonator' || active === 'desipper' || active === 'ontap' || active === 'pour' || active === 'fizzfuel' || active === 'still' ? ' active' : ''}" type="button" aria-expanded="false" aria-controls="productMegaMenu">Products</button>
+                    <button class="nav-dropdown-trigger${active === 'carbonator' || active === 'desipper' || active === 'ontap' || active === 'pour' || active === 'fizzfuel' || active === 'still' || active === 'tallboy' ? ' active' : ''}" type="button" aria-expanded="false" aria-controls="productMegaMenu">Products</button>
                     <div class="nav-dropdown-menu" id="productMegaMenu" aria-label="Carbonated Audio products">
                         <a class="product-mega-card product-carbonator" href="/carbonator"><span class="product-mega-copy"><span class="dropdown-label">Carbonator</span><span class="dropdown-desc">One-knob analog saturation</span><span class="product-mega-price">$20 · Own it forever</span></span><img src="/carbonator-screenshot.webp" alt="Carbonator plugin interface" loading="lazy"></a>
                         <a class="product-mega-card product-desipper" href="/desipper"><span class="product-mega-copy"><span class="dropdown-label">De-Sipper</span><span class="dropdown-desc">Tame harsh S sounds, keep the shine</span><span class="product-mega-price">$20 · Free demo</span></span><img src="/desipper-screenshot.webp" alt="De-Sipper plugin interface" loading="lazy"></a>
                         <a class="product-mega-card product-ontap" href="/ontap"><span class="product-mega-copy"><span class="dropdown-label">On Tap</span><span class="dropdown-desc">Clean sidechain ducking</span><span class="product-mega-price">$20 · Free demo</span></span><img src="/ontap-screenshot.webp" alt="On Tap plugin interface" loading="lazy"></a>
                         <a class="product-mega-card product-pour" href="/pour"><span class="product-mega-copy"><span class="dropdown-label">Pour</span><span class="dropdown-desc">Width and movement for your mix</span><span class="product-mega-price">$20 · Free demo</span></span><img src="/pour-screenshot.webp" alt="Pour plugin interface" loading="lazy"></a>
-                        <a class="product-mega-card product-fizzfuel" href="/fizzfuel"><span class="product-mega-copy"><span class="dropdown-label">FIZZFUEL</span><span class="dropdown-desc">Five effects. One manual gearbox.</span><span class="product-mega-price">$29 · Own it forever</span></span><img src="/fizzfuel-screenshot.png" alt="FIZZFUEL plugin interface" loading="lazy"></a>
+                        <a class="product-mega-card product-tallboy" href="/tallboy"><span class="product-mega-copy"><span class="dropdown-label">TALLBOY</span><span class="dropdown-desc">Your track, played back on a handheld.</span><span class="product-mega-price">$20 &middot; Own it forever</span></span><img src="/tallboy-screenshot.webp" alt="TALLBOY plugin interface" loading="lazy"></a><a class="product-mega-card product-fizzfuel" href="/fizzfuel"><span class="product-mega-copy"><span class="dropdown-label">FIZZFUEL</span><span class="dropdown-desc">Five effects. One manual gearbox.</span><span class="product-mega-price">$29 · Own it forever</span></span><img src="/fizzfuel-screenshot.png" alt="FIZZFUEL plugin interface" loading="lazy"></a>
                         <a class="product-mega-card product-still" href="/still"><span class="product-mega-copy"><span class="dropdown-label">Still <span class="product-mega-free">FREE</span></span><span class="dropdown-desc">Remove noise. Keep the performance.</span><span class="product-mega-price">Free download</span></span><img src="/still-screenshot.png" alt="Still plugin interface" loading="lazy"></a>
                     </div>
                 </div>
@@ -54,6 +54,7 @@
             <a href="/desipper">De-Sipper</a>
             <a href="/ontap">On Tap</a>
             <a href="/pour">Pour</a>
+            <a href="/tallboy">TALLBOY</a>
             <a href="/fizzfuel">FIZZFUEL</a>
             <a href="/still">Still (Free)</a>
             <a href="/manual">Manual</a>
