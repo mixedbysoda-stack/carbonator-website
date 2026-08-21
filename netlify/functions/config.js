@@ -74,6 +74,18 @@ const PRODUCTS = {
     },
     secretEnv: "OCTANE_LICENSE_SECRET",
   },
+  tallboy: {
+    name: "TALLBOY",
+    version: "1.0.0",
+    price: 20,
+    downloads: {
+      // `latest` alias so a new tag ships to every buyer without editing this
+      // file — the asset names are intentionally unversioned.
+      mac: `https://github.com/mixedbysoda-stack/TALLBOY/releases/latest/download/TALLBOY-Installer.pkg`,
+      windows: `https://github.com/mixedbysoda-stack/TALLBOY/releases/latest/download/TALLBOY-Windows-Installer.exe`,
+    },
+    secretEnv: "TALLBOY_LICENSE_SECRET",
+  },
   still: {
     name: "Still",
     // Display only. The installer itself is resolved via the `latest` release
