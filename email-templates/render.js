@@ -191,10 +191,10 @@ ${pre}
 </html>`;
 }
 
-function ctaButton({ href, text, gradient, textColor = "#ffffff" }) {
+function ctaButton({ href, text, gradient, solid = "#7a5aa8", textColor = "#ffffff" }) {
   return `<table cellpadding="0" cellspacing="0" border="0" style="margin:0 auto;">
   <tr>
-    <td align="center" style="background:${gradient};border-radius:10px;">
+    <td align="center" bgcolor="${solid}" style="background-color:${solid};background:${gradient};border-radius:10px;">
       <a href="${href}" style="display:inline-block;padding:14px 36px;color:${textColor};text-decoration:none;font-family:${BRAND.font};font-size:15px;font-weight:700;letter-spacing:0.2px;">${text}</a>
     </td>
   </tr>
@@ -269,7 +269,7 @@ function variantSpotlight({ product, name, headline, body, ctaText, ctaUrl, feat
     <!-- Hero -->
     <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 24px;">
       <tr>
-        <td align="center" style="background:radial-gradient(ellipse at center, ${accent.color}22 0%, ${BRAND.bgCard} 70%);border-radius:12px;padding:28px 16px;">
+        <td align="center" bgcolor="${BRAND.bgCardDeep}" style="background-color:${BRAND.bgCardDeep};background:radial-gradient(ellipse at center, ${accent.color}22 0%, ${BRAND.bgCard} 70%);border-radius:12px;padding:28px 16px;">
           <img src="${heroImg}" alt="${accent.name}" width="380" style="display:block;width:100%;max-width:380px;height:auto;border-radius:8px;border:0;">
         </td>
       </tr>
@@ -281,7 +281,7 @@ function variantSpotlight({ product, name, headline, body, ctaText, ctaUrl, feat
     <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:8px 0 16px;">
       <tr>
         <td align="center">
-          ${ctaButton({ href: cta, text: ctaLabel, gradient: accent.gradient })}
+          ${ctaButton({ href: cta, text: ctaLabel, gradient: accent.gradient, solid: accent.color })}
         </td>
       </tr>
     </table>
@@ -340,7 +340,7 @@ function variantBundle({ name, headline, body, bundlePrice = 60, bundleOriginal 
     ${body}
     ${promoBlock}
     <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:8px 0 24px;">
-      <tr><td align="center">${ctaButton({ href: cta, text: ctaLabel, gradient: accent.gradient })}</td></tr>
+      <tr><td align="center">${ctaButton({ href: cta, text: ctaLabel, gradient: accent.gradient, solid: accent.color })}</td></tr>
     </table>
     ${includesBlock}
     ${signature(signatureName)}
@@ -374,7 +374,7 @@ function variantSupport({ product, customerEmail, amount, orderId, licenseKey, l
       ${singleDownloads.map(d => `
       <tr>
         <td align="center" style="padding:0 0 10px;">
-          ${ctaButton({ href: d.url, text: `Download for ${d.os}`, gradient: accent.gradient })}
+          ${ctaButton({ href: d.url, text: `Download for ${d.os}`, gradient: accent.gradient, solid: accent.color })}
         </td>
       </tr>`).join("")}
     </table>` : "";

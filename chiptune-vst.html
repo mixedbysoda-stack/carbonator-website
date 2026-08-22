@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({"gtm.start":
+new Date().getTime(),event:"gtm.js"});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
+"https://www.googletagmanager.com/gtm.js?id="+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,"script","dataLayer","GTM-5QVG68CF");</script>
+    <!-- End Google Tag Manager -->
+    <!-- Meta Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version="2.0";n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,"script","https://connect.facebook.net/en_US/fbevents.js");fbq("init","1682413179857373");fbq("track","PageView");
+    </script>
+    <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1682413179857373&ev=PageView&noscript=1"/></noscript>
+    <!-- End Meta Pixel Code -->
+    <title>Chiptune VST Guide: Turn Any Audio Into 8-Bit (2026)</title>
+    <meta name="description" content="How to make real chiptune from vocals, bass and loops in any DAW. Why bitcrushing alone is not enough, and how pitch-tracked resynthesis rebuilds your take on a genuine 4-channel chip voice.">
+    <meta name="keywords" content="chiptune vst, chiptune plugin, 8-bit vst, 8 bit vocal effect, how to make chiptune, bitcrusher vst, chiptune in a daw, retro game sound plugin">
+    <meta name="author" content="Carbonated Audio">
+    <link rel="canonical" href="https://carbonatedaudio.com/chiptune-vst">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Chiptune VST Guide: Turn Any Audio Into 8-Bit (2026)">
+    <meta property="og:description" content="How to make real chiptune from vocals, bass and loops in any DAW - and why bitcrushing alone is not enough.">
+    <meta property="og:url" content="https://carbonatedaudio.com/chiptune-vst">
+    <meta property="og:site_name" content="Carbonated Audio">
+    <meta property="og:image" content="https://carbonatedaudio.com/tallboy-screenshot.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Chiptune VST Guide: Turn Any Audio Into 8-Bit (2026)">
+    <meta name="twitter:description" content="How to make real chiptune from vocals, bass and loops in any DAW - and why bitcrushing alone is not enough.">
+    <meta name="twitter:image" content="https://carbonatedaudio.com/tallboy-screenshot.png">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        "name": "How to Turn Any Audio Into Chiptune",
+        "description": "Turn a vocal, bass line or lead into genuine chiptune in any DAW using pitch-tracked resynthesis.",
+        "totalTime": "PT5M",
+        "tool": [{"@type": "HowToTool", "name": "TALLBOY chiptune resynthesiser plugin"}],
+        "step": [
+            {"@type": "HowToStep", "name": "Insert on a monophonic source", "text": "Load the plugin on a track with one clear pitch: a vocal, a bass line, or a single-note lead."},
+            {"@type": "HowToStep", "name": "Engage the chip voice", "text": "Insert the resynthesis cartridge so the plugin tracks the pitch and envelope of the source and replays it on four modelled sound chip channels."},
+            {"@type": "HowToStep", "name": "Shape with arp and decimation", "text": "Sync the arpeggiator to your project tempo to spread the line across octaves, then add bit and sample-rate reduction to taste."},
+            {"@type": "HowToStep", "name": "Blend under the original", "text": "Use the dry/wet control to sit the chip voice under the original take as an 8-bit double, or run it fully wet as a standalone chip line."}
+        ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {"@type": "Question", "name": "Can a bitcrusher alone make chiptune?", "acceptedAnswer": {"@type": "Answer", "text": "Not really. A bitcrusher degrades the audio you already have, which gets you lo-fi grit but not the sound of a chip playing your melody. Real chiptune character comes from pulse waves, a small wavetable, hardware noise and stepped tuning - which requires resynthesis, not just degradation."}},
+            {"@type": "Question", "name": "Does chiptune resynthesis work on drums or full mixes?", "acceptedAnswer": {"@type": "Answer", "text": "No. Pitch tracking needs one clear pitch, and drums or full mixes do not have one. For those sources, use bit and sample-rate reduction on its own - in TALLBOY, eject the resynth and arp cartridges and run the CRUSH ROM decimator by itself."}},
+            {"@type": "Question", "name": "What is the best source material for chiptune conversion?", "acceptedAnswer": {"@type": "Answer", "text": "Vocals and vocal doubles, bass lines, single-note leads and hooks, and monophonic synth parts. Anything with one clear pitch and a defined envelope tracks cleanly."}}
+        ]
+    }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg-primary: #0d0a1a;
+            --bg-secondary: #151025;
+            --bg-card: #1a1430;
+            --violet: #7a5aa8;
+            --lime: #c2d24f;
+            --green: #22c55e;
+            --text-primary: #ffffff;
+            --text-secondary: #a09bb5;
+            --text-muted: #6b6580;
+            --border: #2a2440;
+        }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+        a { color: var(--lime); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        nav {
+            position: sticky; top: 0; z-index: 100;
+            padding: 16px 40px;
+            display: flex; align-items: center; justify-content: space-between;
+            background: rgba(13,10,26,0.92);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .nav-brand { font-weight: 800; font-size: 17px; color: #fff; text-decoration: none; }
+        .nav-links { display: flex; gap: 24px; }
+        .nav-links a { color: var(--text-secondary); font-size: 14px; font-weight: 500; }
+        .nav-links a:hover { color: #fff; text-decoration: none; }
+        .nav-cta {
+            background: linear-gradient(135deg, var(--violet), var(--lime));
+            color: #fff; padding: 8px 20px; border-radius: 8px;
+            font-weight: 600; font-size: 14px;
+        }
+        .nav-cta:hover { opacity: 0.9; text-decoration: none; }
+        .container { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+        .hero { padding: 80px 0 40px; text-align: center; }
+        .hero-badge {
+            display: inline-block;
+            background: rgba(194,210,79,0.10);
+            border: 1px solid rgba(194,210,79,0.25);
+            border-radius: 100px;
+            padding: 6px 16px;
+            font-size: 13px; font-weight: 600;
+            color: var(--lime);
+            margin-bottom: 20px;
+        }
+        h1 { font-size: 42px; font-weight: 900; letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 16px; }
+        h1 .accent {
+            background: linear-gradient(135deg, var(--violet) 10%, var(--lime));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-sub { font-size: 18px; color: var(--text-secondary); max-width: 640px; margin: 0 auto; }
+        .section { margin: 0 0 48px; }
+        .section h2 { font-size: 28px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 16px; }
+        .section h2 .accent {
+            background: linear-gradient(135deg, var(--violet) 10%, var(--lime));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .section p { color: var(--text-secondary); font-size: 16px; line-height: 1.8; margin-bottom: 16px; }
+        .section ul, .section ol { color: var(--text-secondary); font-size: 16px; line-height: 1.8; margin: 0 0 16px 22px; }
+        .section li { margin-bottom: 10px; }
+        .section strong { color: var(--text-primary); }
+        .callout {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--lime);
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin: 0 0 24px;
+            color: var(--text-secondary);
+            font-size: 15px;
+            line-height: 1.7;
+        }
+        .step-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px 32px;
+            margin-bottom: 20px;
+        }
+        .step-num {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 32px; height: 32px; border-radius: 8px;
+            background: linear-gradient(135deg, var(--violet), var(--lime));
+            font-size: 14px; font-weight: 800; color: #fff;
+            margin-right: 12px; flex-shrink: 0;
+        }
+        .step-head { display: flex; align-items: center; margin-bottom: 10px; }
+        .step-head h3 { font-size: 19px; font-weight: 800; }
+        .step-card p { color: var(--text-secondary); font-size: 15px; line-height: 1.75; }
+        .verdict {
+            background: linear-gradient(180deg, var(--bg-card), var(--bg-secondary));
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 32px;
+            margin: 0 0 48px;
+        }
+        .verdict h2 { font-size: 24px; font-weight: 800; margin-bottom: 14px; }
+        .verdict p { color: var(--text-secondary); font-size: 16px; line-height: 1.8; }
+        .cta-box {
+            text-align: center;
+            background: radial-gradient(ellipse at center, rgba(122,90,168,0.18) 0%, var(--bg-card) 75%);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 44px 32px;
+            margin: 0 0 48px;
+        }
+        .cta-box h2 { font-size: 26px; font-weight: 800; margin-bottom: 10px; }
+        .cta-box p { color: var(--text-secondary); margin-bottom: 24px; }
+        .btn-primary {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--violet), var(--lime));
+            color: #fff; padding: 14px 32px; border-radius: 10px;
+            font-weight: 700; font-size: 15px; margin: 0 8px 8px;
+        }
+        .btn-primary:hover { opacity: 0.9; text-decoration: none; }
+        .btn-secondary {
+            display: inline-block;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid var(--border);
+            color: #fff; padding: 14px 32px; border-radius: 10px;
+            font-weight: 700; font-size: 15px; margin: 0 8px 8px;
+        }
+        .btn-secondary:hover { background: rgba(255,255,255,0.1); text-decoration: none; }
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 40px 0 60px;
+            margin-top: 40px;
+            text-align: center;
+        }
+        footer p { color: var(--text-muted); font-size: 13px; }
+        .compare-links { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; margin-top: 16px; }
+        .compare-links a { color: var(--text-muted); font-size: 13px; }
+        .compare-links a:hover { color: var(--text-secondary); }
+        @media (max-width: 640px) {
+            h1 { font-size: 30px; }
+            nav { padding: 12px 20px; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5QVG68CF" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+    <nav>
+        <a href="/" class="nav-brand">Carbonated Audio</a>
+        <div class="nav-links">
+            <a href="/tallboy">TALLBOY</a>
+            <a href="/fizzfuel">FIZZFUEL</a>
+            <a href="/still">Still (Free)</a>
+        </div>
+        <a href="/tallboy" class="nav-cta">Try TALLBOY Free</a>
+    </nav>
+
+    <div class="container">
+        <div class="hero">
+            <span class="hero-badge">2026 Guide</span>
+            <h1>Turn Any Audio Into <span class="accent">Chiptune</span></h1>
+            <p class="hero-sub">Vocals, bass lines, hooks - how to get a genuine 4-channel chip sound in any DAW, and why a bitcrusher alone will never get you there.</p>
+        </div>
+
+        <div class="section">
+            <h2>What actually makes something sound <span class="accent">chiptune</span></h2>
+            <p>The sound of late-80s handheld and console music was not a style choice - it was a hardware budget. A typical sound chip gave composers about four channels: two pulse waves with a handful of duty cycles, one small wavetable voice, and one noise generator. Tuning stepped in coarse increments because pitch lived in a small frequency register. Every classic soundtrack you remember was written inside those walls.</p>
+            <p>That means chiptune character comes from five specific things: <strong>pulse waves</strong> with switchable duty cycles, a <strong>low-resolution wavetable</strong> (think 32 samples at 4 bits), <strong>LFSR noise</strong> for percussion and texture, <strong>stepped tuning</strong> from the frequency register, and <strong>arpeggios</strong> - the trick composers used to fake chords when they only had one channel to spare.</p>
+        </div>
+
+        <div class="section">
+            <h2>Bitcrushing vs <span class="accent">resynthesis</span></h2>
+            <p>Most producers reach for a bitcrusher and stop there. A bitcrusher reduces bit depth and sample rate, which adds grit and aliasing - useful, but it only degrades the audio you already have. Your vocal gets crunchy. It does not become a chip voice.</p>
+            <p>Resynthesis goes the other way: the plugin listens to the <strong>pitch and envelope</strong> of your audio, then replays that performance on modelled chip channels. The output is not your waveform with damage on top - it is a genuine pulse-and-wavetable voice following your line, with the stepped tuning and channel limits of the original hardware. That is the difference between "lo-fi vocal" and "my hook is now playing on a handheld."</p>
+            <div class="callout"><strong>TALLBOY</strong> is our $20 plugin built exactly for this: a pitch-tracking resynthesiser with two pulse channels (four duty cycles), a 32-sample 4-bit wavetable, 15/7-bit LFSR noise keyed off transients, and 11-bit frequency-register tuning - plus a host-synced arpeggiator and a decimator, each on its own insertable cartridge. No knobs: you drive it with a D-pad and a dot-matrix screen.</div>
+        </div>
+
+        <div class="section">
+            <h2>How to do it, <span class="accent">step by step</span></h2>
+            <div class="step-card">
+                <div class="step-head"><span class="step-num">1</span><h3>Start with one clear pitch</h3></div>
+                <p>Resynthesis needs a monophonic source: a lead vocal or vocal double, a bass line, a single-note hook, a mono synth part. Chords, full mixes and drums will make any pitch tracker chase partials and warble - that is physics, not a bug.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-head"><span class="step-num">2</span><h3>Engage the chip voice</h3></div>
+                <p>Insert the resynth stage and let it track the take. In TALLBOY that is the CHIP 4CH cartridge - the 4BIT CHOIR preset does the classic sustained vocal-to-chip trick in one move. Pick a pulse duty cycle for the tone: thinner duties read as "retro lead," wider ones sit closer to square-wave bass.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-head"><span class="step-num">3</span><h3>Arpeggiate and crush</h3></div>
+                <p>Sync the arp to your project tempo - 1/16 UP across two octaves is the classic move, CHRD mode fakes harmony from a single line the way chip composers did. Then add decimation to taste: modest bit reduction for sheen, hard rate divide with jitter for full cartridge dirt.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-head"><span class="step-num">4</span><h3>Blend or replace</h3></div>
+                <p>Fully wet, the chip voice is a new instrument playing your melody. Blended 20-40% under the original, it is an 8-bit double that makes a hook feel twice as wide. Flip the arp to a different pattern and the same take becomes a counter-melody.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Drums and full mixes: <span class="accent">crush only</span></h2>
+            <p>For anything without one clear pitch, skip resynthesis entirely and use straight decimation: bit reduction, sample-rate divide, and a dark post filter. In TALLBOY, eject the CHIP 4CH and ARP cartridges and run CRUSH ROM alone - 1 to 16 bits, rate divide 1-64 with jitter, post filter down to 540 Hz. That is the honest way to get chip-adjacent drums, and it doubles as a general-purpose lo-fi tool on sends and buses.</p>
+        </div>
+
+        <div class="verdict">
+            <h2>The short version</h2>
+            <p>Bitcrushing degrades; resynthesis rebuilds. If you want audio that sounds like it is playing <strong>on</strong> a chip rather than through one, you need pitch-tracked resynthesis with real channel modelling - pulse duties, a tiny wavetable, hardware noise, stepped tuning, and an arp. That is exactly what TALLBOY does for $20, one-time, no subscription, no iLok, on macOS (VST3, AU, AAX) and Windows (VST3).</p>
+        </div>
+
+        <div class="cta-box">
+            <h2>Hear the same take, before and after</h2>
+            <p>The TALLBOY page has A/B audio of one vocal, one synth and one drum loop through the shipping presets. Free demo, no email required.</p>
+            <a href="/tallboy" class="btn-primary">Hear TALLBOY</a>
+            <a href="https://buy.stripe.com/9B68wP8INbBg3bjfPB3oA0i" class="btn-secondary">Get TALLBOY - $20</a>
+        </div>
+
+        <div class="section" style="text-align:center;">
+            <p style="margin-bottom:12px;">More from Carbonated Audio:</p>
+            <p>
+                <a href="/8-bit-vocal-effect">8-Bit Vocal Effect</a> &nbsp;&bull;&nbsp;
+                <a href="/bitcrusher-vs-decimator">Bitcrusher vs Decimator</a> &nbsp;&bull;&nbsp;
+                <a href="/handheld-chiptune-daw">Handheld Chiptune in Your DAW</a>
+            </p>
+            <p>
+                <a href="/tallboy">TALLBOY - chiptune resynth</a> &nbsp;&bull;&nbsp;
+                <a href="/fizzfuel">FIZZFUEL - 6-effect gearbox</a> &nbsp;&bull;&nbsp;
+                <a href="/still">Still - free noise suppressor</a>
+            </p>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Carbonated Audio. All rights reserved. &nbsp;&middot;&nbsp; <a href="/terms" style="color:inherit;text-decoration:none;opacity:0.8;">Terms</a> &nbsp;&middot;&nbsp; <a href="/privacy" style="color:inherit;text-decoration:none;opacity:0.8;">Privacy</a> &nbsp;&middot;&nbsp; <a href="/eula" style="color:inherit;text-decoration:none;opacity:0.8;">EULA</a></p>
+            <div class="compare-links">
+                <a href="/tallboy">TALLBOY</a>
+                <a href="/best-cheap-saturation-plugins">Best Cheap Saturation Plugins</a>
+                <a href="/press">Press</a>
+                <a href="mailto:mixedbysoda@gmail.com">Support</a>
+                <a href="/">Back to Home</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

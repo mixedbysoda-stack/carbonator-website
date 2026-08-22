@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({"gtm.start":
+new Date().getTime(),event:"gtm.js"});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
+"https://www.googletagmanager.com/gtm.js?id="+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,"script","dataLayer","GTM-5QVG68CF");</script>
+    <!-- End Google Tag Manager -->
+    <!-- Meta Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version="2.0";n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,"script","https://connect.facebook.net/en_US/fbevents.js");fbq("init","1682413179857373");fbq("track","PageView");
+    </script>
+    <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1682413179857373&ev=PageView&noscript=1"/></noscript>
+    <!-- End Meta Pixel Code -->
+    <title>Bitcrusher vs Decimator: What Is Actually the Difference?</title>
+    <meta name="description" content="Bit reduction breaks amplitude, decimation breaks time - crackle versus metallic aliasing. How each artifact works, how it sounds, and how to use both deliberately.">
+    <meta name="keywords" content="bitcrusher vs decimator, bit reduction vs sample rate reduction, what does a bitcrusher do, downsampling effect, aliasing effect, lo-fi plugin explained">
+    <meta name="author" content="Carbonated Audio">
+    <link rel="canonical" href="https://carbonatedaudio.com/bitcrusher-vs-decimator">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Bitcrusher vs Decimator: What Is Actually the Difference?">
+    <meta property="og:description" content="Bit reduction breaks amplitude, decimation breaks time - crackle versus metallic aliasing. How each artifact works, how it sounds, and how to use both deliberately.">
+    <meta property="og:url" content="https://carbonatedaudio.com/bitcrusher-vs-decimator">
+    <meta property="og:site_name" content="Carbonated Audio">
+    <meta property="og:image" content="https://carbonatedaudio.com/tallboy-screenshot.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Bitcrusher vs Decimator: What Is Actually the Difference?">
+    <meta name="twitter:description" content="Bit reduction breaks amplitude, decimation breaks time - crackle versus metallic aliasing. How each artifact works, how it sounds, and how to use both deliberately.">
+    <meta name="twitter:image" content="https://carbonatedaudio.com/tallboy-screenshot.png">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {"@type": "Question", "name": "Are bitcrushing and decimation the same thing?", "acceptedAnswer": {"@type": "Answer", "text": "No. Bit reduction lowers amplitude resolution and adds quantisation distortion. Decimation (sample-rate reduction) lowers time resolution and folds high frequencies back down as inharmonic aliasing. Most 'bitcrusher' plugins do both, but the two artifacts sound completely different."}},
+            {"@type": "Question", "name": "Why does sample-rate reduction sound metallic?", "acceptedAnswer": {"@type": "Answer", "text": "Any content above half the new sample rate has nowhere to go, so it mirrors back into the audible band at frequencies that are not harmonically related to the source. That inharmonic foldover is the metallic sheen."}},
+            {"@type": "Question", "name": "Which one should I use on drums?", "acceptedAnswer": {"@type": "Answer", "text": "Rate reduction first - it keeps transients readable while adding grit and sheen. Add mild bit reduction for crackle. A post filter tames the foldover when it gets harsh."}}
+        ]
+    }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg-primary: #0d0a1a;
+            --bg-secondary: #151025;
+            --bg-card: #1a1430;
+            --violet: #7a5aa8;
+            --lime: #c2d24f;
+            --green: #22c55e;
+            --text-primary: #ffffff;
+            --text-secondary: #a09bb5;
+            --text-muted: #6b6580;
+            --border: #2a2440;
+        }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+        a { color: var(--lime); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        nav {
+            position: sticky; top: 0; z-index: 100;
+            padding: 16px 40px;
+            display: flex; align-items: center; justify-content: space-between;
+            background: rgba(13,10,26,0.92);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .nav-brand { font-weight: 800; font-size: 17px; color: #fff; text-decoration: none; }
+        .nav-links { display: flex; gap: 24px; }
+        .nav-links a { color: var(--text-secondary); font-size: 14px; font-weight: 500; }
+        .nav-links a:hover { color: #fff; text-decoration: none; }
+        .nav-cta {
+            background: linear-gradient(135deg, var(--violet), var(--lime));
+            color: #fff; padding: 8px 20px; border-radius: 8px;
+            font-weight: 600; font-size: 14px;
+        }
+        .nav-cta:hover { opacity: 0.9; text-decoration: none; }
+        .container { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+        .hero { padding: 80px 0 40px; text-align: center; }
+        .hero-badge {
+            display: inline-block;
+            background: rgba(194,210,79,0.10);
+            border: 1px solid rgba(194,210,79,0.25);
+            border-radius: 100px;
+            padding: 6px 16px;
+            font-size: 13px; font-weight: 600;
+            color: var(--lime);
+            margin-bottom: 20px;
+        }
+        h1 { font-size: 42px; font-weight: 900; letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 16px; }
+        h1 .accent {
+            background: linear-gradient(135deg, var(--violet) 10%, var(--lime));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-sub { font-size: 18px; color: var(--text-secondary); max-width: 640px; margin: 0 auto; }
+        .section { margin: 0 0 48px; }
+        .section h2 { font-size: 28px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 16px; }
+        .section h2 .accent {
+            background: linear-gradient(135deg, var(--violet) 10%, var(--lime));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .section p { color: var(--text-secondary); font-size: 16px; line-height: 1.8; margin-bottom: 16px; }
+        .section ul, .section ol { color: var(--text-secondary); font-size: 16px; line-height: 1.8; margin: 0 0 16px 22px; }
+        .section li { margin-bottom: 10px; }
+        .section strong { color: var(--text-primary); }
+        .callout {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--lime);
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin: 0 0 24px;
+            color: var(--text-secondary);
+            font-size: 15px;
+            line-height: 1.7;
+        }
+        .step-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px 32px;
+            margin-bottom: 20px;
+        }
+        .step-num {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 32px; height: 32px; border-radius: 8px;
+            background: linear-gradient(135deg, var(--violet), var(--lime));
+            font-size: 14px; font-weight: 800; color: #fff;
+            margin-right: 12px; flex-shrink: 0;
+        }
+        .step-head { display: flex; align-items: center; margin-bottom: 10px; }
+        .step-head h3 { font-size: 19px; font-weight: 800; }
+        .step-card p { color: var(--text-secondary); font-size: 15px; line-height: 1.75; }
+        .verdict {
+            background: linear-gradient(180deg, var(--bg-card), var(--bg-secondary));
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 32px;
+            margin: 0 0 48px;
+        }
+        .verdict h2 { font-size: 24px; font-weight: 800; margin-bottom: 14px; }
+        .verdict p { color: var(--text-secondary); font-size: 16px; line-height: 1.8; }
+        .cta-box {
+            text-align: center;
+            background: radial-gradient(ellipse at center, rgba(122,90,168,0.18) 0%, var(--bg-card) 75%);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 44px 32px;
+            margin: 0 0 48px;
+        }
+        .cta-box h2 { font-size: 26px; font-weight: 800; margin-bottom: 10px; }
+        .cta-box p { color: var(--text-secondary); margin-bottom: 24px; }
+        .btn-primary {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--violet), var(--lime));
+            color: #fff; padding: 14px 32px; border-radius: 10px;
+            font-weight: 700; font-size: 15px; margin: 0 8px 8px;
+        }
+        .btn-primary:hover { opacity: 0.9; text-decoration: none; }
+        .btn-secondary {
+            display: inline-block;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid var(--border);
+            color: #fff; padding: 14px 32px; border-radius: 10px;
+            font-weight: 700; font-size: 15px; margin: 0 8px 8px;
+        }
+        .btn-secondary:hover { background: rgba(255,255,255,0.1); text-decoration: none; }
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 40px 0 60px;
+            margin-top: 40px;
+            text-align: center;
+        }
+        footer p { color: var(--text-muted); font-size: 13px; }
+        .compare-links { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; margin-top: 16px; }
+        .compare-links a { color: var(--text-muted); font-size: 13px; }
+        .compare-links a:hover { color: var(--text-secondary); }
+        @media (max-width: 640px) {
+            h1 { font-size: 30px; }
+            nav { padding: 12px 20px; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5QVG68CF" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+    <nav>
+        <a href="/" class="nav-brand">Carbonated Audio</a>
+        <div class="nav-links">
+            <a href="/tallboy">TALLBOY</a>
+            <a href="/fizzfuel">FIZZFUEL</a>
+            <a href="/still">Still (Free)</a>
+        </div>
+        <a href="/tallboy" class="nav-cta">Try TALLBOY Free</a>
+    </nav>
+
+    <div class="container">
+        <div class="hero">
+            <span class="hero-badge">Tech Explainer</span>
+            <h1><span class="accent">Bitcrusher</span> vs <span class="accent">Decimator</span></h1>
+            <p class="hero-sub">One breaks amplitude, the other breaks time. Crackle versus metal - and why vintage hardware needed both.</p>
+        </div>
+        <div class="section">
+            <h2>Two different <span class="accent">kinds of damage</span></h2>
+            <p>Producers say "bitcrusher" for both effects, but a crusher section actually contains two separate processes that break audio on two different axes.</p>
+            <p><strong>Bit reduction</strong> lowers amplitude resolution. At 16 bits you have 65,536 possible levels per sample; at 8 bits, 256; at 4 bits, 16. Every sample snaps to the nearest available level, and the rounding error rides along as quantisation distortion - crackle at high bit depths, a fizzy, gated rasp by the time you reach 4 bits, and a square-ish growl at 1-2 bits.</p>
+            <p><strong>Decimation</strong> - sample-rate reduction - lowers time resolution instead. The processor holds each sample value for N samples (a rate divide), which is why it is also called downsampling or sample-and-hold. The side effect is the signature: any frequency above half the new effective rate folds back into the audible band as <strong>aliasing</strong> - inharmonic partials that are not musically related to the source. That is the metallic sheen in every classic sampler and console soundtrack.</p>
+        </div>
+
+        <div class="section">
+            <h2>How each one <span class="accent">sounds</span></h2>
+            <ul>
+                <li><strong>Bit reduction:</strong> noise floor rises, sustain tails crackle and gate, character is fuzzy and gritty. Harmonically related to the source, so it stays musical fairly deep.</li>
+                <li><strong>Rate reduction:</strong> highs disappear and are replaced by inharmonic foldover, transients stay surprisingly intact, character is metallic and cold. Pitch-dependent, so it changes flavor across the keyboard.</li>
+                <li><strong>Together:</strong> the actual vintage-hardware sound. Old samplers and console chips had both a low sample rate and a small word size - one without the other reads as a modern plugin trick.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Doing it <span class="accent">deliberately</span></h2>
+            <p>The CRUSH ROM cartridge in <a href="/tallboy">TALLBOY</a> lays the whole chain out in the open, which makes it a good way to learn the difference by ear:</p>
+            <ol>
+                <li><strong>BITS (1-16):</strong> start at 16 and walk down. Nothing changes until ~12, texture appears at 8, the source starts gating at 4.</li>
+                <li><strong>RATE divide (1-64):</strong> at 44.1 kHz, a divide of 8 is an effective 5.5 kHz - everything above 2.75 kHz folds down. Add <strong>jitter</strong> and the hold time wobbles, which smears the foldover into hiss like aging hardware.</li>
+                <li><strong>DRIVE into the quantiser:</strong> pushing level into the bit reducer changes which steps the signal hits - more drive means denser crackle, the cheapest way to make crush feel loud without being loud.</li>
+                <li><strong>POST filter (18 kHz down to 540 Hz):</strong> the civilising move. Foldover above the cutoff disappears, and at the bottom of the range you get the small-speaker playback tone.</li>
+            </ol>
+            <div class="callout">Bus trick: run CRUSH ROM fully crushed on a parallel return under the dry drums. You keep the transient truth of the original and rent the texture, which is how crush survives on otherwise clean mixes.</div>
+        </div>
+
+        <div class="verdict">
+            <h2>The short version</h2>
+            <p>Bit reduction breaks amplitude; decimation breaks time. Crackle versus metal. Old hardware did both at once, which is why one alone never quite sounds vintage. <strong><a href="/tallboy">TALLBOY</a>'s CRUSH ROM does both</strong> with jitter, drive and a post filter for $20 - and when you feed it something monophonic, the other two cartridges will resynthesize it into a genuine chip voice on top.</p>
+        </div>
+
+        <div class="cta-box">
+            <h2>Hear the difference on real drums</h2>
+            <p>The TALLBOY page has a drum loop through CRUSH ROM alone - rate first, then bits. Free demo, no email required.</p>
+            <a href="/tallboy" class="btn-primary">Hear TALLBOY</a>
+            <a href="https://buy.stripe.com/9B68wP8INbBg3bjfPB3oA0i" class="btn-secondary">Get TALLBOY - $20</a>
+        </div>
+        <div class="section" style="text-align:center;">
+            <p style="margin-bottom:12px;">Related guides:</p>
+            <p>
+                <a href="/chiptune-vst">Chiptune VST Guide</a> &nbsp;&bull;&nbsp;
+                <a href="/8-bit-vocal-effect">8-Bit Vocal Effect</a> &nbsp;&bull;&nbsp;
+                <a href="/handheld-chiptune-daw">Handheld Chiptune in Your DAW</a>
+            </p>
+        </div>
+
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Carbonated Audio. All rights reserved. &nbsp;&middot;&nbsp; <a href="/terms" style="color:inherit;text-decoration:none;opacity:0.8;">Terms</a> &nbsp;&middot;&nbsp; <a href="/privacy" style="color:inherit;text-decoration:none;opacity:0.8;">Privacy</a> &nbsp;&middot;&nbsp; <a href="/eula" style="color:inherit;text-decoration:none;opacity:0.8;">EULA</a></p>
+            <div class="compare-links">
+                <a href="/tallboy">TALLBOY</a>
+                <a href="/best-cheap-saturation-plugins">Best Cheap Saturation Plugins</a>
+                <a href="/press">Press</a>
+                <a href="mailto:mixedbysoda@gmail.com">Support</a>
+                <a href="/">Back to Home</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
