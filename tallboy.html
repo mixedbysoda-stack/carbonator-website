@@ -82,7 +82,7 @@
         {"@type":"Question","name":"Does the arpeggiator follow my project tempo?","acceptedAnswer":{"@type":"Answer","text":"Yes. It locks to host tempo at 1/4, 1/8, 1/8T, 1/16 or 1/32, and free-runs with swing when the transport is stopped."}},
         {"@type":"Question","name":"How many computers can I use it on?","acceptedAnswer":{"@type":"Answer","text":"Up to 3 machines with one license. No iLok, no dongle, no account. Activate once online and it works offline forever. To move an activation, email us and we will reset it."}},
         {"@type":"Question","name":"What formats are supported?","acceptedAnswer":{"@type":"Answer","text":"VST3, AU and AAX on macOS (Intel and Apple Silicon, universal, Pro Tools-signed), and VST3 on Windows (64-bit) with an installer."}},
-        {"@type":"Question","name":"Is there a demo?","acceptedAnswer":{"@type":"Answer","text":"Yes. The demo is identical to the paid version except that audio plays for 60 seconds then mutes for 10 seconds, on a loop."}}
+        {"@type":"Question","name":"Is there a demo?","acceptedAnswer":{"@type":"Answer","text":"Yes. A free demo is available to download from the TALLBOY product page with no email required. It is identical to the paid version except that audio plays for 60 seconds then mutes for 10 seconds, on a loop. The demo covers macOS VST3 and AU; AAX is not included."}}
       ]
     }
     </script>
@@ -219,7 +219,8 @@
             </ul>
             <div class="tb-ctas">
                 <a href="#listen" class="tb-btn tb-ghost">Hear it</a>
-                <a href="https://buy.stripe.com/9B68wP8INbBg3bjfPB3oA0i" class="tb-btn tb-buy" data-checkout-placement="tallboy_hero">Get TALLBOY — $20</a>
+                <a href="https://github.com/mixedbysoda-stack/TALLBOY/releases/download/v1.0.0-demo/TALLBOY-Demo-Installer.pkg" class="tb-btn tb-ghost tb-demo" data-demo-placement="tallboy_hero">Try the demo &mdash; free</a>
+                <a href="https://buy.stripe.com/9B68wP8INbBg3bjfPB3oA0i" class="tb-btn tb-buy" data-checkout-placement="tallboy_hero">Get TALLBOY &mdash; $20</a>
             </div>
             <p class="tb-fine">Own it forever &middot; 3 machines &middot; no iLok, no subscription</p>
         </div>
@@ -366,7 +367,8 @@
                 <li>Lifetime updates</li>
             </ul>
             <div class="tb-ctas" style="justify-content:center">
-                <a href="https://buy.stripe.com/9B68wP8INbBg3bjfPB3oA0i" class="tb-btn tb-buy" data-checkout-placement="tallboy_pricing">Get TALLBOY — $20</a>
+                <a href="https://github.com/mixedbysoda-stack/TALLBOY/releases/download/v1.0.0-demo/TALLBOY-Demo-Installer.pkg" class="tb-btn tb-ghost tb-demo" data-demo-placement="tallboy_pricing">Try the demo &mdash; free</a>
+                <a href="https://buy.stripe.com/9B68wP8INbBg3bjfPB3oA0i" class="tb-btn tb-buy" data-checkout-placement="tallboy_pricing">Get TALLBOY &mdash; $20</a>
             </div>
             <p class="tb-fine">Or 4 payments of $5 with Klarna or Afterpay at checkout</p>
         </div>
@@ -395,7 +397,8 @@
             <p>VST3, AU and AAX on macOS — universal for Apple Silicon and Intel, signed for Pro Tools. VST3 on Windows, 64-bit, with an installer. Works in Pro Tools, Logic, Ableton Live, FL Studio, Studio One, Cubase, Reaper and the rest.</p></details>
 
         <details class="tb-q"><summary>Is there a demo?</summary>
-            <p>Yes — identical to the paid version except audio plays for 60 seconds then mutes for 10, on a loop.</p></details>
+            <p>Yes. <a href="https://github.com/mixedbysoda-stack/TALLBOY/releases/download/v1.0.0-demo/TALLBOY-Demo-Installer.pkg" data-demo-placement="tallboy_faq">Download it here</a> &mdash; no email required. It is identical to the paid version except audio plays for 60 seconds then mutes for 10, on a loop.</p>
+            <p>The demo is macOS VST3 and AU. AAX is not included; if you are on Pro&nbsp;Tools and want to try it, email <a href="mailto:mixedbysoda@gmail.com">mixedbysoda@gmail.com</a> and we will sort you out.</p></details>
     </section>
 </main>
 
@@ -407,6 +410,20 @@
 
 <script>
 (function () {
+    // Demo downloads: fire a GA4 event so we can see whether the demo actually
+    // converts, rather than guessing. Does not block the download.
+    document.querySelectorAll('[data-demo-placement]').forEach(function (el) {
+        el.addEventListener('click', function () {
+            if (typeof gtag === 'function') {
+                gtag('event', 'demo_download', {
+                    event_category: 'engagement',
+                    event_label: el.getAttribute('data-demo-placement'),
+                    product: 'tallboy'
+                });
+            }
+        });
+    });
+
     // A/B demo switcher. Each pair is the same source file — one dry, one
     // rendered through the plugin — so the comparison is honest.
     var DEMOS = {

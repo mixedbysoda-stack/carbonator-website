@@ -82,6 +82,15 @@ const PRODUCT_ACCENTS = {
     url: "https://carbonatedaudio.com/fizzfuel",
     price: 20,
   },
+  tallboy: {
+    name: "TALLBOY",
+    // Taken from the plugin itself: shell violet into LCD lime.
+    color: "#7a5aa8",
+    colorAlt: "#c2d24f",
+    gradient: "linear-gradient(135deg,#7a5aa8,#c2d24f)",
+    url: "https://carbonatedaudio.com/tallboy",
+    price: 20,
+  },
   still: {
     name: "Still",
     color: "#6fc7bc",
