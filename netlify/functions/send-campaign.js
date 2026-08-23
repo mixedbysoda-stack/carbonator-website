@@ -103,6 +103,28 @@ exports.handler = async (event) => {
   const sent = [];
   const failed = [];
 
+  // DEPRECATED FOR CAMPAIGNS — this sends through the TRANSACTIONAL API, which
+  // shares the account's daily quota with licence-key delivery. On 2026-08-23 a
+  // 273-recipient blast through here consumed the entire day's allowance and the
+  // next customer's licence email failed silently. Campaigns belong in
+  // send-broadcast.js, which uses Resend Broadcasts: metered by contact count,
+  // never touches the transactional quota.
+  const BULK_THRESHOLD = 25;
+  if (eligible.length > BULK_THRESHOLD && !body.forceTransactional) {
+    return {
+      statusCode: 409,
+      body: JSON.stringify({
+        error: `Refusing to send ${eligible.length} emails through the transactional API.`,
+        why:
+          "This shares the daily quota with licence-key delivery. A blast this " +
+          "size can stop paying customers receiving their keys.",
+        use: "/.netlify/functions/send-broadcast",
+        override:
+          "Set forceTransactional:true only if you are certain the quota can absorb it.",
+      }),
+    };
+  }
+
   if (eligible.length > 0) {
     const resend = new Resend(process.env.RESEND_API_KEY);
     const payload = eligible.map((email) => ({
