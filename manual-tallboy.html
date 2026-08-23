@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({"gtm.start":
+new Date().getTime(),event:"gtm.js"});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
+"https://www.googletagmanager.com/gtm.js?id="+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,"script","dataLayer","GTM-5QVG68CF");</script>
+    <!-- End Google Tag Manager -->
+    <!-- Meta Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version="2.0";n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,"script","https://connect.facebook.net/en_US/fbevents.js");fbq("init","1682413179857373");fbq("track","PageView");
+    </script>
+    <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1682413179857373&ev=PageView&noscript=1"/></noscript>
+    <!-- End Meta Pixel Code -->
+    <title>TALLBOY Manual — Carbonated Audio</title>
+    <meta name="description" content="Complete user manual for TALLBOY by Carbonated Audio. Install, activation, the D-pad interface, and a full tour of the CHIP, ARP and CRUSH ROM cartridges.">
+    <meta name="author" content="Carbonated Audio">
+    <link rel="canonical" href="https://carbonatedaudio.com/manual-tallboy">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="TALLBOY Manual — Carbonated Audio">
+    <meta property="og:description" content="Complete user manual for TALLBOY by Carbonated Audio. Install, activation, the D-pad interface, and a full tour of the CHIP, ARP and CRUSH ROM cartridges.">
+    <meta property="og:url" content="https://carbonatedaudio.com/manual-tallboy">
+    <meta property="og:site_name" content="Carbonated Audio">
+    <meta property="og:image" content="https://carbonatedaudio.com/og-image.png">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="TALLBOY Manual — Carbonated Audio">
+    <meta name="twitter:description" content="Complete user manual for TALLBOY by Carbonated Audio. Install, activation, the D-pad interface, and a full tour of the CHIP, ARP and CRUSH ROM cartridges.">
+    <meta name="twitter:image" content="https://carbonatedaudio.com/og-image.png">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "TechArticle",
+        "headline": "TALLBOY User Manual",
+        "description": "Complete user manual for TALLBOY by Carbonated Audio. Install, activation, the D-pad interface, and a full tour of the CHIP, ARP and CRUSH ROM cartridges.",
+        "author": {"@type": "Organization", "name": "Carbonated Audio", "url": "https://carbonatedaudio.com"},
+        "publisher": {"@type": "Organization", "name": "Carbonated Audio", "url": "https://carbonatedaudio.com"},
+        "url": "https://carbonatedaudio.com/manual-tallboy",
+        "mainEntityOfPage": "https://carbonatedaudio.com/manual-tallboy",
+        "datePublished": "2026-08-23",
+        "dateModified": "2026-08-23",
+        "about": {
+            "@type": "SoftwareApplication",
+            "name": "TALLBOY",
+            "applicationCategory": "MultimediaApplication",
+            "softwareVersion": "1.0.0",
+            "operatingSystem": ["macOS 10.13+", "Windows 10+"]
+        },
+        "proficiencyLevel": "Beginner"
+    }
+    </script>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z9L20HJ4M0"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-Z9L20HJ4M0');</script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg-primary: #0d0a1a;
+            --bg-secondary: #151025;
+            --bg-card: #1a1430;
+            --bg-card-darker: #120e22;
+            --text-primary: #ffffff;
+            --text-secondary: #a09bb5;
+            --text-muted: #6b6580;
+            --border: #2a2440;
+            --accent: #c2d24f;
+            --accent-light: #e4ee9c;
+        }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.65;
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent;
+        }
+        a, button { touch-action: manipulation; }
+
+        /* Navigation */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 16px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(13, 10, 26, 0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+        .nav-logo-img { height: 36px; width: auto; transition: filter 0.3s; }
+        .nav-logo-img:hover { filter: brightness(1.2); }
+        .nav-links { display: flex; align-items: center; gap: 32px; }
+        .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--text-primary); }
+        .nav-dropdown { position: relative; }
+        .nav-dropdown-trigger { cursor: pointer; }
+        .nav-dropdown-menu {
+            display: none; position: absolute; top: 100%; left: 0; padding: 8px;
+            background: rgba(26, 20, 48, 0.98); border: 1px solid var(--border); border-radius: 12px;
+            min-width: 240px; backdrop-filter: blur(20px); margin-top: 8px;
+        }
+        .nav-dropdown:hover .nav-dropdown-menu { display: block; }
+        .nav-dropdown-menu a { display: block; padding: 10px 12px; border-radius: 8px; color: var(--text-secondary); }
+        .nav-dropdown-menu a:hover { background: rgba(255,255,255,0.05); color: var(--text-primary); }
+        .dropdown-label { color: var(--text-primary); font-weight: 600; font-size: 14px; }
+        .dropdown-desc { color: var(--text-muted); font-size: 12px; margin-top: 2px; }
+        .hamburger { display: none; flex-direction: column; justify-content: center; gap: 5px; width: 44px; height: 44px; padding: 10px; background: none; border: none; cursor: pointer; z-index: 201; }
+        .hamburger span { display: block; width: 24px; height: 2px; background: var(--text-primary); border-radius: 2px; transition: transform 0.3s, opacity 0.3s; }
+        .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+        .mobile-menu { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 199; background: rgba(13, 10, 26, 0.97); backdrop-filter: blur(20px); flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 80px 32px 32px; }
+        .mobile-menu.active { display: flex; }
+        .mobile-menu a { color: var(--text-secondary); text-decoration: none; font-size: 20px; font-weight: 600; padding: 14px 24px; border-radius: 12px; width: 100%; max-width: 300px; text-align: center; }
+        .mobile-menu a:hover { color: var(--text-primary); background: rgba(255, 255, 255, 0.06); }
+
+        /* Page layout */
+        .page-wrapper { max-width: 860px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+        .manual-hero { padding: 80px 0 48px; text-align: center; }
+        .manual-hero .eyebrow {
+            display: inline-block; padding: 6px 14px; border-radius: 999px;
+            background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+            color: var(--accent-light); font-size: 12px; font-weight: 600;
+            letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px;
+        }
+        .manual-hero h1 {
+            font-size: clamp(36px, 6vw, 54px); font-weight: 800; line-height: 1.1;
+            letter-spacing: -1.5px; margin-bottom: 14px;
+        }
+        .manual-hero h1 .accent { color: var(--accent); }
+        .manual-hero .hero-sub { color: var(--text-secondary); font-size: 17px; max-width: 580px; margin: 0 auto; }
+
+        .download-bar {
+            max-width: 860px; margin: 24px auto 0; padding: 18px 24px;
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 14px; display: flex; gap: 16px; align-items: center;
+            justify-content: space-between; flex-wrap: wrap;
+        }
+        .download-bar .download-text { color: var(--text-secondary); font-size: 14px; }
+        .download-bar .download-text strong { color: var(--text-primary); }
+        .download-btn {
+            padding: 12px 22px; background: var(--accent); color: #0a0b0d;
+            border: none; border-radius: 10px; font-weight: 700; font-size: 14px;
+            text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+            transition: transform 0.15s, filter 0.15s;
+        }
+        .download-btn:hover { transform: translateY(-1px); filter: brightness(1.1); }
+
+        /* Rendered markdown styling */
+        .manual-body {
+            background: var(--bg-card-darker);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 48px 48px 40px;
+            margin: 36px 0 48px;
+        }
+        .manual-body h1 {
+            font-size: 28px; color: var(--text-primary); margin: 0 0 6px 0;
+            border-bottom: 2px solid var(--accent); padding-bottom: 10px;
+            letter-spacing: -0.5px;
+        }
+        .manual-body h1 + p strong:first-child { color: var(--accent); font-size: 14px; letter-spacing: 0.5px; }
+        .manual-body h2 {
+            font-size: 20px; color: var(--text-primary); margin: 36px 0 10px;
+            padding-top: 18px; border-top: 1px solid var(--border);
+            letter-spacing: -0.25px;
+        }
+        .manual-body h3 { font-size: 15px; color: var(--text-primary); margin: 20px 0 6px; }
+        .manual-body p { color: var(--text-secondary); margin: 10px 0; font-size: 15px; line-height: 1.7; }
+        .manual-body p strong { color: var(--text-primary); }
+        .manual-body code {
+            font-family: 'JetBrains Mono', 'SF Mono', Menlo, monospace;
+            background: rgba(255,255,255,0.06); color: var(--accent-light);
+            padding: 1px 6px; border-radius: 4px; font-size: 13px;
+        }
+        .manual-body pre {
+            background: #06070a; color: #e5e7eb; padding: 18px 20px;
+            border-radius: 10px; border: 1px solid var(--border);
+            font-family: 'JetBrains Mono', 'SF Mono', Menlo, monospace;
+            font-size: 12.5px; line-height: 1.55; overflow-x: auto;
+            margin: 14px 0;
+        }
+        .manual-body pre code { background: transparent; color: inherit; padding: 0; font-size: inherit; }
+        .manual-body table {
+            width: 100%; border-collapse: collapse; margin: 16px 0;
+            font-size: 14px; background: rgba(255,255,255,0.02);
+            border-radius: 10px; overflow: hidden;
+        }
+        .manual-body th {
+            text-align: left; padding: 10px 14px; color: var(--text-primary);
+            font-weight: 600; background: rgba(255,255,255,0.04);
+            border-bottom: 2px solid var(--accent);
+        }
+        .manual-body td {
+            padding: 10px 14px; color: var(--text-secondary);
+            border-bottom: 1px solid var(--border);
+        }
+        .manual-body tr:last-child td { border-bottom: none; }
+        .manual-body hr { border: none; border-top: 1px solid var(--border); margin: 36px 0; }
+        .manual-body ul, .manual-body ol { margin: 10px 0 10px 24px; color: var(--text-secondary); }
+        .manual-body li { margin: 4px 0; font-size: 15px; line-height: 1.7; }
+        .manual-body em { color: var(--text-muted); }
+        .manual-body a { color: var(--accent-light); text-decoration: underline; text-underline-offset: 3px; }
+
+        /* Footer */
+        .site-footer {
+            padding: 32px 40px; border-top: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: space-between;
+            flex-wrap: wrap; gap: 16px; color: var(--text-muted); font-size: 13px;
+        }
+        .footer-links { display: flex; gap: 20px; flex-wrap: wrap; }
+        .footer-links a { color: var(--text-muted); text-decoration: none; }
+        .footer-links a:hover { color: var(--text-secondary); }
+
+        @media (max-width: 768px) {
+            nav { padding: 14px 20px; }
+            .nav-links { display: none; }
+            .hamburger { display: flex; }
+            .manual-hero { padding: 48px 0 32px; }
+            .manual-body { padding: 28px 20px; border-radius: 12px; }
+            .manual-body h1 { font-size: 24px; }
+            .manual-body h2 { font-size: 18px; }
+            .download-bar { flex-direction: column; align-items: flex-start; gap: 10px; }
+            .download-btn { width: 100%; justify-content: center; }
+        }
+</style>
+</head>
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5QVG68CF"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <div id="site-nav" data-active="manual"></div>
+    <script src="/components/nav.js?v=20260821-tallboy"></script>
+
+    <div class="page-wrapper">
+        <section class="manual-hero">
+            <span class="eyebrow">Chiptune Resynthesiser · $20</span>
+            <h1><span class="accent">TALLBOY</span> Manual</h1>
+            <p class="hero-sub">Pitch-tracked chiptune resynthesis, arpeggiator and decimator across three swappable cartridges. Install, activation and full control reference.</p>
+        </section>
+
+        <div class="download-bar">
+            <div class="download-text">
+                <strong>Need the installer?</strong> Latest release, or grab the <a href="https://github.com/mixedbysoda-stack/TALLBOY/releases/latest/download/TALLBOY-Windows-Installer.exe" style="color:var(--accent-light);">Windows VST3 installer</a>.
+            </div>
+            <a href="https://github.com/mixedbysoda-stack/TALLBOY/releases/latest/download/TALLBOY-Installer.pkg" class="download-btn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                macOS installer
+            </a>
+        </div>
+
+        <article class="manual-body">
+<h1>TALLBOY — User Manual</h1>
+<p><strong>Carbonated Audio · v1.0.0</strong>
+Chiptune resynthesiser, arpeggiator and decimator in three cartridges.</p>
+<p>This document covers installing TALLBOY, activating your licence, driving the interface, and what each of the three cartridges actually does to your audio. If you only read one section, read <a href="#start">Start Here</a> — TALLBOY is a resynthesiser, and picking the right source matters more than any parameter in it.</p>
+<hr />
+<h2>1. Overview</h2>
+<p>TALLBOY is a <strong>chiptune resynthesiser</strong>. It is not a bitcrusher with a retro skin — although one of its three cartridges is a proper decimator. What it mainly does is <strong>track the pitch of incoming audio and replay that performance on four modelled handheld-console sound-chip channels</strong>:</p>
+<ul>
+<li><strong>Two pulse channels</strong>, four duty cycles each.</li>
+<li><strong>One 32-sample, 4-bit wavetable channel.</strong></li>
+<li><strong>One LFSR noise channel</strong>, keyed off transients in the input.</li>
+</ul>
+<p>A bitcrusher degrades the signal you give it. TALLBOY <strong>replaces</strong> it. What comes out is a chip voice playing your part, not your part with the corners knocked off.</p>
+<p>The pitch tracking is <strong>monophonic</strong>. It needs one clear note at a time to lock onto. Vocals, bass lines and single-note leads work. Full mixes and chords do not — with more than one pitch present the tracker chases partials and the chip voice wanders. That isn't a bug to work around; it's the shape of the tool. Section 12 covers what to do with drums and mixes instead.</p>
+<p>Three cartridges sit in the device, and each one inserts and ejects independently:</p>
+<table>
+<thead>
+<tr>
+<th>Cartridge</th>
+<th>What it is</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>CHIP</strong></td>
+<td>The resynthesiser — pitch tracking into the four sound-chip channels.</td>
+</tr>
+<tr>
+<td><strong>ARP</strong></td>
+<td>Host-synced arpeggiator with glide.</td>
+</tr>
+<tr>
+<td><strong>CRUSH ROM</strong></td>
+<td>Bit-depth and sample-rate decimator.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>2. Signal Flow</h2>
+<pre><code>In ─► [ CART 01 · CHIP ]─► [ CART 02 · ARP ]─► [ CART 03 · CRUSH ROM ]─► Out
+         resynthesis          pattern              decimation
+
+Any cartridge can be ejected. All three ejected = true passthrough.
+</code></pre>
+<p>Each cartridge has a power LED on its bay card. Click it to insert or eject that stage. Any combination runs, including none — with all three out, TALLBOY passes audio through completely untouched and <strong>nulls against the dry signal</strong>.</p>
+<hr />
+<h2>3. Formats and System Requirements</h2>
+<table>
+<thead>
+<tr>
+<th>Platform</th>
+<th>Formats</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>macOS 10.13+</strong></td>
+<td>VST3, AU, AAX</td>
+<td>Universal binary (Apple Silicon and Intel). Signed and notarised.</td>
+</tr>
+<tr>
+<td><strong>Windows 10+</strong></td>
+<td>VST3 only</td>
+<td>64-bit. There is no Windows AAX build.</td>
+</tr>
+</tbody>
+</table>
+<p>TALLBOY runs in Pro Tools, Logic Pro, Ableton Live, FL Studio, Studio One, Cubase, Reaper and the other major hosts. The licence is <strong>$20, one-time</strong> — no subscription, no iLok, no dongle, no account — and covers <strong>three machines</strong>.</p>
+<hr />
+<h2>4. Installing on macOS</h2>
+<ol>
+<li>Download <a href="https://github.com/mixedbysoda-stack/TALLBOY/releases/latest/download/TALLBOY-Installer.pkg">TALLBOY-Installer.pkg</a>.</li>
+<li>Quit your DAW. Hosts scan for plug-ins at launch, so installing while the DAW is open means it won't see TALLBOY until you restart it anyway.</li>
+<li>Open the <code>.pkg</code> and follow the installer. It places the <strong>VST3, AU and AAX</strong> versions in the standard system plug-in folders for you — there is nothing to drag by hand.</li>
+<li>Launch your DAW. TALLBOY appears under <strong>Carbonated Audio</strong>.</li>
+</ol>
+<p>The installer is signed and notarised by Apple, so Gatekeeper lets it through without the unidentified-developer warning. If macOS blocks it anyway, you most likely have a partial download — grab the file again rather than overriding the warning.</p>
+<hr />
+<h2>5. Installing on Windows</h2>
+<ol>
+<li>Download <a href="https://github.com/mixedbysoda-stack/TALLBOY/releases/latest/download/TALLBOY-Windows-Installer.exe">TALLBOY-Windows-Installer.exe</a>.</li>
+<li>Quit your DAW.</li>
+<li>Run the installer. It puts the 64-bit VST3 in <code>C:\Program Files\Common Files\VST3\</code>, which is the folder every VST3 host scans by default.</li>
+<li>Launch your DAW and let it scan.</li>
+</ol>
+<p>Windows is <strong>VST3 only</strong>. If your host is 32-bit or VST2-only, TALLBOY will not appear in it.</p>
+<hr />
+<h2>6. Activation</h2>
+<p>Your licence key arrives by email immediately after purchase. Activation happens inside the plug-in — there is no separate licence manager application to install and no account to create.</p>
+<ol>
+<li>Open TALLBOY on a track in your DAW.</li>
+<li>Paste the licence key from your purchase email into the activation field.</li>
+<li>Confirm. The plug-in checks the key once, binds it to that machine, and unlocks.</li>
+</ol>
+<p>After that first activation, <strong>TALLBOY works offline forever</strong> on that machine. You do not need to be online to open a session, and there is nothing that phones home during a mix.</p>
+<p>One licence covers <strong>three machines</strong>. If you replace a computer or need an activation moved, email <a href="mailto:mixedbysoda@gmail.com">mixedbysoda@gmail.com</a> and we'll reset it — that's a human on the other end, not a ticketing robot.</p>
+<hr />
+<h2>7. Demo Mode</h2>
+<p>The demo is <strong>identical to the paid version</strong> in every respect except one: audio plays for <strong>60 seconds, then mutes for 10</strong>, on a loop. A red banner in the interface tells you you're running it.</p>
+<p>Nothing is disabled, no parameters are locked, and no quality is held back. If the demo sounds right on your material, the paid version sounds exactly the same without the gap.</p>
+<p>Paste a licence key into the demo and the timer and the banner disappear — there is no separate "full" download to fetch afterwards.</p>
+<p>One exception to "identical": the demo build covers <strong>macOS VST3 and AU, and Windows VST3</strong>. AAX isn't included in it. If you're on Pro Tools and want to try TALLBOY before buying, email <a href="mailto:mixedbysoda@gmail.com">mixedbysoda@gmail.com</a> and we'll sort you out.</p>
+<hr />
+<h2>8. The Interface — Screen and D-Pad</h2>
+<p><strong>There are no knobs.</strong> You drive TALLBOY the way you'd drive the thing it's modelled on: with a <strong>D-pad</strong> and a <strong>four-shade dot-matrix screen</strong>. Every cartridge exposes <strong>six parameters</strong>, listed on the screen with a live value bar beside each one.</p>
+<table>
+<thead>
+<tr>
+<th>Control</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>D-pad up / down</strong></td>
+<td>Move the selection through the six parameters on the current cartridge page. Arrow keys work too.</td>
+</tr>
+<tr>
+<td><strong>D-pad left / right</strong></td>
+<td>Adjust the selected parameter.</td>
+</tr>
+<tr>
+<td><strong>SELECT</strong></td>
+<td>Swap cartridge — cycles the page and replays the insert animation.</td>
+</tr>
+<tr>
+<td><strong>START</strong></td>
+<td>Power. True bypass; it nulls against dry.</td>
+</tr>
+<tr>
+<td><strong>A / B</strong></td>
+<td>Fullscreen the visualiser. Drops the parameter list so you can watch the four channels, the arp steps, or the crushed waveform at full size.</td>
+</tr>
+<tr>
+<td><strong>Cartridge power LED</strong></td>
+<td>On each bay card. Click to insert or eject that stage.</td>
+</tr>
+</tbody>
+</table>
+<p>Everything is host-automatable in the normal way, whichever surface you set it from.</p>
+<hr />
+<h2>9. Cartridge 01 — CHIP</h2>
+<p>CHIP is the resynthesiser, and the reason TALLBOY exists. It tracks the pitch and envelope of your input and rebuilds the performance on four hardware-modelled channels.</p>
+<h3>The four channels</h3>
+<ul>
+<li><strong>Pulse 1 and Pulse 2</strong> — two square-wave channels, each with <strong>four selectable duty cycles</strong>. Narrow duties are thin and reedy; the wide duty is the hollow, full square tone. Running the two pulses at different duties is what gives the chip voice its width.</li>
+<li><strong>Wavetable</strong> — a <strong>32-sample, 4-bit</strong> table. Thirty-two steps of sixteen possible levels, exactly as the original hardware allowed. It's the channel that carries body and sustain under the pulses.</li>
+<li><strong>Noise</strong> — an <strong>LFSR (linear-feedback shift register) noise generator, keyed off transients</strong> in your input. It fires on attacks rather than droning, so consonants in a vocal or pick attacks on a bass come through as chip percussion.</li>
+</ul>
+<h3>Detune</h3>
+<p>The chip channels model an <strong>11-bit frequency register</strong>. On the original hardware, pitch was written as an 11-bit integer, so the available frequencies were quantised — and the higher the note, the coarser the steps between them. TALLBOY reproduces that. It's why the top octave has that slightly-out-of-tune shimmer and why two channels near the same note beat against each other instead of sitting perfectly locked. Taking that out would make it cleaner and wrong.</p>
+<p>Six parameters live on the CHIP page. Step through them with the D-pad — the screen shows the current value of each as you move.</p>
+<hr />
+<h2>10. Cartridge 02 — ARP</h2>
+<p>ARP shapes the chip voice into a pattern. It locks to your project tempo, so what it plays stays in time with the session rather than free-wheeling against it.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Range</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Rate</strong></td>
+<td>1/4 to 1/32</td>
+<td>Host-synced. 1/8 and 1/16 are the workhorses; 1/32 turns a held note into a trill.</td>
+</tr>
+<tr>
+<td><strong>Mode</strong></td>
+<td>UP, DOWN, UPDN, RAND, CHRD</td>
+<td>UP and DOWN climb and fall through the pattern; UPDN goes both ways; RAND picks freely; CHRD stacks the steps instead of sequencing them.</td>
+</tr>
+<tr>
+<td><strong>Octaves</strong></td>
+<td>1 to 4</td>
+<td>How far the pattern spreads above the tracked note. Four octaves on a vocal is the classic chiptune arpeggio sound.</td>
+</tr>
+<tr>
+<td><strong>Glide</strong></td>
+<td>Up to 400 ms</td>
+<td>Portamento between steps. At the long end, the arpeggio stops being steps and becomes a slide.</td>
+</tr>
+</tbody>
+</table>
+<p>Glide and rate interact: set the glide time longer than the step length and the pattern smears into a continuous sweep. That's a usable sound, not a mistake — just be deliberate about it.</p>
+<p>ARP is at its best on <strong>sustained material</strong>. A held vocal note or a long bass note gives the arpeggiator something to spread across octaves; a staccato part gives it almost nothing to work with.</p>
+<hr />
+<h2>11. Cartridge 03 — CRUSH ROM</h2>
+<p>CRUSH ROM is a <strong>bit-depth and sample-rate decimator</strong> with deliberate aliasing. Unlike CHIP, it doesn't care what you feed it — there's no pitch to track, so it works on drums, buses and full mixes just as happily as on the chip voice.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Range</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Bit depth</strong></td>
+<td>1 to 16 bits</td>
+<td>Quantises the amplitude. 12 bits is a subtle grit; 8 is unmistakably lo-fi; below 4 it becomes the effect rather than a treatment.</td>
+</tr>
+<tr>
+<td><strong>Rate divide</strong></td>
+<td>1 to 64</td>
+<td>Sample-and-hold decimation. Divide by 2 already puts audible aliasing in the top end; high divisions turn pitched material into ringing metallic tone.</td>
+</tr>
+<tr>
+<td><strong>Jitter</strong></td>
+<td>—</td>
+<td>Randomises the hold interval so the decimation isn't perfectly periodic. Softens the fixed aliasing whine into something more like tape or a failing converter.</td>
+</tr>
+<tr>
+<td><strong>Post filter</strong></td>
+<td>Down to 540 Hz</td>
+<td>After the quantiser. Aliasing lands mostly in the top octaves, so pulling the filter down is how you keep the grit and lose the fizz.</td>
+</tr>
+</tbody>
+</table>
+<p>Six parameters live on this page too. The order that matters in practice: set bit depth and rate divide first for the character, then use the post filter to make it sit in the mix.</p>
+<hr />
+<h2 id="start">12. Start Here</h2>
+<p>The single most important decision in TALLBOY is <strong>what you put into it</strong>.</p>
+<h3>Put it on something monophonic</h3>
+<p>A lead vocal, a bass line, a single-note lead, a monophonic synth part. Anything with <strong>one clear pitch at a time</strong>. Insert all three cartridges, leave the presets alone, and listen — you'll hear the part come back as a chip voice inside a bar or two.</p>
+<p>Sustained material gives the best result. The tracker has more to lock onto, and ARP has something to spread across octaves.</p>
+<h3>For drums and full mixes, use CRUSH ROM alone</h3>
+<p>Drums have no single pitch to follow. The tracker will chase the loudest partial and the chip voice will sound unstable — that's the wrong tool, not a setting to fix. Instead:</p>
+<ol>
+<li><strong>Eject CHIP.</strong></li>
+<li><strong>Eject ARP.</strong></li>
+<li>Run <strong>CRUSH ROM on its own.</strong></li>
+</ol>
+<p>That's a straight decimator, and it sounds excellent on drums, on a bus, or in parallel under a dry mix. Same goes for full mixes and anything else without one clear pitch.</p>
+<h3>Other things it's good at</h3>
+<ul>
+<li>Transitions and risers.</li>
+<li>Turning a hook into a counter-melody — resynthesise the vocal, then push it under the real one.</li>
+<li>Chiptune layers underneath a real instrument rather than replacing it.</li>
+<li>Game and video soundtrack work.</li>
+</ul>
+<hr />
+<h2>13. Presets</h2>
+<p>TALLBOY ships with a hand-built preset bank. Each one is a starting point — load it, then walk the D-pad down the parameter list and adjust to the part in front of you.</p>
+<p>Two worth opening first: <strong>CHIP 4CH · 4BIT CHOIR</strong> and <strong>4BIT CHOIR</strong>. Both are built around the wavetable channel and are the fastest way to hear what the resynthesiser is doing to a held vocal note.</p>
+<hr />
+<h2>14. Troubleshooting</h2>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>What's happening</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>The plug-in doesn't appear in my DAW</strong></td>
+<td>The host hasn't scanned it yet. Quit the DAW fully, relaunch, and let it rescan — or trigger a manual plug-in rescan in your host's preferences. On Windows, confirm <code>TALLBOY.vst3</code> is in <code>C:\Program Files\Common Files\VST3\</code> and that your host scans that folder.</td>
+</tr>
+<tr>
+<td><strong>No sound at all</strong></td>
+<td>Check the START power state, and check that at least one cartridge is inserted — with all three ejected, TALLBOY is a true passthrough and does nothing by design.</td>
+</tr>
+<tr>
+<td><strong>The chip voice is unstable, or plays the wrong notes</strong></td>
+<td>The source isn't monophonic. TALLBOY's pitch tracking needs a single note to lock onto; on chords or a full mix it chases partials. Feed it one voice at a time.</td>
+</tr>
+<tr>
+<td><strong>Nothing useful on drums</strong></td>
+<td>Expected. Eject CHIP and ARP and use CRUSH ROM alone — see Section 12.</td>
+</tr>
+<tr>
+<td><strong>Audio cuts out for about 10 seconds, over and over</strong></td>
+<td>That's the demo. It plays 60 seconds, then mutes for 10, on a loop, and shows a red banner while it does. Paste your licence key in to remove it.</td>
+</tr>
+<tr>
+<td><strong>No AAX on Windows</strong></td>
+<td>There isn't one. AAX is macOS only; Windows is VST3.</td>
+</tr>
+<tr>
+<td><strong>I've used all three activations</strong></td>
+<td>Email <a href="mailto:mixedbysoda@gmail.com">mixedbysoda@gmail.com</a> and we'll reset one.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>15. Support</h2>
+<p>Licence resets, bug reports, install trouble, or a question about what it'll do to a particular part — <a href="mailto:mixedbysoda@gmail.com">mixedbysoda@gmail.com</a>. Include your DAW, your OS, and the plug-in format if it's a technical problem; it saves a round trip.</p>
+<p>Product page and purchase: <a href="https://carbonatedaudio.com/tallboy">carbonatedaudio.com/tallboy</a>.</p>
+<hr />
+<p><em>Questions, bug reports, or sound-design notes: mixedbysoda@gmail.com.</em></p>
+        </article>
+
+        <section style="text-align:center;padding:8px 0 60px;">
+            <a href="/manual" style="color:var(--text-secondary);text-decoration:none;font-size:14px;">&larr; All manuals</a>
+            &nbsp;&nbsp;&middot;&nbsp;&nbsp;
+            <a href="/tallboy" style="color:var(--accent-light);text-decoration:none;font-weight:600;font-size:14px;">Buy TALLBOY &rarr;</a>
+        </section>
+    </div>
+
+
+    <footer class="site-footer">
+        <div class="footer-left">
+            <span class="footer-text">&copy; 2026 Carbonated Audio. All rights reserved. &nbsp;&middot;&nbsp; <a href="/terms">Terms</a> &nbsp;&middot;&nbsp; <a href="/privacy">Privacy</a> &nbsp;&middot;&nbsp; <a href="/eula">EULA</a></span>
+        </div>
+        <div class="footer-links">
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+            <a href="/press">Press</a>
+            <a href="/faq">FAQ</a>
+            <a href="/manual">Manual</a>
+            <a href="mailto:mixedbysoda@gmail.com">Contact</a>
+        </div>
+    </footer>
+
+</body>
+</html>

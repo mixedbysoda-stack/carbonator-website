@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({"gtm.start":
+new Date().getTime(),event:"gtm.js"});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
+"https://www.googletagmanager.com/gtm.js?id="+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,"script","dataLayer","GTM-5QVG68CF");</script>
+    <!-- End Google Tag Manager -->
+    <!-- Meta Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version="2.0";n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,"script","https://connect.facebook.net/en_US/fbevents.js");fbq("init","1682413179857373");fbq("track","PageView");
+    </script>
+    <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1682413179857373&ev=PageView&noscript=1"/></noscript>
+    <!-- End Meta Pixel Code -->
+    <title>TALLBOY vs Decimort: Resynthesis vs Bitcrushing (Honest Comparison)</title>
+    <meta name="description" content="Decimort degrades the audio you already have. TALLBOY rebuilds it on four modelled chip channels. Two different jobs - here is which one you actually need.">
+    <meta name="keywords" content="TALLBOY vs Decimort, Decimort alternative, chiptune plugin vs bitcrusher, resynthesis vs bitcrushing, cheap bitcrusher plugin, 8-bit plugin comparison">
+    <meta name="author" content="Carbonated Audio">
+    <link rel="canonical" href="https://carbonatedaudio.com/tallboy-vs-decimort">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="TALLBOY vs Decimort: Resynthesis vs Bitcrushing">
+    <meta property="og:description" content="One degrades your audio, the other replaces it with a synthesised chip performance that follows your pitch. An honest side-by-side.">
+    <meta property="og:url" content="https://carbonatedaudio.com/tallboy-vs-decimort">
+    <meta property="og:site_name" content="Carbonated Audio">
+    <meta property="og:image" content="https://carbonatedaudio.com/tallboy-screenshot.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="TALLBOY vs Decimort: Resynthesis vs Bitcrushing">
+    <meta name="twitter:description" content="One degrades your audio, the other replaces it with a synthesised chip performance that follows your pitch. An honest side-by-side.">
+    <meta name="twitter:image" content="https://carbonatedaudio.com/tallboy-screenshot.png">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "TALLBOY vs Decimort — Chiptune Resynthesiser vs Bitcrusher",
+        "description": "Honest comparison of TALLBOY, a chiptune resynthesiser, and D16 Group's Decimort, a bitcrusher and sample-rate reducer.",
+        "url": "https://carbonatedaudio.com/tallboy-vs-decimort",
+        "mainEntity": {
+            "@type": "ItemList",
+            "itemListElement": [
+                {
+                    "@type": "SoftwareApplication",
+                    "name": "TALLBOY",
+                    "applicationCategory": "MultimediaApplication",
+                    "offers": {"@type": "Offer", "price": "20.00", "priceCurrency": "USD"},
+                    "operatingSystem": ["macOS", "Windows 10+"]
+                },
+                {
+                    "@type": "SoftwareApplication",
+                    "name": "D16 Group Decimort",
+                    "applicationCategory": "MultimediaApplication"
+                }
+            ]
+        }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {"@type": "Question", "name": "Is TALLBOY a bitcrusher like Decimort?", "acceptedAnswer": {"@type": "Answer", "text": "Only in part. Decimort is a dedicated bitcrusher and sample-rate reducer that degrades the audio you feed it. TALLBOY's main cartridge is a resynthesiser: it pitch-tracks a monophonic source and rebuilds the performance on four modelled handheld-console sound-chip channels. TALLBOY also contains a conventional decimator called CRUSH ROM if plain degradation is what you want."}},
+            {"@type": "Question", "name": "Which one should I use on drums or a full mix?", "acceptedAnswer": {"@type": "Answer", "text": "A dedicated bitcrusher. TALLBOY's chip resynthesis needs one clear pitch, so drums, chords and full mixes are outside what it tracks. On those sources you would eject the resynthesis cartridge and use TALLBOY's CRUSH ROM decimator - or reach for a purpose-built degradation plugin like Decimort."}},
+            {"@type": "Question", "name": "Can a bitcrusher make my vocal sound like a chiptune melody?", "acceptedAnswer": {"@type": "Answer", "text": "Not on its own. Bit and sample-rate reduction add grit and aliasing to the recording, but the underlying waveform is still your vocal. Chip character comes from pulse waves, a small wavetable and hardware noise playing your melody, which requires resynthesis rather than degradation."}},
+            {"@type": "Question", "name": "How much is TALLBOY?", "acceptedAnswer": {"@type": "Answer", "text": "$20 one-time, with no subscription and no iLok. One licence activates on three machines, and there is a free demo for both macOS and Windows."}}
+        ]
+    }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg-primary: #0d0a1a;
+            --bg-secondary: #151025;
+            --bg-card: #1a1430;
+            --violet: #7a5aa8;
+            --lime: #c2d24f;
+            --green: #22c55e;
+            --text-primary: #ffffff;
+            --text-secondary: #a09bb5;
+            --text-muted: #6b6580;
+            --border: #2a2440;
+        }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+        a { color: var(--lime); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        nav {
+            position: sticky; top: 0; z-index: 100;
+            padding: 16px 40px;
+            display: flex; align-items: center; justify-content: space-between;
+            background: rgba(13,10,26,0.92);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .nav-brand { font-weight: 800; font-size: 17px; color: #fff; text-decoration: none; }
+        .nav-links { display: flex; gap: 24px; }
+        .nav-links a { color: var(--text-secondary); font-size: 14px; font-weight: 500; }
+        .nav-links a:hover { color: #fff; text-decoration: none; }
+        .nav-cta {
+            background: linear-gradient(135deg, var(--violet), var(--lime));
+            color: #fff; padding: 8px 20px; border-radius: 8px;
+            font-weight: 600; font-size: 14px;
+        }
+        .nav-cta:hover { opacity: 0.9; text-decoration: none; }
+        .container { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+        .hero { padding: 80px 0 40px; text-align: center; }
+        .hero-badge {
+            display: inline-block;
+            background: rgba(194,210,79,0.10);
+            border: 1px solid rgba(194,210,79,0.25);
+            border-radius: 100px;
+            padding: 6px 16px;
+            font-size: 13px; font-weight: 600;
+            color: var(--lime);
+            margin-bottom: 20px;
+        }
+        h1 { font-size: 42px; font-weight: 900; letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 16px; }
+        h1 .accent {
+            background: linear-gradient(135deg, var(--violet) 10%, var(--lime));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-sub { font-size: 18px; color: var(--text-secondary); max-width: 640px; margin: 0 auto; }
+        .section { margin: 0 0 48px; }
+        .section h2 { font-size: 28px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 16px; }
+        .section h2 .accent {
+            background: linear-gradient(135deg, var(--violet) 10%, var(--lime));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .section p { color: var(--text-secondary); font-size: 16px; line-height: 1.8; margin-bottom: 16px; }
+        .section ul, .section ol { color: var(--text-secondary); font-size: 16px; line-height: 1.8; margin: 0 0 16px 22px; }
+        .section li { margin-bottom: 10px; }
+        .section strong { color: var(--text-primary); }
+        .callout {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--lime);
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin: 0 0 24px;
+            color: var(--text-secondary);
+            font-size: 15px;
+            line-height: 1.7;
+        }
+        .step-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px 32px;
+            margin-bottom: 20px;
+        }
+        .step-num {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 32px; height: 32px; border-radius: 8px;
+            background: linear-gradient(135deg, var(--violet), var(--lime));
+            font-size: 14px; font-weight: 800; color: #fff;
+            margin-right: 12px; flex-shrink: 0;
+        }
+        .step-head { display: flex; align-items: center; margin-bottom: 10px; }
+        .step-head h3 { font-size: 19px; font-weight: 800; }
+        .step-card p { color: var(--text-secondary); font-size: 15px; line-height: 1.75; }
+        .table-section { margin: 0 0 48px; }
+        .table-section h2 { font-size: 28px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 20px; }
+        table {
+            width: 100%; border-collapse: collapse;
+            background: var(--bg-card); border-radius: 12px; overflow: hidden;
+            border: 1px solid var(--border);
+        }
+        thead th {
+            padding: 16px 20px; text-align: left;
+            font-size: 14px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.05em; color: var(--text-secondary);
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+        }
+        thead th:first-child { width: 30%; }
+        tbody td {
+            padding: 14px 20px; font-size: 15px;
+            border-bottom: 1px solid rgba(42,36,64,0.5);
+            color: var(--text-secondary);
+        }
+        tbody tr:last-child td { border-bottom: none; }
+        .win { color: var(--green); font-weight: 600; }
+        .neutral { color: var(--text-secondary); }
+        .table-note { color: var(--text-muted); font-size: 13px; line-height: 1.7; margin-top: 12px; }
+        .verdict {
+            background: linear-gradient(180deg, var(--bg-card), var(--bg-secondary));
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 32px;
+            margin: 0 0 48px;
+        }
+        .verdict h2 { font-size: 24px; font-weight: 800; margin-bottom: 14px; }
+        .verdict p { color: var(--text-secondary); font-size: 16px; line-height: 1.8; }
+        .cta-box {
+            text-align: center;
+            background: radial-gradient(ellipse at center, rgba(122,90,168,0.18) 0%, var(--bg-card) 75%);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 44px 32px;
+            margin: 0 0 48px;
+        }
+        .cta-box h2 { font-size: 26px; font-weight: 800; margin-bottom: 10px; }
+        .cta-box p { color: var(--text-secondary); margin-bottom: 24px; }
+        .btn-primary {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--violet), var(--lime));
+            color: #fff; padding: 14px 32px; border-radius: 10px;
+            font-weight: 700; font-size: 15px; margin: 0 8px 8px;
+        }
+        .btn-primary:hover { opacity: 0.9; text-decoration: none; }
+        .btn-secondary {
+            display: inline-block;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid var(--border);
+            color: #fff; padding: 14px 32px; border-radius: 10px;
+            font-weight: 700; font-size: 15px; margin: 0 8px 8px;
+        }
+        .btn-secondary:hover { background: rgba(255,255,255,0.1); text-decoration: none; }
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 40px 0 60px;
+            margin-top: 40px;
+            text-align: center;
+        }
+        footer p { color: var(--text-muted); font-size: 13px; }
+        .compare-links { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; margin-top: 16px; }
+        .compare-links a { color: var(--text-muted); font-size: 13px; }
+        .compare-links a:hover { color: var(--text-secondary); }
+        @media (max-width: 640px) {
+            h1 { font-size: 30px; }
+            nav { padding: 12px 20px; }
+            .nav-links { display: none; }
+            table { font-size: 13px; }
+            thead th, tbody td { padding: 10px 12px; }
+        }
+    </style>
+</head>
+<body>
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5QVG68CF" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+    <nav>
+        <a href="/" class="nav-brand">Carbonated Audio</a>
+        <div class="nav-links">
+            <a href="/tallboy">TALLBOY</a>
+            <a href="/fizzfuel">FIZZFUEL</a>
+            <a href="/still">Still (Free)</a>
+        </div>
+        <a href="/tallboy" class="nav-cta">Try TALLBOY Free</a>
+    </nav>
+
+    <div class="container">
+        <div class="hero">
+            <span class="hero-badge">Plugin Comparison</span>
+            <h1><span class="accent">TALLBOY</span> vs <span class="accent">Decimort</span></h1>
+            <p class="hero-sub">One degrades the audio you already have. The other throws it away and replays your melody on four modelled chip channels. That is the whole difference.</p>
+            <div style="display:flex;gap:16px;justify-content:center;margin-top:20px;flex-wrap:wrap;">
+                <span style="background:linear-gradient(135deg,#7a5aa8,#c2d24f);padding:8px 20px;border-radius:20px;font-weight:700;font-size:14px;color:#fff;">TALLBOY: $20 one-time</span>
+                <span style="background:#2a2440;padding:8px 20px;border-radius:20px;font-weight:600;font-size:14px;color:#a09bb5;">Decimort: by D16 Group</span>
+            </div>
+        </div>
+
+        <div class="verdict">
+            <h2>Quick verdict</h2>
+            <p><strong>Decimort</strong> is a well-regarded bitcrusher and sample-rate reducer from D16 Group, built to put authentic vintage-sampler degradation on any source you feed it. If your goal is "make this recording sound like it went through old hardware," a dedicated degradation plugin is the right tool and TALLBOY is not a replacement for it. <strong>TALLBOY</strong> is a chiptune <em>resynthesiser</em>: it pitch-tracks a monophonic source and rebuilds the performance on four modelled handheld-console sound-chip channels, so the output is a synthesised chip voice playing your line rather than your recording with damage applied. Different jobs. TALLBOY happens to include a conventional decimator too, which is why the two overlap at all.</p>
+        </div>
+
+        <div style="display:flex;gap:12px;justify-content:center;margin:0 0 48px;flex-wrap:wrap;">
+            <a href="/tallboy" class="btn-primary">Try TALLBOY Free</a>
+            <a href="https://buy.stripe.com/9B68wP8INbBg3bjfPB3oA0i" class="btn-secondary">Get TALLBOY &mdash; $20</a>
+        </div>
+
+        <div class="section">
+            <h2>Degrade versus <span class="accent">replace</span></h2>
+            <p>A bitcrusher is a processor. Your waveform goes in, the same waveform comes out with less amplitude resolution and less time resolution. Turn it up far enough and you get crackle, aliasing and foldover, but the thing making the sound is still your recording. That is exactly what you want when you are chasing the texture of an old sampler, a game console's audio path, or a cheap digital rack unit.</p>
+            <p>A resynthesiser is a different animal. TALLBOY listens to your track, works out what pitch you are singing or playing and how loud, and then <strong>discards the audio entirely</strong> and drives a modelled sound chip with that information. What comes out has none of your original waveform in it. It is a pulse wave, or a 4-bit wavetable, or a burst of LFSR noise, performing the melody you just played.</p>
+            <p>This is why a bitcrusher alone never quite sounds like chiptune. Crushing a vocal gives you a crunchy vocal. Resynthesising it gives you a chip voice singing your hook - which is the sound people actually mean when they say "8-bit."</p>
+        </div>
+
+        <div class="table-section">
+            <h2>Side by side</h2>
+            <table>
+                <thead>
+                    <tr><th>&nbsp;</th><th>TALLBOY</th><th>Decimort</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Core approach</td><td class="win">Pitch-tracked resynthesis onto modelled chip channels</td><td>Bit-depth and sample-rate degradation of the incoming signal</td></tr>
+                    <tr><td>What comes out</td><td>A synthesised chip performance following your pitch and envelope</td><td>Your source, processed</td></tr>
+                    <tr><td>Sound-chip voices</td><td class="win">Four &mdash; two pulse channels (four duty cycles), a 32-sample 4-bit wavetable, LFSR noise keyed off transients</td><td>Not a synthesiser &mdash; no oscillators</td></tr>
+                    <tr><td>Host-synced arpeggiator</td><td class="win">Yes &mdash; 1/4 to 1/32, UP / DOWN / UPDN / RAND / CHRD, four octaves, 400&nbsp;ms glide</td><td>Not an arpeggiator</td></tr>
+                    <tr><td>Bit reduction</td><td>Yes &mdash; CRUSH ROM cartridge, 1&ndash;16 bit</td><td class="win">Yes &mdash; its core purpose</td></tr>
+                    <tr><td>Sample-rate reduction</td><td>Yes &mdash; rate divide 1&ndash;64 with jitter, post filter down to 540&nbsp;Hz</td><td class="win">Yes &mdash; its core purpose</td></tr>
+                    <tr><td>Vintage sampler authenticity</td><td class="neutral">Not the goal &mdash; the flavour is handheld console, not rack sampler</td><td class="win">The explicit design goal</td></tr>
+                    <tr><td>Works on drums, chords, full mixes</td><td class="neutral">Decimator section only &mdash; chip resynthesis needs one clear pitch</td><td class="win">Yes &mdash; degradation works on any source</td></tr>
+                    <tr><td>Best on</td><td>Vocals, bass, single-note leads and hooks</td><td>Drums, loops, samples, anything you want roughed up</td></tr>
+                    <tr><td>Price</td><td class="win">$20 one-time, no subscription</td><td>Commercial plugin &mdash; see D16 Group for current pricing</td></tr>
+                    <tr><td>Copy protection</td><td class="win">No iLok, no dongle, three machines per licence</td><td>See D16 Group's site</td></tr>
+                    <tr><td>Formats</td><td>macOS VST3 / AU / AAX universal, Windows VST3 64-bit</td><td>See D16 Group's site for current formats</td></tr>
+                    <tr><td>Free demo</td><td class="win">Yes &mdash; macOS and Windows</td><td>See D16 Group's site</td></tr>
+                    <tr><td>Interface</td><td>No knobs &mdash; a D-pad and a four-shade dot-matrix screen</td><td>Conventional plugin controls</td></tr>
+                </tbody>
+            </table>
+            <p class="table-note">We only list Decimort details we can state with confidence. For pricing, formats, system requirements and demo availability, check D16 Group directly &mdash; those change, and we would rather point you at the source than guess.</p>
+        </div>
+
+        <div class="section">
+            <h2>What TALLBOY actually <span class="accent">does</span></h2>
+            <p>Three independent cartridges, each of which can be pulled out:</p>
+            <div class="step-card">
+                <div class="step-head"><span class="step-num">1</span><h3>CHIP &mdash; the resynthesiser</h3></div>
+                <p>Monophonic pitch tracking drives four modelled channels: two pulse channels with four selectable duty cycles, a 32-sample 4-bit wavetable, and an LFSR noise channel keyed off transients so consonants and pick attacks land as hardware noise rather than mush. This is the cartridge that makes TALLBOY a different category of plugin from a crusher.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-head"><span class="step-num">2</span><h3>ARP &mdash; the arpeggiator</h3></div>
+                <p>Host-synced from 1/4 down to 1/32, with UP, DOWN, UPDN, RAND and CHRD modes, a four-octave range and glide up to 400&nbsp;ms. Feed it a held bass note and it becomes a chip bassline; feed it a vocal and it turns the melody into an arcade motif.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-head"><span class="step-num">3</span><h3>CRUSH ROM &mdash; the decimator</h3></div>
+                <p>The conventional part: bit reduction from 1 to 16 bits, rate divide from 1 to 64 with jitter for that unstable-clock smear, and a post filter that sweeps down to 540&nbsp;Hz. This runs on anything, including drums and full mixes, and it works whether or not the resynthesiser is loaded.</p>
+            </div>
+            <p>Eject all three cartridges and TALLBOY is true passthrough - it nulls against dry. There is no always-on "character" tax.</p>
+        </div>
+
+        <div class="section">
+            <h2>When a dedicated bitcrusher is the <span class="accent">better buy</span></h2>
+            <ul>
+                <li><strong>Your source is polyphonic or percussive.</strong> Drums, chord stabs, loops, full mixes, room recordings. Pitch tracking has nothing to lock onto, so TALLBOY's headline feature does nothing for you and you are buying a decimator with a chip voice attached.</li>
+                <li><strong>You want your recording, damaged.</strong> If the goal is to keep the performance and the timbre but push it through a degraded signal path, replacement is the wrong operation. That is what Decimort is for.</li>
+                <li><strong>You are chasing a specific vintage sampler flavour.</strong> Decimort is aimed squarely at authentic old-sampler degradation, and a tool built for one job usually beats a tool that has that job as one of three cartridges.</li>
+                <li><strong>You need deep, granular control over the degradation itself.</strong> A dedicated crusher's entire interface is that one process. TALLBOY's CRUSH ROM is a solid, musical decimator, but it is one third of a plugin driven by a D-pad.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>When TALLBOY is the <span class="accent">right call</span></h2>
+            <ul>
+                <li><strong>You want a chip voice, not chip texture.</strong> A pulse wave singing your hook. No amount of bit reduction gets you there.</li>
+                <li><strong>Your source is monophonic.</strong> Vocals, vocal doubles, bass, single-note leads. One clear pitch, one clear envelope.</li>
+                <li><strong>You want an 8-bit double.</strong> Blend the resynthesised chip voice under the real take and the vocal grows a companion an octave up, locked to every bend and slide.</li>
+                <li><strong>You want the arp to write the part for you.</strong> Held note in, tempo-locked chip sequence out, without opening a sequencer.</li>
+                <li><strong>You want a decimator anyway.</strong> CRUSH ROM is included, so $20 buys you the resynthesiser and a bit/rate crusher in the same slot.</li>
+                <li><strong>You hate licensing hassle.</strong> No iLok, no subscription, three machines, free demo on both platforms.</li>
+            </ul>
+            <div class="callout">Not sure which side you are on? Try the source first. If the track you want to process has one note at a time, TALLBOY can do something a crusher structurally cannot. If it has several, or none, buy the crusher.</div>
+        </div>
+
+        <div class="verdict">
+            <h2>The bottom line</h2>
+            <p>These are not competitors so much as neighbours. Decimort does degradation properly and does it on anything - that is a real, permanent use case and no resynthesiser replaces it. TALLBOY answers a different question: <em>what if a sound chip played this line instead of my microphone?</em> If that question is the one you have been asking, no bitcrusher at any price will answer it, because degradation and synthesis are different operations. And if you want both, TALLBOY's CRUSH ROM is in the box for the same $20.</p>
+        </div>
+
+        <div class="cta-box">
+            <h2>Hear it on your own vocal</h2>
+            <p>Free demo for macOS and Windows. No email required, no iLok, no subscription.</p>
+            <a href="/tallboy" class="btn-primary">Try TALLBOY Free</a>
+            <a href="https://buy.stripe.com/9B68wP8INbBg3bjfPB3oA0i" class="btn-secondary">Get TALLBOY &mdash; $20</a>
+        </div>
+
+        <div class="section" style="text-align:center;">
+            <p style="margin-bottom:12px;">Related guides:</p>
+            <p>
+                <a href="/tallboy-vs-lofi-plugins">TALLBOY vs Lo-Fi Plugins</a> &nbsp;&bull;&nbsp;
+                <a href="/bitcrusher-vs-decimator">Bitcrusher vs Decimator</a> &nbsp;&bull;&nbsp;
+                <a href="/chiptune-vst">Chiptune VST Guide</a> &nbsp;&bull;&nbsp;
+                <a href="/8-bit-vocal-effect">8-Bit Vocal Effect</a>
+            </p>
+        </div>
+
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Carbonated Audio. All rights reserved. &nbsp;&middot;&nbsp; <a href="/terms" style="color:inherit;text-decoration:none;opacity:0.8;">Terms</a> &nbsp;&middot;&nbsp; <a href="/privacy" style="color:inherit;text-decoration:none;opacity:0.8;">Privacy</a> &nbsp;&middot;&nbsp; <a href="/eula" style="color:inherit;text-decoration:none;opacity:0.8;">EULA</a></p>
+            <p style="margin-top:12px;">Decimort is a product of D16 Group Audio Software. Carbonated Audio is not affiliated with or endorsed by D16 Group. All trademarks belong to their respective owners.</p>
+            <div class="compare-links">
+                <a href="/tallboy">TALLBOY</a>
+                <a href="/best-cheap-saturation-plugins">Best Cheap Saturation Plugins</a>
+                <a href="/press">Press</a>
+                <a href="mailto:mixedbysoda@gmail.com">Support</a>
+                <a href="/">Back to Home</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
