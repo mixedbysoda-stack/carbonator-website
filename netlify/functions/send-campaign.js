@@ -1,8 +1,14 @@
-// send-campaign.js - authenticated outbound campaign sender.
+// send-campaign.js - authenticated outbound campaign sender (v2, batch mode).
 //
 // Why this exists: Gmail-connector sends strip <img> tags, so branded emails
 // (logo + product hero) must go out through Resend like the purchase emails do.
 // This also enforces the suppression list in code on every single recipient.
+//
+// v2: the v1 per-email loop paced at 600ms per recipient, which meant a
+// 100-recipient batch needed 60+ seconds - past the synchronous function
+// timeout. It got killed mid-batch on 2026-08-22 (89 of 100 sent). v2 sends
+// each batch as ONE Resend batch API call (up to 100 emails per call), which
+// completes in a couple of seconds. No pacing loop, nothing to time out.
 //
 // Usage:
 //   POST /.netlify/functions/send-campaign
@@ -25,7 +31,7 @@ const { buildEmail } = require("../../email-templates/render.js");
 const { isSuppressedAsync } = require("./lib/suppression.js");
 
 const FROM_EMAIL = "Carbonated Audio <hello@carbonatedaudio.com>";
-const MAX_RECIPIENTS = 100;
+const MAX_RECIPIENTS = 100; // also the Resend batch-endpoint limit per call
 
 function timingSafeEq(a, b) {
   const ab = Buffer.from(String(a || ""));
@@ -74,50 +80,52 @@ exports.handler = async (event) => {
     return { statusCode: 400, body: JSON.stringify({ error: `Render failed: ${err.message}` }) };
   }
 
-  const sent = [];
-  const suppressed = [];
-  const failed = [];
-
   // Resolve suppression for every address before sending anything.
   const checks = await Promise.all(
     to.map(async (email) => ({ email, blocked: await isSuppressedAsync(email) }))
   );
+  const eligible = checks.filter((c) => !c.blocked).map((c) => c.email);
+  const suppressed = checks.filter((c) => c.blocked).map((c) => c.email);
 
   if (dryRun) {
     return {
       statusCode: 200,
       body: JSON.stringify({
         dryRun: true,
-        wouldSend: checks.filter((c) => !c.blocked).map((c) => c.email),
-        suppressed: checks.filter((c) => c.blocked).map((c) => c.email),
+        v: 2,
+        wouldSend: eligible,
+        suppressed,
         htmlBytes: html.length,
       }),
     };
   }
 
-  const resend = new Resend(process.env.RESEND_API_KEY);
+  const sent = [];
+  const failed = [];
 
-  for (const { email, blocked } of checks) {
-    if (blocked) {
-      suppressed.push(email);
-      continue;
-    }
+  if (eligible.length > 0) {
+    const resend = new Resend(process.env.RESEND_API_KEY);
+    const payload = eligible.map((email) => ({
+      from: FROM_EMAIL,
+      to: email,
+      subject,
+      html,
+    }));
     try {
-      await resend.emails.send({
-        from: FROM_EMAIL,
-        to: email,
-        subject,
-        html,
-      });
-      sent.push(email);
+      // One API call for the whole batch - completes in seconds.
+      const { error } = await resend.batch.send(payload);
+      if (error) {
+        console.error("send-campaign batch error:", error.message || JSON.stringify(error));
+        for (const email of eligible) failed.push({ email, error: error.message || "batch error" });
+      } else {
+        sent.push(...eligible);
+      }
     } catch (err) {
-      console.error(`send-campaign failed for ${email}:`, err.message);
-      failed.push({ email, error: err.message });
+      console.error("send-campaign batch threw:", err.message);
+      for (const email of eligible) failed.push({ email, error: err.message });
     }
-    // Gentle pacing - stays far under Resend rate limits.
-    await new Promise((r) => setTimeout(r, 600));
   }
 
-  console.log(`send-campaign: ${sent.length} sent, ${suppressed.length} suppressed, ${failed.length} failed`);
-  return { statusCode: 200, body: JSON.stringify({ sent, suppressed, failed }) };
+  console.log(`send-campaign v2: ${sent.length} sent, ${suppressed.length} suppressed, ${failed.length} failed`);
+  return { statusCode: 200, body: JSON.stringify({ v: 2, sent, suppressed, failed }) };
 };
