@@ -397,7 +397,7 @@
             <p>VST3, AU and AAX on macOS — universal for Apple Silicon and Intel, signed for Pro Tools. VST3 on Windows, 64-bit, with an installer. Works in Pro Tools, Logic, Ableton Live, FL Studio, Studio One, Cubase, Reaper and the rest.</p></details>
 
         <details class="tb-q"><summary>Is there a demo?</summary>
-            <p>Yes. <a href="https://github.com/mixedbysoda-stack/TALLBOY/releases/download/v1.0.0-demo/TALLBOY-Demo-Installer.pkg" data-demo-placement="tallboy_faq">Download it here</a> &mdash; no email required. It is identical to the paid version except audio plays for 60 seconds then mutes for 10, on a loop.</p>
+            <p>Yes. <a href="https://github.com/mixedbysoda-stack/TALLBOY/releases/download/v1.0.0-demo/TALLBOY-Demo-Installer.pkg" data-demo-placement="tallboy_faq">Download it here</a> &mdash; macOS (VST3 + AU) or Windows (VST3), no email required. It is identical to the paid version except audio plays for 60 seconds then mutes for 10, on a loop.</p>
             <p>The demo is macOS VST3 and AU. AAX is not included; if you are on Pro&nbsp;Tools and want to try it, email <a href="mailto:mixedbysoda@gmail.com">mixedbysoda@gmail.com</a> and we will sort you out.</p></details>
     </section>
 </main>
@@ -412,7 +412,12 @@
 (function () {
     // Demo downloads: fire a GA4 event so we can see whether the demo actually
     // converts, rather than guessing. Does not block the download.
+    // The hrefs default to the macOS pkg (works without JS). Windows visitors
+    // get the Inno Setup exe from the same v1.0.0-demo release instead.
+    var WIN_DEMO = 'https://github.com/mixedbysoda-stack/TALLBOY/releases/download/v1.0.0-demo/TALLBOY-Demo-Windows-Installer.exe';
+    var onWindows = /Win/i.test(navigator.platform || navigator.userAgent);
     document.querySelectorAll('[data-demo-placement]').forEach(function (el) {
+        if (onWindows) el.href = WIN_DEMO;
         el.addEventListener('click', function () {
             if (typeof gtag === 'function') {
                 gtag('event', 'demo_download', {
