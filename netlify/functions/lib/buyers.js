@@ -109,4 +109,45 @@ async function loadBuyerEmails() {
   return emails;
 }
 
-module.exports = { loadBuyerEmails };
+/**
+ * Cached wrapper around loadBuyerEmails().
+ *
+ * The uncached call walks up to 20 pages of Stripe (10 of charges, 10 of
+ * checkout sessions) plus every record in the buyers store. That is a large
+ * fixed cost to pay at the top of a scheduled function that also has a whole
+ * lead store to walk, and it was a material part of why the drip passes were
+ * running out of time (see lib/drip-scan.js).
+ *
+ * The cache is deliberately short-lived and fail-safe in one direction only:
+ * a stale-but-present cache can only ever contain FEWER buyers than reality if
+ * someone bought in the last few minutes, and that person is nearly always
+ * already excluded by the drip's own status checks. A cache miss or a read
+ * error falls through to the authoritative lookup.
+ *
+ * Never returns a cached EMPTY set — an empty result means "unknown", and
+ * caching it would let purchase pitches through to real customers.
+ */
+async function loadBuyerEmailsCached(maxAgeMs = 6 * 60 * 60 * 1000) {
+  const store = getBlobStore("buyers-cache");
+  try {
+    const cached = await store.get("emails", { type: "json" });
+    const age = cached && cached.cached_at ? Date.now() - new Date(cached.cached_at).getTime() : Infinity;
+    if (cached && Array.isArray(cached.emails) && cached.emails.length && age < maxAgeMs) {
+      return new Set(cached.emails);
+    }
+  } catch (err) {
+    console.error("Buyer cache read failed (falling back to a live lookup):", err.message);
+  }
+
+  const emails = await loadBuyerEmails();
+  if (emails.size) {
+    try {
+      await store.setJSON("emails", { emails: [...emails], cached_at: new Date().toISOString() });
+    } catch (err) {
+      console.error("Buyer cache write failed (non-fatal):", err.message);
+    }
+  }
+  return emails;
+}
+
+module.exports = { loadBuyerEmails, loadBuyerEmailsCached };

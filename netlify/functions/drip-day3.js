@@ -2,10 +2,9 @@
 // Trigger: Netlify scheduled function, runs daily.
 // Finds leads where email1 was sent 3+ days ago but no email2 yet.
 
-const { getBlobStore } = require("./lib/store");
 const { sendEmail } = require("./lib/mailer");
-const { isSuppressedAsync } = require("./lib/suppression");
-const { loadBuyerEmails } = require("./lib/buyers");
+const { loadBuyerEmailsCached } = require("./lib/buyers");
+const { runDripPass } = require("./lib/drip-scan");
 const { syncLeadStatusToGoogleSheets } = require("./lib/google-sheets");
 const { Resend } = require("resend");
 const { PRODUCTS } = require("./config");
@@ -170,30 +169,26 @@ exports.handler = async () => {
   }
 
   const resend = new Resend(process.env.RESEND_API_KEY);
-  const store = getBlobStore("leads");
-  const { blobs } = await store.list();
   const now = Date.now();
 
   // Never drip purchase pitches at people who already bought. A lead who
   // converts stays in the leads store forever, so without this they keep
   // getting "buy it for $20" mail for a plugin they own (observed on the
   // APD bundle buyers, Jul 2026).
-  const buyerEmails = await loadBuyerEmails();
+  const buyerEmails = await loadBuyerEmailsCached();
 
-  let sent = 0;
-  const results = [];
-
-  for (const blob of blobs) {
-    try {
-      const lead = await store.get(blob.key, { type: "json" });
-      if (!lead || !lead.contact) continue;
-      if (await isSuppressedAsync(lead.contact)) continue; // unsubscribed, bounced, or complained
-      if (buyerEmails.has(String(lead.contact).trim().toLowerCase())) continue; // already a customer
-      if (lead.drip_status !== "email1_sent") continue;
-      if (!lead.email1_sent_at) continue;
-      const elapsed = now - new Date(lead.email1_sent_at).getTime();
-      if (elapsed < THREE_DAYS) continue;
-
+  // The walk, the suppression load, the time budget and the send-claim all live
+  // in lib/drip-scan.js — see that file for why this pass used to die partway
+  // through and silently leave the newest leads unserved.
+  const pass = await runDripPass({
+    label: "Day 3",
+    buyerEmails,
+    claimField: "email2_attempted_at",
+    isDue: (lead) =>
+      lead.drip_status === "email1_sent" &&
+      Boolean(lead.email1_sent_at) &&
+      now - new Date(lead.email1_sent_at).getTime() >= THREE_DAYS,
+    send: async (lead) => {
       const product = getProductFromSource(lead.source);
       await sendEmail(resend, {
         from: FROM_EMAIL,
@@ -202,32 +197,35 @@ exports.handler = async () => {
         subject: SUBJECTS[product] || SUBJECTS.carbonator,
         html: buildDay3Body(product, lead.contact),
       });
-
-      lead.drip_status = "email2_sent";
-      lead.email2_sent_at = new Date().toISOString();
-      await store.setJSON(blob.key, lead);
+    },
+    markSent: (lead) => {
+      const sentAt = new Date().toISOString();
       // Keep the reporting view in step with reality. Without this the Sheet
       // still shows whatever this lead was at capture time.
-      await syncLeadStatusToGoogleSheets(lead).catch((err) =>
+      syncLeadStatusToGoogleSheets({ ...lead, drip_status: "email2_sent" }).catch((err) =>
         console.error(`Sheet status sync failed for ${lead.contact} (non-fatal):`, err.message)
       );
+      return { drip_status: "email2_sent", email2_sent_at: sentAt };
+    },
+  });
 
-      sent++;
-      results.push(`Day 3 email sent to ${lead.contact} (${product})`);
-    } catch (err) {
-      console.error(`Day 3 email failed for ${blob.key}:`, err.message);
-    }
-  }
+  const sent = pass.sent;
+  const results = pass.results;
 
-  if (sent > 0) {
+  if (sent > 0 || pass.stoppedEarly) {
     try {
       await sendEmail(resend, {
         from: FROM_EMAIL,
         to: "mixedbysoda@gmail.com",
-        subject: `📧 Drip Day 3: ${sent} follow-up${sent > 1 ? "s" : ""} sent`,
+        subject: pass.stoppedEarly
+          ? `⚠️ Drip Day 3: ${sent} sent, pass stopped early`
+          : `📧 Drip Day 3: ${sent} follow-up${sent === 1 ? "" : "s"} sent`,
         html: `<div style="font-family:Arial,sans-serif;padding:20px;background:#0d0a1a;color:#fff;">
           <h2 style="color:#ff6b2b;">Drip Day 3 Report</h2>
-          <p><strong>${sent}</strong> follow-up email${sent > 1 ? "s" : ""} sent:</p>
+          <p><strong>${sent}</strong> follow-up email${sent === 1 ? "" : "s"} sent, ${pass.failed} failed.</p>
+          ${pass.stoppedEarly
+            ? `<p style="color:#ffb020;">Stopped before the end of the store with ~${pass.remaining} leads unscanned. Everything sent was recorded, and the remainder is picked up on the next run. If this keeps appearing, the pass needs a bigger budget or fewer leads to walk.</p>`
+            : "<p>Full pass — the whole lead store was scanned.</p>"}
           <ul>${results.map((r) => `<li>${r}</li>`).join("")}</ul>
         </div>`,
       });
@@ -236,5 +234,5 @@ exports.handler = async () => {
     }
   }
 
-  return { statusCode: 200, body: JSON.stringify({ sent, results }) };
+  return { statusCode: 200, body: JSON.stringify({ sent, results, ...pass, results: undefined }) };
 };
