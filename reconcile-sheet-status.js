@@ -127,8 +127,13 @@ async function call(url, init) {
   console.log("\n--- Summary ---");
   console.log(`Lead records scanned:  ${scannedTotal}`);
   console.log(`Unique addresses:      ${merged.size}`);
-  console.log(`${DRY ? "Would write:" : "Written:"}           ${totals.updated}`);
-  console.log(`Already correct:       ${totals.unchanged}`);
+  // In a dry run the Apps Script is never contacted, so there is no way to know
+  // which rows are already right. The number below is requests that WOULD be
+  // sent, not cells that would change - most of them are typically no-ops.
+  console.log(DRY
+    ? `Would push (incl. no-ops): ${totals.updated}`
+    : `Cells corrected:       ${totals.updated}`);
+  console.log(`Already correct:       ${DRY ? "unknown until --send" : totals.unchanged}`);
   console.log(`Not in the Sheet:      ${totals.missing}`);
   console.log(`Failed:                ${totals.failed}`);
   for (const m of missing.slice(0, 10)) console.log(`  missing: ${m}`);
