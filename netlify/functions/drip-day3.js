@@ -6,6 +6,7 @@ const { getBlobStore } = require("./lib/store");
 const { sendEmail } = require("./lib/mailer");
 const { isSuppressedAsync } = require("./lib/suppression");
 const { loadBuyerEmails } = require("./lib/buyers");
+const { syncLeadStatusToGoogleSheets } = require("./lib/google-sheets");
 const { Resend } = require("resend");
 const { PRODUCTS } = require("./config");
 const { buildEmail, PRODUCT_ACCENTS } = require("../../email-templates/render");
@@ -205,6 +206,11 @@ exports.handler = async () => {
       lead.drip_status = "email2_sent";
       lead.email2_sent_at = new Date().toISOString();
       await store.setJSON(blob.key, lead);
+      // Keep the reporting view in step with reality. Without this the Sheet
+      // still shows whatever this lead was at capture time.
+      await syncLeadStatusToGoogleSheets(lead).catch((err) =>
+        console.error(`Sheet status sync failed for ${lead.contact} (non-fatal):`, err.message)
+      );
 
       sent++;
       results.push(`Day 3 email sent to ${lead.contact} (${product})`);

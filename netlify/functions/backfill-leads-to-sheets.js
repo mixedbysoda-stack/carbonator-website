@@ -1,5 +1,6 @@
 const { getBlobStore } = require("./lib/store");
-const { syncLeadToGoogleSheets } = require("./lib/google-sheets");
+const { syncLeadToGoogleSheets, syncLeadStatusToGoogleSheets } = require("./lib/google-sheets");
+const { furthestAlong } = require("./lib/drip-status");
 
 // This endpoint used to replay events directly into the Apps Script upsert.
 // That script correctly avoids duplicate *rows*, but increments Lead Count on
@@ -45,11 +46,116 @@ exports.handler = async (event) => {
     }
   }
 
+  // STATUS RECONCILE --------------------------------------------------------
+  // Repairs the Drip Status column without touching anything else. This is safe
+  // to replay where the full backfill below is not: the Apps Script's
+  // status_update path rewrites one cell, never increments Lead Count, and never
+  // appends a row.
+  //
+  // Two phases, because getting this right needs global knowledge but each
+  // invocation has to fit the function timeout:
+  //
+  //   mode=scan-status  — read a window of lead records, return {email: status}
+  //                       for that window plus a cursor. The caller merges the
+  //                       windows. This matters because one address can hold
+  //                       several lead records (a repeat visitor), and the row
+  //                       must show the furthest-along status, not whichever
+  //                       record happened to be read last.
+  //   mode=push-status  — take a merged batch of {contact, drip_status} and
+  //                       write each to the Sheet.
+  const mode = event.queryStringParameters?.mode;
+
+  if (mode === "scan-status") {
+    const limit = Math.min(Math.max(Number(event.queryStringParameters?.limit) || 40, 1), 100);
+    const startAfter = event.queryStringParameters?.startAfter || null;
+
+    let keys;
+    try {
+      const store = getBlobStore("leads");
+      const listed = await store.list();
+      keys = (listed.blobs || []).map((b) => b.key).sort();
+    } catch (err) {
+      return { statusCode: 500, headers, body: JSON.stringify({ error: `Lead store list failed: ${err.message}` }) };
+    }
+
+    const store = getBlobStore("leads");
+    const startIndex = startAfter ? keys.findIndex((k) => k > startAfter) : 0;
+    const from = startIndex < 0 ? keys.length : startIndex;
+    const statuses = {};
+    let cursor = startAfter;
+    let index = from;
+    let scanned = 0;
+
+    for (; index < keys.length && scanned < limit; index++) {
+      cursor = keys[index];
+      scanned++;
+      let lead;
+      try {
+        lead = await store.get(keys[index], { type: "json" });
+      } catch {
+        continue;
+      }
+      if (!lead || !lead.contact || !lead.drip_status) continue;
+      const email = String(lead.contact).trim().toLowerCase();
+      statuses[email] = furthestAlong(statuses[email], lead.drip_status);
+    }
+
+    return {
+      statusCode: 200,
+      headers,
+      body: JSON.stringify({ scanned, totalKeys: keys.length, cursor, scanComplete: index >= keys.length, statuses }),
+    };
+  }
+
+  if (mode === "push-status") {
+    let body;
+    try {
+      body = JSON.parse(event.body || "{}");
+    } catch {
+      return { statusCode: 400, headers, body: JSON.stringify({ error: "Invalid JSON" }) };
+    }
+    const updates = Array.isArray(body.updates) ? body.updates : [];
+    if (!updates.length) {
+      return { statusCode: 400, headers, body: JSON.stringify({ error: "updates must be a non-empty array" }) };
+    }
+    if (updates.length > 50) {
+      return { statusCode: 400, headers, body: JSON.stringify({ error: "Max 50 updates per call" }) };
+    }
+
+    const dryRun = body.dryRun !== false;
+    const results = { updated: [], unchanged: [], missing: [], failed: [], dryRun };
+
+    for (const u of updates) {
+      const contact = String(u.contact || "").trim().toLowerCase();
+      const dripStatus = String(u.drip_status || "").trim();
+      if (!contact || !dripStatus) {
+        results.failed.push({ contact, error: "contact and drip_status are required" });
+        continue;
+      }
+      if (dryRun) {
+        results.updated.push({ contact, drip_status: dripStatus, dryRun: true });
+        continue;
+      }
+      try {
+        const res = await syncLeadStatusToGoogleSheets({ contact, drip_status: dripStatus });
+        if (res.skipped) results.failed.push({ contact, error: res.reason });
+        else if (res.action === "missing") results.missing.push(contact);
+        else if (res.action === "unchanged") results.unchanged.push(contact);
+        else results.updated.push({ contact, drip_status: dripStatus });
+      } catch (err) {
+        results.failed.push({ contact, error: err.message });
+      }
+    }
+
+    return { statusCode: 200, headers, body: JSON.stringify(results) };
+  }
+  // -------------------------------------------------------------------------
+
   return {
     statusCode: 409,
     headers,
     body: JSON.stringify({
-      error: "Backfill is disabled to protect lead-event counts. Reconcile from Netlify Blobs after deploying an event-id-aware Apps Script.",
+      error: "Full lead-event backfill is disabled to protect Lead Count. Use mode=scan-status + mode=push-status to reconcile the Drip Status column, which is replay-safe.",
     }),
   };
 

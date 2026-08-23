@@ -1,6 +1,7 @@
 const { getBlobStore } = require("./lib/store");
 const { sendEmail } = require("./lib/mailer");
-const { syncLeadToGoogleSheets } = require("./lib/google-sheets");
+const { syncLeadToGoogleSheets, syncLeadStatusToGoogleSheets } = require("./lib/google-sheets");
+const { buildWelcome, buildStillWelcomeEmail, PRODUCT_LABELS } = require("./lib/welcome-emails");
 const { Resend } = require("resend");
 const { VERSION } = require("./config");
 const crypto = require("crypto");
@@ -77,23 +78,6 @@ function stillDownloadUrl(event, token) {
 
 function stillConfirmUrl(event, token) {
   return `${siteOrigin(event)}/.netlify/functions/verify-still-download?token=${encodeURIComponent(token)}`;
-}
-
-// The emailed button confirms the inbox and downloads in one click. Someone who
-// already grabbed the file on the page loses nothing by using it again; someone
-// who never returns simply stays out of the drip.
-function buildStillWelcomeEmail(event, token) {
-  const url = stillConfirmUrl(event, token);
-  return `<!DOCTYPE html><html><body style="margin:0;padding:32px;background:#0d0a1a;color:#fff;font-family:Arial,Helvetica,sans-serif;">
-  <div style="max-width:560px;margin:0 auto;background:#0c161e;border:1px solid #1d2f3a;border-radius:16px;padding:36px 30px;text-align:center;">
-    <div style="font-size:24px;font-weight:800;margin-bottom:20px;">Carbonated Audio</div>
-    <h1 style="font-size:24px;margin:0 0 12px;">Still is yours. Free.</h1>
-    <p style="color:#a9c4c5;line-height:1.55;margin:0 0 26px;">Your download should already have started on the site. If it did not, this button confirms your email and downloads the installer.</p>
-    <a href="${url}" style="display:inline-block;background:#6fc7bc;color:#07201c;padding:14px 24px;border-radius:10px;text-decoration:none;font-weight:800;">Confirm &amp; download Still</a>
-    <p style="color:#a9c4c5;line-height:1.55;margin:26px 0 0;font-size:14px;">Confirming also puts you on the list for the Windows release. This link works for 48 hours.</p>
-    <p style="color:#6b8a8b;font-size:12px;line-height:1.5;margin:18px 0 0;">Signed &amp; notarized installer &middot; VST3 / AU / AAX &middot; Windows coming soon</p>
-    <p style="color:#6b8a8b;font-size:12px;line-height:1.5;margin:18px 0 0;">Cleaning up vocals? <a href="https://carbonatedaudio.com/desipper?utm_source=still_email&utm_medium=email&utm_campaign=still_welcome" style="color:#00d4ff;text-decoration:none;font-weight:600;">De-Sipper</a> ($20) handles the sibilance Still reveals. Or take the <a href="https://carbonatedaudio.com/bundle?utm_source=still_email&utm_medium=email&utm_campaign=still_welcome" style="color:#ff6b2b;text-decoration:none;font-weight:600;">Complete Bundle</a>.</p>
-  </div></body></html>`;
 }
 
 exports.handler = async (event) => {
@@ -239,7 +223,7 @@ exports.handler = async (event) => {
         reply_to: "mixedbysoda@gmail.com",
         to: contact,
         subject: "Still is yours — free noise suppressor 💧",
-        html: buildStillWelcomeEmail(event, rawToken),
+        html: buildStillWelcomeEmail(stillConfirmUrl(event, rawToken)),
       });
       await getBlobStore("leads").setJSON(key, {
         ...lead,
@@ -270,15 +254,25 @@ exports.handler = async (event) => {
 
   // The Sheet is the business-facing report; Blobs remains the source of truth.
   // A sync failure is recorded but must never interrupt the demo email.
+  //
+  // Note the Still branch above returns before reaching this, deliberately: the
+  // Sheet is a report of confirmed leads, and an unconfirmed Still download is
+  // not one yet. verify-still-download.js syncs the row when they click through.
+  // Measured 2026-08-23: 52 unconfirmed Still leads visible in Blobs and absent
+  // from the Sheet. That is intended, not drift.
   try {
     await syncLeadToGoogleSheets(lead);
   } catch (sheetErr) {
     console.error("Google Sheets sync error (non-fatal):", sheetErr.message);
   }
 
-  // Send Email 1 immediately — welcome + download link
-  const isDesipperLead = source && source.includes("desipper");
-  const isOnTapLead = source && source.includes("ontap");
+  // Send Email 1 immediately — welcome + download link.
+  //
+  // Routing lives in lib/welcome-emails.js so this path and backfill-welcome.js
+  // can never disagree about which email a source deserves. Until 2026-08-23
+  // this branched on desipper/ontap only, so every Pour and FIZZFUEL lead was
+  // welcomed to Carbonator — 28 Pour leads received the wrong plugin's email.
+  const welcome = buildWelcome({ source });
   if (process.env.RESEND_API_KEY) {
     try {
       const resend = new Resend(process.env.RESEND_API_KEY);
@@ -286,31 +280,31 @@ exports.handler = async (event) => {
         from: FROM_EMAIL,
         reply_to: "mixedbysoda@gmail.com",
         to: contact,
-        subject: isOnTapLead
-          ? "Your On Tap Demo is ready 🎚️"
-          : isDesipperLead
-            ? "Your De-Sipper Demo is ready 🎤"
-            : "Your Carbonator Demo is ready 🎛️",
-        html: isOnTapLead
-          ? buildOnTapWelcomeEmail(contact)
-          : isDesipperLead
-            ? buildDesipperWelcomeEmail(contact)
-            : buildWelcomeEmail(contact),
+        subject: welcome.subject,
+        html: welcome.html,
       });
 
       // Update drip status
       try {
         const store = getBlobStore("leads");
-        await store.setJSON(key, {
+        const sentLead = {
           ...lead,
           drip_status: "email1_sent",
           email1_sent_at: new Date().toISOString(),
-        });
+        };
+        await store.setJSON(key, sentLead);
+        // The Sheet was written above with drip_status "email1_pending", the
+        // value this lead carried before the send. Push the real status across
+        // or the reporting view stays frozen at "pending" forever — that drift
+        // is what made 59 fully-nurtured leads look stranded on 2026-08-23.
+        await syncLeadStatusToGoogleSheets(sentLead).catch((statusErr) =>
+          console.error("Lead status Sheet sync failed (non-fatal):", statusErr.message)
+        );
       } catch (updateErr) {
         console.error("Lead status update error (non-fatal):", updateErr.message);
       }
 
-      console.log(`Welcome email sent to ${contact}`);
+      console.log(`Welcome email sent to ${contact} (${welcome.product})`);
     } catch (emailErr) {
       console.error("Welcome email failed:", emailErr.message);
     }
@@ -321,11 +315,7 @@ exports.handler = async (event) => {
       await sendEmail(resend, {
         from: FROM_EMAIL,
         to: "mixedbysoda@gmail.com",
-        subject: isOnTapLead
-          ? `🔔 New On Tap Lead: ${contact}`
-          : isDesipperLead
-            ? `🔔 New De-Sipper Lead: ${contact}`
-            : `🔔 New Carbonator Lead: ${contact}`,
+        subject: `🔔 New ${PRODUCT_LABELS[welcome.product] || "Carbonator"} Lead: ${contact}`,
         html: `
           <div style="font-family:Arial,sans-serif;padding:20px;background:#0d0a1a;color:#fff;">
             <h2 style="color:#ff6b2b;">New Lead Captured</h2>
@@ -348,158 +338,3 @@ exports.handler = async (event) => {
     body: JSON.stringify({ success: true }),
   };
 };
-
-function buildWelcomeEmail(email) {
-  return `
-<!DOCTYPE html>
-<html>
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
-<body style="margin:0;padding:0;background-color:#0d0a1a;font-family:Arial,Helvetica,sans-serif;">
-  <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#0d0a1a;padding:40px 20px;">
-    <tr><td align="center">
-      <table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;">
-
-        <tr><td align="center" style="padding-bottom:32px;">
-          <span style="font-size:28px;font-weight:800;color:#ffffff;">Carbonated Audio</span>
-        </td></tr>
-
-        <tr><td style="background-color:#1a1430;border-radius:16px;padding:40px 32px;">
-
-          <h1 style="color:#ffffff;font-size:24px;text-align:center;margin:0 0 8px;">Your Carbonator Demo is ready!</h1>
-          <p style="color:#a09bb5;font-size:16px;text-align:center;margin:0 0 32px;">Here's your download link and a quick guide to get the most out of each flavor.</p>
-
-          <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:32px;">
-            <tr><td align="center">
-              <a href="https://carbonatedaudio.com/Carbonator%20DEMO.zip" style="display:inline-block;padding:14px 32px;background:linear-gradient(135deg,#ff6b2b,#ff8c42);color:#ffffff;text-decoration:none;border-radius:8px;font-size:16px;font-weight:600;">
-                Download Carbonator Demo
-              </a>
-            </td></tr>
-          </table>
-
-          <hr style="border:none;border-top:1px solid #2a2440;margin:0 0 24px;">
-
-          <h2 style="color:#ffffff;font-size:18px;margin:0 0 16px;">What each flavor does best:</h2>
-          <table width="100%" cellpadding="0" cellspacing="0" style="font-size:14px;color:#a09bb5;">
-            <tr><td style="padding:6px 0;"><span style="font-size:16px;">🥤</span> <strong style="color:#ff6b2b;">Cola</strong> — Console warmth. Use on drums and full mix for glue.</td></tr>
-            <tr><td style="padding:6px 0;"><span style="font-size:16px;">🍒</span> <strong style="color:#e63946;">Cherry</strong> — Aggressive tube grit. Try on bass and synths.</td></tr>
-            <tr><td style="padding:6px 0;"><span style="font-size:16px;">🍇</span> <strong style="color:#cc33ff;">Grape</strong> — Lo-fi destruction. Perfect for vocals and creative FX.</td></tr>
-            <tr><td style="padding:6px 0;"><span style="font-size:16px;">🍋</span> <strong style="color:#ffd700;">Lemon-Lime</strong> — Harmonic sparkle. Makes hi-hats and acoustic guitars shine.</td></tr>
-            <tr><td style="padding:6px 0;"><span style="font-size:16px;">🍊</span> <strong style="color:#ff8c42;">Orange Cream</strong> — Warm filtered drive. Beautiful on pads and keys.</td></tr>
-          </table>
-
-          <hr style="border:none;border-top:1px solid #2a2440;margin:24px 0;">
-
-          <h2 style="color:#ffffff;font-size:16px;margin:0 0 12px;">Quick Start</h2>
-          <ol style="color:#a09bb5;font-size:14px;padding-left:20px;margin:0;">
-            <li style="margin-bottom:8px;"><strong style="color:#ffffff;">macOS:</strong> Open the .pkg installer — choose VST3, AU, AAX, or Standalone.</li>
-            <li style="margin-bottom:8px;"><strong style="color:#ffffff;">Windows:</strong> Extract .zip → copy VST3 to <code style="background:rgba(255,255,255,0.08);padding:2px 6px;border-radius:4px;">C:\\Program Files\\Common Files\\VST3\\</code></li>
-            <li style="margin-bottom:8px;"><strong style="color:#ffffff;">Rescan plugins</strong> in your DAW, drop Carbonator on a track, pick a flavor.</li>
-          </ol>
-
-          <p style="color:#a09bb5;font-size:14px;margin:24px 0 0;text-align:center;">
-            <em>Pro tip: try Carbonated mode — it blends all 5 flavors with a single knob.</em>
-          </p>
-
-        </td></tr>
-
-        <tr><td align="center" style="padding-top:32px;">
-          <p style="color:#6b6580;font-size:12px;margin:0;">
-            Questions? Just reply to this email.
-          </p>
-          <p style="color:#6b6580;font-size:12px;margin:8px 0 0;">
-            &copy; ${new Date().getFullYear()} Carbonated Audio &middot; <a href="https://carbonatedaudio.com" style="color:#6b6580;">carbonatedaudio.com</a><br><a href="mailto:hello@carbonatedaudio.com?subject=Unsubscribe" style="color:#6b6580;">Unsubscribe</a>
-          </p>
-        </td></tr>
-
-      </table>
-    </td></tr>
-  </table>
-</body>
-</html>`;
-}
-
-function buildDesipperWelcomeEmail(email) {
-  return `
-<!DOCTYPE html>
-<html>
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
-<body style="margin:0;padding:0;background-color:#0d0a1a;font-family:Arial,Helvetica,sans-serif;">
-  <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#0d0a1a;padding:40px 20px;">
-    <tr><td align="center">
-      <table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;">
-
-        <tr><td align="center" style="padding-bottom:32px;">
-          <span style="font-size:28px;font-weight:800;color:#ffffff;">Carbonated Audio</span>
-        </td></tr>
-
-        <tr><td style="background-color:#1a1430;border-radius:16px;padding:40px 32px;">
-
-          <h1 style="color:#ffffff;font-size:24px;text-align:center;margin:0 0 8px;">Thanks for your interest in De-Sipper!</h1>
-          <p style="color:#a09bb5;font-size:16px;text-align:center;margin:0 0 32px;">The demo is coming soon. We'll email you the download link as soon as it's ready.</p>
-
-          <hr style="border:none;border-top:1px solid #2a2440;margin:0 0 24px;">
-
-          <h2 style="color:#ffffff;font-size:18px;margin:0 0 16px;">What De-Sipper does:</h2>
-          <table width="100%" cellpadding="0" cellspacing="0" style="font-size:14px;color:#a09bb5;">
-            <tr><td style="padding:6px 0;"><strong style="color:#00d4ff;">Transparent De-Essing</strong> — Tames harsh sibilance without killing your vocal's brightness.</td></tr>
-            <tr><td style="padding:6px 0;"><strong style="color:#00d4ff;">Split-Band Processing</strong> — Only touches the sibilant frequencies. Everything else passes through clean.</td></tr>
-            <tr><td style="padding:6px 0;"><strong style="color:#00d4ff;">Listen Mode</strong> — Solo exactly what's being removed so you can dial it in perfectly.</td></tr>
-            <tr><td style="padding:6px 0;"><strong style="color:#00d4ff;">Zero Latency</strong> — No lookahead delay. Works in real-time for tracking and mixing.</td></tr>
-          </table>
-
-          <hr style="border:none;border-top:1px solid #2a2440;margin:24px 0;">
-
-          <p style="color:#a09bb5;font-size:14px;margin:0;text-align:center;">
-            In the meantime, check out <a href="https://carbonatedaudio.com/carbonator" style="color:#ff6b2b;text-decoration:none;font-weight:600;">Carbonator</a> — our analog saturation plugin with 5 circuit-modeled flavors.
-          </p>
-
-        </td></tr>
-
-        <tr><td align="center" style="padding-top:32px;">
-          <p style="color:#6b6580;font-size:12px;margin:0;">
-            Questions? Just reply to this email.
-          </p>
-          <p style="color:#6b6580;font-size:12px;margin:8px 0 0;">
-            &copy; ${new Date().getFullYear()} Carbonated Audio &middot; <a href="https://carbonatedaudio.com" style="color:#6b6580;">carbonatedaudio.com</a><br><a href="mailto:hello@carbonatedaudio.com?subject=Unsubscribe" style="color:#6b6580;">Unsubscribe</a>
-          </p>
-        </td></tr>
-
-      </table>
-    </td></tr>
-  </table>
-</body>
-</html>`;
-}
-
-function buildOnTapWelcomeEmail(contact) {
-  return `<!DOCTYPE html><html><head><meta charset="utf-8"></head>
-<body style="margin:0;padding:0;background-color:#0d0a1a;font-family:Arial,Helvetica,sans-serif;">
-<table width="100%" cellpadding="0" cellspacing="0" style="background-color:#0d0a1a;padding:40px 20px;"><tr><td align="center">
-<table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;">
-<tr><td align="center" style="padding-bottom:32px;"><span style="font-size:28px;font-weight:800;color:#fff;">Carbonated Audio</span></td></tr>
-<tr><td style="background-color:#1a1430;border-radius:16px;padding:40px 32px;">
-<h1 style="color:#fff;font-size:24px;text-align:center;margin:0 0 8px;">Your On Tap Demo is Ready</h1>
-<p style="color:#a09bb5;font-size:16px;text-align:center;margin:0 0 32px;">Instant sidechain ducking. 16 curves. No compressor routing.</p>
-<div style="text-align:center;margin:0 0 32px;">
-<a href="https://github.com/mixedbysoda-stack/ontap/releases/download/v1.0.0/OnTap-v1.0.0-Installer.pkg" style="background:linear-gradient(135deg,#a855f7,#7c3aed);color:#fff;padding:14px 32px;border-radius:10px;text-decoration:none;font-weight:700;font-size:16px;display:inline-block;">Download On Tap Demo</a>
-</div>
-<hr style="border:none;border-top:1px solid #2a2440;margin:0 0 24px;">
-<h2 style="color:#fff;font-size:18px;margin:0 0 16px;">What On Tap does:</h2>
-<table width="100%" cellpadding="0" cellspacing="0" style="font-size:14px;color:#a09bb5;">
-<tr><td style="padding:6px 0;"><strong style="color:#a855f7;">16 Ducking Curves</strong> — Sidechain pump, sub bass, kick trim, reverse chain, and more.</td></tr>
-<tr><td style="padding:6px 0;"><strong style="color:#a855f7;">3 Trigger Modes</strong> — Sync to DAW tempo, trigger via MIDI, or use audio input.</td></tr>
-<tr><td style="padding:6px 0;"><strong style="color:#a855f7;">Band-Split Crossover</strong> — Duck only the frequencies you want.</td></tr>
-<tr><td style="padding:6px 0;"><strong style="color:#a855f7;">Zero Latency</strong> — Anti-click smoothing for clean transitions.</td></tr>
-</table>
-<hr style="border:none;border-top:1px solid #2a2440;margin:24px 0;">
-<p style="color:#a09bb5;font-size:14px;margin:0;text-align:center;">
-Demo plays full audio for 60s, then mutes for 10s.<br>
-<a href="https://carbonatedaudio.com/ontap" style="color:#a855f7;text-decoration:none;font-weight:600;">Buy On Tap ($20)</a> to remove the limitation.
-</p>
-</td></tr>
-<tr><td align="center" style="padding-top:32px;">
-<p style="color:#6b6580;font-size:12px;margin:0;">Questions? Reply to this email.</p>
-<p style="color:#6b6580;font-size:12px;margin:8px 0 0;">&copy; ${new Date().getFullYear()} Carbonated Audio</p>
-</td></tr>
-</table></td></tr></table></body></html>`;
-}

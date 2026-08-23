@@ -19,6 +19,11 @@
 // Every current capture includes an event_id. The script remembers each synced
 // event id in Script Properties before returning, so a retry can never inflate
 // Lead Count. Do not remove this safeguard or re-enable the old bulk backfill.
+//
+// The one exception is `status_update: true` (see doPost). It rewrites the Drip
+// Status cell only, never touches Lead Count, and never appends a row, so it is
+// safe to replay across the whole store. That is what keeps the reporting view
+// honest about where a lead actually sits in the drip.
 
 var SHEET_NAME = "Leads";
 var SPREADSHEET_ID = "1ZMd3RRADECqcMav1w94w4CztyqG_IeRgddQ_42S4TJ4";
@@ -91,6 +96,46 @@ function doPost(e) {
 
   var contact = String(data.contact || "").trim().toLowerCase();
   if (!contact) return json({ success: false, error: "Missing contact" });
+
+  // STATUS-ONLY UPDATE ------------------------------------------------------
+  // A lead's drip_status changes long after capture: capture-lead.js writes the
+  // row while the lead still reads "email1_pending" and only flips it to
+  // "email1_sent" once Resend confirms the send, and the drip functions move it
+  // on again days later. Those later flips cannot come through the normal path
+  // — it is deduped on event_id, so a repeat of the same event returns
+  // "duplicate" and changes nothing. The Drip Status column therefore froze at
+  // whatever the lead was at capture time.
+  //
+  // That drift caused a real false alarm on 2026-08-23: an export showed 59
+  // leads at "email1_pending" and looked like months of silently failed sends,
+  // when every one of them was already on email 2 or 3 in Netlify Blobs.
+  //
+  // This path writes column 7 and nothing else. It deliberately skips the
+  // event_id gate (the whole point is to re-visit a lead already synced) and
+  // never touches Lead Count, so it is safe to replay for every lead in the
+  // store. It will not create rows — a lead the Sheet has never seen is
+  // reported back as "missing" rather than appended without its attribution.
+  if (data.status_update === true) {
+    var newStatus = String(data.drip_status || "").trim();
+    if (!newStatus) return json({ success: false, error: "Missing drip_status" });
+
+    var statusSheet = getSpreadsheet().getSheetByName(SHEET_NAME) || getSpreadsheet().getActiveSheet();
+    ensureHeaders(statusSheet);
+    var lastRow = statusSheet.getLastRow();
+    if (lastRow < 2) return json({ success: true, action: "missing" });
+
+    var statusMatch = statusSheet.getRange(2, 2, lastRow - 1, 1)
+      .createTextFinder(contact).matchCase(false).matchEntireCell(true).findNext();
+    if (!statusMatch) return json({ success: true, action: "missing" });
+
+    var statusCell = statusSheet.getRange(statusMatch.getRow(), 7);
+    var previous = String(statusCell.getValue() || "");
+    if (previous === newStatus) return json({ success: true, action: "unchanged", drip_status: newStatus });
+
+    statusCell.setValue(newStatus);
+    return json({ success: true, action: "status_updated", from: previous, to: newStatus });
+  }
+  // -------------------------------------------------------------------------
 
   var eventId = String(data.event_id || "").trim();
   var properties = PropertiesService.getScriptProperties();
