@@ -4,8 +4,12 @@
 // test rows, then fires the deployed send-campaign endpoint in batches of 100.
 //
 // Usage:
-//   node send-tallboy-blast.js --csv "/Users/soda/Downloads/Carbonator Leads - Leads.csv" --dry-run
-//   node send-tallboy-blast.js --csv "/Users/soda/Downloads/Carbonator Leads - Leads.csv" --send
+//   node send-tallboy-blast.js --dry-run
+//   node send-tallboy-blast.js --send
+//
+// The lead CSV defaults to ~/CarbonatedAudio-Data/leads/latest.csv, which lives
+// OUTSIDE this repository because this repository is public and the CSV holds
+// real customer email addresses. Override with --csv <path> or $LEADS_CSV.
 //
 // Prereqs (one time):
 //   1. CAMPAIGN_SEND_SECRET set in Netlify env vars (site: carbinated-audio)
@@ -25,7 +29,12 @@
 
 const fs = require("fs");
 const path = require("path");
+const os = require("os");
 
+// NOTE: send-campaign now refuses more than 25 recipients, because it sends
+// through the transactional API and a large blast can exhaust the daily quota
+// that licence-key delivery depends on. For a full-list blast switch this to
+// /.netlify/functions/send-broadcast, which uses Resend Broadcasts instead.
 const ENDPOINT = "https://carbonatedaudio.com/.netlify/functions/send-campaign";
 const { SUPPRESSED } = require("./netlify/functions/lib/suppression.js");
 
@@ -35,9 +44,24 @@ const getArg = (name) => {
   return i >= 0 ? args[i + 1] : null;
 };
 const DRY = args.includes("--dry-run") || !args.includes("--send");
-const csvPath = getArg("--csv");
-if (!csvPath) {
-  console.error('Missing --csv "/path/to/Carbonator Leads - Leads.csv"');
+
+// Lead exports live OUTSIDE this repository on purpose: this repo is public and
+// the CSV holds hundreds of real customer email addresses. See
+// ~/CarbonatedAudio-Data/README.md. Order of precedence: --csv, $LEADS_CSV,
+// then the default export location.
+const DEFAULT_CSV = path.join(
+  os.homedir(),
+  "CarbonatedAudio-Data",
+  "leads",
+  "latest.csv"
+);
+const csvPath = getArg("--csv") || process.env.LEADS_CSV || DEFAULT_CSV;
+if (!fs.existsSync(csvPath)) {
+  console.error(`Lead CSV not found: ${csvPath}`);
+  console.error("");
+  console.error("Export the sheet to ~/CarbonatedAudio-Data/leads/ and point");
+  console.error("latest.csv at it, or pass --csv <path> / set LEADS_CSV.");
+  console.error("Do NOT copy the CSV into this repository — it is public.");
   process.exit(1);
 }
 
