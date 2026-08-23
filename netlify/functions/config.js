@@ -118,13 +118,12 @@ const PRODUCTS = {
     includes: ["carbonator", "desipper", "ontap", "pour"],
   },
   bundle5: {
-    // Complete Bundle with TALLBOY: five plugins, $100 list, $75 in the bundle.
-    // $75 already exists as the product's default price on Stripe
-    // (price_1TRb7cE7QUGObiuvmHsWuJMk). Goes live when a payment link with
-    // metadata product=bundle5 exists and PRODUCT_ACCENTS.bundle in
-    // email-templates/render.js points at it.
+    // Complete Bundle with TALLBOY: five plugins, $100 list, $50 in the bundle.
+    // Live since 2026-08-23: price_1U7UX4E7QUGObiuvfRP2yXes on payment link
+    // plink_1U7UXxE7QUGObiuvojyBIofP (buy.stripe.com/5kQ14naQVaxc8vD46T3oA0j),
+    // metadata product=bundle5.
     name: "Carbonated Audio Complete Bundle",
-    price: 75,
+    price: 50,
     isBundle: true,
     includes: ["carbonator", "desipper", "ontap", "pour", "tallboy"],
   },

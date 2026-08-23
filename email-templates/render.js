@@ -104,18 +104,18 @@ const PRODUCT_ACCENTS = {
     color: "#cc33ff",
     colorAlt: "#ff6b2b",
     gradient: "linear-gradient(135deg,#ff6b2b,#cc33ff,#00d4ff)",
-    // Live $60 4-plugin link. When the 5-plugin (product=bundle5, $75) payment
-    // link exists, point this url at it and set price: 75.
-    url: "https://buy.stripe.com/aFa4gzbUZfRwdPXdHt3oA0g",
-    price: 60,
+    // 5-plugin Complete Bundle with TALLBOY, $50 (product=bundle5). The old
+    // $60 4-plugin link (product=bundle) stays live for emails already sent.
+    url: "https://buy.stripe.com/5kQ14naQVaxc8vD46T3oA0j",
+    price: 50,
   },
   bundle5: {
     name: "Complete Bundle",
     color: "#cc33ff",
     colorAlt: "#ff6b2b",
     gradient: "linear-gradient(135deg,#ff6b2b,#cc33ff,#00d4ff)",
-    url: "https://buy.stripe.com/aFa4gzbUZfRwdPXdHt3oA0g",
-    price: 75,
+    url: "https://buy.stripe.com/5kQ14naQVaxc8vD46T3oA0j",
+    price: 50,
   },
   vocal_bundle: {
     name: "Vocal Chain Bundle",
@@ -304,7 +304,7 @@ function variantSpotlight({ product, name, headline, body, ctaText, ctaUrl, feat
 // VARIANT C — bundle / promo pitch
 // tokens: { name?, headline, body (HTML), bundlePrice, bundleOriginal, savings, promoCode, promoExpires, ctaText?, ctaUrl?, includes (array), signatureName? }
 // ---------------------------------------------------------------
-function variantBundle({ name, headline, body, bundlePrice = 60, bundleOriginal = 80, savings = 20, promoCode, promoExpires, ctaText, ctaUrl, includes, signatureName, preheader }) {
+function variantBundle({ name, headline, body, bundlePrice = 50, bundleOriginal = 100, savings = 50, promoCode, promoExpires, ctaText, ctaUrl, includes, signatureName, preheader }) {
   const accent = PRODUCT_ACCENTS.bundle;
   const cta = ctaUrl || accent.url;
   const ctaLabel = ctaText || `Get the Bundle — $${bundlePrice}`;
