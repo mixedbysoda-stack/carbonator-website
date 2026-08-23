@@ -5,6 +5,7 @@ const { PRODUCTS, generateActivationKey } = require("./config");
 const { generateRefCode } = require("./referral");
 const { buildEmail } = require("../../email-templates/render");
 const { decodeClientReference, reportPurchase } = require("./lib/ga4");
+const { updateSessionMetadata } = require("./lib/stripe-session");
 
 const FROM_EMAIL = "Carbonated Audio <hello@carbonatedaudio.com>";
 
@@ -17,6 +18,7 @@ const SUBJECTS = {
   octane: "Your FIZZFUEL License Key & Download Links",
   tallboy: "Your TALLBOY License Key & Download Links",
   bundle: "Your Carbonated Audio Bundle — License Keys & Downloads",
+  bundle5: "Your Carbonated Audio Bundle — License Keys & Downloads",
   september_bundle: "Your Carbonated Audio All 6 Plugins Bundle — Downloads & License Keys",
   vocal_bundle: "Your Vocal Chain Bundle — License Keys & Downloads",
   mixbus_bundle: "Your Mix Bus Bundle — License Keys & Downloads",
@@ -72,6 +74,12 @@ const QUICK_START = {
     '<strong style="color:#ffffff;">Rescan plugins</strong> in your DAW.',
     '<strong style="color:#ffffff;">Stack them:</strong> Carbonator for saturation, De-Sipper for vocals, On Tap for sidechain, Pour for imaging.',
   ],
+  bundle5: [
+    '<strong style="color:#ffffff;">Install all five plugins</strong> using the download links above.',
+    '<strong style="color:#ffffff;">Activate each plugin</strong> with its matching license key — each key is plugin-specific.',
+    '<strong style="color:#ffffff;">Rescan plugins</strong> in your DAW.',
+    '<strong style="color:#ffffff;">Stack them:</strong> Carbonator for saturation, De-Sipper for vocals, On Tap for sidechain, Pour for imaging, TALLBOY when a part needs to sound like it came off a handheld.',
+  ],
   september_bundle: [
     '<strong style="color:#ffffff;">Install your six plugins</strong> using the download links below.',
     '<strong style="color:#ffffff;">Activate the five paid plugins</strong> with their matching license keys. Still is free and needs no activation.',
@@ -103,6 +111,8 @@ const BODY_COPY = {
     `<p style="color:#a09bb5;font-size:15px;line-height:1.7;margin:0;">Your ${productName} license key and downloads are below. If anything breaks on install, just reply to this email.</p>`,
   bundle:
     `<p style="color:#a09bb5;font-size:15px;line-height:1.7;margin:0;">You now own all four Carbonated Audio plugins — Carbonator, De-Sipper, On Tap, and Pour. Each license key, download pair, and a quick-start checklist are below.</p>`,
+  bundle5:
+    `<p style="color:#a09bb5;font-size:15px;line-height:1.7;margin:0;">You now own five Carbonated Audio plugins — Carbonator, De-Sipper, On Tap, Pour, and TALLBOY. Each license key, download pair, and a quick-start checklist are below.</p>`,
   september_bundle:
     `<p style="color:#a09bb5;font-size:15px;line-height:1.7;margin:0;">Your full Carbonated Audio toolkit is below: Carbonator, De-Sipper, On Tap, Pour, FIZZFUEL, and Still. License keys are included for the five paid plugins; Still is free and needs no activation.</p>`,
   vocal_bundle:
@@ -171,9 +181,7 @@ exports.handler = async (event) => {
         currency: session.currency,
       });
       if (result.sent) {
-        await stripe.checkout.sessions.update(session.id, {
-          metadata: { ga4_purchase_sent: "true" },
-        });
+        await updateSessionMetadata(stripe, session.id, { ga4_purchase_sent: "true" });
       }
     } catch (err) {
       console.error("GA4 purchase report failed (non-fatal):", err.message);
@@ -182,6 +190,9 @@ exports.handler = async (event) => {
 
   let emailHtml;
   let emailSubject;
+  // Licence key(s) for the buyer record below — a second copy that does not
+  // depend on the Stripe metadata writeback succeeding.
+  let issuedKeys = null;
 
   if (product.isBundle) {
     const licenses = [];
@@ -195,6 +206,7 @@ exports.handler = async (event) => {
       if (licenseKey) {
         metadataUpdate[`license_key_${includedId}`] = licenseKey;
       }
+      if (licenseKey) issuedKeys = Object.assign(issuedKeys || {}, { [includedId]: licenseKey });
       licenses.push({
         product: includedId,
         licenseKey,
@@ -204,13 +216,14 @@ exports.handler = async (event) => {
     }
 
     try {
-      await stripe.checkout.sessions.update(session.id, { metadata: metadataUpdate });
+      await updateSessionMetadata(stripe, session.id, metadataUpdate);
     } catch (err) {
       console.error("Failed to store bundle keys on session:", err.message);
     }
 
     const preheaderMap = {
       bundle: "Your 4 license keys + downloads",
+      bundle5: "Your 5 license keys + downloads",
       september_bundle: "Your 5 license keys + all 6 downloads",
       vocal_bundle: "Your Vocal Chain Bundle — 2 license keys + downloads",
       mixbus_bundle: "Your Mix Bus Bundle — 2 license keys + downloads",
@@ -235,13 +248,13 @@ exports.handler = async (event) => {
     if (!licenseKey && licenseSecret) {
       licenseKey = generateActivationKey(email, session.created, licenseSecret);
       try {
-        await stripe.checkout.sessions.update(session.id, {
-          metadata: { license_key: licenseKey, product: productId },
-        });
+        await updateSessionMetadata(stripe, session.id, { license_key: licenseKey, product: productId });
       } catch (err) {
         console.error("Failed to store license key on session:", err.message);
       }
     }
+
+    if (licenseKey) issuedKeys = { [productId]: licenseKey };
 
     emailHtml = buildEmail("support", {
       product: productId,
@@ -283,6 +296,7 @@ exports.handler = async (event) => {
       purchased_at: new Date().toISOString(),
       amount: amountPaid,
       order_id: orderId,
+      license_keys: issuedKeys,
     });
   } catch (err) {
     console.error("Failed to store buyer:", err.message);

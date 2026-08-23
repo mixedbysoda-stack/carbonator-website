@@ -112,7 +112,21 @@ const PRODUCTS = {
     // Tonic temporarily removed from the bundle pending a trademark name change.
     // Its product definition + activation function are kept below so existing
     // owners' licenses still validate. Re-add to includes once the rename ships.
+    // This id is what the live $60 payment link (buy.stripe.com/aFa4gz...)
+    // carries in its metadata, and that link is embedded in emails already
+    // sent — so it keeps delivering exactly these four.
     includes: ["carbonator", "desipper", "ontap", "pour"],
+  },
+  bundle5: {
+    // Complete Bundle with TALLBOY: five plugins, $100 list, $75 in the bundle.
+    // $75 already exists as the product's default price on Stripe
+    // (price_1TRb7cE7QUGObiuvmHsWuJMk). Goes live when a payment link with
+    // metadata product=bundle5 exists and PRODUCT_ACCENTS.bundle in
+    // email-templates/render.js points at it.
+    name: "Carbonated Audio Complete Bundle",
+    price: 75,
+    isBundle: true,
+    includes: ["carbonator", "desipper", "ontap", "pour", "tallboy"],
   },
   september_bundle: {
     name: "Carbonated Audio All 6 Plugins Bundle",

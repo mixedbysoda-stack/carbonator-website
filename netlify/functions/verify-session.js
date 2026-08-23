@@ -5,6 +5,7 @@ const {
   PRODUCTS,
   generateActivationKey,
 } = require("./config");
+const { updateSessionMetadata } = require("./lib/stripe-session");
 
 exports.handler = async (event) => {
   const headers = {
@@ -106,9 +107,7 @@ exports.handler = async (event) => {
         );
         // Store for future retrievals
         try {
-          await stripe.checkout.sessions.update(sessionId, {
-            metadata: { license_key: licenseKey, product: productId },
-          });
+          await updateSessionMetadata(stripe, sessionId, { license_key: licenseKey, product: productId });
         } catch (err) {
           console.error("Failed to store license key:", err.message);
         }

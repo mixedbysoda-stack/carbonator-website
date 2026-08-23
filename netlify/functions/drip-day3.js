@@ -20,9 +20,22 @@ const SUBJECTS = {
   pour: "How's the Pour demo treating you? 🌊",
   fizzfuel: "Still thinking about FIZZFUEL? 🏁",
   still: "The Still trick most people miss 🎧",
+  tallboy: "How's the TALLBOY demo treating you? 🎮",
 };
 
 const SPOTLIGHT = {
+  tallboy: {
+    headline: "How's the TALLBOY demo going?",
+    body: `<p style="color:#a09bb5;font-size:15px;line-height:1.7;margin:0 0 16px;">Just checking in — have you fed TALLBOY a vocal or a bass line yet? It tracks the pitch and replays the part on a four-channel handheld sound chip, so it needs a single note to lock onto.</p>
+           <p style="color:#a09bb5;font-size:15px;line-height:1.7;margin:0 0 16px;">Three things to try while the demo is open:</p>`,
+    features: [
+      "<strong style=\"color:#ffffff;\">4BIT CHOIR</strong> on a vocal double — the chip voice sits behind the real one",
+      "<strong style=\"color:#ffffff;\">ARP on, CHRD mode</strong> — a hook becomes a counter-melody",
+      "<strong style=\"color:#ffffff;\">CRUSH ROM alone</strong> on drums — eject CHIP and ARP, keep the decimator",
+    ],
+    ctaText: "Hear TALLBOY in action",
+    ctaUrl: "https://carbonatedaudio.com/tallboy?utm_source=lead_drip&utm_medium=email&utm_campaign=tallboy_day3&utm_content=primary_cta",
+  },
   fizzfuel: {
     headline: "FIZZFUEL is ready to throw in gear",
     body: `<p style="color:#a09bb5;font-size:15px;line-height:1.7;margin:0 0 16px;">FIZZFUEL is live. It puts Drive, Reverb, Delay, Pitch, and Filter behind one manual gearbox, so changing the energy of a track does not mean opening five separate plugins.</p>
@@ -99,6 +112,7 @@ function getProductFromSource(source) {
   if (!source) return "carbonator";
   const s = source.toLowerCase();
   if (s.includes("still")) return "still";
+  if (s.includes("tallboy")) return "tallboy";
   if (s.includes("fizzfuel") || s.includes("octane")) return "fizzfuel";
   if (s.includes("pour")) return "pour";
   if (s.includes("ontap")) return "ontap";
@@ -107,7 +121,7 @@ function getProductFromSource(source) {
 }
 
 // Only live, sellable products belong in the "Also from Carbonated Audio" list
-const LIVE_PRODUCTS = ["carbonator", "desipper", "ontap", "pour", "fizzfuel", "still"];
+const LIVE_PRODUCTS = ["carbonator", "desipper", "ontap", "pour", "fizzfuel", "tallboy", "still"];
 
 function buildDay3Body(product, contact) {
   const sp = SPOTLIGHT[product] || SPOTLIGHT.carbonator;

@@ -104,6 +104,16 @@ const PRODUCT_ACCENTS = {
     color: "#cc33ff",
     colorAlt: "#ff6b2b",
     gradient: "linear-gradient(135deg,#ff6b2b,#cc33ff,#00d4ff)",
+    // Live $60 4-plugin link. When the 5-plugin (product=bundle5, $75) payment
+    // link exists, point this url at it and set price: 75.
+    url: "https://buy.stripe.com/aFa4gzbUZfRwdPXdHt3oA0g",
+    price: 60,
+  },
+  bundle5: {
+    name: "Complete Bundle",
+    color: "#cc33ff",
+    colorAlt: "#ff6b2b",
+    gradient: "linear-gradient(135deg,#ff6b2b,#cc33ff,#00d4ff)",
     url: "https://buy.stripe.com/aFa4gzbUZfRwdPXdHt3oA0g",
     price: 75,
   },

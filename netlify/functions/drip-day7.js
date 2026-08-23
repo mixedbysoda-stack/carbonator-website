@@ -20,9 +20,24 @@ const SUBJECTS = {
   pour: "Ready to unlock Pour? $20, no subscription.",
   fizzfuel: "FIZZFUEL — 6 effects, one shifter, $29.",
   still: "Still was step one. Here's the rest of the chain.",
+  tallboy: "Ready to unlock TALLBOY? $20, no subscription.",
 };
 
 const CONVERT = {
+  tallboy: {
+    headline: "Tired of the 60-second cycle? Unlock TALLBOY.",
+    features: [
+      "All three cartridges — CHIP, ARP and CRUSH ROM — with every preset",
+      "No more 10-second mutes, unlimited offline rendering",
+      "Use on up to 3 machines",
+      "macOS VST3 / AU / AAX and Windows VST3",
+      "No subscription — pay once, own forever",
+    ],
+    quote: "Your track, played back on a handheld.",
+    quoteAuthor: "— the TALLBOY tagline",
+    priceLine: "$20 one-time",
+    ctaUrl: "https://carbonatedaudio.com/tallboy?utm_source=lead_drip&utm_medium=email&utm_campaign=tallboy_day7&utm_content=primary_cta",
+  },
   fizzfuel: {
     headline: "Six effects. One shifter. Ready when you are.",
     features: [
@@ -122,6 +137,7 @@ function getProductFromSource(source) {
   if (!source) return "carbonator";
   const s = source.toLowerCase();
   if (s.includes("still")) return "still";
+  if (s.includes("tallboy")) return "tallboy";
   if (s.includes("fizzfuel") || s.includes("octane")) return "fizzfuel";
   if (s.includes("pour")) return "pour";
   if (s.includes("ontap")) return "ontap";
