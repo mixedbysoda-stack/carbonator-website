@@ -3,6 +3,7 @@
 // Finds leads where email2 was sent 4+ days ago (7 days from signup) but no email3 yet.
 
 const { getBlobStore } = require("./lib/store");
+const { sendEmail } = require("./lib/mailer");
 const { isSuppressedAsync } = require("./lib/suppression");
 const { loadBuyerEmails } = require("./lib/buyers");
 const { Resend } = require("resend");
@@ -224,7 +225,7 @@ exports.handler = async () => {
       if (elapsed < FOUR_DAYS) continue;
 
       const product = getProductFromSource(lead.source);
-      await resend.emails.send({
+      await sendEmail(resend, {
         from: FROM_EMAIL,
         reply_to: "mixedbysoda@gmail.com",
         to: lead.contact,
@@ -245,7 +246,7 @@ exports.handler = async () => {
 
   if (sent > 0) {
     try {
-      await resend.emails.send({
+      await sendEmail(resend, {
         from: FROM_EMAIL,
         to: "mixedbysoda@gmail.com",
         subject: `📧 Drip Day 7: ${sent} conversion email${sent > 1 ? "s" : ""} sent`,

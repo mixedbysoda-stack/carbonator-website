@@ -1,4 +1,5 @@
 const { getBlobStore } = require("./lib/store");
+const { sendEmail } = require("./lib/mailer");
 const { syncLeadToGoogleSheets } = require("./lib/google-sheets");
 const { Resend } = require("resend");
 const { VERSION } = require("./config");
@@ -233,7 +234,7 @@ exports.handler = async (event) => {
     // They already hold a working link; the email is the drip invitation.
     try {
       const resend = new Resend(process.env.RESEND_API_KEY);
-      await resend.emails.send({
+      await sendEmail(resend, {
         from: FROM_EMAIL,
         reply_to: "mixedbysoda@gmail.com",
         to: contact,
@@ -250,7 +251,7 @@ exports.handler = async (event) => {
 
     try {
       const resend = new Resend(process.env.RESEND_API_KEY);
-      await resend.emails.send({
+      await sendEmail(resend, {
         from: FROM_EMAIL,
         to: "mixedbysoda@gmail.com",
         subject: `🔔 New Still Lead (FREE download): ${contact}`,
@@ -281,7 +282,7 @@ exports.handler = async (event) => {
   if (process.env.RESEND_API_KEY) {
     try {
       const resend = new Resend(process.env.RESEND_API_KEY);
-      await resend.emails.send({
+      await sendEmail(resend, {
         from: FROM_EMAIL,
         reply_to: "mixedbysoda@gmail.com",
         to: contact,
@@ -317,7 +318,7 @@ exports.handler = async (event) => {
     // Notify yourself about the new lead
     try {
       const resend = new Resend(process.env.RESEND_API_KEY);
-      await resend.emails.send({
+      await sendEmail(resend, {
         from: FROM_EMAIL,
         to: "mixedbysoda@gmail.com",
         subject: isOnTapLead

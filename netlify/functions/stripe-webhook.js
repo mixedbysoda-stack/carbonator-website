@@ -1,4 +1,5 @@
 const Stripe = require("stripe");
+const { sendEmail } = require("./lib/mailer");
 const { Resend } = require("resend");
 const { getBlobStore } = require("./lib/store");
 const { PRODUCTS, generateActivationKey } = require("./config");
@@ -275,7 +276,7 @@ exports.handler = async (event) => {
 
   try {
     const resend = new Resend(process.env.RESEND_API_KEY);
-    await resend.emails.send({
+    await sendEmail(resend, {
       from: FROM_EMAIL,
       reply_to: "mixedbysoda@gmail.com",
       to: email,
@@ -284,8 +285,20 @@ exports.handler = async (event) => {
     });
     console.log(`Delivery email sent to ${email} (${productId})`);
   } catch (err) {
-    console.error("Failed to send delivery email:", err.message);
-    return { statusCode: 200, body: "Email send failed" };
+    // Ask Stripe to retry rather than swallowing it. Previously this returned
+    // 200, which told Stripe the event was handled and the customer simply
+    // never got their key. Retrying is safe: the licence key is derived
+    // deterministically from email + session.created, so a later attempt
+    // produces the identical key and the buyer record below is idempotent.
+    console.error(
+      `Failed to send delivery email to ${email} (${productId}):`,
+      err.message,
+      err.retryable ? "- retryable, returning 500 so Stripe retries" : ""
+    );
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: "Delivery email failed", retry: true }),
+    };
   }
 
   try {

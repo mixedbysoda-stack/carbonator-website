@@ -5,6 +5,7 @@
 // authority for whether a contact already owns a paid Carbonated Audio product.
 
 const { getBlobStore } = require("./lib/store");
+const { sendEmail } = require("./lib/mailer");
 const { isSuppressedAsync } = require("./lib/suppression");
 const { Resend } = require("resend");
 const { buildEmail } = require("../../email-templates/render");
@@ -144,7 +145,7 @@ exports.handler = async (event) => {
 
   for (const candidate of candidates.slice(0, limit)) {
     try {
-      await resend.emails.send({
+      await sendEmail(resend, {
         from: FROM_EMAIL,
         reply_to: REPLY_TO,
         to: candidate.email,

@@ -1,4 +1,5 @@
 const crypto = require("crypto");
+const { sendEmail } = require("./lib/mailer");
 const { Resend } = require("resend");
 const { getBlobStore } = require("./lib/store");
 const { syncLeadToGoogleSheets } = require("./lib/google-sheets");
@@ -12,7 +13,7 @@ function page(title, message) {
 async function notifyVerifiedLead(lead) {
   if (!process.env.RESEND_API_KEY) return;
   const resend = new Resend(process.env.RESEND_API_KEY);
-  await resend.emails.send({
+  await sendEmail(resend, {
     from: FROM_EMAIL,
     to: "mixedbysoda@gmail.com",
     subject: `✓ Verified Still Lead: ${lead.contact}`,

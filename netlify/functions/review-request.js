@@ -3,6 +3,7 @@
 // Checks Stripe for purchases 7+ days old, sends review request if not already sent
 
 const { getBlobStore } = require("./lib/store");
+const { sendEmail } = require("./lib/mailer");
 const { isSuppressedAsync } = require("./lib/suppression");
 const { Resend } = require("resend");
 
@@ -70,7 +71,7 @@ exports.handler = async () => {
       if (alreadySent) continue;
 
       const info = getProductInfo(buyer);
-      await resend.emails.send({
+      await sendEmail(resend, {
         from: FROM_EMAIL,
         reply_to: "mixedbysoda@gmail.com",
         to: buyer.email,
