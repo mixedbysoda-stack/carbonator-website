@@ -11,7 +11,7 @@ const { PRODUCTS } = require("./config");
 const { buildEmail, PRODUCT_ACCENTS } = require("../../email-templates/render");
 
 const FROM_EMAIL = "Carbonated Audio <hello@carbonatedaudio.com>";
-const BUNDLE_URL = "https://buy.stripe.com/3cI7sL2kpaxcdPX1YL3oA0h?prefilled_promo_code=ALL6FOR45&utm_source=lead_drip&utm_medium=email&utm_campaign=september_bundle&utm_content=day3";
+const BUNDLE_URL = "https://buy.stripe.com/dRmbJ16AFbBgcLT6f13oA0k?utm_source=lead_drip&utm_medium=email&utm_campaign=all7_bundle&utm_content=day3";
 const THREE_DAYS = 3 * 24 * 60 * 60 * 1000;
 
 const SUBJECTS = {
@@ -147,7 +147,7 @@ function buildDay3Body(product, contact) {
     </p>
     <p style="color:#a09bb5;font-size:14px;line-height:1.7;margin:0 0 16px;">${otherProducts}</p>
     <p style="color:#a09bb5;font-size:14px;line-height:1.7;margin:0;">
-      Through September 30, get all 6 Carbonated Audio plugins for <a href="${BUNDLE_URL}" style="color:#4ecca3;text-decoration:none;font-weight:600;">$45</a> &mdash; normally $109, save $64.
+      Get all 7 Carbonated Audio plugins for <a href="${BUNDLE_URL}" style="color:#4ecca3;text-decoration:none;font-weight:600;">$55</a> &mdash; normally $109, save $54.
     </p>
   `;
 

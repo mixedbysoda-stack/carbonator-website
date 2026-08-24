@@ -54,17 +54,17 @@ function campaignEmail() {
     headline: "You cleared the noise. Now build the rest of the chain.",
     body: `
       <p style="color:#a09bb5;font-size:15px;line-height:1.7;margin:0 0 16px;">Still was made to get background noise out of the way. If it made your vocal or track cleaner, the rest of the Carbonated Audio tools are ready when you are.</p>
-      <p style="color:#a09bb5;font-size:15px;line-height:1.7;margin:0 0 16px;">For September only, get the complete 6-plugin collection for <strong style="color:#ffffff;">$45</strong> &mdash; normally $109.</p>
+      <p style="color:#a09bb5;font-size:15px;line-height:1.7;margin:0 0 16px;">Get the complete 7-plugin collection for <strong style="color:#ffffff;">$55</strong> &mdash; individually $129.</p>
     `,
     features: [
-      "<strong style=\"color:#ffffff;\">Carbonator + FIZZFUEL</strong> &mdash; warmth, grit, and creative movement",
+      "<strong style=\"color:#ffffff;\">Carbonator + FIZZFUEL + TALLBOY</strong> &mdash; warmth, grit, movement, and chip resynthesis",
       "<strong style=\"color:#ffffff;\">De-Sipper + On Tap + Pour</strong> &mdash; vocal cleanup, ducking, and width",
       "<strong style=\"color:#ffffff;\">Still</strong> &mdash; already yours, included in the full collection",
     ],
-    ctaText: "See the $45 complete bundle",
+    ctaText: "See the $55 complete bundle",
     ctaUrl: BUNDLE_URL,
     signatureName: "Soda",
-    preheader: "All 6 Carbonated Audio plugins are $45 through September 30.",
+    preheader: "All 7 Carbonated Audio plugins are $55, TALLBOY included.",
   });
 }
 

@@ -611,6 +611,200 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
             --glow-color: rgba(204, 51, 255, 0.18);
         }
 
+
+        /* ========================================
+           LINEUP ROWS  (replaces the fixed-height card grid)
+
+           WHY: the product screenshots run from 0.55 (TALLBOY, a tall handheld)
+           to 2.30 (Pour, a wide meter) — a 4.2x spread. The old grid forced them
+           all into a 200px-tall box with object-fit:cover, so five of six were
+           cropped through the middle while TALLBOY had bespoke inline styles.
+           Rows give each product its own stage and use object-fit:contain, so
+           nothing is ever cropped or stretched whatever shape the asset is.
+           ======================================== */
+        .lineup {
+            max-width: 1040px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+
+        .lineup-row {
+            position: relative;
+            display: grid;
+            grid-template-columns: minmax(0, 42%) minmax(0, 1fr);
+            gap: 40px;
+            align-items: center;
+            padding: 28px;
+            border: 1px solid var(--border);
+            border-radius: 22px;
+            background: var(--bg-card);
+            overflow: hidden;
+            transition: border-color .3s ease, transform .3s ease, box-shadow .3s ease;
+        }
+
+        /* Cursor-follow spotlight (same technique as the old cards; the existing
+           --mouse-x/--mouse-y listener drives it). */
+        .lineup-row::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(520px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), var(--accent-glow, rgba(255,255,255,.10)), transparent 45%);
+            opacity: 0;
+            transition: opacity .4s ease;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .lineup-row:hover::before { opacity: 1; }
+        .lineup-row:hover {
+            border-color: var(--accent-line, var(--border));
+            transform: translateY(-3px);
+            box-shadow: 0 20px 50px rgba(0,0,0,.35);
+        }
+
+        /* Alternate the image side so the eye zig-zags down the page.
+           Placed explicitly rather than with `order`, because `order` moved the
+           stage into the WIDER track on even rows and the stages came out two
+           different sizes — the exact unevenness this redesign exists to kill. */
+        .lineup-row:nth-child(even) { grid-template-columns: minmax(0, 1fr) minmax(0, 42%); }
+        .lineup-row:nth-child(even) .lineup-stage { grid-column: 2; grid-row: 1; }
+        .lineup-row:nth-child(even) .lineup-copy  { grid-column: 1; grid-row: 1; }
+
+        /* The stage is a CONSTANT shape; the artwork floats inside it. */
+        .lineup-stage {
+            position: relative;
+            z-index: 2;
+            aspect-ratio: 4 / 3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 18px;
+            border-radius: 16px;
+            background:
+                radial-gradient(ellipse at 50% 45%, var(--accent-wash, rgba(255,255,255,.09)) 0%, transparent 68%),
+                var(--bg-card-darker, rgba(0,0,0,.22));
+        }
+
+        .lineup-stage img {
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
+            height: auto;
+            object-fit: contain;      /* never crop, never stretch */
+            border-radius: 8px;
+            filter: drop-shadow(0 10px 26px var(--accent-shadow, rgba(0,0,0,.45)));
+        }
+
+        .lineup-copy { position: relative; z-index: 2; min-width: 0; }
+
+        .lineup-name {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: -.02em;
+            margin: 0 0 6px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .lineup-badge {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: .08em;
+            padding: 3px 9px;
+            border-radius: 20px;
+            background: var(--accent-line, #888);
+            color: #10101c;
+        }
+        .lineup-tagline {
+            color: var(--text-secondary, #a09bb5);
+            font-size: 15px;
+            line-height: 1.6;
+            margin: 0 0 16px;
+        }
+        .lineup-features {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 20px;
+            display: grid;
+            gap: 7px;
+        }
+        .lineup-features li {
+            position: relative;
+            padding-left: 18px;
+            font-size: 13.5px;
+            line-height: 1.5;
+            color: var(--text-secondary, #a09bb5);
+        }
+        .lineup-features li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: .55em;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent-line, #888);
+        }
+
+        .lineup-actions { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+        .lineup-price { font-size: 26px; font-weight: 800; letter-spacing: -.02em; }
+        .lineup-price small { font-size: 12px; font-weight: 600; color: var(--text-secondary, #a09bb5); }
+
+        .lineup-buy {
+            flex: 1 1 150px;
+            text-align: center;
+            padding: 11px 18px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 13.5px;
+            text-decoration: none;
+            color: #10101c;
+            background: linear-gradient(135deg, var(--accent-line), var(--accent-line-2, var(--accent-line)));
+            transition: filter .2s ease;
+            cursor: pointer;
+        }
+        .lineup-buy:hover { filter: brightness(1.08); }
+
+        .lineup-learn {
+            font-size: 13.5px;
+            font-weight: 600;
+            text-decoration: none;
+            color: var(--accent-line);
+            white-space: nowrap;
+            cursor: pointer;
+            transition: opacity .2s ease;
+        }
+        .lineup-learn:hover { opacity: .75; }
+        .lineup-learn .arrow { transition: transform .2s ease; display: inline-block; }
+        .lineup-row:hover .lineup-learn .arrow { transform: translateX(3px); }
+
+        .lineup-finance { font-size: 11px; color: var(--text-secondary, #a09bb5); margin: 9px 0 0; }
+
+        .lineup-row:focus-within { border-color: var(--accent-line); }
+        .lineup-buy:focus-visible,
+        .lineup-learn:focus-visible { outline: 2px solid var(--accent-line); outline-offset: 3px; }
+
+        @media (prefers-reduced-motion: reduce) {
+            .lineup-row, .lineup-row::before, .lineup-learn .arrow { transition: none; }
+            .lineup-row:hover { transform: none; }
+        }
+
+        @media (max-width: 860px) {
+            .lineup-row {
+                grid-template-columns: 1fr;
+                gap: 22px;
+                padding: 20px;
+            }
+            /* On one column the artwork always leads. */
+            .lineup-row:nth-child(even) { grid-template-columns: 1fr; }
+            .lineup-row:nth-child(even) .lineup-stage,
+            .lineup-row:nth-child(even) .lineup-copy { grid-column: 1; grid-row: auto; }
+            .lineup-stage { aspect-ratio: 16 / 10; }
+            .lineup-name { font-size: 21px; }
+        }
+
         .product-card-img-wrapper {
             width: 100%;
             height: 200px;
@@ -1467,205 +1661,168 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
         <section class="products-section" id="products">
             <p class="section-label scroll-reveal">THE LINEUP</p>
             <h2 class="section-title scroll-reveal">Seven Plugins. One Mission.</h2>
-            <div class="products-grid">
-                <!-- TALLBOY (newest) -->
-                <div class="product-card scroll-reveal" data-accent="lime">
-                    <div class="product-card-img-wrapper" style="display:flex;align-items:center;justify-content:center;padding:24px 20px;background:radial-gradient(ellipse at center, rgba(194,210,79,0.10) 0%, transparent 70%);">
-                        <img src="/tallboy-screenshot.webp" alt="TALLBOY — chiptune resynth and bitcrusher plugin" width="1000" height="1822" style="height:100%;width:auto;max-height:172px;border-radius:10px;filter:drop-shadow(0 8px 26px rgba(194,210,79,0.35));" loading="lazy">
+            <div class="lineup">
+                <article class="lineup-row scroll-reveal" style="--accent-line:#c2d24f;--accent-line-2:#9bb02e;--accent-glow:#c2d24f22;--accent-wash:#c2d24f1f;--accent-shadow:#c2d24f59;">
+                    <div class="lineup-stage">
+                        <img src="/tallboy-screenshot.webp" width="1000" height="1822" alt="TALLBOY chiptune resynth plugin: a violet handheld console with a four-shade dot-matrix screen" loading="lazy" decoding="async">
                     </div>
-                    <div class="product-card-body">
-                        <h3 class="product-card-name">TALLBOY <span style="font-size:11px;vertical-align:middle;background:linear-gradient(135deg,#c2d24f,#9bb02e);color:#16180a;padding:2px 8px;border-radius:20px;font-weight:700;letter-spacing:.04em;">NEW</span></h3>
-                        <p class="product-card-tagline">Your track, played back on a handheld.</p>
-                        <ul class="product-card-features">
+                    <div class="lineup-copy">
+                        <h3 class="lineup-name">TALLBOY<span class="lineup-badge">NEW</span></h3>
+                        <p class="lineup-tagline">Your track, played back on a handheld.</p>
+                        <ul class="lineup-features">
                             <li>Pitch-tracked 4-channel chip resynthesis</li>
                             <li>Tempo-synced arpeggiator with glide and swing</li>
                             <li>Bit and sample-rate decimator</li>
-                            <li>VST3, AU, AAX &mdash; Pro Tools signed</li>
+                            <li>VST3, AU, AAX — Pro Tools signed</li>
                         </ul>
-                        <div class="product-card-footer">
-                            <span class="product-card-price">$20</span>
-                            <a href="/tallboy" class="product-card-cta" data-color="lime">
-                                Learn more about TALLBOY <span class="arrow">&rarr;</span>
-                            </a>
+                        <div class="lineup-actions">
+                            <span class="lineup-price">$20</span>
+                            <a class="lineup-buy" href="https://buy.stripe.com/9B68wP8INbBg3bjfPB3oA0i">Buy &mdash; $20</a>
+                            <a class="lineup-learn" href="/tallboy">Learn more <span class="arrow">&rarr;</span></a>
                         </div>
-                        <div style="display:flex;gap:10px;margin-top:12px;">
-                            <a href="https://buy.stripe.com/9B68wP8INbBg3bjfPB3oA0i" style="flex:1;text-align:center;padding:10px;border-radius:8px;background:linear-gradient(135deg,#c2d24f,#9bb02e);color:#16180a;font-weight:700;font-size:13px;text-decoration:none;">Buy — $20</a>
-                        </div>
-                        <p style="font-size:11px;color:#a09bb5;margin-top:8px;text-align:center;">or 4 payments of $5 with Klarna / Afterpay</p>
+                        <p class="lineup-finance">or 4 payments of $5 with Klarna / Afterpay</p>
                     </div>
-                </div>
+                </article>
 
-                <!-- FIZZFUEL (flagship) -->
-                <div class="product-card scroll-reveal" data-accent="orange">
-                    <div class="product-card-img-wrapper" style="display:flex;align-items:center;justify-content:center;padding:24px 20px;background:radial-gradient(ellipse at center, rgba(255,107,43,0.10) 0%, transparent 70%);">
-                        <img src="/fizzfuel-screenshot.png" alt="FIZZFUEL — six-effect gearbox plugin" width="420" height="700" style="width:100%;max-width:230px;border-radius:16px;filter:drop-shadow(0 8px 32px rgba(255,107,43,0.4));" loading="lazy">
+                <article class="lineup-row scroll-reveal" style="--accent-line:#ff6b2b;--accent-line-2:#ffd700;--accent-glow:#ff6b2b22;--accent-wash:#ff6b2b1f;--accent-shadow:#ff6b2b59;">
+                    <div class="lineup-stage">
+                        <img src="/fizzfuel-screenshot.png" width="420" height="700" alt="FIZZFUEL multi-effect plugin: a six-gear shifter with drive, delay and filter controls" loading="lazy" decoding="async">
                     </div>
-                    <div class="product-card-body">
-                        <h3 class="product-card-name">FIZZFUEL</h3>
-                        <p class="product-card-tagline">Six effects on a shifter. Throw it in gear.</p>
-                        <ul class="product-card-features">
+                    <div class="lineup-copy">
+                        <h3 class="lineup-name">FIZZFUEL</h3>
+                        <p class="lineup-tagline">Six effects on a shifter. Throw it in gear.</p>
+                        <ul class="lineup-features">
                             <li>6-gear multi-effect gearbox</li>
                             <li>Saturation, FDN reverb, tempo delay, pitch, filter</li>
                             <li>20+ styles, glitch-free crossfades</li>
-                            <li>VST3, AU, AAX &mdash; Pro Tools signed</li>
+                            <li>VST3, AU, AAX — Pro Tools signed</li>
                         </ul>
-                        <div class="product-card-footer">
-                            <span class="product-card-price">$29</span>
-                            <a href="/fizzfuel" class="product-card-cta" data-color="orange">
-                                Learn more about FIZZFUEL <span class="arrow">&rarr;</span>
-                            </a>
+                        <div class="lineup-actions">
+                            <span class="lineup-price">$29</span>
+                            <a class="lineup-buy" href="https://buy.stripe.com/6oUeVd7EJ6gW13b6f13oA0f">Buy &mdash; $29</a>
+                            <a class="lineup-learn" href="/fizzfuel">Learn more <span class="arrow">&rarr;</span></a>
                         </div>
-                        <div style="display:flex;gap:10px;margin-top:12px;">
-                            <a href="https://buy.stripe.com/6oUeVd7EJ6gW13b6f13oA0f" style="flex:1;text-align:center;padding:10px;border-radius:8px;background:linear-gradient(135deg,#ff6b2b,#ff3366);color:#fff;font-weight:600;font-size:13px;text-decoration:none;">Buy — $29</a>
-                        </div>
-                        <p style="font-size:11px;color:#a09bb5;margin-top:8px;text-align:center;">or 4 payments of $7.25 with Klarna / Afterpay</p>
+                        <p class="lineup-finance">or 4 payments of $7.25 with Klarna / Afterpay</p>
                     </div>
-                </div>
+                </article>
 
-                <!-- Still (free) -->
-                <div class="product-card scroll-reveal" data-accent="cyan">
-                    <div class="product-card-img-wrapper" style="display:flex;align-items:center;justify-content:center;padding:30px 20px;background:radial-gradient(ellipse at center, rgba(111,199,188,0.10) 0%, transparent 70%);">
-                        <img src="/assets/still-screenshot.png" alt="Still — free one-dial noise suppressor plugin" width="620" height="400" style="width:100%;max-width:280px;border-radius:16px;filter:drop-shadow(0 8px 32px rgba(111,199,188,0.35));" loading="lazy">
+                <article class="lineup-row scroll-reveal" style="--accent-line:#ff6b2b;--accent-line-2:#ff3366;--accent-glow:#ff6b2b22;--accent-wash:#ff6b2b1f;--accent-shadow:#ff6b2b59;">
+                    <div class="lineup-stage">
+                        <img src="/carbonator-screenshot.png" width="451" height="588" alt="Carbonator saturation plugin: a large orange drive knob" loading="lazy" decoding="async">
                     </div>
-                    <div class="product-card-body">
-                        <h3 class="product-card-name">Still <span style="font-size:11px;vertical-align:middle;background:#6fc7bc;color:#07201c;padding:2px 8px;border-radius:20px;font-weight:800;letter-spacing:.04em;">FREE</span></h3>
-                        <p class="product-card-tagline">Background noise, gone. One dial.</p>
-                        <ul class="product-card-features">
-                            <li>Adaptive noise suppression &mdash; no learn step</li>
-                            <li>Zero latency, feather-light CPU</li>
-                            <li>Free forever &mdash; no trial, no rug-pull</li>
-                            <li>VST3, AU, AAX &mdash; macOS (Windows soon)</li>
+                    <div class="lineup-copy">
+                        <h3 class="lineup-name">Carbonator</h3>
+                        <p class="lineup-tagline">Five saturation flavours. One knob each.</p>
+                        <ul class="lineup-features">
+                            <li>5 circuit-modelled flavours</li>
+                            <li>Cola, Grape, Lemon-Lime, Orange, Cream Soda</li>
+                            <li>Carbonated mode for extra drive</li>
+                            <li>VST3, AU, AAX — Pro Tools signed</li>
                         </ul>
-                        <div class="product-card-footer">
-                            <span class="product-card-price" style="color:#6fc7bc;">FREE</span>
-                            <a href="/still?ref=still-home-grid" class="product-card-cta" data-color="cyan">
-                                Get Still Free <span class="arrow">&rarr;</span>
-                            </a>
+                        <div class="lineup-actions">
+                            <span class="lineup-price">$20</span>
+                            <a class="lineup-buy" href="https://buy.stripe.com/aFafZhgbffRw6nv0UH3oA00">Buy &mdash; $20</a>
+                            <a class="lineup-learn" href="/carbonator">Learn more <span class="arrow">&rarr;</span></a>
                         </div>
+                        <p class="lineup-finance">or 4 payments of $5 with Klarna / Afterpay</p>
                     </div>
-                </div>
+                </article>
 
-                <!-- Carbonator -->
-                <div class="product-card scroll-reveal" data-accent="orange">
-                    <div class="product-card-img-wrapper" style="display:flex;align-items:center;justify-content:center;padding:30px 20px;background:radial-gradient(ellipse at center, rgba(255,107,43,0.08) 0%, transparent 70%);">
-                        <picture><source srcset="/carbonator-screenshot.webp" type="image/webp"><img src="/carbonator-screenshot.png" alt="Carbonator — analog saturation plugin" width="451" height="588" style="width:100%;max-width:280px;border-radius:16px;filter:drop-shadow(0 8px 32px rgba(255,107,43,0.4));" loading="lazy"></picture>
+                <article class="lineup-row scroll-reveal" style="--accent-line:#00d4ff;--accent-line-2:#0066ff;--accent-glow:#00d4ff22;--accent-wash:#00d4ff1f;--accent-shadow:#00d4ff59;">
+                    <div class="lineup-stage">
+                        <img src="/desipper-screenshot.png" width="795" height="570" alt="De-Sipper de-esser plugin interface" loading="lazy" decoding="async">
                     </div>
-                    <div class="product-card-body">
-                        <h3 class="product-card-name">Carbonator</h3>
-                        <p class="product-card-tagline">5 flavors of analog saturation. One knob. Endless character.</p>
-                        <ul class="product-card-features">
-                            <li>5 circuit-modeled saturation flavors</li>
-                            <li>One-knob Carbonated mode</li>
-                            <li>macOS: VST3, AU, AAX &middot; Windows: VST3 + Standalone</li>
-                            <li>Zero latency, low CPU</li>
+                    <div class="lineup-copy">
+                        <h3 class="lineup-name">De-Sipper</h3>
+                        <p class="lineup-tagline">Sibilance gone. Vocal intact.</p>
+                        <ul class="lineup-features">
+                            <li>Split-band de-essing</li>
+                            <li>Listen mode — hear exactly what is removed</li>
+                            <li>Zero added latency</li>
+                            <li>VST3, AU, AAX — Pro Tools signed</li>
                         </ul>
-                        <div class="product-card-footer">
-                            <span class="product-card-price">$20</span>
-                            <a href="/carbonator" class="product-card-cta" data-color="orange">
-                                Learn more about Carbonator <span class="arrow">&rarr;</span>
-                            </a>
+                        <div class="lineup-actions">
+                            <span class="lineup-price">$20</span>
+                            <a class="lineup-buy" href="https://buy.stripe.com/9B6bJ11gl7l0aDLgTF3oA0b">Buy &mdash; $20</a>
+                            <a class="lineup-learn" href="/desipper">Learn more <span class="arrow">&rarr;</span></a>
                         </div>
-                        <div style="display:flex;gap:10px;margin-top:12px;">
-                            <a href="https://buy.stripe.com/aFafZhgbffRw6nv0UH3oA00" style="flex:1;text-align:center;padding:10px;border-radius:8px;background:linear-gradient(135deg,#ff6b2b,#ff3366);color:#fff;font-weight:600;font-size:13px;text-decoration:none;">Buy — $20</a>
-                            <a href="/carbonator#demo" style="flex:1;text-align:center;padding:10px;border-radius:8px;border:1px solid rgba(255,107,43,0.3);color:#ff6b2b;font-weight:600;font-size:13px;text-decoration:none;">Try Demo</a>
-                        </div>
-                        <p style="font-size:11px;color:#a09bb5;margin-top:8px;text-align:center;">or 4 payments of $5 with Klarna / Afterpay</p>
+                        <p class="lineup-finance">or 4 payments of $5 with Klarna / Afterpay</p>
                     </div>
-                </div>
+                </article>
 
-                <!-- De-Sipper -->
-                <div class="product-card scroll-reveal" data-accent="cyan">
-                    <div class="product-card-img-wrapper" style="display:flex;align-items:center;justify-content:center;padding:30px 20px;background:radial-gradient(ellipse at center, rgba(0,212,255,0.08) 0%, transparent 70%);">
-                        <picture><source srcset="/desipper-screenshot.webp" type="image/webp"><img src="/desipper-screenshot.png" alt="De-Sipper — transparent de-esser plugin" width="795" height="570" style="width:100%;max-width:320px;border-radius:12px;filter:drop-shadow(0 8px 32px rgba(0,212,255,0.3));" loading="lazy"></picture>
+                <article class="lineup-row scroll-reveal" style="--accent-line:#a855f7;--accent-line-2:#7c3aed;--accent-glow:#a855f722;--accent-wash:#a855f71f;--accent-shadow:#a855f759;">
+                    <div class="lineup-stage">
+                        <img src="/ontap-screenshot.png" width="879" height="516" alt="On Tap sidechain ducking plugin interface" loading="lazy" decoding="async">
                     </div>
-                    <div class="product-card-body">
-                        <h3 class="product-card-name">De-Sipper</h3>
-                        <p class="product-card-tagline">Transparent de-essing that preserves your vocal character.</p>
-                        <ul class="product-card-features">
-                            <li>Surgical sibilance control</li>
-                            <li>Preserves vocal body and air</li>
-                            <li>Real-time frequency display</li>
-                            <li>Works on vocals, cymbals, and more</li>
-                        </ul>
-                        <div class="product-card-footer">
-                            <span class="product-card-price">$20</span>
-                            <a href="/desipper" class="product-card-cta" data-color="cyan">
-                                Learn more about De-Sipper <span class="arrow">&rarr;</span>
-                            </a>
-                        </div>
-                        <div style="display:flex;gap:10px;margin-top:12px;">
-                            <a href="https://buy.stripe.com/9B6bJ11gl7l0aDLgTF3oA0b" style="flex:1;text-align:center;padding:10px;border-radius:8px;background:linear-gradient(135deg,#00d4ff,#0066ff);color:#fff;font-weight:600;font-size:13px;text-decoration:none;">Buy — $20</a>
-                            <a href="/desipper#demo" style="flex:1;text-align:center;padding:10px;border-radius:8px;border:1px solid rgba(0,212,255,0.3);color:#00d4ff;font-weight:600;font-size:13px;text-decoration:none;">Try Demo</a>
-                        </div>
-                        <p style="font-size:11px;color:#a09bb5;margin-top:8px;text-align:center;">or 4 payments of $5 with Klarna / Afterpay</p>
-                    </div>
-                </div>
-
-                <!-- On Tap -->
-                <div class="product-card scroll-reveal" data-accent="purple">
-                    <div class="product-card-img-wrapper" style="display:flex;align-items:center;justify-content:center;padding:20px;background:radial-gradient(ellipse at center, rgba(168,85,247,0.08) 0%, transparent 70%);">
-                        <picture><source srcset="/ontap-screenshot.webp" type="image/webp"><img src="/ontap-screenshot.png" alt="On Tap — sidechain ducking plugin by Carbonated Audio" width="879" height="516" style="width:100%;max-width:340px;border-radius:12px;filter:drop-shadow(0 8px 32px rgba(168,85,247,0.4));" loading="lazy"></picture>
-                    </div>
-                    <div class="product-card-body">
-                        <h3 class="product-card-name">On Tap</h3>
-                        <p class="product-card-tagline">Instant sidechain ducking. 16 curves. No compressor routing required.</p>
-                        <ul class="product-card-features">
-                            <li>16 hand-crafted ducking curves</li>
-                            <li>Sync, MIDI, and Audio trigger modes</li>
+                    <div class="lineup-copy">
+                        <h3 class="lineup-name">On Tap</h3>
+                        <p class="lineup-tagline">Sidechain ducking without the routing.</p>
+                        <ul class="lineup-features">
+                            <li>16 ducking curves</li>
+                            <li>3 trigger modes — Sync, MIDI, Audio</li>
                             <li>Band-split crossover filter</li>
-                            <li>Zero latency, anti-click smoothing</li>
+                            <li>VST3, AU, AAX — Pro Tools signed</li>
                         </ul>
-                        <div class="product-card-footer">
-                            <span class="product-card-price">$20</span>
-                            <a href="/ontap" class="product-card-cta" data-color="purple">
-                                Learn more about On Tap <span class="arrow">&rarr;</span>
-                            </a>
+                        <div class="lineup-actions">
+                            <span class="lineup-price">$20</span>
+                            <a class="lineup-buy" href="https://buy.stripe.com/5kQcN51gl6gWfY51YL3oA04">Buy &mdash; $20</a>
+                            <a class="lineup-learn" href="/ontap">Learn more <span class="arrow">&rarr;</span></a>
                         </div>
-                        <div style="display:flex;gap:10px;margin-top:12px;">
-                            <a href="https://buy.stripe.com/5kQcN51gl6gWfY51YL3oA04" style="flex:1;text-align:center;padding:10px;border-radius:8px;background:linear-gradient(135deg,#a855f7,#7c3aed);color:#fff;font-weight:600;font-size:13px;text-decoration:none;">Buy — $20</a>
-                            <a href="/ontap#demo" style="flex:1;text-align:center;padding:10px;border-radius:8px;border:1px solid rgba(168,85,247,0.3);color:#a855f7;font-weight:600;font-size:13px;text-decoration:none;">Try Demo</a>
-                        </div>
-                        <p style="font-size:11px;color:#a09bb5;margin-top:8px;text-align:center;">or 4 payments of $5 with Klarna / Afterpay</p>
+                        <p class="lineup-finance">or 4 payments of $5 with Klarna / Afterpay</p>
                     </div>
-                </div>
+                </article>
 
-                <!-- Pour -->
-                <div class="product-card scroll-reveal" style="--glow-color: rgba(79,184,212,0.18);">
-                    <div class="product-card-img-wrapper" style="display:flex;align-items:center;justify-content:center;padding:20px;background:radial-gradient(ellipse at center, rgba(79,184,212,0.08) 0%, transparent 70%);">
-                        <picture><source srcset="/pour-screenshot.webp" type="image/webp"><img src="/pour-screenshot.png" alt="Pour — M/S stereo imager plugin by Carbonated Audio" width="1147" height="499" style="width:100%;max-width:360px;border-radius:8px;filter:drop-shadow(0 8px 32px rgba(79,184,212,0.35));" loading="lazy"></picture>
+                <article class="lineup-row scroll-reveal" style="--accent-line:#4fb8d4;--accent-line-2:#2a88a8;--accent-glow:#4fb8d422;--accent-wash:#4fb8d41f;--accent-shadow:#4fb8d459;">
+                    <div class="lineup-stage">
+                        <img src="/pour-screenshot.png" width="1147" height="499" alt="Pour stereo imaging plugin: a live polar vectorscope" loading="lazy" decoding="async">
                     </div>
-                    <div class="product-card-body">
-                        <h3 class="product-card-name">Pour</h3>
-                        <p class="product-card-tagline">M/S stereo imaging with a live vectorscope. Pour it wider.</p>
-                        <ul class="product-card-features" style="--feature-dot: #4fb8d4;">
-                            <li>Shuffle + Space (Blumlein stereo shuffling)</li>
-                            <li>Width, Rotation, Asymmetry</li>
+                    <div class="lineup-copy">
+                        <h3 class="lineup-name">Pour</h3>
+                        <p class="lineup-tagline">Wider lows that still fold down to mono.</p>
+                        <ul class="lineup-features">
+                            <li>Shuffle + Space — Blumlein bass shuffling</li>
+                            <li>Width, Rotation and Asymmetry M/S control</li>
                             <li>Live polar vectorscope</li>
-                            <li>Zero latency, VST3 / AU / AAX</li>
+                            <li>VST3, AU, AAX — Pro Tools signed</li>
                         </ul>
-                        <div class="product-card-footer">
-                            <span class="product-card-price">$20</span>
-                            <a href="/pour" class="product-card-cta" style="background:linear-gradient(135deg,#4fb8d4,#2a88a8);color:#fff;">
-                                Learn more about Pour <span class="arrow">&rarr;</span>
-                            </a>
+                        <div class="lineup-actions">
+                            <span class="lineup-price">$20</span>
+                            <a class="lineup-buy" href="https://buy.stripe.com/bJe4gz0ch7l0aDL9rd3oA07">Buy &mdash; $20</a>
+                            <a class="lineup-learn" href="/pour">Learn more <span class="arrow">&rarr;</span></a>
                         </div>
-                        <div style="display:flex;gap:10px;margin-top:12px;">
-                            <a href="https://buy.stripe.com/bJe4gz0ch7l0aDL9rd3oA07" style="flex:1;text-align:center;padding:10px;border-radius:8px;background:linear-gradient(135deg,#4fb8d4,#2a88a8);color:#fff;font-weight:600;font-size:13px;text-decoration:none;">Buy — $20</a>
-                            <a href="/pour#demo" style="flex:1;text-align:center;padding:10px;border-radius:8px;border:1px solid rgba(79,184,212,0.3);color:#4fb8d4;font-weight:600;font-size:13px;text-decoration:none;">Try Demo</a>
-                        </div>
-                        <p style="font-size:11px;color:#a09bb5;margin-top:8px;text-align:center;">or 4 payments of $5 with Klarna / Afterpay</p>
+                        <p class="lineup-finance">or 4 payments of $5 with Klarna / Afterpay</p>
                     </div>
-                </div>
+                </article>
 
-            </div>
+                <article class="lineup-row scroll-reveal" style="--accent-line:#6fc7bc;--accent-line-2:#2e8f85;--accent-glow:#6fc7bc22;--accent-wash:#6fc7bc1f;--accent-shadow:#6fc7bc59;">
+                    <div class="lineup-stage">
+                        <img src="/assets/still-screenshot.png" width="620" height="400" alt="Still noise suppressor plugin: a single suppression dial" loading="lazy" decoding="async">
+                    </div>
+                    <div class="lineup-copy">
+                        <h3 class="lineup-name">Still<span class="lineup-badge">FREE</span></h3>
+                        <p class="lineup-tagline">Noise gone, for nothing.</p>
+                        <ul class="lineup-features">
+                            <li>Adaptive noise-floor removal</li>
+                            <li>Δ NOISE solo — hear only what is removed</li>
+                            <li>Zero added latency</li>
+                            <li>Free forever, no licence key</li>
+                        </ul>
+                        <div class="lineup-actions">
+                            <span class="lineup-price">Free <small>forever</small></span>
+                            <a class="lineup-buy" href="/still">Download Still</a>
+                            <a class="lineup-learn" href="/still">Learn more <span class="arrow">&rarr;</span></a>
+                        </div>
+                    </div>
+                </article>
+            </div>>
 
             <!-- Bundle CTA -->
             <div class="scroll-reveal" style="margin-top:48px;text-align:center;padding:32px 24px;border-radius:16px;border:1px solid rgba(255,255,255,0.08);background:linear-gradient(135deg,rgba(255,107,43,0.06),rgba(0,212,255,0.06));">
-                <p style="font-size:14px;color:#ff8cc9;margin-bottom:6px;font-weight:700;letter-spacing:1px;text-transform:uppercase;">September All-Plugins Sale — Ends Sep 30</p>
-                <p style="font-size:22px;font-weight:700;color:#fff;margin-bottom:4px;">Get all 6 plugins for <span style="background:linear-gradient(135deg,#ff6b2b,#00d4ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">$45</span> <span style="font-size:15px;color:#6b6580;font-weight:400;text-decoration:line-through;">$109</span></p>
-                <p style="font-size:14px;color:#a09bb5;margin-bottom:14px;">Carbonator, De-Sipper, On Tap, Pour, FIZZFUEL, and Still. Every tool in one checkout.</p>
-                <p style="font-size:13px;color:#a09bb5;margin-bottom:20px;">Save $64 vs. the full lineup &middot; Still is free forever</p>
-                <a href="https://buy.stripe.com/3cI7sL2kpaxcdPX1YL3oA0h?prefilled_promo_code=ALL6FOR45" style="padding:14px 36px;border-radius:10px;background:linear-gradient(135deg,#ff6b2b,#00d4ff);color:#fff;font-weight:700;font-size:15px;text-decoration:none;display:inline-block;">Get All 6 — $45</a>
+                <p style="font-size:14px;color:#ff8cc9;margin-bottom:6px;font-weight:700;letter-spacing:1px;text-transform:uppercase;">All-Plugins Bundle — now with TALLBOY</p>
+                <p style="font-size:22px;font-weight:700;color:#fff;margin-bottom:4px;">Get all 7 plugins for <span style="background:linear-gradient(135deg,#ff6b2b,#00d4ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">$55</span> <span style="font-size:15px;color:#6b6580;font-weight:400;text-decoration:line-through;">$129</span></p>
+                <p style="font-size:14px;color:#a09bb5;margin-bottom:14px;">Carbonator, De-Sipper, On Tap, Pour, FIZZFUEL, TALLBOY, and Still. Every tool in one checkout.</p>
+                <p style="font-size:13px;color:#a09bb5;margin-bottom:20px;">Save $74 vs. the full lineup &middot; Still is free forever</p>
+                <a href="https://buy.stripe.com/dRmbJ16AFbBgcLT6f13oA0k" style="padding:14px 36px;border-radius:10px;background:linear-gradient(135deg,#ff6b2b,#00d4ff);color:#fff;font-weight:700;font-size:15px;text-decoration:none;display:inline-block;">Get All 7 — $55</a>
             </div>
         </section>
 
@@ -1785,18 +1942,18 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
                     <a href="https://buy.stripe.com/7sY28raQV34KeU1bzl3oA09" class="pricing-btn" data-color="vocal">Get Vocal Chain &mdash; $35</a>
                 </div>
 
-                <!-- September All-Plugins Bundle (Featured — 6 plugins) -->
+                <!-- All-Plugins Bundle (Featured — 7 plugins) -->
                 <div class="pricing-card featured scroll-reveal">
                     <span class="pricing-badge">BEST VALUE</span>
                     <div class="pricing-card-header">
                         <div class="pricing-card-name">All Plugins Bundle</div>
-                        <div class="pricing-card-desc">All 6 plugins, one price</div>
+                        <div class="pricing-card-desc">All 7 plugins, one price</div>
                     </div>
                     <div class="pricing-price">
-                        <span class="pricing-original">$109</span>
-                        <span class="pricing-dollar">$</span><span class="pricing-amount">45</span>
+                        <span class="pricing-original">$129</span>
+                        <span class="pricing-dollar">$</span><span class="pricing-amount">55</span>
                         <div class="pricing-period">one-time payment</div>
-                        <div style="font-size:12px;color:#ff8cc9;margin-top:8px;font-weight:700;">September sale &middot; ends Sep 30</div>
+                        <div style="font-size:12px;color:#ff8cc9;margin-top:8px;font-weight:700;">Best value &middot; every plugin we make</div>
                     </div>
                     <ul class="pricing-features">
                         <li><span class="check">&#10003;</span> Carbonator (full license)</li>
@@ -1804,12 +1961,13 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
                         <li><span class="check">&#10003;</span> On Tap (full license)</li>
                         <li><span class="check">&#10003;</span> Pour (full license)</li>
                         <li><span class="check">&#10003;</span> FIZZFUEL (full license)</li>
+                        <li><span class="check">&#10003;</span> TALLBOY (full license)</li>
                         <li><span class="check">&#10003;</span> Still (free noise suppressor)</li>
-                        <li><span class="check">&#10003;</span> All 6: macOS VST3 / AU / AAX &middot; select plugins: Windows VST3</li>
+                        <li><span class="check">&#10003;</span> All 7: macOS VST3 / AU / AAX &middot; select plugins: Windows VST3</li>
                         <li><span class="check">&#10003;</span> Free updates for every plugin</li>
-                        <li><span class="check">&#10003;</span> Save $64 vs. the full lineup</li>
+                        <li><span class="check">&#10003;</span> Save $74 vs. the full lineup</li>
                     </ul>
-                    <a href="https://buy.stripe.com/3cI7sL2kpaxcdPX1YL3oA0h?prefilled_promo_code=ALL6FOR45" class="pricing-btn" data-color="purple">Get All 6 &mdash; $45</a>
+                    <a href="https://buy.stripe.com/dRmbJ16AFbBgcLT6f13oA0k" class="pricing-btn" data-color="purple">Get All 7 &mdash; $55</a>
                 </div>
 
                 <!-- Mix Bus Bundle (2 plugins) -->
@@ -1845,9 +2003,9 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
             <h2 class="final-cta-title scroll-reveal">Ready to level up your sound?</h2>
             <p class="final-cta-desc scroll-reveal">Join producers already using Carbonated Audio in their workflow.</p>
             <div class="final-cta-buttons scroll-reveal">
-                <a href="https://buy.stripe.com/3cI7sL2kpaxcdPX1YL3oA0h?prefilled_promo_code=ALL6FOR45" class="btn-hero-solid">Get All 6 Plugins &mdash; $45</a>
+                <a href="https://buy.stripe.com/dRmbJ16AFbBgcLT6f13oA0k" class="btn-hero-solid">Get All 7 Plugins &mdash; $55</a>
             </div>
-            <p class="scroll-reveal" style="margin-top:14px;font-size:13px;color:#ff8cc9;text-align:center;">September sale ends September 30 &middot; normally $109</p>
+            <p class="scroll-reveal" style="margin-top:14px;font-size:13px;color:#ff8cc9;text-align:center;">All 7 plugins &middot; individually $129</p>
         </section>
 
         <!-- Footer -->
@@ -1860,13 +2018,21 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
 
     <!-- Product Card Spotlight Glow -->
     <script>
-        document.querySelectorAll('.product-card').forEach(card => {
-            card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                card.style.setProperty('--mouse-x', (e.clientX - rect.left) + 'px');
-                card.style.setProperty('--mouse-y', (e.clientY - rect.top) + 'px');
+        // Cursor-follow spotlight. Skipped for visitors who ask for reduced
+        // motion, and on coarse pointers where there is no cursor to follow.
+        const spotlightOK =
+            !window.matchMedia('(prefers-reduced-motion: reduce)').matches &&
+            window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+        if (spotlightOK) {
+            document.querySelectorAll('.product-card, .lineup-row').forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    card.style.setProperty('--mouse-x', (e.clientX - rect.left) + 'px');
+                    card.style.setProperty('--mouse-y', (e.clientY - rect.top) + 'px');
+                });
             });
-        });
+        }
     </script>
 
     <!-- Pour Spotlight: autoplay-on-visible + click-to-unmute -->

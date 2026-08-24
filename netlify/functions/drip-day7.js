@@ -11,7 +11,7 @@ const { PRODUCTS } = require("./config");
 const { buildEmail, PRODUCT_ACCENTS } = require("../../email-templates/render");
 
 const FROM_EMAIL = "Carbonated Audio <hello@carbonatedaudio.com>";
-const BUNDLE_URL = "https://buy.stripe.com/3cI7sL2kpaxcdPX1YL3oA0h?prefilled_promo_code=ALL6FOR45&utm_source=lead_drip&utm_medium=email&utm_campaign=september_bundle&utm_content=day7";
+const BUNDLE_URL = "https://buy.stripe.com/dRmbJ16AFbBgcLT6f13oA0k?utm_source=lead_drip&utm_medium=email&utm_campaign=all7_bundle&utm_content=day7";
 const FOUR_DAYS = 4 * 24 * 60 * 60 * 1000;
 
 const SUBJECTS = {
@@ -178,8 +178,8 @@ function buildDay7Body(product) {
     <hr style="border:none;border-top:1px solid #2a2440;margin:28px 0;">
     <p style="color:#a09bb5;font-size:14px;line-height:1.7;margin:0;text-align:center;">
       Want the full toolkit? Grab
-      <a href="${BUNDLE_URL}" style="color:#4ecca3;text-decoration:none;font-weight:600;">all 6 plugins for $45</a>
-      through September 30 &mdash; normally $109, save $64.
+      <a href="${BUNDLE_URL}" style="color:#4ecca3;text-decoration:none;font-weight:600;">all 7 plugins for $55</a>
+      &mdash; individually $129, save $74.
     </p>
   `;
 

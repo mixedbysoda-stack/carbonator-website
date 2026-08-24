@@ -10,14 +10,13 @@
 
     const isActive = (page) => active === page ? ' active' : '';
 
-    const septemberSaleActive = Date.now() < Date.parse('2026-10-01T03:59:59Z');
-    const saleBar = septemberSaleActive
-        ? `<a class="site-sale-bar" href="/bundle" aria-label="View the September Complete Bundle sale">
-                <span>September Bundle Sale</span>
-                <strong>All 6 plugins — $45</strong>
-                <em>Normally $109 · Ends Sep 30</em>
-           </a>`
-        : '';
+    // Not a dated sale any more — the all-in bundle is simply the best value we
+    // sell, so the bar stays up instead of expiring on a hardcoded date.
+    const saleBar = `<a class="site-sale-bar" href="/bundle" aria-label="View the All 7 Plugins Bundle">
+                <span>All Plugins Bundle</span>
+                <strong>All 7 plugins — $55</strong>
+                <em>Individually $129 · now with TALLBOY</em>
+           </a>`;
 
     mount.innerHTML = `
         ${saleBar}

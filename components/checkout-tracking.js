@@ -9,7 +9,10 @@
     '9B6bJ11gl7l0aDLgTF3oA0b': { id: 'desipper', name: 'De-Sipper', price: 20 },
     '5kQcN51gl6gWfY51YL3oA04': { id: 'ontap', name: 'On Tap', price: 20 },
     'bJe4gz0ch7l0aDL9rd3oA07': { id: 'pour', name: 'Pour', price: 20 },
-    '3cI7sL2kpaxcdPX1YL3oA0h': { id: 'september_bundle', name: 'Carbonated Audio All 6 Plugins Bundle', price: 45 },
+    'dRmbJ16AFbBgcLT6f13oA0k': { id: 'september_bundle', name: 'Carbonated Audio All 7 Plugins Bundle', price: 55 },
+    // Superseded 2026-08-23. Still mapped because bundle links in drip mail
+    // already sent point here, discounted to $45 by ALL6FOR45 until Sep 30.
+    '3cI7sL2kpaxcdPX1YL3oA0h': { id: 'september_bundle', name: 'Carbonated Audio All 7 Plugins Bundle', price: 45 },
     '7sY28raQV34KeU1bzl3oA09': { id: 'vocal_bundle', name: 'Vocal Chain Bundle', price: 35 },
     '28EeVdcZ3gVA27f1YL3oA0a': { id: 'mixbus_bundle', name: 'Mix Bus Bundle', price: 30 }
   };

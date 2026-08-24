@@ -20,7 +20,7 @@ const SUBJECTS = {
   tallboy: "Your TALLBOY License Key & Download Links",
   bundle: "Your Carbonated Audio Bundle — License Keys & Downloads",
   bundle5: "Your Carbonated Audio Bundle — License Keys & Downloads",
-  september_bundle: "Your Carbonated Audio All 6 Plugins Bundle — Downloads & License Keys",
+  september_bundle: "Your Carbonated Audio All 7 Plugins Bundle — Downloads & License Keys",
   vocal_bundle: "Your Vocal Chain Bundle — License Keys & Downloads",
   mixbus_bundle: "Your Mix Bus Bundle — License Keys & Downloads",
   apd_bundle: "Your Carbonated Audio 3-in-1 Bundle — License Keys & Downloads",
@@ -82,10 +82,10 @@ const QUICK_START = {
     '<strong style="color:#ffffff;">Stack them:</strong> Carbonator for saturation, De-Sipper for vocals, On Tap for sidechain, Pour for imaging, TALLBOY when a part needs to sound like it came off a handheld.',
   ],
   september_bundle: [
-    '<strong style="color:#ffffff;">Install your six plugins</strong> using the download links below.',
-    '<strong style="color:#ffffff;">Activate the five paid plugins</strong> with their matching license keys. Still is free and needs no activation.',
+    '<strong style="color:#ffffff;">Install your seven plugins</strong> using the download links below.',
+    '<strong style="color:#ffffff;">Activate the six paid plugins</strong> with their matching license keys. Still is free and needs no activation.',
     '<strong style="color:#ffffff;">Rescan plugins</strong> in your DAW after installation.',
-    '<strong style="color:#ffffff;">Your full chain:</strong> Still for noise, De-Sipper for vocals, Carbonator for character, On Tap for ducking, Pour for width, and FIZZFUEL for creative movement.',
+    '<strong style="color:#ffffff;">Your full chain:</strong> Still for noise, De-Sipper for vocals, Carbonator for character, On Tap for ducking, Pour for width, FIZZFUEL for creative movement, and TALLBOY when a part needs to sound like it came off a handheld.',
   ],
   vocal_bundle: [
     '<strong style="color:#ffffff;">Install Carbonator and De-Sipper</strong> using the download links above.',
@@ -115,7 +115,7 @@ const BODY_COPY = {
   bundle5:
     `<p style="color:#a09bb5;font-size:15px;line-height:1.7;margin:0;">You now own five Carbonated Audio plugins — Carbonator, De-Sipper, On Tap, Pour, and TALLBOY. Each license key, download pair, and a quick-start checklist are below.</p>`,
   september_bundle:
-    `<p style="color:#a09bb5;font-size:15px;line-height:1.7;margin:0;">Your full Carbonated Audio toolkit is below: Carbonator, De-Sipper, On Tap, Pour, FIZZFUEL, and Still. License keys are included for the five paid plugins; Still is free and needs no activation.</p>`,
+    `<p style="color:#a09bb5;font-size:15px;line-height:1.7;margin:0;">Your full Carbonated Audio toolkit is below: Carbonator, De-Sipper, On Tap, Pour, FIZZFUEL, TALLBOY, and Still. License keys are included for the six paid plugins; Still is free and needs no activation.</p>`,
   vocal_bundle:
     `<p style="color:#a09bb5;font-size:15px;line-height:1.7;margin:0;">Welcome to the Vocal Chain Bundle — you now own Carbonator and De-Sipper. License keys, downloads, and a quick-start checklist are below.</p>`,
   mixbus_bundle:
@@ -225,7 +225,7 @@ exports.handler = async (event) => {
     const preheaderMap = {
       bundle: "Your 4 license keys + downloads",
       bundle5: "Your 5 license keys + downloads",
-      september_bundle: "Your 5 license keys + all 6 downloads",
+      september_bundle: "Your 6 license keys + all 7 downloads",
       vocal_bundle: "Your Vocal Chain Bundle — 2 license keys + downloads",
       mixbus_bundle: "Your Mix Bus Bundle — 2 license keys + downloads",
       apd_bundle: "Your 3-in-1 Bundle — 3 license keys + downloads",

@@ -118,21 +118,33 @@ const PRODUCTS = {
     includes: ["carbonator", "desipper", "ontap", "pour"],
   },
   bundle5: {
-    // Complete Bundle with TALLBOY: five plugins, $100 list, $50 in the bundle.
-    // Live since 2026-08-23: price_1U7UX4E7QUGObiuvfRP2yXes on payment link
-    // plink_1U7UXxE7QUGObiuvojyBIofP (buy.stripe.com/5kQ14naQVaxc8vD46T3oA0j),
-    // metadata product=bundle5.
+    // RETIRED 2026-08-23, the same day it launched. Five plugins at $50 was
+    // strictly worse value than the seven-plugin bundle at $55, so its payment
+    // link (plink_1U7UXxE7QUGObiuvojyBIofP) is deactivated in Stripe and the
+    // email templates now point at september_bundle. Kept here so the handful
+    // of keys already issued under product=bundle5 still resolve and validate.
     name: "Carbonated Audio Complete Bundle",
     price: 50,
     isBundle: true,
     includes: ["carbonator", "desipper", "ontap", "pour", "tallboy"],
   },
   september_bundle: {
-    name: "Carbonated Audio All 6 Plugins Bundle",
-    price: 45,
+    // The one all-in bundle. TALLBOY joined it on 2026-08-23 and the price went
+    // $45 -> $55, at which point bundle5 (5 plugins, $50) became strictly worse
+    // value and was retired — its payment link is deactivated in Stripe and the
+    // email templates now point here. bundle5 stays defined below so existing
+    // buyers' keys still validate.
+    //
+    // Stripe: its own flat $55 price on a new link (plink_1U7npA...,
+    // buy.stripe.com/dRmbJ1...), so checkout shows $55 outright instead of a
+    // promo-discounted $109 that would contradict the page's value math.
+    // The previous $109 link with ALL6FOR45 (-$64) stays live until
+    // 2026-09-30 so bundle links in drip mail already sent keep working.
+    name: "Carbonated Audio All 7 Plugins Bundle",
+    price: 55,
     isBundle: true,
-    // Public lineup: the four original paid effects, FIZZFUEL, and Still.
-    includes: ["carbonator", "desipper", "ontap", "pour", "octane", "still"],
+    // Public lineup: the four original paid effects, FIZZFUEL, TALLBOY, Still.
+    includes: ["carbonator", "desipper", "ontap", "pour", "octane", "tallboy", "still"],
   },
   vocal_bundle: {
     name: "Vocal Chain Bundle",

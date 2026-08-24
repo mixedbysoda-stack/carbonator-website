@@ -100,22 +100,28 @@ const PRODUCT_ACCENTS = {
     price: 0,
   },
   bundle: {
-    name: "Complete Bundle",
+    name: "All 7 Plugins Bundle",
     color: "#cc33ff",
     colorAlt: "#ff6b2b",
     gradient: "linear-gradient(135deg,#ff6b2b,#cc33ff,#00d4ff)",
-    // 5-plugin Complete Bundle with TALLBOY, $50 (product=bundle5). The old
-    // $60 4-plugin link (product=bundle) stays live for emails already sent.
-    url: "https://buy.stripe.com/5kQ14naQVaxc8vD46T3oA0j",
-    price: 50,
+    // The single all-in bundle: 7 plugins, $55 (product=september_bundle) on
+    // its own flat price, so checkout shows $55 rather than a discounted $109
+    // and the page's value math cannot contradict it. Replaced the 5-plugin $50
+    // bundle5 on 2026-08-23 — once the 7-plugin deal was $55, $50 for five was
+    // strictly worse, so its payment link is deactivated in Stripe. The old $60
+    // 4-plugin link (product=bundle) stays live for emails already sent.
+    url: "https://buy.stripe.com/dRmbJ16AFbBgcLT6f13oA0k",
+    price: 55,
   },
   bundle5: {
-    name: "Complete Bundle",
+    // Retired. Kept so anything still keyed to "bundle5" renders the live offer
+    // rather than a dead $50 link.
+    name: "All 7 Plugins Bundle",
     color: "#cc33ff",
     colorAlt: "#ff6b2b",
     gradient: "linear-gradient(135deg,#ff6b2b,#cc33ff,#00d4ff)",
-    url: "https://buy.stripe.com/5kQ14naQVaxc8vD46T3oA0j",
-    price: 50,
+    url: "https://buy.stripe.com/dRmbJ16AFbBgcLT6f13oA0k",
+    price: 55,
   },
   vocal_bundle: {
     name: "Vocal Chain Bundle",
