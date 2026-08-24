@@ -612,6 +612,33 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
         }
 
 
+
+        /* Just-released strip: keeps the newest plugin visible above the fold
+           without the whole hero being about one product. */
+        .hero-newrelease {
+            display: inline-flex; align-items: center; gap: 12px;
+            margin-top: 8px; margin-bottom: 2px; padding: 9px 14px;
+            border: 1px solid rgba(194,210,79,.32); border-radius: 12px;
+            background: rgba(194,210,79,.07);
+            text-decoration: none; color: inherit; cursor: pointer;
+            transition: border-color .2s ease, background-color .2s ease;
+        }
+        .hero-newrelease:hover { border-color: rgba(194,210,79,.6); background: rgba(194,210,79,.12); }
+        .hero-newrelease:focus-visible { outline: 2px solid #c2d24f; outline-offset: 3px; }
+        .hero-newrelease-tag {
+            font-size: 10px; font-weight: 700; letter-spacing: .1em;
+            padding: 3px 8px; border-radius: 20px;
+            background: #c2d24f; color: #16180a; white-space: nowrap;
+        }
+        .hero-newrelease-text { font-size: 13.5px; line-height: 1.4; color: var(--text-secondary, #a09bb5); }
+        .hero-newrelease-text strong { color: #fff; }
+        .hero-newrelease-arrow { color: #c2d24f; font-weight: 700; transition: transform .2s ease; }
+        .hero-newrelease:hover .hero-newrelease-arrow { transform: translateX(3px); }
+        @media (max-width: 860px) { .hero-newrelease { flex-wrap: wrap; gap: 8px; } }
+        @media (prefers-reduced-motion: reduce) {
+            .hero-newrelease, .hero-newrelease-arrow { transition: none; }
+        }
+
         /* ========================================
            LINEUP ROWS  (replaces the fixed-height card grid)
 
@@ -1595,26 +1622,33 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
         <!-- Nav -->
         <div id="site-nav" data-active="home"></div>
 
-        <!-- Section 1: One clear product story -->
+        <!-- Section 1: Catalogue hero. Says who we are, what the range does and what
+             the whole set costs, all above the fold. TALLBOY keeps its launch
+             visibility through the just-released strip and the artwork. -->
         <section class="hero hero-featured">
             <div>
-                <span class="hero-eyebrow">Carbonated Audio presents TALLBOY</span>
-                <h1 class="hero-title">Your track, played back on a handheld.</h1>
-                <p class="hero-subtitle">TALLBOY tracks the pitch of whatever you feed it and replays that performance through a four-channel console sound chip. Not a filter over the top &mdash; an actual chip voice following your line.</p>
+                <span class="hero-eyebrow">Seven plugins &middot; one-time purchase</span>
+                <h1 class="hero-title">Studio-grade plugins, without the markup.</h1>
+                <p class="hero-subtitle">Saturation, de-essing, ducking, stereo imaging, chiptune resynthesis &mdash; seven tools that each fix one thing properly. Buy once and own them forever. No subscription, no iLok, three machines per licence.</p>
                 <div class="hero-buttons">
-                    <a href="/tallboy?utm_source=homepage&utm_medium=hero&utm_campaign=tallboy_spotlight" class="btn-hero-solid">Explore TALLBOY — $20</a>
+                    <a href="https://buy.stripe.com/dRmbJ16AFbBgcLT6f13oA0k" class="btn-hero-solid">Get all 7 &mdash; $55</a>
                     <a href="#find-your-tool" class="btn-hero-ghost">Find your tool</a>
                 </div>
+                <a class="hero-newrelease" href="/tallboy?utm_source=homepage&amp;utm_medium=hero_strip&amp;utm_campaign=tallboy_spotlight">
+                    <span class="hero-newrelease-tag">JUST RELEASED</span>
+                    <span class="hero-newrelease-text"><strong>TALLBOY</strong> &mdash; your track, played back on a handheld. Free demo.</span>
+                    <span class="hero-newrelease-arrow">&rarr;</span>
+                </a>
                 <div class="hero-stats">
-                    <div class="hero-stat"><span class="hero-stat-value">3 cartridges &middot; insert any combination</span></div>
+                    <div class="hero-stat"><span class="hero-stat-value">$129 separately &middot; $55 together</span></div>
                     <div class="hero-stat"><span class="hero-stat-value">macOS: VST3 / AU / AAX</span></div>
                     <div class="hero-stat"><span class="hero-stat-value">Windows: VST3</span></div>
                 </div>
             </div>
             <div class="hero-product-visual" aria-label="TALLBOY plugin interface">
-                <span class="hero-product-label">3 CARTRIDGES · CHIP RESYNTH</span>
+                <span class="hero-product-label">NEWEST &middot; CHIP RESYNTH</span>
                 <img src="/tallboy-screenshot.webp" alt="TALLBOY chiptune resynth plugin interface: a violet handheld console with a four-shade dot-matrix screen" width="1000" height="1822">
-                <span class="hero-product-price">$20 · Own it forever</span>
+                <span class="hero-product-price">$20 &middot; Own it forever</span>
             </div>
         </section>
 
