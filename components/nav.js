@@ -10,13 +10,25 @@
 
     const isActive = (page) => active === page ? ' active' : '';
 
-    // Not a dated sale any more — the all-in bundle is simply the best value we
-    // sell, so the bar stays up instead of expiring on a hardcoded date.
-    const saleBar = `<a class="site-sale-bar" href="/bundle" aria-label="View the All 7 Plugins Bundle">
+    // Bundle promo deadline. Fixed UTC instant so the same moment lands for every
+    // visitor regardless of their clock's timezone, and so it cannot drift.
+    //
+    // What happens at zero: the bar stops rendering. The price does NOT change —
+    // $55 simply becomes the standing price — so nothing here claims it will go
+    // up. Saying "price rises Oct 1" would be the easy line to write and it
+    // would be false.
+    const SALE_ENDS = Date.parse('2026-09-30T23:59:59Z');
+    const saleLive = Date.now() < SALE_ENDS;
+
+    // Rendered server-agnostic: the countdown text is filled in by tick() below
+    // so there is no flash of a wrong value before the first interval fires.
+    const saleBar = saleLive
+        ? `<a class="site-sale-bar" href="/bundle" aria-label="All 7 Plugins Bundle for $55 — offer ends 30 September 2026">
                 <span>All Plugins Bundle</span>
                 <strong>All 7 plugins — $55</strong>
-                <em>Individually $129 · now with TALLBOY</em>
-           </a>`;
+                <em id="saleCountdown" aria-hidden="true"></em>
+           </a>`
+        : '';
 
     mount.innerHTML = `
         ${saleBar}
@@ -99,6 +111,45 @@
             if (event.key === 'Escape') closeDropdown();
         });
         dropdownMenu.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeDropdown));
+    }
+
+    // --- bundle countdown ---------------------------------------------------
+    // aria-hidden on the element and a full deadline in the link's aria-label,
+    // because a value that rewrites itself every second is noise to a screen
+    // reader — the date is the useful part, not the ticking.
+    const countdown = document.getElementById('saleCountdown');
+    if (countdown) {
+        const pad = (n) => String(n).padStart(2, '0');
+        // Declared before tick() so the expiry branch can clear it even if the
+        // very first call already finds the deadline passed.
+        let timer = null;
+
+        const tick = () => {
+            const left = SALE_ENDS - Date.now();
+
+            if (left <= 0) {
+                // Deadline passed while the page sat open. Remove the bar rather
+                // than leave a dead "0d 00h" sitting there.
+                const bar = countdown.closest('.site-sale-bar');
+                if (bar) bar.remove();
+                clearInterval(timer);
+                return;
+            }
+
+            const days = Math.floor(left / 86400000);
+            const hours = Math.floor(left / 3600000) % 24;
+            const mins = Math.floor(left / 60000) % 60;
+            const secs = Math.floor(left / 1000) % 60;
+
+            // Drop to seconds only in the last day, where they actually mean
+            // something; before that they are just visual noise.
+            countdown.textContent = days > 0
+                ? `Ends in ${days}d ${pad(hours)}h ${pad(mins)}m`
+                : `Ends in ${pad(hours)}h ${pad(mins)}m ${pad(secs)}s`;
+        };
+
+        tick();
+        if (SALE_ENDS - Date.now() > 0) timer = setInterval(tick, 1000);
     }
 
 })();
