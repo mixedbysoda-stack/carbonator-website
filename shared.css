@@ -76,7 +76,10 @@ a, button, input[type="submit"] {
     justify-content: center;
     gap: 10px;
     padding: 8px 20px;
-    background: linear-gradient(90deg, #ff5d2e 0%, #e6318e 46%, #7937d6 100%);
+    /* The bundle page's own accents (--accent -> --accent-2), so the bar reads
+       as continuous with the page it links to. Was a separate orange/pink/violet
+       ramp from the September sale branding, which no longer exists. */
+    background: linear-gradient(90deg, #ff6b2b 0%, #cc33ff 100%);
     color: #fff;
     text-decoration: none;
     text-align: center;
