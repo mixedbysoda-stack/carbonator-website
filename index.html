@@ -625,18 +625,21 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
         .lineup {
             max-width: 1040px;
             margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            gap: 28px;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
         }
 
         .lineup-row {
             position: relative;
             display: grid;
-            grid-template-columns: minmax(0, 42%) minmax(0, 1fr);
-            gap: 40px;
+            grid-template-columns: minmax(0, 122px) minmax(0, 1fr);
+            gap: 18px;
             align-items: center;
-            padding: 28px;
+            padding: 16px;
+            text-decoration: none;
+            color: inherit;
+            cursor: pointer;
             border: 1px solid var(--border);
             border-radius: 22px;
             background: var(--bg-card);
@@ -663,24 +666,19 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
             box-shadow: 0 20px 50px rgba(0,0,0,.35);
         }
 
-        /* Alternate the image side so the eye zig-zags down the page.
-           Placed explicitly rather than with `order`, because `order` moved the
-           stage into the WIDER track on even rows and the stages came out two
-           different sizes — the exact unevenness this redesign exists to kill. */
-        .lineup-row:nth-child(even) { grid-template-columns: minmax(0, 1fr) minmax(0, 42%); }
-        .lineup-row:nth-child(even) .lineup-stage { grid-column: 2; grid-row: 1; }
-        .lineup-row:nth-child(even) .lineup-copy  { grid-column: 1; grid-row: 1; }
+        /* Every entry is identical now — the artwork always leads. Alternating
+           sides only made sense when each product had a full-width row. */
 
         /* The stage is a CONSTANT shape; the artwork floats inside it. */
         .lineup-stage {
             position: relative;
             z-index: 2;
-            aspect-ratio: 4 / 3;
+            aspect-ratio: 1 / 1;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 18px;
-            border-radius: 16px;
+            padding: 10px;
+            border-radius: 12px;
             background:
                 radial-gradient(ellipse at 50% 45%, var(--accent-wash, rgba(255,255,255,.09)) 0%, transparent 68%),
                 var(--bg-card-darker, rgba(0,0,0,.22));
@@ -699,7 +697,7 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
         .lineup-copy { position: relative; z-index: 2; min-width: 0; }
 
         .lineup-name {
-            font-size: 24px;
+            font-size: 17px;
             font-weight: 800;
             letter-spacing: -.02em;
             margin: 0 0 6px;
@@ -719,9 +717,9 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
         }
         .lineup-tagline {
             color: var(--text-secondary, #a09bb5);
-            font-size: 15px;
-            line-height: 1.6;
-            margin: 0 0 16px;
+            font-size: 13px;
+            line-height: 1.5;
+            margin: 0 0 10px;
         }
         .lineup-features {
             list-style: none;
@@ -748,8 +746,8 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
             background: var(--accent-line, #888);
         }
 
-        .lineup-actions { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
-        .lineup-price { font-size: 26px; font-weight: 800; letter-spacing: -.02em; }
+        .lineup-actions { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+        .lineup-price { font-size: 17px; font-weight: 800; letter-spacing: -.02em; }
         .lineup-price small { font-size: 12px; font-weight: 600; color: var(--text-secondary, #a09bb5); }
 
         .lineup-buy {
@@ -768,7 +766,7 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
         .lineup-buy:hover { filter: brightness(1.08); }
 
         .lineup-learn {
-            font-size: 13.5px;
+            font-size: 12.5px;
             font-weight: 600;
             text-decoration: none;
             color: var(--accent-line);
@@ -792,17 +790,13 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
         }
 
         @media (max-width: 860px) {
+            .lineup { grid-template-columns: 1fr; }
             .lineup-row {
-                grid-template-columns: 1fr;
-                gap: 22px;
-                padding: 20px;
+                grid-template-columns: minmax(0, 96px) minmax(0, 1fr);
+                gap: 14px;
+                padding: 14px;
             }
-            /* On one column the artwork always leads. */
-            .lineup-row:nth-child(even) { grid-template-columns: 1fr; }
-            .lineup-row:nth-child(even) .lineup-stage,
-            .lineup-row:nth-child(even) .lineup-copy { grid-column: 1; grid-row: auto; }
-            .lineup-stage { aspect-ratio: 16 / 10; }
-            .lineup-name { font-size: 21px; }
+            .lineup-name { font-size: 16px; }
         }
 
         .product-card-img-wrapper {
@@ -1657,264 +1651,7 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
             </div>
         </section>
 
-        <!-- Section 2: Product Showcase -->
-        <section class="products-section" id="products">
-            <p class="section-label scroll-reveal">THE LINEUP</p>
-            <h2 class="section-title scroll-reveal">Seven Plugins. One Mission.</h2>
-            <div class="lineup">
-                <article class="lineup-row scroll-reveal" style="--accent-line:#c2d24f;--accent-line-2:#9bb02e;--accent-glow:#c2d24f22;--accent-wash:#c2d24f1f;--accent-shadow:#c2d24f59;">
-                    <div class="lineup-stage">
-                        <img src="/tallboy-screenshot.webp" width="1000" height="1822" alt="TALLBOY chiptune resynth plugin: a violet handheld console with a four-shade dot-matrix screen" loading="lazy" decoding="async">
-                    </div>
-                    <div class="lineup-copy">
-                        <h3 class="lineup-name">TALLBOY<span class="lineup-badge">NEW</span></h3>
-                        <p class="lineup-tagline">Your track, played back on a handheld.</p>
-                        <ul class="lineup-features">
-                            <li>Pitch-tracked 4-channel chip resynthesis</li>
-                            <li>Tempo-synced arpeggiator with glide and swing</li>
-                            <li>Bit and sample-rate decimator</li>
-                            <li>VST3, AU, AAX — Pro Tools signed</li>
-                        </ul>
-                        <div class="lineup-actions">
-                            <span class="lineup-price">$20</span>
-                            <a class="lineup-buy" href="https://buy.stripe.com/9B68wP8INbBg3bjfPB3oA0i">Buy &mdash; $20</a>
-                            <a class="lineup-learn" href="/tallboy">Learn more <span class="arrow">&rarr;</span></a>
-                        </div>
-                        <p class="lineup-finance">or 4 payments of $5 with Klarna / Afterpay</p>
-                    </div>
-                </article>
-
-                <article class="lineup-row scroll-reveal" style="--accent-line:#ff6b2b;--accent-line-2:#ffd700;--accent-glow:#ff6b2b22;--accent-wash:#ff6b2b1f;--accent-shadow:#ff6b2b59;">
-                    <div class="lineup-stage">
-                        <img src="/fizzfuel-screenshot.png" width="420" height="700" alt="FIZZFUEL multi-effect plugin: a six-gear shifter with drive, delay and filter controls" loading="lazy" decoding="async">
-                    </div>
-                    <div class="lineup-copy">
-                        <h3 class="lineup-name">FIZZFUEL</h3>
-                        <p class="lineup-tagline">Six effects on a shifter. Throw it in gear.</p>
-                        <ul class="lineup-features">
-                            <li>6-gear multi-effect gearbox</li>
-                            <li>Saturation, FDN reverb, tempo delay, pitch, filter</li>
-                            <li>20+ styles, glitch-free crossfades</li>
-                            <li>VST3, AU, AAX — Pro Tools signed</li>
-                        </ul>
-                        <div class="lineup-actions">
-                            <span class="lineup-price">$29</span>
-                            <a class="lineup-buy" href="https://buy.stripe.com/6oUeVd7EJ6gW13b6f13oA0f">Buy &mdash; $29</a>
-                            <a class="lineup-learn" href="/fizzfuel">Learn more <span class="arrow">&rarr;</span></a>
-                        </div>
-                        <p class="lineup-finance">or 4 payments of $7.25 with Klarna / Afterpay</p>
-                    </div>
-                </article>
-
-                <article class="lineup-row scroll-reveal" style="--accent-line:#ff6b2b;--accent-line-2:#ff3366;--accent-glow:#ff6b2b22;--accent-wash:#ff6b2b1f;--accent-shadow:#ff6b2b59;">
-                    <div class="lineup-stage">
-                        <img src="/carbonator-screenshot.png" width="451" height="588" alt="Carbonator saturation plugin: a large orange drive knob" loading="lazy" decoding="async">
-                    </div>
-                    <div class="lineup-copy">
-                        <h3 class="lineup-name">Carbonator</h3>
-                        <p class="lineup-tagline">Five saturation flavours. One knob each.</p>
-                        <ul class="lineup-features">
-                            <li>5 circuit-modelled flavours</li>
-                            <li>Cola, Grape, Lemon-Lime, Orange, Cream Soda</li>
-                            <li>Carbonated mode for extra drive</li>
-                            <li>VST3, AU, AAX — Pro Tools signed</li>
-                        </ul>
-                        <div class="lineup-actions">
-                            <span class="lineup-price">$20</span>
-                            <a class="lineup-buy" href="https://buy.stripe.com/aFafZhgbffRw6nv0UH3oA00">Buy &mdash; $20</a>
-                            <a class="lineup-learn" href="/carbonator">Learn more <span class="arrow">&rarr;</span></a>
-                        </div>
-                        <p class="lineup-finance">or 4 payments of $5 with Klarna / Afterpay</p>
-                    </div>
-                </article>
-
-                <article class="lineup-row scroll-reveal" style="--accent-line:#00d4ff;--accent-line-2:#0066ff;--accent-glow:#00d4ff22;--accent-wash:#00d4ff1f;--accent-shadow:#00d4ff59;">
-                    <div class="lineup-stage">
-                        <img src="/desipper-screenshot.png" width="795" height="570" alt="De-Sipper de-esser plugin interface" loading="lazy" decoding="async">
-                    </div>
-                    <div class="lineup-copy">
-                        <h3 class="lineup-name">De-Sipper</h3>
-                        <p class="lineup-tagline">Sibilance gone. Vocal intact.</p>
-                        <ul class="lineup-features">
-                            <li>Split-band de-essing</li>
-                            <li>Listen mode — hear exactly what is removed</li>
-                            <li>Zero added latency</li>
-                            <li>VST3, AU, AAX — Pro Tools signed</li>
-                        </ul>
-                        <div class="lineup-actions">
-                            <span class="lineup-price">$20</span>
-                            <a class="lineup-buy" href="https://buy.stripe.com/9B6bJ11gl7l0aDLgTF3oA0b">Buy &mdash; $20</a>
-                            <a class="lineup-learn" href="/desipper">Learn more <span class="arrow">&rarr;</span></a>
-                        </div>
-                        <p class="lineup-finance">or 4 payments of $5 with Klarna / Afterpay</p>
-                    </div>
-                </article>
-
-                <article class="lineup-row scroll-reveal" style="--accent-line:#a855f7;--accent-line-2:#7c3aed;--accent-glow:#a855f722;--accent-wash:#a855f71f;--accent-shadow:#a855f759;">
-                    <div class="lineup-stage">
-                        <img src="/ontap-screenshot.png" width="879" height="516" alt="On Tap sidechain ducking plugin interface" loading="lazy" decoding="async">
-                    </div>
-                    <div class="lineup-copy">
-                        <h3 class="lineup-name">On Tap</h3>
-                        <p class="lineup-tagline">Sidechain ducking without the routing.</p>
-                        <ul class="lineup-features">
-                            <li>16 ducking curves</li>
-                            <li>3 trigger modes — Sync, MIDI, Audio</li>
-                            <li>Band-split crossover filter</li>
-                            <li>VST3, AU, AAX — Pro Tools signed</li>
-                        </ul>
-                        <div class="lineup-actions">
-                            <span class="lineup-price">$20</span>
-                            <a class="lineup-buy" href="https://buy.stripe.com/5kQcN51gl6gWfY51YL3oA04">Buy &mdash; $20</a>
-                            <a class="lineup-learn" href="/ontap">Learn more <span class="arrow">&rarr;</span></a>
-                        </div>
-                        <p class="lineup-finance">or 4 payments of $5 with Klarna / Afterpay</p>
-                    </div>
-                </article>
-
-                <article class="lineup-row scroll-reveal" style="--accent-line:#4fb8d4;--accent-line-2:#2a88a8;--accent-glow:#4fb8d422;--accent-wash:#4fb8d41f;--accent-shadow:#4fb8d459;">
-                    <div class="lineup-stage">
-                        <img src="/pour-screenshot.png" width="1147" height="499" alt="Pour stereo imaging plugin: a live polar vectorscope" loading="lazy" decoding="async">
-                    </div>
-                    <div class="lineup-copy">
-                        <h3 class="lineup-name">Pour</h3>
-                        <p class="lineup-tagline">Wider lows that still fold down to mono.</p>
-                        <ul class="lineup-features">
-                            <li>Shuffle + Space — Blumlein bass shuffling</li>
-                            <li>Width, Rotation and Asymmetry M/S control</li>
-                            <li>Live polar vectorscope</li>
-                            <li>VST3, AU, AAX — Pro Tools signed</li>
-                        </ul>
-                        <div class="lineup-actions">
-                            <span class="lineup-price">$20</span>
-                            <a class="lineup-buy" href="https://buy.stripe.com/bJe4gz0ch7l0aDL9rd3oA07">Buy &mdash; $20</a>
-                            <a class="lineup-learn" href="/pour">Learn more <span class="arrow">&rarr;</span></a>
-                        </div>
-                        <p class="lineup-finance">or 4 payments of $5 with Klarna / Afterpay</p>
-                    </div>
-                </article>
-
-                <article class="lineup-row scroll-reveal" style="--accent-line:#6fc7bc;--accent-line-2:#2e8f85;--accent-glow:#6fc7bc22;--accent-wash:#6fc7bc1f;--accent-shadow:#6fc7bc59;">
-                    <div class="lineup-stage">
-                        <img src="/assets/still-screenshot.png" width="620" height="400" alt="Still noise suppressor plugin: a single suppression dial" loading="lazy" decoding="async">
-                    </div>
-                    <div class="lineup-copy">
-                        <h3 class="lineup-name">Still<span class="lineup-badge">FREE</span></h3>
-                        <p class="lineup-tagline">Noise gone, for nothing.</p>
-                        <ul class="lineup-features">
-                            <li>Adaptive noise-floor removal</li>
-                            <li>Δ NOISE solo — hear only what is removed</li>
-                            <li>Zero added latency</li>
-                            <li>Free forever, no licence key</li>
-                        </ul>
-                        <div class="lineup-actions">
-                            <span class="lineup-price">Free <small>forever</small></span>
-                            <a class="lineup-buy" href="/still">Download Still</a>
-                            <a class="lineup-learn" href="/still">Learn more <span class="arrow">&rarr;</span></a>
-                        </div>
-                    </div>
-                </article>
-            </div>>
-
-            <!-- Bundle CTA -->
-            <div class="scroll-reveal" style="margin-top:48px;text-align:center;padding:32px 24px;border-radius:16px;border:1px solid rgba(255,255,255,0.08);background:linear-gradient(135deg,rgba(255,107,43,0.06),rgba(0,212,255,0.06));">
-                <p style="font-size:14px;color:#ff8cc9;margin-bottom:6px;font-weight:700;letter-spacing:1px;text-transform:uppercase;">All-Plugins Bundle — now with TALLBOY</p>
-                <p style="font-size:22px;font-weight:700;color:#fff;margin-bottom:4px;">Get all 7 plugins for <span style="background:linear-gradient(135deg,#ff6b2b,#00d4ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">$55</span> <span style="font-size:15px;color:#6b6580;font-weight:400;text-decoration:line-through;">$129</span></p>
-                <p style="font-size:14px;color:#a09bb5;margin-bottom:14px;">Carbonator, De-Sipper, On Tap, Pour, FIZZFUEL, TALLBOY, and Still. Every tool in one checkout.</p>
-                <p style="font-size:13px;color:#a09bb5;margin-bottom:20px;">Save $74 vs. the full lineup &middot; Still is free forever</p>
-                <a href="https://buy.stripe.com/dRmbJ16AFbBgcLT6f13oA0k" style="padding:14px 36px;border-radius:10px;background:linear-gradient(135deg,#ff6b2b,#00d4ff);color:#fff;font-weight:700;font-size:15px;text-decoration:none;display:inline-block;">Get All 7 — $55</a>
-            </div>
-        </section>
-
-        <!-- Section 3: Testimonials -->
-        <section class="testimonials-section" id="reviews">
-            <p class="section-label scroll-reveal">WHAT PRODUCERS ARE SAYING</p>
-            <h2 class="section-title scroll-reveal">Hear It From The Community</h2>
-            <div class="testimonial-grid">
-                <div class="testimonial-card scroll-reveal">
-                    <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                    <p class="testimonial-text">"The Lemon-Lime on my vocal chain is crazy. An absolute staple."</p>
-                    <div class="testimonial-author">
-                        <div class="testimonial-avatar">Z</div>
-                        <div>
-                            <div class="testimonial-name">ZakMabry</div>
-                            <div class="testimonial-role">Producer</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card scroll-reveal">
-                    <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                    <p class="testimonial-text">"Each flavor has a new texture you can't find using any other plugin."</p>
-                    <div class="testimonial-author">
-                        <div class="testimonial-avatar">L</div>
-                        <div>
-                            <div class="testimonial-name">Landsharkszn</div>
-                            <div class="testimonial-role">Producer</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card scroll-reveal">
-                    <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                    <p class="testimonial-text">"Every preset sounds amazing. It's rare you find a plugin where you can load something up and it instantly sounds good."</p>
-                    <div class="testimonial-author">
-                        <div class="testimonial-avatar">P</div>
-                        <div>
-                            <div class="testimonial-name">Pradoproducedit</div>
-                            <div class="testimonial-role">Producer</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card scroll-reveal">
-                    <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                    <p class="testimonial-text">"You have a wonderful Carbonator plugin! I really like the SOUND!!!"</p>
-                    <div class="testimonial-author">
-                        <div class="testimonial-avatar">L</div>
-                        <div>
-                            <div class="testimonial-name">Leonid Fedorov</div>
-                            <div class="testimonial-role">Touring Artist, Israel</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Section 4: Press Bar -->
-        <section class="press-bar scroll-reveal">
-            <p class="section-label">AS FEATURED ON</p>
-            <div class="press-logos">
-                <a class="press-name" href="https://www.audiopluginguy.com/news-carbinated-audio-releases-carbonator-an-analog-saturation-plugin/" target="_blank" rel="noopener">Audio Plugin Guy</a>
-                <span class="press-dot">&bull;</span>
-                <a class="press-name" href="https://rekkerd.org/carbinated-audio-releases-carbonator-saturation-effect-plugin/" target="_blank" rel="noopener">Rekkerd.org</a>
-                <span class="press-dot">&bull;</span>
-                <a class="press-name" href="https://www.kvraudio.com/product/carbonator-by-carbinated-audio" target="_blank" rel="noopener">KVR Audio</a>
-                <span class="press-dot">&bull;</span>
-                <a class="press-name" href="https://audionewsroom.net/2026/03/carbonator-five-flavors-of-circuit-modeled-saturation.html" target="_blank" rel="noopener">AudioNewsRoom</a>
-            </div>
-        </section>
-
-        <!-- Section 5: Why Carbonated Audio -->
-        <section class="why-section">
-            <h2 class="section-title scroll-reveal">Why <span class="accent">Carbonated Audio</span></h2>
-            <div class="why-grid">
-                <div class="why-card scroll-reveal">
-                    <span class="why-icon" aria-hidden="true">&#x221E;</span>
-                    <h3>No Subscriptions</h3>
-                    <p>Buy once, own forever. No recurring fees, no iLok, no subscription fatigue.</p>
-                </div>
-                <div class="why-card scroll-reveal">
-                    <span class="why-icon" aria-hidden="true">&#x266B;</span>
-                    <h3>Producer-First Design</h3>
-                    <p>Built by producers, for producers. Every control earns its place on the UI.</p>
-                </div>
-                <div class="why-card scroll-reveal">
-                    <span class="why-icon" aria-hidden="true">&#x25C8;</span>
-                    <h3>Studio-Grade Quality</h3>
-                    <p>Circuit-modeled DSP that stands up to plugins 10x the price.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Section 6: Pricing -->
+        <!-- Section 2: Pricing — highest-value offer, kept high on the page -->
         <section class="pricing-section" id="pricing">
             <p class="section-label scroll-reveal">SIMPLE PRICING</p>
             <h2 class="section-title scroll-reveal">Get the Full Toolkit</h2>
@@ -1996,6 +1733,208 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1L2 4v4c0 3.5 2.6 6.5 6 7.5 3.4-1 6-4 6-7.5V4L8 1z" stroke="#6b6580" stroke-width="1.2" fill="none"/><path d="M5.5 8L7 9.5 10.5 6" stroke="#6b6580" stroke-width="1.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 Secure checkout via Stripe. Instant license delivery via email.
             </p>
+        </section>
+
+        <!-- Section 3: The lineup — a scannable reference list, not a second checkout -->
+        <section class="products-section" id="products">
+            <p class="section-label scroll-reveal">THE LINEUP</p>
+            <h2 class="section-title scroll-reveal">Seven Plugins. One Mission.</h2>
+            <div class="lineup">
+                <a class="lineup-row" href="/tallboy" style="--accent-line:#c2d24f;--accent-line-2:#9bb02e;--accent-glow:#c2d24f22;--accent-wash:#c2d24f1f;--accent-shadow:#c2d24f59;">
+                    <div class="lineup-stage">
+                        <img src="/tallboy-screenshot.webp" width="1000" height="1822" alt="TALLBOY chiptune resynth plugin: a violet handheld console with a four-shade dot-matrix screen" loading="lazy" decoding="async">
+                    </div>
+                    <div class="lineup-copy">
+                        <h3 class="lineup-name">TALLBOY<span class="lineup-badge">NEW</span></h3>
+                        <p class="lineup-tagline">Your track, played back on a handheld.</p>
+                        <div class="lineup-actions">
+                            <span class="lineup-price">$20</span>
+                            <span class="lineup-learn">Learn more <span class="arrow">&rarr;</span></span>
+                        </div>
+                    </div>
+                </a>
+
+                <a class="lineup-row" href="/fizzfuel" style="--accent-line:#ff6b2b;--accent-line-2:#ffd700;--accent-glow:#ff6b2b22;--accent-wash:#ff6b2b1f;--accent-shadow:#ff6b2b59;">
+                    <div class="lineup-stage">
+                        <img src="/fizzfuel-screenshot.png" width="420" height="700" alt="FIZZFUEL multi-effect plugin: a six-gear shifter with drive, delay and filter controls" loading="lazy" decoding="async">
+                    </div>
+                    <div class="lineup-copy">
+                        <h3 class="lineup-name">FIZZFUEL</h3>
+                        <p class="lineup-tagline">Six effects on a shifter. Throw it in gear.</p>
+                        <div class="lineup-actions">
+                            <span class="lineup-price">$29</span>
+                            <span class="lineup-learn">Learn more <span class="arrow">&rarr;</span></span>
+                        </div>
+                    </div>
+                </a>
+
+                <a class="lineup-row" href="/carbonator" style="--accent-line:#ff6b2b;--accent-line-2:#ff3366;--accent-glow:#ff6b2b22;--accent-wash:#ff6b2b1f;--accent-shadow:#ff6b2b59;">
+                    <div class="lineup-stage">
+                        <img src="/carbonator-screenshot.png" width="451" height="588" alt="Carbonator saturation plugin: a large orange drive knob" loading="lazy" decoding="async">
+                    </div>
+                    <div class="lineup-copy">
+                        <h3 class="lineup-name">Carbonator</h3>
+                        <p class="lineup-tagline">Five saturation flavours. One knob each.</p>
+                        <div class="lineup-actions">
+                            <span class="lineup-price">$20</span>
+                            <span class="lineup-learn">Learn more <span class="arrow">&rarr;</span></span>
+                        </div>
+                    </div>
+                </a>
+
+                <a class="lineup-row" href="/desipper" style="--accent-line:#00d4ff;--accent-line-2:#0066ff;--accent-glow:#00d4ff22;--accent-wash:#00d4ff1f;--accent-shadow:#00d4ff59;">
+                    <div class="lineup-stage">
+                        <img src="/desipper-screenshot.png" width="795" height="570" alt="De-Sipper de-esser plugin interface" loading="lazy" decoding="async">
+                    </div>
+                    <div class="lineup-copy">
+                        <h3 class="lineup-name">De-Sipper</h3>
+                        <p class="lineup-tagline">Sibilance gone. Vocal intact.</p>
+                        <div class="lineup-actions">
+                            <span class="lineup-price">$20</span>
+                            <span class="lineup-learn">Learn more <span class="arrow">&rarr;</span></span>
+                        </div>
+                    </div>
+                </a>
+
+                <a class="lineup-row" href="/ontap" style="--accent-line:#a855f7;--accent-line-2:#7c3aed;--accent-glow:#a855f722;--accent-wash:#a855f71f;--accent-shadow:#a855f759;">
+                    <div class="lineup-stage">
+                        <img src="/ontap-screenshot.png" width="879" height="516" alt="On Tap sidechain ducking plugin interface" loading="lazy" decoding="async">
+                    </div>
+                    <div class="lineup-copy">
+                        <h3 class="lineup-name">On Tap</h3>
+                        <p class="lineup-tagline">Sidechain ducking without the routing.</p>
+                        <div class="lineup-actions">
+                            <span class="lineup-price">$20</span>
+                            <span class="lineup-learn">Learn more <span class="arrow">&rarr;</span></span>
+                        </div>
+                    </div>
+                </a>
+
+                <a class="lineup-row" href="/pour" style="--accent-line:#4fb8d4;--accent-line-2:#2a88a8;--accent-glow:#4fb8d422;--accent-wash:#4fb8d41f;--accent-shadow:#4fb8d459;">
+                    <div class="lineup-stage">
+                        <img src="/pour-screenshot.png" width="1147" height="499" alt="Pour stereo imaging plugin: a live polar vectorscope" loading="lazy" decoding="async">
+                    </div>
+                    <div class="lineup-copy">
+                        <h3 class="lineup-name">Pour</h3>
+                        <p class="lineup-tagline">Wider lows that still fold down to mono.</p>
+                        <div class="lineup-actions">
+                            <span class="lineup-price">$20</span>
+                            <span class="lineup-learn">Learn more <span class="arrow">&rarr;</span></span>
+                        </div>
+                    </div>
+                </a>
+
+                <a class="lineup-row" href="/still" style="--accent-line:#6fc7bc;--accent-line-2:#2e8f85;--accent-glow:#6fc7bc22;--accent-wash:#6fc7bc1f;--accent-shadow:#6fc7bc59;">
+                    <div class="lineup-stage">
+                        <img src="/assets/still-screenshot.png" width="620" height="400" alt="Still noise suppressor plugin: a single suppression dial" loading="lazy" decoding="async">
+                    </div>
+                    <div class="lineup-copy">
+                        <h3 class="lineup-name">Still<span class="lineup-badge">FREE</span></h3>
+                        <p class="lineup-tagline">Noise gone, for nothing.</p>
+                        <div class="lineup-actions">
+                            <span class="lineup-price">Free <small>forever</small></span>
+                            <span class="lineup-learn">Learn more <span class="arrow">&rarr;</span></span>
+                        </div>
+                    </div>
+                </a>
+            </div>>
+
+            <!-- Bundle CTA -->
+            <div class="scroll-reveal" style="margin-top:48px;text-align:center;padding:32px 24px;border-radius:16px;border:1px solid rgba(255,255,255,0.08);background:linear-gradient(135deg,rgba(255,107,43,0.06),rgba(0,212,255,0.06));">
+                <p style="font-size:14px;color:#ff8cc9;margin-bottom:6px;font-weight:700;letter-spacing:1px;text-transform:uppercase;">All-Plugins Bundle — now with TALLBOY</p>
+                <p style="font-size:22px;font-weight:700;color:#fff;margin-bottom:4px;">Get all 7 plugins for <span style="background:linear-gradient(135deg,#ff6b2b,#00d4ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">$55</span> <span style="font-size:15px;color:#6b6580;font-weight:400;text-decoration:line-through;">$129</span></p>
+                <p style="font-size:14px;color:#a09bb5;margin-bottom:14px;">Carbonator, De-Sipper, On Tap, Pour, FIZZFUEL, TALLBOY, and Still. Every tool in one checkout.</p>
+                <p style="font-size:13px;color:#a09bb5;margin-bottom:20px;">Save $74 vs. the full lineup &middot; Still is free forever</p>
+                <a href="https://buy.stripe.com/dRmbJ16AFbBgcLT6f13oA0k" style="padding:14px 36px;border-radius:10px;background:linear-gradient(135deg,#ff6b2b,#00d4ff);color:#fff;font-weight:700;font-size:15px;text-decoration:none;display:inline-block;">Get All 7 — $55</a>
+            </div>
+        </section>
+
+        <!-- Section 4: Testimonials -->
+        <section class="testimonials-section" id="reviews">
+            <p class="section-label scroll-reveal">WHAT PRODUCERS ARE SAYING</p>
+            <h2 class="section-title scroll-reveal">Hear It From The Community</h2>
+            <div class="testimonial-grid">
+                <div class="testimonial-card scroll-reveal">
+                    <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                    <p class="testimonial-text">"The Lemon-Lime on my vocal chain is crazy. An absolute staple."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">Z</div>
+                        <div>
+                            <div class="testimonial-name">ZakMabry</div>
+                            <div class="testimonial-role">Producer</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card scroll-reveal">
+                    <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                    <p class="testimonial-text">"Each flavor has a new texture you can't find using any other plugin."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">L</div>
+                        <div>
+                            <div class="testimonial-name">Landsharkszn</div>
+                            <div class="testimonial-role">Producer</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card scroll-reveal">
+                    <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                    <p class="testimonial-text">"Every preset sounds amazing. It's rare you find a plugin where you can load something up and it instantly sounds good."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">P</div>
+                        <div>
+                            <div class="testimonial-name">Pradoproducedit</div>
+                            <div class="testimonial-role">Producer</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card scroll-reveal">
+                    <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                    <p class="testimonial-text">"You have a wonderful Carbonator plugin! I really like the SOUND!!!"</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">L</div>
+                        <div>
+                            <div class="testimonial-name">Leonid Fedorov</div>
+                            <div class="testimonial-role">Touring Artist, Israel</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Press Bar -->
+        <section class="press-bar scroll-reveal">
+            <p class="section-label">AS FEATURED ON</p>
+            <div class="press-logos">
+                <a class="press-name" href="https://www.audiopluginguy.com/news-carbinated-audio-releases-carbonator-an-analog-saturation-plugin/" target="_blank" rel="noopener">Audio Plugin Guy</a>
+                <span class="press-dot">&bull;</span>
+                <a class="press-name" href="https://rekkerd.org/carbinated-audio-releases-carbonator-saturation-effect-plugin/" target="_blank" rel="noopener">Rekkerd.org</a>
+                <span class="press-dot">&bull;</span>
+                <a class="press-name" href="https://www.kvraudio.com/product/carbonator-by-carbinated-audio" target="_blank" rel="noopener">KVR Audio</a>
+                <span class="press-dot">&bull;</span>
+                <a class="press-name" href="https://audionewsroom.net/2026/03/carbonator-five-flavors-of-circuit-modeled-saturation.html" target="_blank" rel="noopener">AudioNewsRoom</a>
+            </div>
+        </section>
+
+        <!-- Section 6: Why Carbonated Audio -->
+        <section class="why-section">
+            <h2 class="section-title scroll-reveal">Why <span class="accent">Carbonated Audio</span></h2>
+            <div class="why-grid">
+                <div class="why-card scroll-reveal">
+                    <span class="why-icon" aria-hidden="true">&#x221E;</span>
+                    <h3>No Subscriptions</h3>
+                    <p>Buy once, own forever. No recurring fees, no iLok, no subscription fatigue.</p>
+                </div>
+                <div class="why-card scroll-reveal">
+                    <span class="why-icon" aria-hidden="true">&#x266B;</span>
+                    <h3>Producer-First Design</h3>
+                    <p>Built by producers, for producers. Every control earns its place on the UI.</p>
+                </div>
+                <div class="why-card scroll-reveal">
+                    <span class="why-icon" aria-hidden="true">&#x25C8;</span>
+                    <h3>Studio-Grade Quality</h3>
+                    <p>Circuit-modeled DSP that stands up to plugins 10x the price.</p>
+                </div>
+            </div>
         </section>
 
         <!-- Section 7: Final CTA -->
