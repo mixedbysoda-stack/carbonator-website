@@ -69,9 +69,12 @@ Listing copy, paste-ready:
 - Description: reuse the KVR listing text (kvr-listing-tallboy.md), swap the
   closing line for: "The free demo build here is macOS VST3/AU. Windows demo
   coming - the paid version ships Windows VST3 today."
-GAP TO CLOSE: itch and Reddit skew Windows. You currently have no Windows
-demo build. Shipping TALLBOY-Demo-Setup.exe would measurably lift every
-channel in this plan. One-line product task, biggest single conversion fix.
+CORRECTED 2026-08-26: this file previously claimed there was no Windows demo
+build. That was wrong. Both Windows builds exist and were verified live:
+TALLBOY-Windows-Installer.exe (paid, wired into config.js) and
+TALLBOY-Demo-Windows-Installer.exe (demo, under the v1.0.0-demo tag).
+tallboy.html already swaps the demo href for Windows visitors via UA
+detection, so the itch and Reddit Windows audience is fully served. No gap.
 
 ### KVR Marketplace - already approved, 10 minutes
 Product 37265 exists, so Core Settings now unlocks. Flip product Live, tick
