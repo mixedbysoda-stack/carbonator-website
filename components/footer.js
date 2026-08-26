@@ -39,6 +39,6 @@
     document.body.appendChild(s);
 
     var checkout = document.createElement('script');
-    checkout.src = '/components/checkout-tracking.js?v=20260826-tallboy-fix';
+    checkout.src = '/components/checkout-tracking.js?v=20260826-apd';
     document.body.appendChild(checkout);
 })();
