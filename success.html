@@ -774,28 +774,26 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
                         }
                     }
 
-                    // GA4 / Meta Pixel: fire purchase event using the REAL charged amount,
-                    // not a per-product guess — a $0 promo/NFR redemption must never report as a paid sale.
+                    // Meta Pixel: Purchase, using the REAL charged amount only.
+                    // NEVER invent a value from a per-product price table. Doing exactly
+                    // that is what put $60 of phantom revenue in GA4 in July 2026: three
+                    // Audio Plugin Deals 100%-off redemptions (amount_total 0) were priced
+                    // from a hardcoded map and each reported as a $20 sale. If Stripe does
+                    // not tell us what was charged, we report nothing.
+                    // GA4's purchase event is sent server-side from stripe-webhook.js.
                     var amountTotalCents = typeof data.amount_total === 'number' ? data.amount_total : null;
-                    if (amountTotalCents === null) {
-                        // Fallback only for older sessions verified before amount_total was returned.
-                        var priceByProduct = { carbonator: 20, desipper: 20, ontap: 20, pour: 20, fizzfuel: 29, octane: 29, bundle: 60, vocal_bundle: 35, mixbus_bundle: 30, apd_bundle: 20 };
-                        amountTotalCents = (priceByProduct[data.product] || 20) * 100;
-                    }
-                    var purchaseValue = amountTotalCents / 100;
                     var purchaseCurrency = (data.currency || 'usd').toUpperCase();
 
-                    if (amountTotalCents > 0) {
-                        // Meta Pixel: Purchase (enables conversion-optimized retargeting)
-                        if (typeof fbq === 'function') {
-                            fbq('track', 'Purchase', {
-                                value: purchaseValue,
-                                currency: purchaseCurrency,
-                                content_name: data.product_name || data.product,
-                                content_ids: [data.product],
-                                content_type: 'product'
-                            });
-                        }
+                    if (amountTotalCents === null) {
+                        console.warn('No amount_total on verified session - skipping Purchase event rather than guessing a value.');
+                    } else if (amountTotalCents > 0 && typeof fbq === 'function') {
+                        fbq('track', 'Purchase', {
+                            value: amountTotalCents / 100,
+                            currency: purchaseCurrency,
+                            content_name: data.product_name || data.product,
+                            content_ids: [data.product],
+                            content_type: 'product'
+                        });
                     }
 
                     showState(stateVerified);

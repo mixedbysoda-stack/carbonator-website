@@ -1,5 +1,9 @@
 [build]
   publish = "."
+  # Fails the deploy if a Stripe buy link is unmapped, or a selling page
+  # is missing GA4 / checkout-tracking.js. See scripts/check-tracking.js
+  # for why. Remove this line only if you want silent revenue gaps back.
+  command = "node scripts/check-tracking.js"
   functions = "netlify/functions"
 
 [functions]
