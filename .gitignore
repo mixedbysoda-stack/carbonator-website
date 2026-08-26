@@ -16,5 +16,6 @@ customers.txt
 
 # partner redemption codes - NEVER commit (repo is public)
 # each line is a free copy of a paid bundle
-apd-codes-*.csv
+apd-codes-*
 *-codes-*.csv
+*-codes-*.txt
