@@ -19,3 +19,7 @@ customers.txt
 apd-codes-*
 *-codes-*.csv
 *-codes-*.txt
+
+# reseller activation key batches - NEVER commit (repo is public)
+*-keys.txt
+*-keys.csv
