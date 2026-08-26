@@ -141,6 +141,17 @@ const PRODUCT_ACCENTS = {
   },
 };
 
+// Aliases for the ids the webhook actually passes. FIZZFUEL's internal id is
+// "octane", and each bundle SKU arrives under its own id - none of which were
+// keys above, so every lookup fell through to the Carbonator fallback. The
+// first live 5-in-1 order (2026-08-26) rendered "Thank you for the
+// Carbonator!" and titled the FIZZFUEL block "Carbonator" because of this.
+PRODUCT_ACCENTS.octane = { ...PRODUCT_ACCENTS.fizzfuel };
+PRODUCT_ACCENTS.september_bundle = { ...PRODUCT_ACCENTS.bundle };
+PRODUCT_ACCENTS.apd_bundle = { ...PRODUCT_ACCENTS.bundle, name: "3-in-1 Bundle" };
+PRODUCT_ACCENTS.apd_bundle_4 = { ...PRODUCT_ACCENTS.bundle, name: "4-in-1 Bundle" };
+PRODUCT_ACCENTS.apd_bundle_5 = { ...PRODUCT_ACCENTS.bundle, name: "5-in-1 Bundle" };
+
 function shell(innerHtml, { preheader } = {}) {
   const year = new Date().getFullYear();
   const pre = preheader
@@ -450,7 +461,7 @@ function variantSupport({ product, customerEmail, amount, orderId, licenseKey, l
     ${divider()}
     <p style="color:${BRAND.textMuted};font-size:11px;letter-spacing:1.5px;text-transform:uppercase;margin:0 0 10px;">Share ${accent.name}, earn credit</p>
     <p style="color:${BRAND.textSecondary};font-size:14px;line-height:1.6;margin:0 0 12px;">Know a producer who'd love this? Share your link — when someone buys through it, you get our next plugin free.</p>
-    ${codeBlock(`${BRAND.site}/.netlify/functions/referral?action=track&ref=${refCode}`, { accent: accent.color })}
+    ${codeBlock(`${BRAND.site}/.netlify/functions/referral?action=track&amp;ref=${refCode}`, { accent: accent.color })}
   ` : "";
 
   const inner = `
