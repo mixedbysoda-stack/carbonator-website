@@ -24,6 +24,8 @@ const SUBJECTS = {
   vocal_bundle: "Your Vocal Chain Bundle — License Keys & Downloads",
   mixbus_bundle: "Your Mix Bus Bundle — License Keys & Downloads",
   apd_bundle: "Your Carbonated Audio 3-in-1 Bundle — License Keys & Downloads",
+  apd_bundle_4: "Your Carbonated Audio 4-in-1 Bundle — License Keys & Downloads",
+  apd_bundle_5: "Your Carbonated Audio 5-in-1 Bundle — License Keys & Downloads",
 };
 
 const QUICK_START = {
@@ -99,6 +101,18 @@ const QUICK_START = {
     '<strong style="color:#ffffff;">Rescan plugins</strong> in your DAW.',
     '<strong style="color:#ffffff;">Mix bus moves:</strong> On Tap for sidechain ducking on bass/synths, Pour for width on stereo buses.',
   ],
+  apd_bundle_4: [
+    '<strong style="color:#ffffff;">Install all four plugins</strong> using the download links above.',
+    '<strong style="color:#ffffff;">Activate each plugin</strong> with its matching license key — each key is plugin-specific.',
+    '<strong style="color:#ffffff;">Rescan plugins</strong> in your DAW.',
+    '<strong style="color:#ffffff;">Use them:</strong> De-Sipper on vocals, Carbonator for saturation, On Tap for sidechain ducking, FIZZFUEL when a part needs movement.',
+  ],
+  apd_bundle_5: [
+    '<strong style="color:#ffffff;">Install all five plugins</strong> using the download links above.',
+    '<strong style="color:#ffffff;">Activate each plugin</strong> with its matching license key — each key is plugin-specific.',
+    '<strong style="color:#ffffff;">Rescan plugins</strong> in your DAW.',
+    '<strong style="color:#ffffff;">Use them:</strong> De-Sipper on vocals, Carbonator for saturation, On Tap for sidechain ducking, FIZZFUEL for movement, TALLBOY when a part needs to sound like it came off a handheld.',
+  ],
   apd_bundle: [
     '<strong style="color:#ffffff;">Install Carbonator, De-Sipper, and On Tap</strong> using the download links above.',
     '<strong style="color:#ffffff;">Activate each plugin</strong> with its matching license key — each key is plugin-specific.',
@@ -122,6 +136,10 @@ const BODY_COPY = {
     `<p style="color:#a09bb5;font-size:15px;line-height:1.7;margin:0;">Welcome to the Mix Bus Bundle — you now own On Tap and Pour. License keys, downloads, and a quick-start checklist are below.</p>`,
   apd_bundle:
     `<p style="color:#a09bb5;font-size:15px;line-height:1.7;margin:0;">Welcome — you now own the 3-in-1 Bundle: Carbonator, De-Sipper, and On Tap. Each license key, download pair, and a quick-start checklist are below.</p>`,
+  apd_bundle_4:
+    `<p style="color:#a09bb5;font-size:15px;line-height:1.7;margin:0;">Welcome — you now own the 4-in-1 Bundle: Carbonator, De-Sipper, On Tap, and FIZZFUEL. Each license key, download pair, and a quick-start checklist are below.</p>`,
+  apd_bundle_5:
+    `<p style="color:#a09bb5;font-size:15px;line-height:1.7;margin:0;">Welcome — you now own the 5-in-1 Bundle: Carbonator, De-Sipper, On Tap, FIZZFUEL, and TALLBOY. Each license key, download pair, and a quick-start checklist are below.</p>`,
 };
 
 exports.handler = async (event) => {
@@ -162,9 +180,12 @@ exports.handler = async (event) => {
   const productId = session.metadata?.product || "carbonator";
   const product = PRODUCTS[productId] || PRODUCTS.carbonator;
 
-  const amountPaid = session.amount_total
-    ? `$${(session.amount_total / 100).toFixed(2)}`
-    : `$${product.price}.00`;
+  // amount_total is 0 for a 100%-off partner redemption, which is falsy -- the
+  // old truthiness check made those emails claim the buyer paid full list price.
+  const amountPaid =
+    typeof session.amount_total === "number"
+      ? `$${(session.amount_total / 100).toFixed(2)}`
+      : `$${product.price}.00`;
   const orderId = session.id;
   const refCode = generateRefCode(email);
 
@@ -229,6 +250,8 @@ exports.handler = async (event) => {
       vocal_bundle: "Your Vocal Chain Bundle — 2 license keys + downloads",
       mixbus_bundle: "Your Mix Bus Bundle — 2 license keys + downloads",
       apd_bundle: "Your 3-in-1 Bundle — 3 license keys + downloads",
+      apd_bundle_4: "Your 4-in-1 Bundle — 4 license keys + downloads",
+      apd_bundle_5: "Your 5-in-1 Bundle — 5 license keys + downloads",
     };
 
     emailHtml = buildEmail("support", {

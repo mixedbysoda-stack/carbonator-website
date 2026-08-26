@@ -159,10 +159,30 @@ const PRODUCTS = {
     includes: ["ontap", "pour"],
   },
   apd_bundle: {
+    // Ran 2026-06-29 to 2026-07-12. Coupon APD_BUNDLE_2026 expired 2026-07-31.
+    // Kept so keys issued under this id still validate.
     name: "APD Exclusive 3-in-1 Bundle",
     price: 55,
     isBundle: true,
     includes: ["carbonator", "desipper", "ontap"],
+  },
+  // Audio Plugin Deals, 2026-08-31 to 2026-09-13. Two SKUs because the lineup
+  // was still open when the codes were minted: APD publishes whichever link
+  // they confirm, and one shared 100%-off coupon covers both products.
+  // `price` here is the honest sum of the live individual prices, which is the
+  // anchor APD publishes -- not a number we invented. Verify against the
+  // individual `price` fields above before changing either.
+  apd_bundle_4: {
+    name: "APD Exclusive 4-in-1 Bundle",
+    price: 89, // 20 + 20 + 20 + 29
+    isBundle: true,
+    includes: ["carbonator", "desipper", "ontap", "octane"],
+  },
+  apd_bundle_5: {
+    name: "APD Exclusive 5-in-1 Bundle",
+    price: 109, // 20 + 20 + 20 + 29 + 20
+    isBundle: true,
+    includes: ["carbonator", "desipper", "ontap", "octane", "tallboy"],
   },
 };
 
