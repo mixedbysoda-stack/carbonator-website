@@ -2,11 +2,12 @@
 /*
  * Mint single-use Stripe promotion codes for a partner campaign and export a CSV.
  *
- *   read -s -p "Stripe secret key: " STRIPE_SECRET_KEY; echo; export STRIPE_SECRET_KEY
+ *   printf 'Stripe secret key: '; read -rs STRIPE_SECRET_KEY; echo; export STRIPE_SECRET_KEY
  *   node scripts/generate-apd-codes.js --count=500
  *
- * Using `read -s` keeps the key out of your shell history. Do not paste the key
- * as a literal on the command line.
+ * That form works in both bash and zsh and keeps the key out of your shell
+ * history. `read -s -p` is bash-only; in zsh -p means read from a coprocess.
+ * Do not paste the key as a literal on the command line.
  *
  * Options (all optional):
  *   --count=500                     how many codes to mint
@@ -146,7 +147,10 @@ if (remaining <= 0) {
 
   const key = process.env.STRIPE_SECRET_KEY;
   if (!key) {
-    console.error('STRIPE_SECRET_KEY is not set. Run:\n  read -s -p "Stripe secret key: " STRIPE_SECRET_KEY; echo; export STRIPE_SECRET_KEY');
+    console.error(
+      "STRIPE_SECRET_KEY is not set. Run (bash or zsh):\n" +
+      "  printf 'Stripe secret key: '; read -rs STRIPE_SECRET_KEY; echo; export STRIPE_SECRET_KEY"
+    );
     process.exit(1);
   }
   if (/\.\.\.|^sk_live_\.{3}$/.test(key) || key.length < 20) {
