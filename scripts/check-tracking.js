@@ -108,6 +108,37 @@ if (fs.existsSync(ga4Lib)) {
   }
 }
 
+// 7. The APD window dates are duplicated in four files (a static site has no
+//    shared server config). If someone edits one and not the others, part of the
+//    site goes dark on the wrong days -- fail the build instead.
+const APD_DATE_FILES = [
+  path.join(ROOT, "components", "apd-window.js"),
+  path.join(ROOT, "components", "nav.js"),
+  path.join(ROOT, "netlify", "functions", "drip-day3.js"),
+  path.join(ROOT, "netlify", "functions", "drip-day7.js"),
+];
+const starts = new Set(); const ends = new Set();
+for (const f of APD_DATE_FILES) {
+  if (!fs.existsSync(f)) { errors.push(`${path.relative(ROOT, f)}: missing, but it carries APD window dates.`); continue; }
+  const t = fs.readFileSync(f, "utf8");
+  const s = t.match(/APD_START\s*=\s*Date\.parse\(['"]([^'"]+)['"]\)/) || t.match(/var START\s*=\s*Date\.parse\(['"]([^'"]+)['"]\)/);
+  const e = t.match(/APD_END\s*=\s*Date\.parse\(['"]([^'"]+)['"]\)/) || t.match(/var END\s*=\s*Date\.parse\(['"]([^'"]+)['"]\)/);
+  if (!s || !e) { errors.push(`${path.relative(ROOT, f)}: could not find APD window dates.`); continue; }
+  starts.add(s[1]); ends.add(e[1]);
+}
+if (starts.size > 1 || ends.size > 1) {
+  errors.push(`APD window dates disagree across files (starts: ${[...starts].join(", ")}; ends: ${[...ends].join(", ")}). All four files must carry the same window.`);
+}
+
+// 8. Every data-apd-hide element must have its sweep script on the page, or the
+//    sale markup never goes dark during the window.
+for (const page of pages) {
+  const html = fs.readFileSync(path.join(ROOT, page), "utf8");
+  if (html.includes("data-apd-hide") && !html.includes("components/apd-window.js")) {
+    errors.push(`${page}: has data-apd-hide markup but never loads components/apd-window.js.`);
+  }
+}
+
 notes.push(`${mapped.size} payment links mapped, ${seenLinks.size} in use across ${pages.length} pages`);
 
 if (errors.length) {

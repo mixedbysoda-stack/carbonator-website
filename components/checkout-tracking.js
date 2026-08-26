@@ -29,6 +29,9 @@
     'bJe4gz0ch7l0aDL9rd3oA07': { id: 'pour', name: 'Pour', price: 20 },
     '9B68wP8INbBg3bjfPB3oA0i': { id: 'tallboy', name: 'TALLBOY', price: 20 },
     'dRmbJ16AFbBgcLT6f13oA0k': { id: 'september_bundle', name: 'Carbonated Audio All 7 Plugins Bundle', price: 55 },
+    // Regular-price link shown while the APD exclusive window is active
+    // (2026-08-31 to 2026-09-13); see components/apd-window.js.
+    '8x2cN59MR20GfY5bzl3oA0n': { id: 'september_bundle', name: 'Carbonated Audio All 7 Plugins Bundle', price: 129 },
     // Superseded 2026-08-23. Still mapped because bundle links in drip mail
     // already sent point here, discounted to $45 by ALL6FOR45 until Sep 30.
     '3cI7sL2kpaxcdPX1YL3oA0h': { id: 'september_bundle', name: 'Carbonated Audio All 7 Plugins Bundle', price: 45 },

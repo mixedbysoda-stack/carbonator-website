@@ -14,6 +14,13 @@ const FROM_EMAIL = "Carbonated Audio <hello@carbonatedaudio.com>";
 const BUNDLE_URL = "https://buy.stripe.com/dRmbJ16AFbBgcLT6f13oA0k?utm_source=lead_drip&utm_medium=email&utm_campaign=all7_bundle&utm_content=day3";
 const THREE_DAYS = 3 * 24 * 60 * 60 * 1000;
 
+// Audio Plugin Deals exclusive window (2026-08-31 to 2026-09-13, padded a day
+// each side): the discounted bundle pitch is dropped from every drip sent while
+// it is active. Same dates as components/apd-window.js; the build guard checks.
+const APD_START = Date.parse("2026-08-30T00:00:00Z");
+const APD_END = Date.parse("2026-09-14T23:59:59Z");
+const apdWindowActive = () => Date.now() >= APD_START && Date.now() <= APD_END;
+
 const SUBJECTS = {
   carbonator: "How's the Carbonator demo treating you? 🎛️",
   desipper: "How's the De-Sipper demo treating you? 🎤",
@@ -146,9 +153,9 @@ function buildDay3Body(product, contact) {
       <strong style="color:#ffffff;">Also from Carbonated Audio:</strong>
     </p>
     <p style="color:#a09bb5;font-size:14px;line-height:1.7;margin:0 0 16px;">${otherProducts}</p>
-    <p style="color:#a09bb5;font-size:14px;line-height:1.7;margin:0;">
-      Get all 7 Carbonated Audio plugins for <a href="${BUNDLE_URL}" style="color:#4ecca3;text-decoration:none;font-weight:600;">$55</a> &mdash; normally $109, save $54.
-    </p>
+    ${apdWindowActive() ? "" : `<p style="color:#a09bb5;font-size:14px;line-height:1.7;margin:0;">
+      Get all 7 Carbonated Audio plugins for <a href="${BUNDLE_URL}" style="color:#4ecca3;text-decoration:none;font-weight:600;">$55</a> &mdash; individually $129, save $74.
+    </p>`}
   `;
 
   return buildEmail("spotlight", {

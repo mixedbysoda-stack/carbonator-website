@@ -18,7 +18,15 @@
     // up. Saying "price rises Oct 1" would be the easy line to write and it
     // would be false.
     const SALE_ENDS = Date.parse('2026-09-30T23:59:59Z');
-    const saleLive = Date.now() < SALE_ENDS;
+    // Audio Plugin Deals exclusive window: the $55 offer goes dark sitewide,
+    // 2026-08-31 to 2026-09-13 (padded a day each side). Same dates as
+    // components/apd-window.js and the drip functions; scripts/check-tracking.js
+    // fails the build if they drift. Preview with ?apd_preview=1.
+    const APD_START = Date.parse('2026-08-30T00:00:00Z');
+    const APD_END = Date.parse('2026-09-14T23:59:59Z');
+    const apdWindow = /[?&]apd_preview=1/.test(window.location.search)
+        || (Date.now() >= APD_START && Date.now() <= APD_END);
+    const saleLive = Date.now() < SALE_ENDS && !apdWindow;
 
     // Rendered server-agnostic: the countdown text is filled in by tick() below
     // so there is no flash of a wrong value before the first interval fires.

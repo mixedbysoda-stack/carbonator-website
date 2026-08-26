@@ -317,7 +317,8 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
     <nav class="top-nav">
         <div class="top-nav-inner">
             <a href="/" class="top-nav-logo">Carbonated Audio</a>
-            <a href="https://buy.stripe.com/dRmbJ16AFbBgcLT6f13oA0k" class="top-nav-cta" data-checkout-placement="bundle_nav" onclick="if(typeof fbq!=='undefined'){fbq('track','InitiateCheckout',{value:55,currency:'USD',content_name:'All 7 Plugins Bundle'});}">Get All 7 &mdash; $55</a>
+            <a data-apd-hide href="https://buy.stripe.com/dRmbJ16AFbBgcLT6f13oA0k" class="top-nav-cta" data-checkout-placement="bundle_nav" onclick="if(typeof fbq!=='undefined'){fbq('track','InitiateCheckout',{value:55,currency:'USD',content_name:'All 7 Plugins Bundle'});}">Get All 7 &mdash; $55</a>
+            <a data-apd-show style="display:none" href="https://buy.stripe.com/8x2cN59MR20GfY5bzl3oA0n" class="top-nav-cta" data-checkout-placement="bundle_nav" onclick="if(typeof fbq!=='undefined'){fbq('track','InitiateCheckout',{value:129,currency:'USD',content_name:'All 7 Plugins Bundle'});}">Get All 7 &mdash; $129</a>
         </div>
     </nav>
 
@@ -327,16 +328,22 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
             <h1>All seven plugins.<br>One small bill.</h1>
             <p class="hero-sub">Carbonator, De-Sipper, On Tap, Pour, FIZZFUEL, TALLBOY, and Still — the complete Carbonated Audio toolkit. Character, cleanup, control, width, creative movement, and chip resynthesis in one checkout.</p>
 
-            <div class="price-row">
+            <div class="price-row" data-apd-hide>
                 <span class="price-strike">$129</span>
                 <span class="price">$55</span>
             </div>
-            <div class="price-save">EVERY PLUGIN WE MAKE &mdash; SAVE $74</div>
+            <div class="price-row" data-apd-show style="display:none">
+                <span class="price">$129</span>
+            </div>
+            <div class="price-save" data-apd-hide>EVERY PLUGIN WE MAKE &mdash; SAVE $74</div>
+            <div class="price-save" data-apd-show style="display:none">EVERY PLUGIN WE MAKE &mdash; ONE CHECKOUT</div>
 
             <div>
-                <a href="https://buy.stripe.com/dRmbJ16AFbBgcLT6f13oA0k" class="cta" data-checkout-placement="bundle_hero" onclick="if(typeof fbq!=='undefined'){fbq('track','InitiateCheckout',{value:55,currency:'USD',content_name:'All 7 Plugins Bundle'});}">Get All 7 &mdash; $55</a>
+                <a data-apd-hide href="https://buy.stripe.com/dRmbJ16AFbBgcLT6f13oA0k" class="cta" data-checkout-placement="bundle_hero" onclick="if(typeof fbq!=='undefined'){fbq('track','InitiateCheckout',{value:55,currency:'USD',content_name:'All 7 Plugins Bundle'});}">Get All 7 &mdash; $55</a>
+                <a data-apd-show style="display:none" href="https://buy.stripe.com/8x2cN59MR20GfY5bzl3oA0n" class="cta" data-checkout-placement="bundle_hero" onclick="if(typeof fbq!=='undefined'){fbq('track','InitiateCheckout',{value:129,currency:'USD',content_name:'All 7 Plugins Bundle'});}">Get All 7 &mdash; $129</a>
             </div>
-            <p class="bnpl-note">individually $129 &middot; save $74 &middot; pay once, own forever</p>
+            <p class="bnpl-note" data-apd-hide>individually $129 &middot; save $74 &middot; pay once, own forever</p>
+            <p class="bnpl-note" data-apd-show style="display:none">pay once, own forever</p>
         </div>
     </section>
 
@@ -390,10 +397,13 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
                 </div>
             </div>
 
-            <div class="math-box">
+            <div class="math-box" data-apd-hide>
                 <div class="math-row"><span class="label">All 7 plugins, individual lineup value</span><span class="val">$129</span></div>
                 <div class="math-row save"><span class="label">Bundle discount</span><span class="val">&minus; $74</span></div>
                 <div class="math-row"><span class="label">Your price</span><span class="val">$55</span></div>
+            </div>
+            <div class="math-box" data-apd-show style="display:none">
+                <div class="math-row"><span class="label">All 7 plugins, one checkout</span><span class="val">$129</span></div>
             </div>
         </div>
     </section>
@@ -426,7 +436,8 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
                 </div>
                 <div class="plugin-card" style="--card-accent: #fff;">
                     <h3>Pay in 4</h3>
-                    <p>Get all seven plugins for $55. Pay once, own it forever.</p>
+                    <p data-apd-hide>Get all seven plugins for $55. Pay once, own it forever.</p>
+                    <p data-apd-show style="display:none">Get all seven plugins in one checkout. Pay once, own it forever.</p>
                 </div>
             </div>
         </div>
@@ -435,9 +446,12 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
     <section class="final-cta">
         <div class="container">
             <h2 class="section-title">Skip the &ldquo;which one first&rdquo; question.</h2>
-            <p class="section-desc">Get all seven. Save $74. Build mixes that punch.</p>
-            <a href="https://buy.stripe.com/dRmbJ16AFbBgcLT6f13oA0k" class="cta" data-checkout-placement="bundle_final_cta" onclick="if(typeof fbq!=='undefined'){fbq('track','InitiateCheckout',{value:55,currency:'USD',content_name:'All 7 Plugins Bundle'});}">Get All 7 &mdash; $55</a>
-            <p class="bnpl-note">individually $129 &middot; pay once, own forever</p>
+            <p class="section-desc" data-apd-hide>Get all seven. Save $74. Build mixes that punch.</p>
+            <p class="section-desc" data-apd-show style="display:none">Get all seven. Build mixes that punch.</p>
+            <a data-apd-hide href="https://buy.stripe.com/dRmbJ16AFbBgcLT6f13oA0k" class="cta" data-checkout-placement="bundle_final_cta" onclick="if(typeof fbq!=='undefined'){fbq('track','InitiateCheckout',{value:55,currency:'USD',content_name:'All 7 Plugins Bundle'});}">Get All 7 &mdash; $55</a>
+            <a data-apd-show style="display:none" href="https://buy.stripe.com/8x2cN59MR20GfY5bzl3oA0n" class="cta" data-checkout-placement="bundle_final_cta" onclick="if(typeof fbq!=='undefined'){fbq('track','InitiateCheckout',{value:129,currency:'USD',content_name:'All 7 Plugins Bundle'});}">Get All 7 &mdash; $129</a>
+            <p class="bnpl-note" data-apd-hide>individually $129 &middot; pay once, own forever</p>
+            <p class="bnpl-note" data-apd-show style="display:none">pay once, own forever</p>
             <p class="trust-row">Featured on <strong>Rekkerd.org</strong>, <strong>KVR Audio</strong>, <strong>Audio Plugin Guy</strong>, and <strong>AudioNewsRoom</strong>.</p>
         </div>
     </section>
@@ -467,6 +481,7 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
 
     })();
     </script>
+<script src="/components/apd-window.js?v=20260826-apd"></script>
 <script src="/components/checkout-tracking.js?v=20260826-tallboy-fix"></script>
 </body>
 </html>

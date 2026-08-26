@@ -1631,7 +1631,8 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
                 <h1 class="hero-title">Studio-grade plugins, without the markup.</h1>
                 <p class="hero-subtitle">Saturation, de-essing, ducking, stereo imaging, chiptune resynthesis &mdash; seven tools that each fix one thing properly. Buy once and own them forever. No subscription, no iLok, three machines per licence.</p>
                 <div class="hero-buttons">
-                    <a href="https://buy.stripe.com/dRmbJ16AFbBgcLT6f13oA0k" class="btn-hero-solid">Get all 7 &mdash; $55</a>
+                    <a data-apd-hide href="https://buy.stripe.com/dRmbJ16AFbBgcLT6f13oA0k" class="btn-hero-solid">Get all 7 &mdash; $55</a>
+                    <a data-apd-show style="display:none" href="https://buy.stripe.com/8x2cN59MR20GfY5bzl3oA0n" class="btn-hero-solid">Get all 7 &mdash; $129</a>
                     <a href="#find-your-tool" class="btn-hero-ghost">Find your tool</a>
                 </div>
                 <a class="hero-newrelease" href="/tallboy?utm_source=homepage&amp;utm_medium=hero_strip&amp;utm_campaign=tallboy_spotlight">
@@ -1640,7 +1641,8 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
                     <span class="hero-newrelease-arrow">&rarr;</span>
                 </a>
                 <div class="hero-stats">
-                    <div class="hero-stat"><span class="hero-stat-value">$129 separately &middot; $55 together</span></div>
+                    <div class="hero-stat" data-apd-hide><span class="hero-stat-value">$129 separately &middot; $55 together</span></div>
+                    <div class="hero-stat" data-apd-show style="display:none"><span class="hero-stat-value">Seven plugins &middot; one-time purchase</span></div>
                     <div class="hero-stat"><span class="hero-stat-value">macOS: VST3 / AU / AAX</span></div>
                     <div class="hero-stat"><span class="hero-stat-value">Windows: VST3</span></div>
                 </div>
@@ -1692,7 +1694,7 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
             <p class="section-desc scroll-reveal">No subscriptions. No upsells. Pay once, own it forever.</p>
             <div class="pricing-grid">
                 <!-- Vocal Chain Bundle (2 plugins) -->
-                <div class="pricing-card vocal-bundle scroll-reveal">
+                <div class="pricing-card vocal-bundle scroll-reveal" data-apd-hide>
                     <div class="pricing-card-header">
                         <div class="pricing-card-name">Vocal Chain</div>
                         <div class="pricing-card-desc">Saturation + de-ess, 2 plugins</div>
@@ -1714,7 +1716,7 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
                 </div>
 
                 <!-- All-Plugins Bundle (Featured — 7 plugins) -->
-                <div class="pricing-card featured scroll-reveal">
+                <div class="pricing-card featured scroll-reveal" data-apd-hide>
                     <span class="pricing-badge">BEST VALUE</span>
                     <div class="pricing-card-header">
                         <div class="pricing-card-name">All Plugins Bundle</div>
@@ -1741,8 +1743,33 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
                     <a href="https://buy.stripe.com/dRmbJ16AFbBgcLT6f13oA0k" class="pricing-btn" data-color="purple">Get All 7 &mdash; $55</a>
                 </div>
 
+                <div class="pricing-card featured scroll-reveal" data-apd-show style="display:none">
+                    <span class="pricing-badge">EVERY PLUGIN</span>
+                    <div class="pricing-card-header">
+                        <div class="pricing-card-name">All Plugins Bundle</div>
+                        <div class="pricing-card-desc">All 7 plugins, one price</div>
+                    </div>
+                    <div class="pricing-price">
+                        <span class="pricing-dollar">$</span><span class="pricing-amount">129</span>
+                        <div class="pricing-period">one-time payment</div>
+                        <div style="font-size:12px;color:#ff8cc9;margin-top:8px;font-weight:700;">Every plugin we make</div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><span class="check">&#10003;</span> Carbonator (full license)</li>
+                        <li><span class="check">&#10003;</span> De-Sipper (full license)</li>
+                        <li><span class="check">&#10003;</span> On Tap (full license)</li>
+                        <li><span class="check">&#10003;</span> Pour (full license)</li>
+                        <li><span class="check">&#10003;</span> FIZZFUEL (full license)</li>
+                        <li><span class="check">&#10003;</span> TALLBOY (full license)</li>
+                        <li><span class="check">&#10003;</span> Still (free noise suppressor)</li>
+                        <li><span class="check">&#10003;</span> All 7: macOS VST3 / AU / AAX &middot; select plugins: Windows VST3</li>
+                        <li><span class="check">&#10003;</span> Free updates for every plugin</li>
+                    </ul>
+                    <a href="https://buy.stripe.com/8x2cN59MR20GfY5bzl3oA0n" class="pricing-btn" data-color="purple">Get All 7 &mdash; $129</a>
+                </div>
+
                 <!-- Mix Bus Bundle (2 plugins) -->
-                <div class="pricing-card mix-bundle scroll-reveal">
+                <div class="pricing-card mix-bundle scroll-reveal" data-apd-hide>
                     <div class="pricing-card-header">
                         <div class="pricing-card-name">Mix Bus</div>
                         <div class="pricing-card-desc">Ducking + imaging, 2 plugins</div>
@@ -1874,7 +1901,7 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
             </div>>
 
             <!-- Bundle CTA -->
-            <div class="scroll-reveal" style="margin-top:48px;text-align:center;padding:32px 24px;border-radius:16px;border:1px solid rgba(255,255,255,0.08);background:linear-gradient(135deg,rgba(255,107,43,0.06),rgba(0,212,255,0.06));">
+            <div class="scroll-reveal" data-apd-hide style="margin-top:48px;text-align:center;padding:32px 24px;border-radius:16px;border:1px solid rgba(255,255,255,0.08);background:linear-gradient(135deg,rgba(255,107,43,0.06),rgba(0,212,255,0.06));">
                 <p style="font-size:14px;color:#ff8cc9;margin-bottom:6px;font-weight:700;letter-spacing:1px;text-transform:uppercase;">All-Plugins Bundle — now with TALLBOY</p>
                 <p style="font-size:22px;font-weight:700;color:#fff;margin-bottom:4px;">Get all 7 plugins for <span style="background:linear-gradient(135deg,#ff6b2b,#00d4ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">$55</span> <span style="font-size:15px;color:#6b6580;font-weight:400;text-decoration:line-through;">$129</span></p>
                 <p style="font-size:14px;color:#a09bb5;margin-bottom:14px;">Carbonator, De-Sipper, On Tap, Pour, FIZZFUEL, TALLBOY, and Still. Every tool in one checkout.</p>
@@ -1976,9 +2003,11 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
             <h2 class="final-cta-title scroll-reveal">Ready to level up your sound?</h2>
             <p class="final-cta-desc scroll-reveal">Join producers already using Carbonated Audio in their workflow.</p>
             <div class="final-cta-buttons scroll-reveal">
-                <a href="https://buy.stripe.com/dRmbJ16AFbBgcLT6f13oA0k" class="btn-hero-solid">Get All 7 Plugins &mdash; $55</a>
+                <a data-apd-hide href="https://buy.stripe.com/dRmbJ16AFbBgcLT6f13oA0k" class="btn-hero-solid">Get All 7 Plugins &mdash; $55</a>
+                <a data-apd-show style="display:none" href="https://buy.stripe.com/8x2cN59MR20GfY5bzl3oA0n" class="btn-hero-solid">Get All 7 Plugins &mdash; $129</a>
             </div>
-            <p class="scroll-reveal" style="margin-top:14px;font-size:13px;color:#ff8cc9;text-align:center;">All 7 plugins &middot; individually $129</p>
+            <p class="scroll-reveal" data-apd-hide style="margin-top:14px;font-size:13px;color:#ff8cc9;text-align:center;">All 7 plugins &middot; individually $129</p>
+            <p class="scroll-reveal" data-apd-show style="display:none;margin-top:14px;font-size:13px;color:#ff8cc9;text-align:center;">All 7 plugins &middot; one-time purchase</p>
         </section>
 
         <!-- Footer -->
@@ -2198,6 +2227,7 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
     })();
     </script>
 
+<script src="/components/apd-window.js?v=20260826-apd"></script>
 <script src="/components/checkout-tracking.js?v=20260826-tallboy-fix"></script>
 </body>
 </html>
