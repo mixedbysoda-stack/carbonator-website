@@ -122,14 +122,51 @@ function promptHidden(label) {
   } catch (err) {
     return null; // no terminal (CI, cron) - caller falls back to the env var
   }
-  process.stderr.write(`${label}: `);
   let echoDisabled = false;
   try {
-    execSync("stty -echo < /dev/tty", { shell: "/bin/sh" });
+    // -echo so the secret is not shown. -icanon min 0 time 0 makes reads return
+    // immediately with whatever is there, which is how we drain below.
+    execSync("stty -echo -icanon min 0 time 0 < /dev/tty", { shell: "/bin/sh" });
     echoDisabled = true;
   } catch (err) {
     /* no stty: the secret will echo, which is ugly but not wrong */
   }
+
+  // Drain anything already sitting in the terminal's input buffer BEFORE
+  // prompting. Pasting a block into a shell queues every line; any line the
+  // shell has not consumed is still waiting when this opens /dev/tty, and an
+  // undrained prompt reads that stale line instead of what the user types.
+  // That is exactly how a prompt "answers itself" with a fragment of an
+  // earlier command.
+  let drained = 0;
+  if (echoDisabled) {
+    const scratch = Buffer.alloc(4096);
+    for (;;) {
+      let n;
+      try {
+        n = fs.readSync(fd, scratch, 0, scratch.length, null);
+      } catch (err) {
+        if (err.code === "EAGAIN") break;
+        break;
+      }
+      if (n <= 0) break;
+      drained += n;
+      if (drained > 1 << 20) break; // something is piping at us; stop
+    }
+    // Back to line-at-a-time for the real read.
+    try {
+      execSync("stty icanon < /dev/tty", { shell: "/bin/sh" });
+    } catch (err) {
+      /* best effort */
+    }
+  }
+  if (drained > 0) {
+    process.stderr.write(
+      `  (discarded ${drained} byte(s) of leftover terminal input before prompting)\n`
+    );
+  }
+
+  process.stderr.write(`${label}: `);
   const one = Buffer.alloc(1);
   let acc = Buffer.alloc(0);
   try {
@@ -147,7 +184,7 @@ function promptHidden(label) {
   } finally {
     if (echoDisabled) {
       try {
-        execSync("stty echo < /dev/tty", { shell: "/bin/sh" });
+        execSync("stty echo icanon < /dev/tty", { shell: "/bin/sh" });
       } catch (err) {
         /* best effort */
       }
