@@ -90,6 +90,7 @@ itch takes a revenue share you set yourself, default 10 percent. Two options:
 1. **Sell on itch at $20.** Simplest for the buyer. You hand out keys from a
    batch - generate one with:
    `node scripts/generate-reseller-keys.js --product tallboy --reseller itch --count 25`
+   (run it on its own line; it prompts for the license secret with echo off)
 2. **Free demo on itch, paid link to your site.** You keep 100 percent and the
    buyer lands in your own funnel and email list. Loses the itch checkout
    convenience and itch ranks paid tools higher in its own browse pages.

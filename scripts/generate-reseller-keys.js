@@ -14,12 +14,18 @@
  * identity, which also gives support a way to trace a key back to its batch
  * when a buyer writes in.
  *
- * The license secret is read from the environment and is never written to disk
- * or echoed. Run it like this (works in both bash and zsh):
+ * The license secret is never written to disk or echoed. The script prompts for
+ * it itself with echo disabled, so there is nothing to export and nothing to
+ * paste on a second line:
  *
- *   printf 'TALLBOY_LICENSE_SECRET: '; read -rs TALLBOY_LICENSE_SECRET; echo
- *   export TALLBOY_LICENSE_SECRET
  *   node scripts/generate-reseller-keys.js --product tallboy --reseller adsr --count 25
+ *
+ * (An earlier version of these instructions told you to run a `read -rs` line
+ * and an `export` line before the script. Pasting all three at once makes the
+ * shell hand `read` the SECOND pasted line, so the secret silently became the
+ * string "export TALLBOY_LICENSE_SECRET". Prompting from inside the script
+ * removes that whole class of mistake. The env var is still honoured if it is
+ * already set, for CI.)
  *
  * Output lands in <product>-<reseller>-keys.txt (one key per line, ready to
  * hand over) plus a .csv audit trail. Both are gitignored - this repo is public.
@@ -27,6 +33,7 @@
 
 const crypto = require("crypto");
 const fs = require("fs");
+const { execSync } = require("child_process");
 const path = require("path");
 
 const { PRODUCTS } = require(path.join(__dirname, "..", "netlify", "functions", "config.js"));
@@ -106,27 +113,125 @@ if (!product) {
 if (product.isBundle) die(`"${productId}" is a bundle. Mint keys per plugin instead.`);
 if (!product.secretEnv) die(`"${productId}" has no secretEnv in config.js - nothing to sign with.`);
 
-const secret = process.env[product.secretEnv];
+// Prompt on the terminal with echo off. Reading /dev/tty directly rather than
+// stdin means this still works when the script's stdin is a pipe.
+function promptHidden(label) {
+  let fd;
+  try {
+    fd = fs.openSync("/dev/tty", "rs");
+  } catch (err) {
+    return null; // no terminal (CI, cron) - caller falls back to the env var
+  }
+  process.stderr.write(`${label}: `);
+  let echoDisabled = false;
+  try {
+    execSync("stty -echo < /dev/tty", { shell: "/bin/sh" });
+    echoDisabled = true;
+  } catch (err) {
+    /* no stty: the secret will echo, which is ugly but not wrong */
+  }
+  const one = Buffer.alloc(1);
+  let acc = Buffer.alloc(0);
+  try {
+    for (;;) {
+      let n;
+      try {
+        n = fs.readSync(fd, one, 0, 1, null);
+      } catch (err) {
+        if (err.code === "EAGAIN") continue;
+        throw err;
+      }
+      if (n === 0 || one[0] === 0x0a || one[0] === 0x0d) break;
+      acc = Buffer.concat([acc, Buffer.from(one)]);
+    }
+  } finally {
+    if (echoDisabled) {
+      try {
+        execSync("stty echo < /dev/tty", { shell: "/bin/sh" });
+      } catch (err) {
+        /* best effort */
+      }
+    }
+    fs.closeSync(fd);
+    process.stderr.write("\n");
+  }
+  return acc.toString("utf8").trim();
+}
+
+let secret = (process.env[product.secretEnv] || "").trim();
+if (!secret) secret = promptHidden(product.secretEnv) || "";
 if (!secret) {
   die(
-    `${product.secretEnv} is not set.\n\n` +
-    `  printf '${product.secretEnv}: '; read -rs ${product.secretEnv}; echo\n` +
-    `  export ${product.secretEnv}\n` +
+    `No ${product.secretEnv} given.\n\n` +
+    `  Run the script on a terminal and paste the secret at the prompt:\n` +
     `  node scripts/generate-reseller-keys.js --product ${productId} --reseller ${reseller} --count ${count}`
   );
 }
-if (!/^[0-9a-fA-F]+$/.test(secret) || secret.length < 32) {
-  die(`${product.secretEnv} does not look like a hex secret. Copy it from Netlify env, not from a note.`);
+
+// Catch the shell-paste accident explicitly: if the "secret" is obviously a
+// fragment of a command line, say so instead of failing on format.
+if (/\s/.test(secret) || /^(export|printf|read|node)\b/.test(secret)) {
+  die(
+    `That does not look like a secret - it looks like a piece of a shell command:\n\n` +
+    `    ${secret.slice(0, 60)}${secret.length > 60 ? "..." : ""}\n\n` +
+    `  This happens when several lines are pasted at once and the prompt reads\n` +
+    `  the wrong one. Run the script on its own and paste ONLY the secret.`
+  );
 }
 
-// Distinct timestamps AND distinct identities, so two keys can never collide
-// even if the batch is regenerated in the same millisecond.
+// The activation endpoints do Buffer.from(secret, "hex"). Node's hex parser
+// stops at the first invalid character rather than throwing, so a non-hex
+// secret is silently truncated - identically on both sides, which is why the
+// live system still works. Warn rather than refuse: refusing here would block
+// a secret the production endpoint accepts.
+const parsedBytes = Buffer.from(secret, "hex").length;
+if (!/^[0-9a-fA-F]+$/.test(secret) || parsedBytes * 2 !== secret.length) {
+  console.error(
+    `\n  Note: ${product.secretEnv} is not pure hex. activate-${productId}.js parses it\n` +
+    `  with Buffer.from(secret, "hex"), which will use only the first ${parsedBytes} byte(s).\n` +
+    `  Keys are still minted the same way the server verifies them, so they will\n` +
+    `  work - but pass --verify-against with a known-good key to be certain.\n`
+  );
+}
+
+// The real proof that the secret is correct. Round-tripping our own keys proves
+// nothing, because a wrong secret signs and verifies consistently. Checking a
+// key the LIVE system already issued is the only way to catch a wrong or
+// mistyped secret before 25 dead keys reach a partner.
+if (args["verify-against"]) {
+  if (!validateActivationKey(args["verify-against"], secret)) {
+    die(
+      `The known-good key you passed does NOT validate against this secret.\n\n` +
+      `  Either the secret is wrong, or that key is not a ${product.name} key.\n` +
+      `  Nothing was written. Grab a ${product.name} key from a real delivery email\n` +
+      `  and check ${product.secretEnv} in Netlify.`
+    );
+  }
+  console.log(`\n  Secret verified against the known-good key you supplied.`);
+} else {
+  console.error(
+    `  Tip: --verify-against "<a real ${product.name} key from a delivery email>"\n` +
+    `  proves the secret is right before minting. Without it, a wrong secret\n` +
+    `  produces 25 keys that look fine and fail in the buyer's DAW.\n`
+  );
+}
+
+// The timestamp field must be Unix SECONDS, not milliseconds. Production signs
+// with Stripe's session.created (see stripe-webhook.js and verify-session.js),
+// which is seconds. The HMAC covers the field without interpreting it, so a
+// millisecond value still validates - but it decodes to 1970 and looks nothing
+// like every other key we have ever issued, which would mislead anyone reading
+// a key during support. Match production.
+//
+// Distinct seconds AND distinct identities, so two keys cannot collide even
+// when a whole batch is minted inside the same second.
+const nowSeconds = Math.floor(Date.now() / 1000);
 const batchStamp = new Date().toISOString().slice(0, 10);
 const rows = [];
 for (let i = 1; i <= count; i += 1) {
   const seq = String(i).padStart(4, "0");
   const identity = `${reseller}-${productId}-${batchStamp}-${seq}@resellers.carbonatedaudio.com`;
-  const key = generateActivationKey(identity, Date.now() + i, secret);
+  const key = generateActivationKey(identity, nowSeconds + i, secret);
   if (!validateActivationKey(key, secret)) {
     die(`Key ${seq} failed its own validation check. Nothing was written. Check ${product.secretEnv}.`);
   }
