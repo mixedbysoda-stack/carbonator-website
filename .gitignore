@@ -13,3 +13,8 @@ customers.txt
 
 # admin tokens - NEVER commit (repo is public)
 .leads-admin-token
+
+# partner redemption codes - NEVER commit (repo is public)
+# each line is a free copy of a paid bundle
+apd-codes-*.csv
+*-codes-*.csv
