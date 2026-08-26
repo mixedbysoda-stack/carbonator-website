@@ -195,7 +195,31 @@ function promptHidden(label) {
   return acc.toString("utf8").trim();
 }
 
+// A secret never contains whitespace. Anything that does is a mis-captured
+// line of shell, which is what happens when a `read` consumes the next line of
+// a multi-line paste.
+function looksLikeShellFragment(value) {
+  return /\s/.test(value) || /^(export|printf|read|node|sudo)\b/.test(value);
+}
+
 let secret = (process.env[product.secretEnv] || "").trim();
+
+// A poisoned env var is stickier than a bad prompt answer: it survives for the
+// rest of the shell session and silently pre-empts the prompt on every run, so
+// the script appears to ignore what the user types. Never abort on it - say
+// what is wrong, how to clear it, and fall through to asking properly.
+if (secret && looksLikeShellFragment(secret)) {
+  console.error(
+    `\n  Ignoring $${product.secretEnv}: it holds a shell fragment, not a secret.\n\n` +
+    `    ${secret.slice(0, 60)}${secret.length > 60 ? "..." : ""}\n\n` +
+    `  Something like \`read -rs ${product.secretEnv}\` captured the next line of a\n` +
+    `  paste. It is exported, so it will keep overriding the prompt until you run:\n\n` +
+    `    unset ${product.secretEnv}\n\n` +
+    `  Asking directly instead.\n`
+  );
+  secret = "";
+}
+
 if (!secret) secret = promptHidden(product.secretEnv) || "";
 if (!secret) {
   die(
@@ -205,14 +229,12 @@ if (!secret) {
   );
 }
 
-// Catch the shell-paste accident explicitly: if the "secret" is obviously a
-// fragment of a command line, say so instead of failing on format.
-if (/\s/.test(secret) || /^(export|printf|read|node)\b/.test(secret)) {
+if (looksLikeShellFragment(secret)) {
   die(
     `That does not look like a secret - it looks like a piece of a shell command:\n\n` +
     `    ${secret.slice(0, 60)}${secret.length > 60 ? "..." : ""}\n\n` +
-    `  This happens when several lines are pasted at once and the prompt reads\n` +
-    `  the wrong one. Run the script on its own and paste ONLY the secret.`
+    `  A secret has no spaces in it. Run the script on its own line and type or\n` +
+    `  paste ONLY the secret at the prompt.`
   );
 }
 
