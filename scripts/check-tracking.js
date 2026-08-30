@@ -141,10 +141,54 @@ for (const page of pages) {
 
 notes.push(`${mapped.size} payment links mapped, ${seenLinks.size} in use across ${pages.length} pages`);
 
+// ---------------------------------------------------------------------------
+// UNGATED_PRICE: no page in the sitemap may state a promotional price unless it
+// also loads the APD sweep that can hide it.
+//
+// This exists because four comparison pages (ontap-vs-kickstart,
+// desipper-vs-soothe, desipper-vs-spitfish, pour-vs-ozone-imager) sat in the
+// sitemap saying "all 7 plugins are $55" all the way into the first day of an
+// exclusive window that promised the opposite. The earlier gating checks only
+// validated pages that ALREADY declared data-apd-hide, so a page that simply
+// never opted in was invisible to them. That is the wrong direction: the check
+// has to start from "what does the public see", not "what did we remember to
+// mark up".
+// ---------------------------------------------------------------------------
+{
+  const sitemapPath = path.join(ROOT, "sitemap.xml");
+  if (fs.existsSync(sitemapPath)) {
+    const sm = fs.readFileSync(sitemapPath, "utf8");
+    const locs = [...sm.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
+    const PROMO = /\$(?:55|45|39\.99|29\.99)\b/g;
+    const offenders = [];
+    for (const u of locs) {
+      const rel = u.split("carbonatedaudio.com")[1] || "/";
+      const file = rel === "/" ? "index.html" : rel.replace(/^\//, "").replace(/\/$/, "") + ".html";
+      const full = path.join(ROOT, file);
+      if (!fs.existsSync(full)) continue;
+      const html = fs.readFileSync(full, "utf8");
+      const body = html.replace(/<script[\s\S]*?<\/script>/gi, "");
+      const hits = body.match(PROMO);
+      if (hits && !html.includes("apd-window.js")) {
+        offenders.push(`${file} states ${[...new Set(hits)].join(", ")} but never loads apd-window.js`);
+      }
+    }
+    for (const o of offenders) {
+      errors.push(
+        `${o}. During a partner exclusive this price is public and the sweep ` +
+          "cannot remove it. Either take the number out of the copy (preferred - " +
+          "a sentence with no price in it cannot leak in a future window) or add " +
+          "data-apd-hide markup plus the apd-window.js include to that page."
+      );
+    }
+  }
+}
+
 if (errors.length) {
   console.error("\nTracking check FAILED:\n");
   for (const e of errors) console.error("  - " + e);
   console.error("");
   process.exit(1);
 }
+
 console.log("Tracking check passed (" + notes.join("; ") + ")");
