@@ -227,17 +227,21 @@ const SPOTLIGHT_WELCOME = {
     ctaUrl: PRODUCTS.pour.downloads.mac,
   },
   fizzfuel: {
+    // The FIZZFUEL demo build does not exist yet and the full installer is
+    // locked without a license key, so this is a waitlist email on purpose.
+    // Do NOT link an installer here until the demo ships; when it does, point
+    // ctaUrl at the demo asset and restore "Your FIZZFUEL Demo is ready" copy.
     productKey: "fizzfuel",
-    subject: "Your FIZZFUEL Demo is ready 🏁",
-    headline: "Your FIZZFUEL Demo is ready",
-    intro: "Drive, Reverb, Delay, Pitch and Filter behind one manual gearbox — change the energy of a track without opening five plugins.",
+    subject: "You're on the FIZZFUEL demo list",
+    headline: "You're on the FIZZFUEL demo list",
+    intro: "The free FIZZFUEL demo isn't out yet - you're on the list, and it will land in your inbox the moment it ships. Until then, the sound demos on the product page show exactly what the gearbox does.",
     features: [
-      "<strong style=\"color:#ffffff;\">6 gears</strong> — Drive, Reverb, Delay, Pitch, Filter + clean A/B",
-      "<strong style=\"color:#ffffff;\">20+ styles</strong> — tape warmth through shimmer and self-oscillating echoes",
-      "<strong style=\"color:#ffffff;\">The shifter</strong> — throw the stick, glitch-free crossfades between effects",
+      "<strong style=\"color:#ffffff;\">6 gears</strong> - Drive, Reverb, Delay, Pitch, Filter + clean A/B",
+      "<strong style=\"color:#ffffff;\">20+ styles</strong> - tape warmth through shimmer and self-oscillating echoes",
+      "<strong style=\"color:#ffffff;\">The shifter</strong> - throw the stick, glitch-free crossfades between effects",
     ],
-    ctaText: "Download FIZZFUEL Demo",
-    ctaUrl: PRODUCTS.octane.downloads.mac,
+    ctaText: "Hear FIZZFUEL in action",
+    ctaUrl: "https://carbonatedaudio.com/fizzfuel?utm_source=demo_waitlist&utm_medium=email&utm_campaign=fizzfuel_waitlist#sound",
   },
   tallboy: {
     productKey: "tallboy",
