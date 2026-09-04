@@ -299,7 +299,7 @@ function buildWelcome({ source, stillConfirmUrl }) {
     return { product, subject: "Your On Tap Demo is ready 🎚️", html: buildOnTapWelcomeEmail() };
   }
   if (product === "desipper") {
-    return { product, subject: "Your De-Sipper Demo is ready 🎤", html: buildDesipperWelcomeEmail() };
+    return { product, subject: "You're on the De-Sipper demo list", html: buildDesipperWelcomeEmail() };
   }
 
   const spotlight = SPOTLIGHT_WELCOME[product];
