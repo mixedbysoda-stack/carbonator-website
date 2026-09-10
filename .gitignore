@@ -23,3 +23,9 @@ apd-codes-*
 # reseller activation key batches - NEVER commit (repo is public)
 *-keys.txt
 *-keys.csv
+
+# local build helper, not part of the website
+fix-tallboy-installer.sh
+
+# TALLBOY installer fix working dir - pkgs, logs. NEVER commit (repo is public)
+_tallboy-fix/
