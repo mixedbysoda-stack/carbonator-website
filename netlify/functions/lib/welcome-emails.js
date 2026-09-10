@@ -46,13 +46,14 @@ function buildWelcomeEmail(email) {
           <h1 style="color:#ffffff;font-size:24px;text-align:center;margin:0 0 8px;">Your Carbonator Demo is ready!</h1>
           <p style="color:#a09bb5;font-size:16px;text-align:center;margin:0 0 32px;">Here's your download link and a quick guide to get the most out of each flavor.</p>
 
-          <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:32px;">
+          <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:16px;">
             <tr><td align="center">
               <a href="https://carbonatedaudio.com/Carbonator%20DEMO.zip" style="display:inline-block;padding:14px 32px;background:linear-gradient(135deg,#ff6b2b,#ff8c42);color:#ffffff;text-decoration:none;border-radius:8px;font-size:16px;font-weight:600;">
-                Download Carbonator Demo
+                Download Carbonator Demo (macOS)
               </a>
             </td></tr>
           </table>
+          <p style="color:#a09bb5;font-size:14px;text-align:center;margin:0 0 32px;">On Windows? <a href="https://github.com/mixedbysoda-stack/carbonator/releases/download/v2.2.0-demo/Carbonator-v2.2.0-Demo-Windows-Installer.exe" style="color:#ff8c42;text-decoration:none;font-weight:600;">Download the Windows demo installer</a> (VST3).</p>
 
           <hr style="border:none;border-top:1px solid #2a2440;margin:0 0 24px;">
 
@@ -69,8 +70,8 @@ function buildWelcomeEmail(email) {
 
           <h2 style="color:#ffffff;font-size:16px;margin:0 0 12px;">Quick Start</h2>
           <ol style="color:#a09bb5;font-size:14px;padding-left:20px;margin:0;">
-            <li style="margin-bottom:8px;"><strong style="color:#ffffff;">macOS:</strong> Open the .pkg installer — choose VST3, AU, AAX, or Standalone.</li>
-            <li style="margin-bottom:8px;"><strong style="color:#ffffff;">Windows:</strong> Extract .zip → copy VST3 to <code style="background:rgba(255,255,255,0.08);padding:2px 6px;border-radius:4px;">C:\\Program Files\\Common Files\\VST3\\</code></li>
+            <li style="margin-bottom:8px;"><strong style="color:#ffffff;">macOS:</strong> Unzip, then copy the VST3, AU, AAX or Standalone bundle into the matching folder under <code style="background:rgba(255,255,255,0.08);padding:2px 6px;border-radius:4px;">/Library/Audio/Plug-Ins/</code>.</li>
+            <li style="margin-bottom:8px;"><strong style="color:#ffffff;">Windows:</strong> Run the demo installer. VST3 lands in <code style="background:rgba(255,255,255,0.08);padding:2px 6px;border-radius:4px;">C:\\Program Files\\Common Files\\VST3\\</code></li>
             <li style="margin-bottom:8px;"><strong style="color:#ffffff;">Rescan plugins</strong> in your DAW, drop Carbonator on a track, pick a flavor.</li>
           </ol>
 
@@ -96,6 +97,13 @@ function buildWelcomeEmail(email) {
 </html>`;
 }
 
+// De-Sipper demo assets. Verified live 2026-09-10 (302 -> 4.9 MB pkg, 5.0 MB exe).
+// desipper.html hands out the same two files from its gate.
+const DESIPPER_DEMO = {
+  mac: "https://github.com/mixedbysoda-stack/desipper/releases/download/v1.0.0-demo/DeSipper-Demo-v1.0.0-macOS.pkg",
+  windows: "https://github.com/mixedbysoda-stack/desipper/releases/download/v1.0.0-demo/De-Sipper-v1.0.0-Demo-Windows-Installer.exe",
+};
+
 function buildDesipperWelcomeEmail(email) {
   return `
 <!DOCTYPE html>
@@ -112,23 +120,39 @@ function buildDesipperWelcomeEmail(email) {
 
         <tr><td style="background-color:#1a1430;border-radius:16px;padding:40px 32px;">
 
-          <h1 style="color:#ffffff;font-size:24px;text-align:center;margin:0 0 8px;">Thanks for your interest in De-Sipper!</h1>
-          <p style="color:#a09bb5;font-size:16px;text-align:center;margin:0 0 32px;">The demo is coming soon. We'll email you the download link as soon as it's ready.</p>
+          <h1 style="color:#ffffff;font-size:24px;text-align:center;margin:0 0 8px;">Your De-Sipper Demo is ready</h1>
+          <p style="color:#a09bb5;font-size:16px;text-align:center;margin:0 0 32px;">Every feature unlocked. The demo plays 60 seconds, mutes for 10, and repeats - enough to run it on a real vocal before you decide.</p>
+
+          <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:16px;">
+            <tr><td align="center">
+              <a href="${DESIPPER_DEMO.mac}" style="display:inline-block;padding:14px 32px;background:linear-gradient(135deg,#00d4ff,#0ea5e9);color:#07201c;text-decoration:none;border-radius:8px;font-size:16px;font-weight:700;">
+                Download for macOS
+              </a>
+            </td></tr>
+          </table>
+          <p style="color:#a09bb5;font-size:14px;text-align:center;margin:0 0 32px;">On Windows? <a href="${DESIPPER_DEMO.windows}" style="color:#00d4ff;text-decoration:none;font-weight:600;">Download the Windows demo installer</a> (VST3).</p>
 
           <hr style="border:none;border-top:1px solid #2a2440;margin:0 0 24px;">
 
           <h2 style="color:#ffffff;font-size:18px;margin:0 0 16px;">What De-Sipper does:</h2>
           <table width="100%" cellpadding="0" cellspacing="0" style="font-size:14px;color:#a09bb5;">
-            <tr><td style="padding:6px 0;"><strong style="color:#00d4ff;">Transparent De-Essing</strong> — Tames harsh sibilance without killing your vocal's brightness.</td></tr>
-            <tr><td style="padding:6px 0;"><strong style="color:#00d4ff;">Split-Band Processing</strong> — Only touches the sibilant frequencies. Everything else passes through clean.</td></tr>
-            <tr><td style="padding:6px 0;"><strong style="color:#00d4ff;">Listen Mode</strong> — Solo exactly what's being removed so you can dial it in perfectly.</td></tr>
-            <tr><td style="padding:6px 0;"><strong style="color:#00d4ff;">Zero Latency</strong> — No lookahead delay. Works in real-time for tracking and mixing.</td></tr>
+            <tr><td style="padding:6px 0;"><strong style="color:#00d4ff;">Transparent De-Essing</strong> - tames harsh sibilance without dulling the vocal.</td></tr>
+            <tr><td style="padding:6px 0;"><strong style="color:#00d4ff;">Split-Band Processing</strong> - only the sibilant band is touched. Everything else passes through clean.</td></tr>
+            <tr><td style="padding:6px 0;"><strong style="color:#00d4ff;">Listen Mode</strong> - solo exactly what is being removed so you can dial it in.</td></tr>
+            <tr><td style="padding:6px 0;"><strong style="color:#00d4ff;">Zero Latency</strong> - no lookahead delay. Works while tracking and while mixing.</td></tr>
           </table>
 
           <hr style="border:none;border-top:1px solid #2a2440;margin:24px 0;">
 
-          <p style="color:#a09bb5;font-size:14px;margin:0;text-align:center;">
-            In the meantime, check out <a href="https://carbonatedaudio.com/carbonator" style="color:#ff6b2b;text-decoration:none;font-weight:600;">Carbonator</a> — our analog saturation plugin with 5 circuit-modeled flavors.
+          <h2 style="color:#ffffff;font-size:16px;margin:0 0 12px;">Quick Start</h2>
+          <ol style="color:#a09bb5;font-size:14px;padding-left:20px;margin:0;">
+            <li style="margin-bottom:8px;"><strong style="color:#ffffff;">macOS:</strong> open the .pkg and pick VST3, AU or AAX.</li>
+            <li style="margin-bottom:8px;"><strong style="color:#ffffff;">Windows:</strong> run the installer. VST3 lands in the Common Files folder.</li>
+            <li style="margin-bottom:8px;"><strong style="color:#ffffff;">Rescan plugins</strong> in your DAW, drop De-Sipper after your vocal compressor, pull the threshold down until the esses sit.</li>
+          </ol>
+
+          <p style="color:#a09bb5;font-size:14px;margin:24px 0 0;text-align:center;">
+            When the mute cycle gets in the way: <a href="https://carbonatedaudio.com/desipper?utm_source=demo_email&utm_medium=email&utm_campaign=desipper_welcome" style="color:#00d4ff;text-decoration:none;font-weight:600;">De-Sipper is $20</a>, one license, no subscription.
           </p>
 
         </td></tr>
@@ -218,19 +242,27 @@ const TALLBOY_DEMO = {
   windows: "https://github.com/mixedbysoda-stack/TALLBOY/releases/download/v1.0.0-demo/TALLBOY-Demo-Windows-Installer.exe",
 };
 
+// Pour demo assets. pour.html hands out the same two files from its gate; the
+// paid installer in PRODUCTS.pour.downloads is locked without a key and must
+// never be sent to a lead. Verified live 2026-09-10 (7.4 MB pkg, 4.9 MB exe).
+const POUR_DEMO = {
+  mac: "https://github.com/mixedbysoda-stack/pour/releases/download/v1.0.0-demo/Pour-v1.0.0-Demo-Installer.pkg",
+  windows: "https://github.com/mixedbysoda-stack/pour/releases/download/v1.0.0-demo/Pour-v1.0.0-Demo-Windows-Installer.exe",
+};
+
 const SPOTLIGHT_WELCOME = {
   pour: {
     productKey: "pour",
     subject: "Your Pour Demo is ready 🌊",
     headline: "Your Pour Demo is ready",
-    intro: "Stereo imaging with Blumlein bass shuffling, full M/S shaping, and a live vectorscope so you can see what you are doing.",
+    intro: "Stereo imaging with Blumlein bass shuffling, full M/S shaping, and a live vectorscope so you can see what you are doing. The button below is the macOS demo (VST3, AU, AAX); on Windows grab the VST3 demo here: <a href=\"" + POUR_DEMO.windows + "\" style=\"color:#6fc7bc;\">Pour-v1.0.0-Demo-Windows-Installer.exe</a>. The demo plays 60 seconds of audio, then mutes for 10, on a loop.",
     features: [
       "<strong style=\"color:#ffffff;\">Shuffle + Space</strong> — Blumlein bass stereo shuffling for wider lows",
       "<strong style=\"color:#ffffff;\">Width, Rotation, Asymmetry</strong> — full M/S shaping control",
       "<strong style=\"color:#ffffff;\">Live vectorscope</strong> — see the stereo field in real time",
     ],
-    ctaText: "Download Pour Demo",
-    ctaUrl: PRODUCTS.pour.downloads.mac,
+    ctaText: "Download Pour Demo (macOS)",
+    ctaUrl: POUR_DEMO.mac,
   },
   fizzfuel: {
     // The FIZZFUEL demo build does not exist yet and the full installer is
@@ -308,7 +340,7 @@ function buildWelcome({ source, stillConfirmUrl }) {
     return { product, subject: "Your On Tap Demo is ready 🎚️", html: buildOnTapWelcomeEmail() };
   }
   if (product === "desipper") {
-    return { product, subject: "You're on the De-Sipper demo list", html: buildDesipperWelcomeEmail() };
+    return { product, subject: "Your De-Sipper Demo is ready", html: buildDesipperWelcomeEmail() };
   }
 
   const spotlight = SPOTLIGHT_WELCOME[product];
