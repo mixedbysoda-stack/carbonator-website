@@ -52,9 +52,18 @@ exports.handler = async (event) => {
         ...lead,
         verification_status: "verified",
         verified_at: verifiedAt,
-        // drip-day3 keys off this exact value, so flipping it here is what
-        // opens the sequence to a confirmed address and nobody else.
+        // drip-day3 keys off BOTH of these, not just the status: it needs a
+        // timestamp to measure three days from. Setting the status alone left
+        // every confirmed Still lead matching `drip_status === "email1_sent"`
+        // but failing `Boolean(lead.email1_sent_at)`, so they were silently
+        // dropped from the whole sequence — 55 of them between 2026-08-19 and
+        // 2026-08-27, on the biggest lead source we have.
+        //
+        // The welcome IS email 1 and it went out at capture, so that send is
+        // what day 3 should count from. verified_at is the fallback for older
+        // records that predate welcome_sent_at.
         drip_status: "email1_sent",
+        email1_sent_at: lead.welcome_sent_at || verifiedAt,
       };
       await leads.setJSON(grant.lead_key, verifiedLead);
       await grants.setJSON(`dl_${hash}`, { ...grant, verified_at: verifiedAt });

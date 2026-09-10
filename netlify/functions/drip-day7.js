@@ -5,7 +5,11 @@
 const { sendEmail } = require("./lib/mailer");
 const { loadBuyerEmailsCached } = require("./lib/buyers");
 const { runDripPass } = require("./lib/drip-scan");
-const { syncLeadStatusToGoogleSheets } = require("./lib/google-sheets");
+// No Google Sheets write here on purpose. The Apps Script round-trip is ~1s,
+// which at 40 sends is longer than the whole pass is allowed to run, and
+// firing it unawaited left promises dangling after the handler returned —
+// a plausible cause of the duplicate scheduled invocations seen on Aug 26-27.
+// reconcile-sheet-status.js is what keeps the Sheet honest.
 const { Resend } = require("resend");
 const { PRODUCTS } = require("./config");
 const { buildEmail, PRODUCT_ACCENTS } = require("../../email-templates/render");
@@ -213,7 +217,9 @@ exports.handler = async () => {
   const now = Date.now();
 
   // Never drip purchase pitches at people who already bought — see lib/buyers.js.
-  const buyerEmails = await loadBuyerEmailsCached();
+  // Passed as a thunk: a pass with nothing due should not pay for a
+  // 20-page Stripe walk it never uses.
+  const buyerEmails = () => loadBuyerEmailsCached();
 
   // Shared walk — see lib/drip-scan.js for the budget, the newest-first order
   // and the send-claim that stops a truncated pass re-sending tomorrow.
@@ -235,32 +241,32 @@ exports.handler = async () => {
         html: buildDay7Body(product),
       });
     },
-    markSent: (lead) => {
-      const sentAt = new Date().toISOString();
-      syncLeadStatusToGoogleSheets({ ...lead, drip_status: "email3_sent" }).catch((err) =>
-        console.error(`Sheet status sync failed for ${lead.contact} (non-fatal):`, err.message)
-      );
-      return { drip_status: "email3_sent", email3_sent_at: sentAt };
-    },
+    markSent: (lead) => ({ drip_status: "email3_sent", email3_sent_at: new Date().toISOString() }),
   });
 
   const sent = pass.sent;
   const results = pass.results;
 
-  if (sent > 0 || pass.stoppedEarly) {
+  // Only worth an email when something actually happened. Stopping early is
+  // now the normal shape of a run — the sweep is deliberately budget-bounded
+  // and resumes from a cursor — so reporting it as a warning meant four
+  // "0 sent, pass stopped early" emails a day that said nothing.
+  if (sent > 0 || pass.failed > 0) {
     try {
       await sendEmail(resend, {
         from: FROM_EMAIL,
         to: "mixedbysoda@gmail.com",
-        subject: pass.stoppedEarly
-          ? `⚠️ Drip Day 7: ${sent} sent, pass stopped early`
+        subject: pass.failed > 0
+          ? `⚠️ Drip Day 7: ${sent} sent, ${pass.failed} failed`
           : `📧 Drip Day 7: ${sent} conversion email${sent === 1 ? "" : "s"} sent`,
         html: `<div style="font-family:Arial,sans-serif;padding:20px;background:#0d0a1a;color:#fff;">
           <h2 style="color:#ff6b2b;">Drip Day 7 Report</h2>
-          ${pass.stoppedEarly
-            ? `<p style="color:#ffb020;">Stopped before the end of the store with ~${pass.remaining} leads unscanned. Everything sent was recorded; the remainder is picked up next run.</p>`
-            : ""}
-          <p><strong>${sent}</strong> conversion email${sent > 1 ? "s" : ""} sent:</p>
+          ${pass.sent >= 40
+            ? `<p style="color:#ffb020;">Hit the per-run send cap, so there is a backlog: the rest goes out on the next run.</p>`
+            : pass.wrapped
+              ? `<p style="color:#6b6580;">Swept to the end of the store; cursor reset.</p>`
+              : `<p style="color:#6b6580;">Budget-bounded sweep, ~${pass.remaining} leads left this lap; the cursor carries on next run.</p>`}
+          <p><strong>${sent}</strong> conversion email${sent === 1 ? "" : "s"} sent, ${pass.failed} failed:</p>
           <ul>${results.map((r) => `<li>${r}</li>`).join("")}</ul>
         </div>`,
       });
