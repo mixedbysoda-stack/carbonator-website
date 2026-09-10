@@ -23,6 +23,7 @@
                 <a href="/pour">Pour</a>
                 <a href="/about">About</a>
                 <a href="/press">Press</a>
+                <a href="/creators">Creators</a>
                 <a href="mailto:mixedbysoda@gmail.com">Support</a>
             </div>
         </footer>

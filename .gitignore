@@ -29,3 +29,8 @@ fix-tallboy-installer.sh
 
 # TALLBOY installer fix working dir - pkgs, logs. NEVER commit (repo is public)
 _tallboy-fix/
+
+# creator program: ledger and payout statements carry creator + buyer emails. NEVER commit (repo is public)
+creator-codes-ledger.csv
+creator-payouts-*.csv
+creators*.csv

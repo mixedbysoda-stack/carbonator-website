@@ -482,6 +482,17 @@
   force = true
 
 [[redirects]]
+  from = "/creators.html"
+  to = "/creators"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/creators"
+  to = "/creators.html"
+  status = 200
+
+[[redirects]]
   from = "/carbonator"
   to = "/carbonator.html"
   status = 200
