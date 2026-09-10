@@ -39,6 +39,16 @@
         gtag('config', 'G-Z9L20HJ4M0');
     </script>
 
+    <!-- Meta Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version="2.0";n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,"script","https://connect.facebook.net/en_US/fbevents.js");fbq("init","1682413179857373");fbq("track","PageView");
+    // ViewContent lets a paid campaign optimise for people who actually reached
+    // the product page (as opposed to link clicks that never rendered).
+    fbq("track","ViewContent",{content_name:"TALLBOY",content_ids:["tallboy"],content_type:"product",value:20,currency:"USD"});
+    </script>
+    <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1682413179857373&ev=PageView&noscript=1"/></noscript>
+    <!-- End Meta Pixel Code -->
+
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -198,6 +208,31 @@
             .tb-shot { max-width: 290px; }
         }
         @media (prefers-reduced-motion: reduce) { .tb-btn { transition: none; } }
+
+        /* Phone visitors cannot install a VST. Instead of handing them a .pkg,
+           the demo button opens this sheet and we email the link to their inbox
+           (capture-lead -> "Your TALLBOY Demo is ready"). */
+        .tb-mail { position: fixed; inset: 0; z-index: 1000; display: none; align-items: flex-end; justify-content: center;
+                   background: rgba(10, 8, 14, .78); padding: 16px; }
+        .tb-mail.open { display: flex; }
+        .tb-mail-card { width: 100%; max-width: 440px; background: var(--tb-panel-2); border: 1px solid var(--tb-line);
+                        border-radius: 16px; padding: 22px 20px 20px; position: relative; }
+        .tb-mail-card h3 { margin: 0 0 6px; font-size: 20px; color: var(--tb-text); }
+        .tb-mail-card p { margin: 0 0 14px; font-size: 14px; }
+        .tb-mail-row { display: flex; gap: 8px; }
+        .tb-mail-row input[type="email"] { flex: 1; min-width: 0; padding: 12px 14px; border-radius: 10px; font-size: 16px;
+                        background: var(--tb-ink); color: var(--tb-text); border: 1px solid var(--tb-line); }
+        .tb-mail-row input[type="email"]:focus { outline: 2px solid var(--tb-lcd); outline-offset: 1px; border-color: var(--tb-lcd); }
+        .tb-mail-row button { padding: 12px 16px; border-radius: 10px; border: 0; font-weight: 700; font-size: 15px;
+                        background: var(--tb-lcd); color: #16180a; cursor: pointer; white-space: nowrap; }
+        .tb-mail-row button[disabled] { opacity: .6; cursor: default; }
+        .tb-mail-hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+        .tb-mail-close { position: absolute; top: 10px; right: 12px; background: none; border: 0; color: var(--tb-muted);
+                        font-size: 24px; line-height: 1; cursor: pointer; padding: 4px 8px; }
+        .tb-mail-msg { min-height: 18px; margin: 10px 0 0; font-size: 13px; color: var(--tb-muted); }
+        .tb-mail-msg.ok { color: var(--tb-lcd); }
+        .tb-mail-msg.err { color: #ff8a8a; }
+        @media (min-width: 640px) { .tb-mail { align-items: center; } }
     </style>
 </head>
 <body class="tb">
@@ -402,11 +437,26 @@
     </section>
 </main>
 
+<!-- "Email me the demo" sheet: opened by the demo buttons on phones/tablets. -->
+<div class="tb-mail" id="tbMail" role="dialog" aria-modal="true" aria-labelledby="tbMailTitle" hidden>
+    <form class="tb-mail-card" id="tbMailForm" novalidate>
+        <button type="button" class="tb-mail-close" id="tbMailClose" aria-label="Close">&times;</button>
+        <h3 id="tbMailTitle">Email yourself the demo</h3>
+        <p>Plugins install on a computer, not a phone. Drop your email and the free demo link (macOS + Windows) lands in your inbox for later.</p>
+        <div class="tb-mail-row">
+            <input type="email" id="tbMailEmail" name="email" placeholder="you@studio.com" autocomplete="email" inputmode="email" required>
+            <button type="submit" id="tbMailSubmit">Send it</button>
+        </div>
+        <input type="text" name="website" class="tb-mail-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <p class="tb-mail-msg" id="tbMailMsg" aria-live="polite"></p>
+    </form>
+</div>
+
 <div id="site-footer"></div>
 
 <script src="/components/nav.js?v=20260826-apd"></script>
 <script src="/components/footer.js?v=20260817"></script>
-<script src="/components/checkout-tracking.js?v=20260826-apd"></script>
+<script src="/components/checkout-tracking.js?v=20260908-meta"></script>
 
 <script>
 (function () {
@@ -416,16 +466,109 @@
     // get the Inno Setup exe from the same v1.0.0-demo release instead.
     var WIN_DEMO = 'https://github.com/mixedbysoda-stack/TALLBOY/releases/download/v1.0.0-demo/TALLBOY-Demo-Windows-Installer.exe';
     var onWindows = /Win/i.test(navigator.platform || navigator.userAgent);
+    // Phones and tablets cannot install a plugin, and most paid-social traffic
+    // arrives on one. For them the demo button opens the email sheet below
+    // instead of downloading a .pkg to a phone.
+    var onPhone = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent)
+        || (navigator.maxTouchPoints > 1 && /Mac/i.test(navigator.platform || '')); // iPadOS reports as Mac
+    var mail = document.getElementById('tbMail');
+    var mailForm = document.getElementById('tbMailForm');
+    var mailInput = document.getElementById('tbMailEmail');
+    var mailMsg = document.getElementById('tbMailMsg');
+    var mailBtn = document.getElementById('tbMailSubmit');
+    var mailPlacement = '';
+
+    function openMail(placement) {
+        mailPlacement = placement || 'tallboy_demo';
+        mail.hidden = false;
+        mail.classList.add('open');
+        window.setTimeout(function () { mailInput.focus(); }, 60);
+        if (typeof gtag === 'function') gtag('event', 'demo_gate_open', { event_category: 'engagement', event_label: 'tallboy-mobile' });
+    }
+    function closeMail() {
+        mail.classList.remove('open');
+        mail.hidden = true;
+        mailMsg.textContent = '';
+        mailMsg.className = 'tb-mail-msg';
+    }
+    document.getElementById('tbMailClose').addEventListener('click', closeMail);
+    mail.addEventListener('click', function (e) { if (e.target === mail) closeMail(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !mail.hidden) closeMail(); });
+
+    mailForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var email = (mailInput.value || '').trim();
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            mailMsg.textContent = 'Enter a valid email address.';
+            mailMsg.className = 'tb-mail-msg err';
+            return;
+        }
+        var params = new URLSearchParams(window.location.search);
+        mailBtn.disabled = true;
+        mailBtn.textContent = 'Sending...';
+        mailMsg.textContent = '';
+        mailMsg.className = 'tb-mail-msg';
+        // Source contains "tallboy" so capture-lead routes it to the TALLBOY
+        // welcome email (lib/welcome-emails.js productFromSource).
+        fetch('/.netlify/functions/capture-lead', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                contact: email,
+                source: 'tallboy-demo-mobile',
+                website: mailForm.elements.website.value,
+                landing_page: window.location.pathname + window.location.search,
+                referrer: document.referrer || '',
+                utm_source: params.get('utm_source') || '',
+                utm_medium: params.get('utm_medium') || '',
+                utm_campaign: params.get('utm_campaign') || ''
+            })
+        }).then(function (r) { return r.json().catch(function () { return {}; }).then(function (d) { return { ok: r.ok, data: d }; }); })
+          .then(function (res) {
+            mailBtn.disabled = false;
+            mailBtn.textContent = 'Send it';
+            if (!res.ok || (res.data && res.data.success === false)) {
+                mailMsg.textContent = (res.data && res.data.error) || 'Something went wrong. Try again in a minute.';
+                mailMsg.className = 'tb-mail-msg err';
+                return;
+            }
+            mailMsg.textContent = 'Sent. Open it on your computer and install the demo from there.';
+            mailMsg.className = 'tb-mail-msg ok';
+            mailInput.value = '';
+            if (typeof gtag === 'function') {
+                gtag('event', 'generate_lead', { event_category: 'conversion', event_label: 'tallboy-demo-mobile', product: 'tallboy' });
+                gtag('event', 'demo_download', { event_category: 'engagement', event_label: mailPlacement + '_mobile', product: 'tallboy' });
+            }
+            if (typeof fbq === 'function') fbq('track', 'Lead', { content_name: 'TALLBOY demo (emailed)', content_category: mailPlacement });
+            window.setTimeout(closeMail, 2600);
+        }).catch(function () {
+            mailBtn.disabled = false;
+            mailBtn.textContent = 'Send it';
+            mailMsg.textContent = 'Network error. Try again in a minute.';
+            mailMsg.className = 'tb-mail-msg err';
+        });
+    });
+
     document.querySelectorAll('[data-demo-placement]').forEach(function (el) {
         if (onWindows) el.href = WIN_DEMO;
-        el.addEventListener('click', function () {
+        el.addEventListener('click', function (e) {
+            var placement = el.getAttribute('data-demo-placement');
+            if (onPhone) {
+                e.preventDefault();
+                openMail(placement);
+                return;
+            }
             if (typeof gtag === 'function') {
                 gtag('event', 'demo_download', {
                     event_category: 'engagement',
-                    event_label: el.getAttribute('data-demo-placement'),
+                    event_label: placement,
                     product: 'tallboy'
                 });
             }
+            // A demo install is the strongest pre-purchase signal we have, so
+            // it is the event paid campaigns optimise toward (same standard
+            // event Still uses in components/lead-capture.js).
+            if (typeof fbq === 'function') fbq('track', 'Lead', { content_name: 'TALLBOY demo download', content_category: placement });
         });
     });
 

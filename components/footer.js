@@ -39,6 +39,6 @@
     document.body.appendChild(s);
 
     var checkout = document.createElement('script');
-    checkout.src = '/components/checkout-tracking.js?v=20260826-apd';
+    checkout.src = '/components/checkout-tracking.js?v=20260908-meta';
     document.body.appendChild(checkout);
 })();

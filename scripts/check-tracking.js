@@ -18,6 +18,7 @@ const ROOT = path.resolve(__dirname, "..");
 const TRACKER = path.join(ROOT, "components", "checkout-tracking.js");
 const FOOTER = path.join(ROOT, "components", "footer.js");
 const MEASUREMENT_ID = "G-Z9L20HJ4M0";
+const META_PIXEL_ID = "1682413179857373";
 
 const errors = [];
 const notes = [];
@@ -58,6 +59,12 @@ for (const page of pages) {
   }
   if (!html.includes("checkout-tracking")) {
     errors.push(`${page}: has a Stripe buy link but does not load checkout-tracking.js. Its sales cannot be attributed.`);
+  }
+  // tallboy.html shipped 2026-08-23 with GA4 but no Meta Pixel, and nobody
+  // noticed until paid ads were being planned two weeks later. A selling page
+  // the pixel cannot see cannot be retargeted or optimised for.
+  if (!html.includes(`fbq("init","${META_PIXEL_ID}")`) && !html.includes(`fbq('init', '${META_PIXEL_ID}')`)) {
+    errors.push(`${page}: has a Stripe buy link but no Meta Pixel (${META_PIXEL_ID}). Paid traffic to it is invisible to Ads Manager.`);
   }
 }
 

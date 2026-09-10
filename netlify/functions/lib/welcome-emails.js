@@ -212,6 +212,12 @@ function productFromSource(source) {
 // the Carbonator template for them, so a Pour lead is welcomed to Carbonator.
 // Rather than repeat that here, these three render from the shared spotlight
 // template with their own copy and their own installer link.
+// The demo build ships under its own tag; tallboy.html links the same files.
+const TALLBOY_DEMO = {
+  mac: "https://github.com/mixedbysoda-stack/TALLBOY/releases/download/v1.0.0-demo/TALLBOY-Demo-Installer.pkg",
+  windows: "https://github.com/mixedbysoda-stack/TALLBOY/releases/download/v1.0.0-demo/TALLBOY-Demo-Windows-Installer.exe",
+};
+
 const SPOTLIGHT_WELCOME = {
   pour: {
     productKey: "pour",
@@ -247,14 +253,17 @@ const SPOTLIGHT_WELCOME = {
     productKey: "tallboy",
     subject: "Your TALLBOY Demo is ready 🎮",
     headline: "Your TALLBOY Demo is ready",
-    intro: "TALLBOY tracks the pitch of whatever you feed it — a vocal, a bass line, a hummed hook — and replays that performance through a four-channel handheld-console sound chip. Feed it a single note at a time so it has something to lock onto.",
+    intro: "TALLBOY tracks the pitch of whatever you feed it — a vocal, a bass line, a hummed hook — and replays that performance through a four-channel handheld-console sound chip. Feed it a single note at a time so it has something to lock onto. The button below is the macOS demo (VST3 + AU); on Windows grab the VST3 demo here: <a href=\"" + TALLBOY_DEMO.windows + "\" style=\"color:#c2d24f;\">TALLBOY-Demo-Windows-Installer.exe</a>. The demo plays 60 seconds of audio, then mutes for 10, on a loop.",
     features: [
       "<strong style=\"color:#ffffff;\">CHIP 4CH RESYNTH</strong> — pitch-tracked resynthesis on four modelled channels",
       "<strong style=\"color:#ffffff;\">ARP + GLIDE</strong> — host-synced, five modes, up to four octaves",
       "<strong style=\"color:#ffffff;\">CRUSH ROM</strong> — 1-16 bit, rate divide with jitter, post filter",
     ],
     ctaText: "Download TALLBOY Demo",
-    ctaUrl: PRODUCTS.tallboy.downloads.mac,
+    // Until 2026-09 this pointed at PRODUCTS.tallboy.downloads.mac, which is the
+    // PAID installer (needs a licence key). A "demo" email has to hand out the
+    // demo build, which lives under its own release tag.
+    ctaUrl: TALLBOY_DEMO.mac,
   },
 };
 

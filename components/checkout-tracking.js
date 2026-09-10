@@ -79,6 +79,21 @@
     var product = known || { id: 'unmapped_' + linkId, name: 'unmapped:' + linkId, price: 0 };
     event.preventDefault();
     link.dataset.checkoutTracking = 'done';
+    // Meta Pixel: InitiateCheckout for every buy click, so paid campaigns can
+    // optimise one step above Purchase. bundle.html already fires this inline
+    // on its own links; skip those so they are not counted twice.
+    if (typeof fbq === 'function' && !/InitiateCheckout/.test(link.getAttribute('onclick') || '')) {
+      try {
+        fbq('track', 'InitiateCheckout', {
+          value: product.price,
+          currency: 'USD',
+          content_name: product.name,
+          content_ids: [product.id],
+          content_type: 'product',
+          num_items: 1
+        });
+      } catch (_) { /* never block checkout on analytics */ }
+    }
     var navigated = false;
     var checkoutEventSent = false;
     var campaign = campaignContext();
