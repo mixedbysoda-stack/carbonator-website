@@ -359,6 +359,128 @@
   status = 301
   force = true
 
+# .html -> pretty-URL 301s for the pages added after the block above (GA4
+# showed /x.html and /x both resolving as separate landing pages).
+[[redirects]]
+  from = "/tallboy.html"
+  to = "/tallboy"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/chiptune-vst.html"
+  to = "/chiptune-vst"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/best-chiptune-plugins.html"
+  to = "/best-chiptune-plugins"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/8-bit-vocal-effect.html"
+  to = "/8-bit-vocal-effect"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/bitcrusher-vs-decimator.html"
+  to = "/bitcrusher-vs-decimator"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/handheld-chiptune-daw.html"
+  to = "/handheld-chiptune-daw"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/tallboy-vs-decimort.html"
+  to = "/tallboy-vs-decimort"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/tallboy-vs-lofi-plugins.html"
+  to = "/tallboy-vs-lofi-plugins"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/about.html"
+  to = "/about"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/press.html"
+  to = "/press"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/faq.html"
+  to = "/faq"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/manual.html"
+  to = "/manual"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/manual-carbonator.html"
+  to = "/manual-carbonator"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/manual-desipper.html"
+  to = "/manual-desipper"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/manual-ontap.html"
+  to = "/manual-ontap"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/manual-pour.html"
+  to = "/manual-pour"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/manual-tallboy.html"
+  to = "/manual-tallboy"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/terms.html"
+  to = "/terms"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/privacy.html"
+  to = "/privacy"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/eula.html"
+  to = "/eula"
+  status = 301
+  force = true
+
 [[redirects]]
   from = "/carbonator"
   to = "/carbonator.html"
