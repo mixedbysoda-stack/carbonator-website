@@ -33,6 +33,17 @@
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
     Cache-Control = "public, max-age=0, must-revalidate"
+    # Clickjacking: nothing may frame the site except the site itself
+    # (fizzfuel.html embeds /assets/fizzfuel-gearbox/ in a same-origin iframe,
+    # so DENY would break that page).
+    X-Frame-Options = "SAMEORIGIN"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=()"
+    # REPORT-ONLY content security policy. It blocks nothing yet; violations
+    # are POSTed to csp-report.js and show up in the function logs. Run it
+    # for a couple of weeks, tighten from evidence, then rename the header to
+    # Content-Security-Policy. 'unsafe-inline' is unavoidable today: every
+    # page carries inline gtag/pixel snippets and onclick= handlers.
+    Content-Security-Policy-Report-Only = "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://connect.facebook.net https://*.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https:; media-src 'self' blob: data: https://github.com https://*.githubusercontent.com; connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://stats.g.doubleclick.net https://www.facebook.com https://connect.facebook.net; frame-src 'self' https://www.googletagmanager.com https://buy.stripe.com https://js.stripe.com; frame-ancestors 'self'; form-action 'self' https://buy.stripe.com; base-uri 'self'; object-src 'none'; report-uri /.netlify/functions/csp-report"
 
 # Static assets. Filenames are NOT content-hashed, so 1yr `immutable` is
 # unsafe (a redeploy would be invisible to repeat visitors for a year).
@@ -84,6 +95,169 @@
   from = "https://carbinated-audio.netlify.app/*"
   to = "https://carbonatedaudio.com/:splat"
   status = 301
+  force = true
+
+# ---------------------------------------------------------------------------
+# NOT PUBLIC. publish="." serves the whole repo, so without these the function
+# source, build scripts, email templates, outreach notes and the suppression
+# list were all downloadable from the live site (confirmed 2026-09-03). Netlify
+# functions are served from /.netlify/functions/*, a different path, so blocking
+# /netlify/* is safe. 404.html is the branded not-found page.
+# ---------------------------------------------------------------------------
+[[redirects]]
+  from = "/netlify/*"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/scripts/*"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/email-templates/*"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/google-sheets-backup/*"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/itch-tallboy/*"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/node_modules/*"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/ads/*"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/marketing-drafts/*"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/package.json"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/package-lock.json"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/deno.lock"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/email-suppression.txt"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/customers.txt"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/backfill-welcome-pending.js"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/reconcile-sheet-status.js"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/send-tallboy-blast.js"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/ASSET-MANIFEST.md"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/LISTING_COPY.md"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/kvr-listing-tallboy.md"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/outreach-emails.md"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/reddit-content-calendar.md"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/tallboy-campaign-2026-08.md"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/video-scripts.md"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/youtube-outreach-targets.md"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/campaign-audience-skip.json"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/fix-tallboy-installer.sh"
+  to = "/404.html"
+  status = 404
   force = true
 
 # Pretty URLs for product pages

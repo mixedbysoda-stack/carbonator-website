@@ -4,6 +4,7 @@ const { syncLeadToGoogleSheets, syncLeadStatusToGoogleSheets } = require("./lib/
 const { buildWelcome, buildStillWelcomeEmail, PRODUCT_LABELS } = require("./lib/welcome-emails");
 const { Resend } = require("resend");
 const { VERSION } = require("./config");
+const { escapeHtml } = require("./lib/escape");
 const crypto = require("crypto");
 
 const FROM_EMAIL = "Carbonated Audio <hello@carbonatedaudio.com>";
@@ -238,8 +239,8 @@ exports.handler = async (event) => {
       await sendEmail(resend, {
         from: FROM_EMAIL,
         to: "mixedbysoda@gmail.com",
-        subject: `🔔 New Still Lead (FREE download): ${contact}`,
-        html: `<div style="font-family:Arial,sans-serif;padding:20px;background:#0d0a1a;color:#fff;"><h2 style="color:#6fc7bc;">New Still Lead</h2><p><strong>Email:</strong> ${contact}</p><p><strong>Source:</strong> ${source}</p><p><strong>Time:</strong> ${now}</p><p style="color:#a9c4c5;">Unconfirmed until they click the email button. Drip holds until then.</p></div>`,
+        subject: `🔔 New Still Lead (FREE download): ${String(contact).replace(/[\r\n]/g, " ")}`,
+        html: `<div style="font-family:Arial,sans-serif;padding:20px;background:#0d0a1a;color:#fff;"><h2 style="color:#6fc7bc;">New Still Lead</h2><p><strong>Email:</strong> ${escapeHtml(contact)}</p><p><strong>Source:</strong> ${escapeHtml(source)}</p><p><strong>Time:</strong> ${now}</p><p style="color:#a9c4c5;">Unconfirmed until they click the email button. Drip holds until then.</p></div>`,
       });
     } catch (notifyErr) {
       console.error("Still lead notification failed (non-fatal):", notifyErr.message);
@@ -319,8 +320,8 @@ exports.handler = async (event) => {
         html: `
           <div style="font-family:Arial,sans-serif;padding:20px;background:#0d0a1a;color:#fff;">
             <h2 style="color:#ff6b2b;">New Lead Captured</h2>
-            <p><strong>Email:</strong> ${contact}</p>
-            <p><strong>Source:</strong> ${source}</p>
+            <p><strong>Email:</strong> ${escapeHtml(contact)}</p>
+            <p><strong>Source:</strong> ${escapeHtml(source)}</p>
             <p><strong>Time:</strong> ${now}</p>
             <p><strong>IP:</strong> ${event.headers["x-forwarded-for"] || "unknown"}</p>
             <hr style="border-color:#2a2440;">

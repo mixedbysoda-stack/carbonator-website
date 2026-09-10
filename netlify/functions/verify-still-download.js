@@ -3,6 +3,7 @@ const { sendEmail } = require("./lib/mailer");
 const { Resend } = require("resend");
 const { getBlobStore } = require("./lib/store");
 const { syncLeadToGoogleSheets } = require("./lib/google-sheets");
+const { escapeHtml } = require("./lib/escape");
 
 const FROM_EMAIL = "Carbonated Audio <hello@carbonatedaudio.com>";
 
@@ -17,7 +18,7 @@ async function notifyVerifiedLead(lead) {
     from: FROM_EMAIL,
     to: "mixedbysoda@gmail.com",
     subject: `✓ Verified Still Lead: ${lead.contact}`,
-    html: `<div style="font-family:Arial,sans-serif;padding:20px;background:#0d0a1a;color:#fff;"><h2 style="color:#6fc7bc;">Verified Still Lead</h2><p><strong>Email:</strong> ${lead.contact}</p><p><strong>Source:</strong> ${lead.source}</p><p><strong>Verified:</strong> ${lead.verified_at}</p></div>`,
+    html: `<div style="font-family:Arial,sans-serif;padding:20px;background:#0d0a1a;color:#fff;"><h2 style="color:#6fc7bc;">Verified Still Lead</h2><p><strong>Email:</strong> ${escapeHtml(lead.contact)}</p><p><strong>Source:</strong> ${escapeHtml(lead.source)}</p><p><strong>Verified:</strong> ${lead.verified_at}</p></div>`,
   });
 }
 
