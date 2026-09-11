@@ -1,0 +1,116 @@
+/* Carbonated Audio - Add-ons pages (/addons, /addons/expansion-packs,
+   /addons/templates, /mega-bundle). Loaded after shared.css. */
+
+.ad-wrap { position: relative; z-index: 1; max-width: 1120px; margin: 0 auto; padding-inline: 24px; }
+
+/* ---- breadcrumb: real hierarchy, so it earns its place ---- */
+.ad-crumbs { display: flex; flex-wrap: wrap; gap: 8px; padding-top: 40px; font-size: 13px; color: var(--text-muted); }
+.ad-crumbs a { color: var(--text-secondary); text-decoration: none; }
+.ad-crumbs a:hover { color: #fff; }
+.ad-crumbs span[aria-hidden] { color: #4a4460; }
+
+/* ---- hero ---- */
+.ad-hero { padding-block: 28px 56px; max-width: 760px; }
+.ad-hero h1 { font-size: clamp(40px, 6.4vw, 72px); font-weight: 900; line-height: 1; letter-spacing: -.045em; margin-bottom: 20px; }
+.ad-hero p { font-size: 18px; color: var(--text-secondary); max-width: 62ch; }
+.ad-hero p + p { margin-top: 12px; }
+.ad-status { display: inline-flex; align-items: center; gap: 8px; margin-top: 22px; padding: 7px 12px; border: 1px solid var(--border); border-radius: 999px; font-size: 13px; color: var(--text-secondary); }
+.ad-status::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: #ffd700; }
+
+/* ---- section heading ---- */
+.ad-section { padding-block: 24px 64px; }
+.ad-section > h2 { font-size: clamp(26px, 3.4vw, 36px); font-weight: 850; letter-spacing: -.035em; line-height: 1.1; margin-bottom: 8px; }
+.ad-section > .ad-lede { color: var(--text-secondary); max-width: 64ch; margin-bottom: 28px; }
+
+/* ---- hub: the two subcategories ---- */
+.ad-cats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.ad-cat { position: relative; display: flex; flex-direction: column; gap: 14px; padding: 28px; min-height: 360px; overflow: hidden; border: 1px solid var(--border); border-radius: 16px; color: #fff; text-decoration: none; background: radial-gradient(circle at 0% 100%, var(--glow), transparent 58%), var(--bg-card); transition: border-color .2s ease; }
+.ad-cat:hover, .ad-cat:focus-visible { border-color: var(--edge); }
+.ad-cat-packs { --glow: rgba(245,158,11,.18); --edge: #f59e0b; }
+.ad-cat-tpl { --glow: rgba(34,211,238,.16); --edge: #22d3ee; }
+.ad-cat h2 { font-size: 30px; font-weight: 850; letter-spacing: -.035em; line-height: 1.05; }
+.ad-cat p { color: var(--text-secondary); max-width: 44ch; }
+.ad-cat-foot { margin-top: auto; display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+.ad-cat-count { color: var(--text-secondary); font-size: 14px; }
+.ad-cat-go { font-weight: 700; font-size: 15px; }
+.ad-shelf { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.ad-shelf img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: left top; border-radius: 8px; border: 1px solid rgba(255,255,255,.08); background: #120e22; }
+
+/* ---- the track sheet: a template's actual contents ---- */
+.ad-tracks { display: flex; flex-direction: column; gap: 4px; padding: 12px; border-radius: 10px; background: #0f0b1c; border: 1px solid rgba(255,255,255,.07); font-size: 13px; }
+.ad-track { display: grid; grid-template-columns: 6px minmax(0, 9em) 1fr; align-items: center; gap: 10px; padding: 5px 6px; border-radius: 6px; background: rgba(255,255,255,.025); }
+.ad-track i { align-self: stretch; border-radius: 3px; background: var(--c, #6b6580); }
+.ad-track b { font-weight: 600; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ad-track em { font-style: normal; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11.5px; }
+
+/* ---- item cards ---- */
+.ad-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.ad-grid.ad-grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.ad-card { scroll-margin-top: 120px; position: relative; display: flex; flex-direction: column; gap: 14px; padding: 22px; border: 1px solid var(--border); border-radius: 14px; background-color: var(--bg-card); background: radial-gradient(circle at 0% 100%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 60%), var(--bg-card); }
+.ad-card:target { border-color: var(--accent); }
+.ad-card-art { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; object-position: left top; border-radius: 9px; border: 1px solid rgba(255,255,255,.08); background: #120e22; }
+.ad-card-top { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+.ad-card h3 { font-size: 21px; font-weight: 850; letter-spacing: -.03em; line-height: 1.15; }
+.ad-price { flex: none; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 17px; color: #fff; }
+.ad-card p { color: var(--text-secondary); font-size: 15px; }
+.ad-needs { font-size: 13px; color: var(--text-muted); }
+.ad-needs a { color: var(--text-secondary); }
+.ad-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.ad-chips span { padding: 3px 9px; border-radius: 999px; border: 1px solid rgba(255,255,255,.12); font-size: 12px; color: #d2cede; }
+.ad-card .ad-cta { margin-top: auto; }
+
+/* ---- CTA: notify form (coming soon) or buy button (live) ---- */
+.ad-notify { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; }
+.ad-notify input[type="email"] { min-width: 0; height: 44px; padding: 0 14px; border-radius: 9px; border: 1px solid #3a3352; background: #120e22; color: #fff; font: inherit; font-size: 15px; }
+.ad-notify input[type="email"]:focus-visible { outline: 2px solid var(--accent, #ff8c42); outline-offset: 1px; border-color: transparent; }
+.ad-notify button, .ad-buy { height: 44px; padding: 0 18px; border: 0; border-radius: 9px; font: inherit; font-weight: 700; font-size: 15px; color: #fff; cursor: pointer; background: linear-gradient(135deg, var(--orange), var(--pink)); text-decoration: none; display: inline-flex; align-items: center; justify-content: center; white-space: nowrap; }
+.ad-notify button:disabled { opacity: .6; cursor: default; }
+.ad-notify button:focus-visible, .ad-buy:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+.ad-notify .ad-hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+.ad-notify-msg { grid-column: 1 / -1; min-height: 1.4em; font-size: 13px; color: var(--text-secondary); }
+.ad-notify-msg.is-error { color: #ff8a8a; }
+.ad-notify.is-done input, .ad-notify.is-done button { display: none; }
+.ad-notify.is-done .ad-notify-msg { color: #fff; font-size: 14px; }
+.ad-buy { width: 100%; }
+.ad-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ---- Mega Bundle band (hub + subcategory pages) ---- */
+.ad-mega-band { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 28px; align-items: center; padding: 32px; border-radius: 18px; border: 1px solid rgba(255,107,43,.5); background: radial-gradient(circle at 100% 0%, rgba(204,51,255,.22), transparent 55%), radial-gradient(circle at 0% 100%, rgba(255,107,43,.2), transparent 55%), var(--bg-card); }
+.ad-mega-band h2 { font-size: clamp(28px, 3.6vw, 40px); font-weight: 900; letter-spacing: -.04em; line-height: 1.05; margin-bottom: 10px; }
+.ad-mega-band p { color: var(--text-secondary); }
+.ad-mega-band .ad-mega-price { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 44px; line-height: 1; margin-bottom: 6px; }
+.ad-mega-band .ad-mega-was { color: var(--text-secondary); font-size: 14px; margin-bottom: 16px; }
+.ad-mega-band a.ad-more { display: inline-block; margin-top: 12px; color: #fff; font-weight: 700; }
+
+/* ---- Mega Bundle page: the itemised case ---- */
+.mb-hero { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: 48px; align-items: start; padding-block: 28px 72px; }
+.mb-hero h1 { font-size: clamp(44px, 7vw, 84px); font-weight: 900; line-height: .95; letter-spacing: -.05em; margin-bottom: 22px; }
+.mb-hero .mb-sub { font-size: 18px; color: var(--text-secondary); max-width: 52ch; margin-bottom: 26px; }
+.mb-case { padding: 26px; border-radius: 18px; border: 1px solid var(--border); background: var(--bg-card); }
+.mb-group + .mb-group { margin-top: 18px; padding-top: 18px; border-top: 1px dashed #3a3352; }
+.mb-group h2 { display: flex; justify-content: space-between; gap: 12px; font-size: 15px; font-weight: 800; margin-bottom: 8px; }
+.mb-group h2 span { font-family: 'JetBrains Mono', ui-monospace, monospace; font-weight: 400; color: var(--text-secondary); }
+.mb-group ul { list-style: none; display: flex; flex-wrap: wrap; gap: 6px; }
+.mb-group li { padding: 3px 9px; border-radius: 999px; border: 1px solid rgba(255,255,255,.1); font-size: 12.5px; color: #d2cede; }
+.mb-total { margin-top: 20px; padding-top: 18px; border-top: 1px solid #3a3352; display: grid; grid-template-columns: 1fr auto; row-gap: 6px; font-family: 'JetBrains Mono', ui-monospace, monospace; }
+.mb-total .mb-strike { color: var(--text-secondary); text-decoration: line-through; }
+.mb-total .mb-big { font-size: 40px; line-height: 1; color: #fff; }
+.mb-total .mb-label { font-family: 'Inter', sans-serif; color: var(--text-secondary); align-self: end; }
+.mb-save { grid-column: 1 / -1; font-family: 'Inter', sans-serif; font-weight: 700; color: #ffd700; }
+
+.ad-faq { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 32px; }
+.ad-faq div { padding-block: 14px; border-top: 1px solid var(--border); }
+.ad-faq h3 { font-size: 16px; font-weight: 750; margin-bottom: 6px; }
+.ad-faq p { color: var(--text-secondary); font-size: 15px; }
+
+@media (max-width: 960px) {
+    .ad-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .ad-mega-band, .mb-hero { grid-template-columns: 1fr; }
+}
+@media (max-width: 680px) {
+    .ad-cats, .ad-grid, .ad-grid.ad-grid-2, .ad-faq { grid-template-columns: 1fr; }
+    .ad-cat { min-height: 0; padding: 22px; }
+    .ad-mega-band { padding: 24px; }
+    .ad-notify { grid-template-columns: 1fr; }
+    .ad-track { grid-template-columns: 6px minmax(0, 7.5em) 1fr; }
+}

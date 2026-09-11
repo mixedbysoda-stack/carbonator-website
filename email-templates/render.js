@@ -151,6 +151,21 @@ PRODUCT_ACCENTS.september_bundle = { ...PRODUCT_ACCENTS.bundle };
 PRODUCT_ACCENTS.apd_bundle = { ...PRODUCT_ACCENTS.bundle, name: "3-in-1 Bundle" };
 PRODUCT_ACCENTS.apd_bundle_4 = { ...PRODUCT_ACCENTS.bundle, name: "4-in-1 Bundle" };
 PRODUCT_ACCENTS.apd_bundle_5 = { ...PRODUCT_ACCENTS.bundle, name: "5-in-1 Bundle" };
+PRODUCT_ACCENTS.mega_bundle = { ...PRODUCT_ACCENTS.bundle, name: "Mega Bundle", url: "https://carbonatedaudio.com/mega-bundle", price: 160 };
+
+// Add-ons (expansion packs, Pro Tools templates) come from the shared catalog
+// so a new item gets a named, colored block in the delivery email for free.
+const ADDONS = require("../components/addons-catalog.js");
+for (const item of ADDONS.items) {
+  PRODUCT_ACCENTS[item.id] = {
+    name: item.name,
+    color: item.accent,
+    colorAlt: "#cc33ff",
+    gradient: `linear-gradient(135deg,${item.accent},#cc33ff)`,
+    url: `https://carbonatedaudio.com${(ADDONS.categories.find((c) => c.id === item.category) || {}).path || "/addons"}`,
+    price: item.price,
+  };
+}
 
 function shell(innerHtml, { preheader } = {}) {
   const year = new Date().getFullYear();
@@ -428,6 +443,14 @@ function variantSupport({ product, customerEmail, amount, orderId, licenseKey, l
               <a href="${d.url}" style="display:inline-block;padding:10px 20px;background:${pacc.gradient};color:#ffffff;text-decoration:none;border-radius:8px;font-family:${BRAND.font};font-size:13px;font-weight:700;">Download ${d.os}</a>
             </td></tr>`).join("")}
           </table>` : ""}
+          ${lic.downloadFile ? `
+          <table width="100%" cellpadding="0" cellspacing="0" border="0">
+            <tr><td align="center" style="padding:0 0 6px;">
+              <a href="${lic.downloadFile}" style="display:inline-block;padding:10px 20px;background:${pacc.gradient};color:#ffffff;text-decoration:none;border-radius:8px;font-family:${BRAND.font};font-size:13px;font-weight:700;">Download .zip</a>
+            </td></tr>
+          </table>` : ""}
+          ${lic.pending ? `
+          <p style="margin:0;color:${BRAND.textSecondary};font-size:13px;line-height:1.6;">Not released yet. We email you the download the day it drops - nothing else to do.</p>` : ""}
         </td>
       </tr>
     </table>`;

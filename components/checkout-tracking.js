@@ -36,7 +36,20 @@
     // already sent point here, discounted to $45 by ALL6FOR45 until Sep 30.
     '3cI7sL2kpaxcdPX1YL3oA0h': { id: 'september_bundle', name: 'Carbonated Audio All 7 Plugins Bundle', price: 45 },
     '7sY28raQV34KeU1bzl3oA09': { id: 'vocal_bundle', name: 'Vocal Chain Bundle', price: 35 },
-    '28EeVdcZ3gVA27f1YL3oA0a': { id: 'mixbus_bundle', name: 'Mix Bus Bundle', price: 30 }
+    '28EeVdcZ3gVA27f1YL3oA0a': { id: 'mixbus_bundle', name: 'Mix Bus Bundle', price: 30 },
+    // Add-ons + Mega Bundle (2026-09-11). Links exist but are INACTIVE in
+    // Stripe until each item ships; see components/addons-catalog.js.
+    '7sY8wP9MRgVA4fneLx3oA0q': { id: 'pack_carbonator', name: 'Carbonator Expansion Pack', price: 50 },
+    '6oU4gz7EJ0WCcLT1YL3oA0r': { id: 'pack_desipper', name: 'De-Sipper Expansion Pack', price: 50 },
+    'eVqdR9f7bcFkdPXgTF3oA0s': { id: 'pack_ontap', name: 'On Tap Expansion Pack', price: 50 },
+    'eVq6oH8IN34Kh2932P3oA0t': { id: 'pack_pour', name: 'Pour Expansion Pack', price: 50 },
+    '6oU28rf7b6gWaDL46T3oA0u': { id: 'pack_fizzfuel', name: 'FIZZFUEL Expansion Pack', price: 50 },
+    '14A7sLe379t827fcDp3oA0v': { id: 'pack_tallboy', name: 'TALLBOY Expansion Pack', price: 50 },
+    'fZudR95wBbBgcLTdHt3oA0w': { id: 'tpl_vocal_chain', name: 'Vocal Chain Template', price: 70 },
+    '5kQcN5gbfgVA27fbzl3oA0x': { id: 'tpl_mix_bus', name: 'Mix Bus Template', price: 70 },
+    '5kQbJ1e3748ObHPeLx3oA0y': { id: 'tpl_beat_session', name: 'Beat Production Session', price: 70 },
+    '4gM5kD5wBaxc3bj9rd3oA0z': { id: 'tpl_mastering', name: 'Mastering Session', price: 70 },
+    'dRm8wP2kp9t8aDLgTF3oA0p': { id: 'mega_bundle', name: 'Carbonated Audio Mega Bundle', price: 160 }
   };
   function linkIdFor(url) {
     var match = String(url).match(/buy\.stripe\.com\/(?:test\/)?([A-Za-z0-9]+)/);

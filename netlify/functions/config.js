@@ -186,6 +186,39 @@ const PRODUCTS = {
   },
 };
 
+// ---------------------------------------------------------------------------
+// Add-ons (expansion packs, Pro Tools templates) and the Mega Bundle.
+// Defined in components/addons-catalog.js so the pages, this registry and the
+// build check can never disagree about ids, prices or status. Add-ons carry no
+// licence key: they are files, delivered through download-addon.js, which
+// checks the buyer's Stripe session before handing out a short-lived link.
+// ---------------------------------------------------------------------------
+const ADDONS = require("../../components/addons-catalog.js");
+
+for (const item of ADDONS.items) {
+  PRODUCTS[item.id] = {
+    name: item.name,
+    price: item.price,
+    type: "addon",
+    category: item.category,
+    // Released only when the catalog says live. Until then a buyer (there
+    // should be none: the payment link stays inactive) gets a "delivered by
+    // email when it drops" note instead of a broken link.
+    released: item.status === "live",
+    asset: { repo: ADDONS.release.repo, tag: item.tag || ADDONS.release.tag, name: item.file },
+    downloads: { mac: null, windows: null },
+  };
+}
+
+PRODUCTS[ADDONS.mega.id] = {
+  name: "Carbonated Audio Mega Bundle",
+  price: ADDONS.mega.price,
+  isBundle: true,
+  // Every plugin, then every add-on. Adding an item to the catalog adds it to
+  // the bundle automatically, which is the promise the page makes.
+  includes: [...ADDONS.mega.plugins, ...ADDONS.items.map((it) => it.id)],
+};
+
 /**
  * Generate a deterministic activation key from email + Stripe session timestamp.
  * Key = 32 bytes (64 hex chars): 16-byte email hash + 8-byte timestamp + 8-byte HMAC
@@ -240,6 +273,7 @@ function validateActivationKey(keyHex, secret) {
 }
 
 module.exports = {
+  ADDONS,
   VERSION,
   DOWNLOAD_URLS,
   PRODUCTS,

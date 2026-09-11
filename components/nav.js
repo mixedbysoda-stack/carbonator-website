@@ -38,6 +38,33 @@
            </a>`
         : '';
 
+    // Add-ons menu. Headings are static so the menu works even if the catalog
+    // script fails; the item rows are filled from components/addons-catalog.js
+    // (the same file the pages, the webhook and the build check read), so an
+    // item's name, price and status can only ever be edited in one place.
+    const ADDONS_CATALOG_SRC = '/components/addons-catalog.js?v=20260911-addons';
+    const addonsActive = ['addons', 'expansion-packs', 'templates', 'mega-bundle'].indexOf(active) !== -1;
+    const addonsMenu = `
+                <div class="nav-dropdown nav-dropdown-addons">
+                    <button class="nav-dropdown-trigger${addonsActive ? ' active' : ''}" type="button" aria-expanded="false" aria-controls="addonsMegaMenu">Add-ons</button>
+                    <div class="nav-dropdown-menu addons-menu" id="addonsMegaMenu" aria-label="Carbonated Audio add-ons">
+                        <div class="addons-menu-col">
+                            <a class="addons-menu-head" href="/addons/expansion-packs"><span class="addons-menu-title">Expansion Packs</span><span class="addons-menu-sub">Preset packs for each plugin</span></a>
+                            <div class="addons-menu-list" data-addons-list="expansion-packs"></div>
+                        </div>
+                        <div class="addons-menu-col">
+                            <a class="addons-menu-head" href="/addons/templates"><span class="addons-menu-title">Pro Tools Templates</span><span class="addons-menu-sub">Sessions with the chains already built</span></a>
+                            <div class="addons-menu-list" data-addons-list="templates"></div>
+                        </div>
+                        <a class="addons-menu-mega" href="/mega-bundle">
+                            <span class="addons-menu-title">Mega Bundle</span>
+                            <span class="addons-menu-sub">All 7 plugins, every expansion pack, every template.</span>
+                            <span class="addons-menu-price">$160</span>
+                            <span class="addons-menu-note" data-addons-mega-note>Coming soon</span>
+                        </a>
+                    </div>
+                </div>`;
+
     mount.innerHTML = `
         ${saleBar}
         <nav>
@@ -55,7 +82,7 @@
                         <a class="product-mega-card product-tallboy" href="/tallboy"><span class="product-mega-copy"><span class="dropdown-label">TALLBOY</span><span class="dropdown-desc">Your track, played back on a handheld.</span><span class="product-mega-price">$20 &middot; Own it forever</span></span><img src="/tallboy-screenshot.webp" alt="TALLBOY plugin interface" loading="lazy"></a><a class="product-mega-card product-fizzfuel" href="/fizzfuel"><span class="product-mega-copy"><span class="dropdown-label">FIZZFUEL</span><span class="dropdown-desc">Five effects. One manual gearbox.</span><span class="product-mega-price">$29 · Own it forever</span></span><img src="/fizzfuel-screenshot.png" alt="FIZZFUEL plugin interface" loading="lazy"></a>
                         <a class="product-mega-card product-still" href="/still"><span class="product-mega-copy"><span class="dropdown-label">Still <span class="product-mega-free">FREE</span></span><span class="dropdown-desc">Remove noise. Keep the performance.</span><span class="product-mega-price">Free download</span></span><img src="/still-screenshot.png" alt="Still plugin interface" loading="lazy"></a>
                     </div>
-                </div>
+                </div>${addonsMenu}
                 <a href="/manual"${isActive('manual') ? ' class="active"' : ''}>Manual</a>
                 <a href="/about"${isActive('about') ? ' class="active"' : ''}>About</a>
                 <a href="/faq"${isActive('faq') ? ' class="active"' : ''}>FAQ</a>
@@ -76,6 +103,10 @@
             <a href="/tallboy">TALLBOY</a>
             <a href="/fizzfuel">FIZZFUEL</a>
             <a href="/still">Still (Free)</a>
+            <a href="/addons" class="mobile-menu-group">Add-ons</a>
+            <a href="/addons/expansion-packs" class="mobile-menu-sub">Expansion Packs</a>
+            <a href="/addons/templates" class="mobile-menu-sub">Pro Tools Templates</a>
+            <a href="/mega-bundle" class="mobile-menu-sub">Mega Bundle</a>
             <a href="/manual">Manual</a>
             <a href="/about">About</a>
             <a href="/faq">FAQ</a>
@@ -99,26 +130,94 @@
         });
     }
 
-    const dropdown = mount.querySelector('.nav-dropdown');
-    const dropdownTrigger = mount.querySelector('.nav-dropdown-trigger');
-    const dropdownMenu = mount.querySelector('.nav-dropdown-menu');
-    if (dropdown && dropdownTrigger && dropdownMenu) {
-        const closeDropdown = () => {
-            dropdown.classList.remove('open');
-            dropdownTrigger.setAttribute('aria-expanded', 'false');
-        };
-        const openDropdown = () => {
-            dropdown.classList.add('open');
-            dropdownTrigger.setAttribute('aria-expanded', 'true');
-        };
-        dropdownTrigger.addEventListener('click', () => dropdown.classList.contains('open') ? closeDropdown() : openDropdown());
-        document.addEventListener('click', (event) => {
-            if (!dropdown.contains(event.target)) closeDropdown();
+    // Two dropdowns now (Products, Add-ons). Opening one closes the other so
+    // their fixed-position panels never stack on top of each other.
+    const dropdowns = Array.prototype.slice.call(mount.querySelectorAll('.nav-dropdown'));
+    const closeDropdown = (dd) => {
+        dd.classList.remove('open');
+        const t = dd.querySelector('.nav-dropdown-trigger');
+        if (t) t.setAttribute('aria-expanded', 'false');
+    };
+    dropdowns.forEach((dropdown) => {
+        const dropdownTrigger = dropdown.querySelector('.nav-dropdown-trigger');
+        const dropdownMenu = dropdown.querySelector('.nav-dropdown-menu');
+        if (!dropdownTrigger || !dropdownMenu) return;
+        dropdownTrigger.addEventListener('click', () => {
+            const wasOpen = dropdown.classList.contains('open');
+            dropdowns.forEach(closeDropdown);
+            if (!wasOpen) {
+                dropdown.classList.add('open');
+                dropdownTrigger.setAttribute('aria-expanded', 'true');
+            }
         });
-        document.addEventListener('keydown', (event) => {
-            if (event.key === 'Escape') closeDropdown();
+        dropdownMenu.addEventListener('click', (event) => {
+            if (event.target.closest('a')) closeDropdown(dropdown);
         });
-        dropdownMenu.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeDropdown));
+    });
+    document.addEventListener('click', (event) => {
+        dropdowns.forEach((dd) => { if (!dd.contains(event.target)) closeDropdown(dd); });
+    });
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') dropdowns.forEach(closeDropdown);
+    });
+
+    // --- add-ons menu: styles + items from the catalog ----------------------
+    // Styles live here rather than in shared.css because the manual pages load
+    // nav.js without shared.css; injecting keeps the menu identical everywhere.
+    if (!document.getElementById('ca-addons-menu-css')) {
+        const css = document.createElement('style');
+        css.id = 'ca-addons-menu-css';
+        css.textContent = [
+            '.nav-dropdown-menu.addons-menu{grid-template-columns:1fr 1fr minmax(0,.85fr);gap:12px;padding:14px}',
+            '.addons-menu-col{display:flex;flex-direction:column;gap:6px;min-width:0}',
+            '.addons-menu a{text-decoration:none}',
+            '.addons-menu-head{display:flex;flex-direction:column;gap:4px;padding:12px 12px 10px;border-radius:10px;color:#fff!important;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);transition:border-color .2s ease,background .2s ease}',
+            '.addons-menu-head:hover,.addons-menu-head:focus-visible{border-color:rgba(255,255,255,.28);background:rgba(255,255,255,.06)}',
+            '.addons-menu-title{font-size:17px;font-weight:850;letter-spacing:-.03em;line-height:1.1;color:#fff}',
+            '.addons-menu-sub{font-size:12.5px;line-height:1.35;color:#b9b3c9}',
+            '.addons-menu-list{display:flex;flex-direction:column}',
+            '.addons-menu-item{display:flex;align-items:center;gap:10px;padding:7px 12px;border-radius:8px;color:#d2cede!important;font-size:13.5px;transition:background .2s ease,color .2s ease}',
+            '.addons-menu-item:hover,.addons-menu-item:focus-visible{background:rgba(255,255,255,.06);color:#fff!important}',
+            '.addons-menu-dot{flex:none;width:8px;height:8px;border-radius:50%;background:var(--dot,#fff)}',
+            '.addons-menu-name{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}',
+            '.addons-menu-tag{flex:none;font-size:10.5px;font-weight:700;color:#8d86a3}',
+            '.addons-menu-tag.is-live{color:#fff}',
+            '.addons-menu-mega{position:relative;display:flex;flex-direction:column;gap:8px;padding:18px;border-radius:12px;color:#fff!important;border:1px solid rgba(255,107,43,.55);background:radial-gradient(circle at 100% 0%,rgba(204,51,255,.28),transparent 60%),radial-gradient(circle at 0% 100%,rgba(255,107,43,.26),transparent 60%),rgba(255,255,255,.03);transition:border-color .2s ease}',
+            '.addons-menu-mega:hover,.addons-menu-mega:focus-visible{border-color:#ff8c42}',
+            '.addons-menu-mega .addons-menu-title{font-size:22px}',
+            '.addons-menu-price{margin-top:auto;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:28px;font-weight:500;letter-spacing:-.02em}',
+            '.addons-menu-note{font-size:12px;color:#b9b3c9}',
+            '.mobile-menu{overflow-y:auto;justify-content:safe center}',
+            '.mobile-menu a.mobile-menu-sub{font-size:16px;padding:8px 24px;opacity:.85}'
+        ].join('\n');
+        document.head.appendChild(css);
+    }
+
+    const escHtml = (v) => String(v == null ? '' : v).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    const fillAddons = (cat) => {
+        if (!cat || !cat.items) return;
+        mount.querySelectorAll('[data-addons-list]').forEach((list) => {
+            const cid = list.getAttribute('data-addons-list');
+            const base = (cat.categories.filter((c) => c.id === cid)[0] || {}).path || '/addons';
+            list.innerHTML = cat.inCategory(cid).map((it) => {
+                const live = it.status === 'live';
+                return '<a class="addons-menu-item" href="' + base + '#' + escHtml(it.id) + '">'
+                    + '<span class="addons-menu-dot" style="--dot:' + escHtml(it.accent) + '"></span>'
+                    + '<span class="addons-menu-name">' + escHtml(it.name.replace(/ Expansion Pack$/, '')) + '</span>'
+                    + '<span class="addons-menu-tag' + (live ? ' is-live' : '') + '">' + (live ? '$' + it.price : 'Soon') + '</span></a>';
+            }).join('');
+        });
+        const note = mount.querySelector('[data-addons-mega-note]');
+        if (note && cat.mega.status === 'live') note.textContent = 'Everything we make. $' + cat.megaValue() + ' if bought separately.';
+    };
+    if (window.CA_ADDONS) {
+        fillAddons(window.CA_ADDONS);
+    } else {
+        const tag = document.createElement('script');
+        tag.src = ADDONS_CATALOG_SRC;
+        tag.async = true;
+        tag.onload = () => fillAddons(window.CA_ADDONS);
+        document.head.appendChild(tag);
     }
 
     // --- bundle countdown ---------------------------------------------------
