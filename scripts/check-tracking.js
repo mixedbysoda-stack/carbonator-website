@@ -212,7 +212,22 @@ notes.push(`${mapped.size} payment links mapped, ${seenLinks.size} in use across
     }
     if (cat.mega.status === "live") {
       const notLive = cat.items.filter((it) => it.status !== "live").map((it) => it.id);
-      if (notLive.length) errors.push(`addons-catalog.js: the Mega Bundle is live but these items it promises are not: ${notLive.join(", ")}.`);
+      // A live Mega Bundle with unreleased items is a PREORDER. Allowed only
+      // when the catalog says so explicitly, and then every page that sells
+      // it must tell the buyer the add-ons arrive later.
+      if (notLive.length && !cat.mega.preorder) {
+        errors.push(`addons-catalog.js: the Mega Bundle is live but these items it promises are not: ${notLive.join(", ")}. Set mega.preorder = true only if the pages say add-ons ship later.`);
+      }
+      if (notLive.length && cat.mega.preorder) {
+        for (const f of ["mega-bundle.html", "addons.html", "addons/expansion-packs.html", "addons/templates.html"]) {
+          const full = path.join(ROOT, f);
+          if (!fs.existsSync(full)) continue;
+          const html = fs.readFileSync(full, "utf8");
+          if (html.includes(cat.mega.paymentLink) && !/as each one drops|as they drop/.test(html)) {
+            errors.push(`${f}: sells the Mega Bundle but never tells the buyer the add-ons arrive later.`);
+          }
+        }
+      }
     }
 
     // The "7 plugins, $129" line must equal what the plugins actually cost.
@@ -233,8 +248,8 @@ notes.push(`${mapped.size} payment links mapped, ${seenLinks.size} in use across
         if (!it) errors.push(`${rel}: data-price-of="${m[1]}" is not in the catalog.`);
         else if (Number(m[2]) !== it.price) errors.push(`${rel}: shows $${m[2]} for ${m[1]}, catalog says $${it.price}.`);
       }
-      for (const m of html.matchAll(/data-mega-value>\$(\d+)</g)) {
-        if (Number(m[1]) !== megaValue) errors.push(`${rel}: Mega Bundle value shows $${m[1]}, catalog adds up to $${megaValue}.`);
+      for (const m of html.matchAll(/data-mega-value>\$([\d,]+)</g)) {
+        if (Number(m[1].replace(/,/g, "")) !== megaValue) errors.push(`${rel}: Mega Bundle value shows $${m[1]}, catalog adds up to $${megaValue}.`);
       }
       for (const m of html.matchAll(/data-mega-save>\$(\d+)</g)) {
         if (Number(m[1]) !== megaValue - cat.mega.price) errors.push(`${rel}: Mega Bundle saving shows $${m[1]}, catalog says $${megaValue - cat.mega.price}.`);

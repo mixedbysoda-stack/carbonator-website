@@ -114,3 +114,9 @@
     .ad-notify { grid-template-columns: 1fr; }
     .ad-track { grid-template-columns: 6px minmax(0, 7.5em) 1fr; }
 }
+
+/* ---- live Mega Bundle CTA ---- */
+.ad-mega-note { margin-top: 10px; font-size: 13px; color: var(--text-secondary); }
+.mb-buy { margin-top: 6px; max-width: 460px; }
+.mb-buy .ad-buy { font-size: 17px; height: 52px; }
+.mb-terms { margin-top: 12px; font-size: 13.5px; line-height: 1.55; color: var(--text-secondary); }

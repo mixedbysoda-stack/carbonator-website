@@ -42,7 +42,7 @@
     // script fails; the item rows are filled from components/addons-catalog.js
     // (the same file the pages, the webhook and the build check read), so an
     // item's name, price and status can only ever be edited in one place.
-    const ADDONS_CATALOG_SRC = '/components/addons-catalog.js?v=20260911-addons';
+    const ADDONS_CATALOG_SRC = '/components/addons-catalog.js?v=20260911-mega500';
     const addonsActive = ['addons', 'expansion-packs', 'templates', 'mega-bundle'].indexOf(active) !== -1;
     const addonsMenu = `
                 <div class="nav-dropdown nav-dropdown-addons">
@@ -59,8 +59,8 @@
                         <a class="addons-menu-mega" href="/mega-bundle">
                             <span class="addons-menu-title">Mega Bundle</span>
                             <span class="addons-menu-sub">All 7 plugins, every expansion pack, every template.</span>
-                            <span class="addons-menu-price">$160</span>
-                            <span class="addons-menu-note" data-addons-mega-note>Coming soon</span>
+                            <span class="addons-menu-price" data-addons-mega-price>$500</span>
+                            <span class="addons-menu-note" data-addons-mega-note>Plugins now, add-ons as they drop</span>
                         </a>
                     </div>
                 </div>`;
@@ -207,8 +207,12 @@
                     + '<span class="addons-menu-tag' + (live ? ' is-live' : '') + '">' + (live ? '$' + it.price : 'Soon') + '</span></a>';
             }).join('');
         });
+        const price = mount.querySelector('[data-addons-mega-price]');
+        if (price) price.textContent = '$' + cat.mega.price;
         const note = mount.querySelector('[data-addons-mega-note]');
-        if (note && cat.mega.status === 'live') note.textContent = 'Everything we make. $' + cat.megaValue() + ' if bought separately.';
+        if (note) note.textContent = cat.mega.status === 'live'
+            ? '$' + cat.megaValue().toLocaleString('en-US') + ' bought separately'
+            : 'Coming soon';
     };
     if (window.CA_ADDONS) {
         fillAddons(window.CA_ADDONS);

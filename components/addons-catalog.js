@@ -16,7 +16,8 @@
 //   4. Flip `status` to "live" and bump ?v= on every addons-catalog.js include.
 // An item that is "live" without a file or a link fails check-tracking.
 //
-// Prices were set by SODA on 2026-09-11: packs $50, templates $70, Mega $160.
+// Prices set by SODA 2026-09-11: packs $80, templates $98, Mega Bundle $500
+// (bought separately: $129 + $480 + $392 = $1001).
 (function (root) {
   var CATALOG = {
     // Private GitHub repo holding the deliverable zips as release assets. The
@@ -44,54 +45,54 @@
     items: [
       // ---- Expansion packs ($50) -------------------------------------------
       { id: 'pack_carbonator', category: 'expansion-packs', plugin: 'carbonator', pluginName: 'Carbonator',
-        name: 'Carbonator Expansion Pack', price: 50, status: 'coming_soon', paymentLink: 'https://buy.stripe.com/7sY8wP9MRgVA4fneLx3oA0q',
+        name: 'Carbonator Expansion Pack', price: 80, status: 'coming_soon', paymentLink: 'https://buy.stripe.com/4gM00j2kpeNs6nv8n93oA0B',
         file: 'Carbonator-Expansion-Pack.zip', accent: '#f59e0b', image: '/carbonator-screenshot.webp',
         short: 'Saturation settings for vocals, 808s, drums, and the mix bus.',
         blurb: 'Flavor and drive settings dialed for vocals, 808s, drums, and the mix bus. Pull one up, ride the knob, move on.' },
       { id: 'pack_desipper', category: 'expansion-packs', plugin: 'desipper', pluginName: 'De-Sipper',
-        name: 'De-Sipper Expansion Pack', price: 50, status: 'coming_soon', paymentLink: 'https://buy.stripe.com/6oU4gz7EJ0WCcLT1YL3oA0r',
+        name: 'De-Sipper Expansion Pack', price: 80, status: 'coming_soon', paymentLink: 'https://buy.stripe.com/5kQ4gzgbfcFkbHP6f13oA0C',
         file: 'De-Sipper-Expansion-Pack.zip', accent: '#22d3ee', image: '/desipper-screenshot.webp',
         short: 'De-essing starting points for different voices and mics.',
         blurb: 'Starting points for different voices and mics: bright pop toplines, dark rap vocals, stacked harmonies, and spoken word.' },
       { id: 'pack_ontap', category: 'expansion-packs', plugin: 'ontap', pluginName: 'On Tap',
-        name: 'On Tap Expansion Pack', price: 50, status: 'coming_soon', paymentLink: 'https://buy.stripe.com/eVqdR9f7bcFkdPXgTF3oA0s',
+        name: 'On Tap Expansion Pack', price: 80, status: 'coming_soon', paymentLink: 'https://buy.stripe.com/14A6oHe377l05jr0UH3oA0D',
         file: 'On-Tap-Expansion-Pack.zip', accent: '#60a5fa', image: '/ontap-screenshot.webp',
         short: 'Ducking shapes for kick and bass, pads, and vocals.',
         blurb: 'Ducking shapes for kick and bass, pumping pads, vocal-over-beat, and tempo-locked movement.' },
       { id: 'pack_pour', category: 'expansion-packs', plugin: 'pour', pluginName: 'Pour',
-        name: 'Pour Expansion Pack', price: 50, status: 'coming_soon', paymentLink: 'https://buy.stripe.com/eVq6oH8IN34Kh2932P3oA0t',
+        name: 'Pour Expansion Pack', price: 80, status: 'coming_soon', paymentLink: 'https://buy.stripe.com/00w5kD9MR7l0aDL6f13oA0E',
         file: 'Pour-Expansion-Pack.zip', accent: '#a78bfa', image: '/pour-screenshot.webp',
         short: 'Width and motion settings for leads, pads, and busses.',
         blurb: 'Width and motion settings for leads, pads, backing vocals, and stereo busses.' },
       { id: 'pack_fizzfuel', category: 'expansion-packs', plugin: 'octane', pluginName: 'FIZZFUEL',
-        name: 'FIZZFUEL Expansion Pack', price: 50, status: 'coming_soon', paymentLink: 'https://buy.stripe.com/6oU28rf7b6gWaDL46T3oA0u',
+        name: 'FIZZFUEL Expansion Pack', price: 80, status: 'coming_soon', paymentLink: 'https://buy.stripe.com/eVq8wP9MRcFk3bj1YL3oA0F',
         file: 'FIZZFUEL-Expansion-Pack.zip', accent: '#e879f9', image: '/fizzfuel-screenshot.png',
         short: 'Gear-by-gear setups for risers, transitions, and movement.',
         blurb: 'Gear-by-gear setups for risers, transitions, and any part that needs to move.' },
       { id: 'pack_tallboy', category: 'expansion-packs', plugin: 'tallboy', pluginName: 'TALLBOY',
-        name: 'TALLBOY Expansion Pack', price: 50, status: 'coming_soon', paymentLink: 'https://buy.stripe.com/14A7sLe379t827fcDp3oA0v',
+        name: 'TALLBOY Expansion Pack', price: 80, status: 'coming_soon', paymentLink: 'https://buy.stripe.com/14A9ATaQVfRw8vDavh3oA0G',
         file: 'TALLBOY-Expansion-Pack.zip', accent: '#c2d24f', image: '/tallboy-screenshot.webp',
         short: 'Chip voices and crush settings for leads, bass, and drums.',
         blurb: 'Chip voices and crush settings for leads, bass, vocals, and handheld-era drums.' },
 
       // ---- Pro Tools templates ($70) ---------------------------------------
-      { id: 'tpl_vocal_chain', category: 'templates', name: 'Vocal Chain Template', price: 70,
-        status: 'coming_soon', paymentLink: 'https://buy.stripe.com/fZudR95wBbBgcLTdHt3oA0w', file: 'Vocal-Chain-Template.zip', accent: '#22d3ee',
+      { id: 'tpl_vocal_chain', category: 'templates', name: 'Vocal Chain Template', price: 98,
+        status: 'coming_soon', paymentLink: 'https://buy.stripe.com/4gMaEX4sxbBgcLTfPB3oA0H', file: 'Vocal-Chain-Template.zip', accent: '#22d3ee',
         uses: ['De-Sipper', 'Carbonator', 'Still'],
         short: 'Lead, doubles, ad-libs, and harmonies, routed and ready.',
         blurb: 'Lead, doubles, ad-libs, and harmony tracks routed to vocal busses, with De-Sipper and Carbonator already in the chain. Open it and record.' },
-      { id: 'tpl_mix_bus', category: 'templates', name: 'Mix Bus Template', price: 70,
-        status: 'coming_soon', paymentLink: 'https://buy.stripe.com/5kQcN5gbfgVA27fbzl3oA0x', file: 'Mix-Bus-Template.zip', accent: '#a78bfa',
+      { id: 'tpl_mix_bus', category: 'templates', name: 'Mix Bus Template', price: 98,
+        status: 'coming_soon', paymentLink: 'https://buy.stripe.com/dRm9ATe37axc6nvdHt3oA0I', file: 'Mix-Bus-Template.zip', accent: '#a78bfa',
         uses: ['On Tap', 'Pour', 'Carbonator'],
         short: 'Drum, music, and vocal busses feeding a finished mix bus.',
         blurb: 'Drum, music, and vocal busses feeding a mix bus with On Tap, Pour, and Carbonator in place. Drop your stems in and start balancing.' },
-      { id: 'tpl_beat_session', category: 'templates', name: 'Beat Production Session', price: 70,
-        status: 'coming_soon', paymentLink: 'https://buy.stripe.com/5kQbJ1e3748ObHPeLx3oA0y', file: 'Beat-Production-Session.zip', accent: '#f59e0b',
+      { id: 'tpl_beat_session', category: 'templates', name: 'Beat Production Session', price: 98,
+        status: 'coming_soon', paymentLink: 'https://buy.stripe.com/4gM8wP5wB9t84fncDp3oA0J', file: 'Beat-Production-Session.zip', accent: '#f59e0b',
         uses: ['Carbonator', 'On Tap', 'Pour', 'FIZZFUEL', 'TALLBOY'],
         short: 'Drums, 808, melody, and FX tracks with the returns set up.',
         blurb: 'Drum, 808, melody, and FX tracks with sends, color-coding, and FIZZFUEL and TALLBOY ready on the creative returns.' },
-      { id: 'tpl_mastering', category: 'templates', name: 'Mastering Session', price: 70,
-        status: 'coming_soon', paymentLink: 'https://buy.stripe.com/4gM5kD5wBaxc3bj9rd3oA0z', file: 'Mastering-Session.zip', accent: '#ff6b2b',
+      { id: 'tpl_mastering', category: 'templates', name: 'Mastering Session', price: 98,
+        status: 'coming_soon', paymentLink: 'https://buy.stripe.com/9B63cv9MR8p47rz46T3oA0K', file: 'Mastering-Session.zip', accent: '#ff6b2b',
         uses: ['Carbonator', 'Pour'],
         short: 'A stereo mastering chain with reference routing built in.',
         blurb: 'A stereo mastering chain built on Carbonator and Pour, with reference-track routing already set up so you can A/B as you go.' }
@@ -101,9 +102,14 @@
     mega: {
       id: 'mega_bundle',
       name: 'Mega Bundle',
-      price: 160,
-      status: 'coming_soon',
-      paymentLink: 'https://buy.stripe.com/dRm8wP2kp9t8aDLgTF3oA0p',
+      price: 500,
+      // LIVE AS A PREORDER since 2026-09-11: buyers get the 7 plugins and
+      // keys instantly; each add-on is emailed the day it is released. The
+      // page, the checkout and the receipt all say so. check-tracking allows
+      // a live Mega Bundle with unreleased items only while preorder is true.
+      status: 'live',
+      preorder: true,
+      paymentLink: 'https://buy.stripe.com/5kQ3cv0chbBgbHPcDp3oA0A',
       plugins: ['carbonator', 'desipper', 'ontap', 'pour', 'octane', 'tallboy', 'still'],
       // What the 7 plugins cost bought one at a time (5 x $20 + $29, Still free).
       pluginsValue: 129

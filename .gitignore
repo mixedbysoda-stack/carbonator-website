@@ -37,3 +37,6 @@ creators*.csv
 
 # tooling installer log (install-tooling.command writes install.log here). NEVER commit
 _tooling/
+
+# Local preview server (never deploys)
+_preview/

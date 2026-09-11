@@ -23,6 +23,7 @@
     document.querySelectorAll('[data-addon-cta]').forEach(function (slot) {
         var item = cat.byId(slot.getAttribute('data-addon-cta'));
         if (!item || item.status !== 'live' || !item.paymentLink) return;
+        if (slot.querySelector('a.ad-buy')) return; // already rendered statically
         var a = document.createElement('a');
         a.className = 'ad-buy';
         a.href = item.paymentLink;
@@ -40,7 +41,7 @@
         var item = cat.byId(el.getAttribute('data-price-of'));
         if (item) el.textContent = '$' + item.price;
     });
-    document.querySelectorAll('[data-mega-value]').forEach(function (el) { el.textContent = '$' + cat.megaValue(); });
+    document.querySelectorAll('[data-mega-value]').forEach(function (el) { el.textContent = '$' + cat.megaValue().toLocaleString('en-US'); });
     document.querySelectorAll('[data-mega-save]').forEach(function (el) { el.textContent = '$' + (cat.megaValue() - cat.mega.price); });
 
     // Notify-me forms.
