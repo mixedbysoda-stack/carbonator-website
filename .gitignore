@@ -34,3 +34,6 @@ _tallboy-fix/
 creator-codes-ledger.csv
 creator-payouts-*.csv
 creators*.csv
+
+# tooling installer log (install-tooling.command writes install.log here). NEVER commit
+_tooling/
