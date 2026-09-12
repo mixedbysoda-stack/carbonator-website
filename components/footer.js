@@ -40,6 +40,6 @@
     document.body.appendChild(s);
 
     var checkout = document.createElement('script');
-    checkout.src = '/components/checkout-tracking.js?v=20260911-mega500';
+    checkout.src = '/components/checkout-tracking.js?v=20260912-packs';
     document.body.appendChild(checkout);
 })();

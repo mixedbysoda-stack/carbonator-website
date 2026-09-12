@@ -8,21 +8,23 @@
 //     payment link, or if the Mega Bundle value math drifts
 //
 // HOW AN ITEM GOES LIVE (do all four, in order):
-//   1. Upload its zip to the private release below (repo + tag + `file`).
-//   2. Activate its Stripe payment link (created INACTIVE on 2026-09-11; the
-//      link is already in `paymentLink` and already mapped in
-//      components/checkout-tracking.js).
-//   3. Confirm ADDONS_GITHUB_TOKEN is set in Netlify and test one download.
-//   4. Flip `status` to "live" and bump ?v= on every addons-catalog.js include.
-// An item that is "live" without a file or a link fails check-tracking.
+//   1. Upload its zip (named exactly `file`) to the site's private blob store:
+//      node scripts/upload-addons.js <folder with the zips>
+//   2. Activate its Stripe payment link (the link is already in `paymentLink`
+//      and mapped in components/checkout-tracking.js).
+//   3. Flip `status` to "live", bump ?v= on every addons-catalog.js include,
+//      run node scripts/check-tracking.js, push.
+//   4. Buy it once and confirm the download button in the receipt works.
+// An item that is "live" without a file name or a link fails check-tracking.
+// The six expansion packs went live 2026-09-12; the four templates are next.
 //
 // Prices set by SODA 2026-09-11: packs $80, templates $98, Mega Bundle $500
 // (bought separately: $129 + $480 + $392 = $1001).
 (function (root) {
   var CATALOG = {
-    // Private GitHub repo holding the deliverable zips as release assets. The
-    // download-addon function fetches them with ADDONS_GITHUB_TOKEN, so the
-    // files are never publicly reachable.
+    // Deliverable zips live in the Netlify blob store "addon-files" (see
+    // upload-addon-file.js). This GitHub release is only a fallback path that
+    // download-addon.js tries when ADDONS_GITHUB_TOKEN is set.
     release: { repo: 'mixedbysoda-stack/carbonated-addons', tag: 'addons-v1' },
 
     categories: [
@@ -45,32 +47,32 @@
     items: [
       // ---- Expansion packs ($50) -------------------------------------------
       { id: 'pack_carbonator', category: 'expansion-packs', plugin: 'carbonator', pluginName: 'Carbonator',
-        name: 'Carbonator Expansion Pack', price: 80, status: 'coming_soon', paymentLink: 'https://buy.stripe.com/4gM00j2kpeNs6nv8n93oA0B',
+        name: 'Carbonator Expansion Pack', price: 80, status: 'live', paymentLink: 'https://buy.stripe.com/4gM00j2kpeNs6nv8n93oA0B',
         file: 'Carbonator-Expansion-Pack.zip', accent: '#f59e0b', image: '/carbonator-screenshot.webp',
         short: 'Saturation settings for vocals, 808s, drums, and the mix bus.',
         blurb: 'Flavor and drive settings dialed for vocals, 808s, drums, and the mix bus. Pull one up, ride the knob, move on.' },
       { id: 'pack_desipper', category: 'expansion-packs', plugin: 'desipper', pluginName: 'De-Sipper',
-        name: 'De-Sipper Expansion Pack', price: 80, status: 'coming_soon', paymentLink: 'https://buy.stripe.com/5kQ4gzgbfcFkbHP6f13oA0C',
+        name: 'De-Sipper Expansion Pack', price: 80, status: 'live', paymentLink: 'https://buy.stripe.com/5kQ4gzgbfcFkbHP6f13oA0C',
         file: 'De-Sipper-Expansion-Pack.zip', accent: '#22d3ee', image: '/desipper-screenshot.webp',
         short: 'De-essing starting points for different voices and mics.',
         blurb: 'Starting points for different voices and mics: bright pop toplines, dark rap vocals, stacked harmonies, and spoken word.' },
       { id: 'pack_ontap', category: 'expansion-packs', plugin: 'ontap', pluginName: 'On Tap',
-        name: 'On Tap Expansion Pack', price: 80, status: 'coming_soon', paymentLink: 'https://buy.stripe.com/14A6oHe377l05jr0UH3oA0D',
+        name: 'On Tap Expansion Pack', price: 80, status: 'live', paymentLink: 'https://buy.stripe.com/14A6oHe377l05jr0UH3oA0D',
         file: 'On-Tap-Expansion-Pack.zip', accent: '#60a5fa', image: '/ontap-screenshot.webp',
         short: 'Ducking shapes for kick and bass, pads, and vocals.',
         blurb: 'Ducking shapes for kick and bass, pumping pads, vocal-over-beat, and tempo-locked movement.' },
       { id: 'pack_pour', category: 'expansion-packs', plugin: 'pour', pluginName: 'Pour',
-        name: 'Pour Expansion Pack', price: 80, status: 'coming_soon', paymentLink: 'https://buy.stripe.com/00w5kD9MR7l0aDL6f13oA0E',
+        name: 'Pour Expansion Pack', price: 80, status: 'live', paymentLink: 'https://buy.stripe.com/00w5kD9MR7l0aDL6f13oA0E',
         file: 'Pour-Expansion-Pack.zip', accent: '#a78bfa', image: '/pour-screenshot.webp',
         short: 'Width and motion settings for leads, pads, and busses.',
         blurb: 'Width and motion settings for leads, pads, backing vocals, and stereo busses.' },
       { id: 'pack_fizzfuel', category: 'expansion-packs', plugin: 'octane', pluginName: 'FIZZFUEL',
-        name: 'FIZZFUEL Expansion Pack', price: 80, status: 'coming_soon', paymentLink: 'https://buy.stripe.com/eVq8wP9MRcFk3bj1YL3oA0F',
+        name: 'FIZZFUEL Expansion Pack', price: 80, status: 'live', paymentLink: 'https://buy.stripe.com/eVq8wP9MRcFk3bj1YL3oA0F',
         file: 'FIZZFUEL-Expansion-Pack.zip', accent: '#e879f9', image: '/fizzfuel-screenshot.png',
         short: 'Gear-by-gear setups for risers, transitions, and movement.',
         blurb: 'Gear-by-gear setups for risers, transitions, and any part that needs to move.' },
       { id: 'pack_tallboy', category: 'expansion-packs', plugin: 'tallboy', pluginName: 'TALLBOY',
-        name: 'TALLBOY Expansion Pack', price: 80, status: 'coming_soon', paymentLink: 'https://buy.stripe.com/14A9ATaQVfRw8vDavh3oA0G',
+        name: 'TALLBOY Expansion Pack', price: 80, status: 'live', paymentLink: 'https://buy.stripe.com/14A9ATaQVfRw8vDavh3oA0G',
         file: 'TALLBOY-Expansion-Pack.zip', accent: '#c2d24f', image: '/tallboy-screenshot.webp',
         short: 'Chip voices and crush settings for leads, bass, and drums.',
         blurb: 'Chip voices and crush settings for leads, bass, vocals, and handheld-era drums.' },

@@ -42,7 +42,7 @@
     // script fails; the item rows are filled from components/addons-catalog.js
     // (the same file the pages, the webhook and the build check read), so an
     // item's name, price and status can only ever be edited in one place.
-    const ADDONS_CATALOG_SRC = '/components/addons-catalog.js?v=20260911-mega500';
+    const ADDONS_CATALOG_SRC = '/components/addons-catalog.js?v=20260912-packs';
     const addonsActive = ['addons', 'expansion-packs', 'templates', 'mega-bundle'].indexOf(active) !== -1;
     const addonsMenu = `
                 <div class="nav-dropdown nav-dropdown-addons">

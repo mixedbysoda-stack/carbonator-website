@@ -42,7 +42,12 @@ if (!/searchParams\.set\(\s*['"]client_reference_id['"]/.test(tracker)) {
 
 // 3. Every payment link used on the site must be mapped, and every page that
 //    sells must load GA4 and the tracker.
-const pages = fs.readdirSync(ROOT).filter((f) => f.endsWith(".html"));
+// Top-level pages plus the add-ons subfolder (addons/expansion-packs.html,
+// addons/templates.html sell things too and must pass the same checks).
+const pages = [
+  ...fs.readdirSync(ROOT).filter((f) => f.endsWith(".html")),
+  ...(fs.existsSync(path.join(ROOT, "addons")) ? fs.readdirSync(path.join(ROOT, "addons")).filter((f) => f.endsWith(".html")).map((f) => "addons/" + f) : []),
+];
 const seenLinks = new Map();
 
 for (const page of pages) {

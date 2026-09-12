@@ -4,16 +4,17 @@
 // GET /.netlify/functions/download-addon?session=cs_...&item=pack_pour
 //
 // Every click is re-checked against Stripe: the session must be paid, not
-// refunded, and entitle this item. Then we ask GitHub for the private release
-// asset and redirect to the short-lived signed URL it returns. The file itself
-// never has a public address, so nothing leaks if a zip name gets out.
+// refunded, and entitle this item. Then the zip is served from the private
+// Netlify Blob store "addon-files" (uploaded with upload-addon-file.js). The
+// file never has a public address, so nothing leaks if a zip name gets out.
 //
-// Needs ADDONS_GITHUB_TOKEN in Netlify env: a fine-grained token with
-// read-only "Contents" access to the add-ons repo named in
-// components/addons-catalog.js (release.repo). Nothing else.
+// Fallback, only if ADDONS_GITHUB_TOKEN is set and the blob is missing: fetch
+// the asset from the private GitHub release named in the catalog and redirect
+// to its signed URL.
 const Stripe = require("stripe");
 const { PRODUCTS } = require("./config");
 const { entitledIds } = require("./lib/addon-links");
+const { getBlobStore } = require("./lib/store");
 
 function text(statusCode, body) {
   return {
@@ -89,18 +90,39 @@ exports.handler = async (event) => {
     return text(409, `${item.name} is not released yet. We email you the download the day it drops.` + HELP);
   }
 
-  const token = process.env.ADDONS_GITHUB_TOKEN;
-  if (!token) {
-    console.error("download-addon: ADDONS_GITHUB_TOKEN is not set");
-    return text(503, "Downloads are briefly unavailable. Please try again in a few minutes." + HELP);
+  // Primary: the blob store. Zips are small (well under the 6 MB function
+  // response limit), so they are returned inline as an attachment.
+  try {
+    const blob = await getBlobStore("addon-files").get(`file_${itemId}`, { type: "arrayBuffer" });
+    if (blob && blob.byteLength > 0) {
+      console.log(`download-addon: ${itemId} (${blob.byteLength} bytes) for ${sessionId.slice(0, 16)}...`);
+      return {
+        statusCode: 200,
+        headers: {
+          "Content-Type": "application/zip",
+          "Content-Disposition": `attachment; filename="${item.asset.name}"`,
+          "Content-Length": String(blob.byteLength),
+          "Cache-Control": "no-store",
+        },
+        body: Buffer.from(blob).toString("base64"),
+        isBase64Encoded: true,
+      };
+    }
+  } catch (err) {
+    console.error("download-addon: blob read failed:", err.message);
   }
 
-  try {
-    const url = await signedAssetUrl(item.asset, token);
-    console.log(`download-addon: ${itemId} for ${sessionId.slice(0, 16)}...`);
-    return { statusCode: 302, headers: { Location: url, "Cache-Control": "no-store" }, body: "" };
-  } catch (err) {
-    console.error("download-addon:", err.message);
-    return text(502, "We could not fetch that file just now. Please try again in a few minutes." + HELP);
+  const token = process.env.ADDONS_GITHUB_TOKEN;
+  if (token) {
+    try {
+      const url = await signedAssetUrl(item.asset, token);
+      console.log(`download-addon: ${itemId} via GitHub for ${sessionId.slice(0, 16)}...`);
+      return { statusCode: 302, headers: { Location: url, "Cache-Control": "no-store" }, body: "" };
+    } catch (err) {
+      console.error("download-addon:", err.message);
+    }
   }
+
+  console.error(`download-addon: no file uploaded for ${itemId}`);
+  return text(503, `${item.name} is still being prepared. Please try again in a few minutes; your link keeps working.` + HELP);
 };

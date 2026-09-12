@@ -120,3 +120,4 @@
 .mb-buy { margin-top: 6px; max-width: 460px; }
 .mb-buy .ad-buy { font-size: 17px; height: 52px; }
 .mb-terms { margin-top: 12px; font-size: 13.5px; line-height: 1.55; color: var(--text-secondary); }
+.ad-status-live::before { background: #6fc7bc; }
