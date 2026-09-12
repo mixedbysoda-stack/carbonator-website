@@ -42,7 +42,7 @@
     // script fails; the item rows are filled from components/addons-catalog.js
     // (the same file the pages, the webhook and the build check read), so an
     // item's name, price and status can only ever be edited in one place.
-    const ADDONS_CATALOG_SRC = '/components/addons-catalog.js?v=20260912-packs';
+    const ADDONS_CATALOG_SRC = '/components/addons-catalog.js?v=20260912-megasale';
     const addonsActive = ['addons', 'expansion-packs', 'templates', 'mega-bundle'].indexOf(active) !== -1;
     const addonsMenu = `
                 <div class="nav-dropdown nav-dropdown-addons">
@@ -207,12 +207,13 @@
                     + '<span class="addons-menu-tag' + (live ? ' is-live' : '') + '">' + (live ? '$' + it.price : 'Soon') + '</span></a>';
             }).join('');
         });
+        const sale = cat.megaSale ? cat.megaSale() : null;
         const price = mount.querySelector('[data-addons-mega-price]');
-        if (price) price.textContent = '$' + cat.mega.price;
+        if (price) price.textContent = '$' + (sale ? sale.price : cat.mega.price);
         const note = mount.querySelector('[data-addons-mega-note]');
-        if (note) note.textContent = cat.mega.status === 'live'
-            ? '$' + cat.megaValue().toLocaleString('en-US') + ' bought separately'
-            : 'Coming soon';
+        if (note) note.textContent = sale
+            ? sale.label + '. Regular $' + cat.mega.price + '.'
+            : (cat.mega.status === 'live' ? '$' + cat.megaValue().toLocaleString('en-US') + ' bought separately' : 'Coming soon');
     };
     if (window.CA_ADDONS) {
         fillAddons(window.CA_ADDONS);

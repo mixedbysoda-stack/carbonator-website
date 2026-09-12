@@ -95,10 +95,16 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
                 <h1>Everything we make.</h1>
                 <p class="mb-sub">All 7 plugins, all 6 expansion packs, and all 4 Pro Tools templates. One checkout, yours to keep.</p>
                 <div class="mb-buy">
-                    <div class="ad-cta" data-addon-cta="mega_bundle">
+                    <div data-mega-regular><div class="ad-cta" data-addon-cta="mega_bundle">
                         <a class="ad-buy" href="https://buy.stripe.com/5kQ3cv0chbBgbHPcDp3oA0A" data-checkout-placement="mega_hero" onclick="if(typeof fbq!=='undefined'){fbq('track','InitiateCheckout',{value:500,currency:'USD',content_name:'Mega Bundle'});}">Get the Mega Bundle - $500</a>
+                    </div></div>
+                    <div data-mega-sale hidden>
+                        <div class="ad-cta" data-addon-cta="mega_bundle">
+                        <a class="ad-buy" href="https://buy.stripe.com/9B63cvbUZaxc4fn46T3oA0L" data-checkout-placement="mega_hero_sale" onclick="if(typeof fbq!=='undefined'){fbq('track','InitiateCheckout',{value:350,currency:'USD',content_name:'Mega Bundle'});}">Get the Mega Bundle - $350</a>
                     </div>
-                    <p class="mb-terms">One-time payment. The 7 plugins and their license keys are delivered the moment you pay. The 6 packs and 4 templates are in production and are emailed to you as each one drops. 30-day refund if it is not for you.</p>
+                        <p class="ad-sale-line"><strong>Launch price, ends October 12.</strong> Regular price $500. <span data-mega-sale-countdown></span></p>
+                    </div>
+                    <p class="mb-terms">One-time payment. The 7 plugins, their license keys and the 6 expansion packs are delivered the moment you pay. The 4 Pro Tools templates are in production and are emailed to you as each one drops. 30-day refund if it is not for you.</p>
                 </div>
             </div>
             <section class="mb-case" aria-labelledby="mb-case-title">
@@ -117,7 +123,7 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
                 </div>
                 <div class="mb-total">
                     <span class="mb-label">Bought separately</span><span class="mb-strike" data-mega-value>$1,001</span>
-                    <span class="mb-label">Mega Bundle</span><span class="mb-big">$500</span>
+                    <span class="mb-label">Mega Bundle</span><span class="mb-big"><span data-mega-regular>$500</span><span data-mega-sale hidden><s class="ad-mega-strike">$500</s> $350</span></span>
                     <span class="mb-save">You keep <span data-mega-save>$501</span>.</span>
                 </div>
             </section>
@@ -137,10 +143,10 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
 
 <div id="site-footer"></div>
 
-<script src="/components/addons-catalog.js?v=20260912-packs"></script>
-<script src="/components/nav.js?v=20260912-packs"></script>
+<script src="/components/addons-catalog.js?v=20260912-megasale"></script>
+<script src="/components/nav.js?v=20260912-megasale"></script>
 <script src="/components/footer.js?v=20260910"></script>
-<script src="/components/addons.js?v=20260912-packs"></script>
-<script src="/components/checkout-tracking.js?v=20260912-packs"></script>
+<script src="/components/addons.js?v=20260912-megasale"></script>
+<script src="/components/checkout-tracking.js?v=20260912-megasale"></script>
 </body>
 </html>

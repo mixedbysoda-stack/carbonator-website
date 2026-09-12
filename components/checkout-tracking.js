@@ -50,7 +50,9 @@
     'dRm9ATe37axc6nvdHt3oA0I': { id: 'tpl_mix_bus', name: 'Mix Bus Template', price: 98 },
     '4gM8wP5wB9t84fncDp3oA0J': { id: 'tpl_beat_session', name: 'Beat Production Session', price: 98 },
     '9B63cv9MR8p47rz46T3oA0K': { id: 'tpl_mastering', name: 'Mastering Session', price: 98 },
-    '5kQ3cv0chbBgbHPcDp3oA0A': { id: 'mega_bundle', name: 'Carbonated Audio Mega Bundle', price: 500 }
+    '5kQ3cv0chbBgbHPcDp3oA0A': { id: 'mega_bundle', name: 'Carbonated Audio Mega Bundle', price: 500 },
+    // Launch sale link, 2026-09-15 to 2026-10-14 (see mega.sale in addons-catalog.js)
+    '9B63cvbUZaxc4fn46T3oA0L': { id: 'mega_bundle', name: 'Carbonated Audio Mega Bundle', price: 350 }
   };
   function linkIdFor(url) {
     var match = String(url).match(/buy\.stripe\.com\/(?:test\/)?([A-Za-z0-9]+)/);

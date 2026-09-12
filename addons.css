@@ -121,3 +121,9 @@
 .mb-buy .ad-buy { font-size: 17px; height: 52px; }
 .mb-terms { margin-top: 12px; font-size: 13.5px; line-height: 1.55; color: var(--text-secondary); }
 .ad-status-live::before { background: #6fc7bc; }
+
+/* ---- Mega Bundle launch sale ---- */
+.ad-mega-strike { font-size: .55em; color: var(--text-secondary); margin-right: 6px; }
+.ad-sale-line { margin-top: 10px; font-size: 14px; color: var(--text-secondary); }
+.ad-sale-line strong { color: #ffd700; }
+.ad-sale-line span[data-mega-sale-countdown] { font-family: 'JetBrains Mono', ui-monospace, monospace; color: #fff; margin-left: 6px; }

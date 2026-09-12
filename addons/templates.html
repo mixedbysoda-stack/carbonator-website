@@ -212,11 +212,17 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
                 <a class="ad-more" href="/mega-bundle">See what is in it</a>
             </div>
             <div>
-                <div class="ad-mega-price">$500</div>
+                <div class="ad-mega-price"><span data-mega-regular>$500</span><span data-mega-sale hidden><s class="ad-mega-strike">$500</s> $350</span></div>
                 <div class="ad-mega-was"><span data-mega-value>$1,001</span> if you bought everything separately</div>
-                <div class="ad-cta" data-addon-cta="mega_bundle">
+                <div data-mega-regular><div class="ad-cta" data-addon-cta="mega_bundle">
                         <a class="ad-buy" href="https://buy.stripe.com/5kQ3cv0chbBgbHPcDp3oA0A" data-checkout-placement="addons_templates_mega" onclick="if(typeof fbq!=='undefined'){fbq('track','InitiateCheckout',{value:500,currency:'USD',content_name:'Mega Bundle'});}">Get the Mega Bundle - $500</a>
-                    </div><p class="ad-mega-note">Plugins and keys arrive instantly. Packs and templates are emailed to you as each one drops.</p>
+                    </div></div>
+                    <div data-mega-sale hidden>
+                        <div class="ad-cta" data-addon-cta="mega_bundle">
+                        <a class="ad-buy" href="https://buy.stripe.com/9B63cvbUZaxc4fn46T3oA0L" data-checkout-placement="addons_templates_mega_sale" onclick="if(typeof fbq!=='undefined'){fbq('track','InitiateCheckout',{value:350,currency:'USD',content_name:'Mega Bundle'});}">Get the Mega Bundle - $350</a>
+                    </div>
+                        <p class="ad-sale-line"><strong>Launch price, ends October 12.</strong> Regular price $500. <span data-mega-sale-countdown></span></p>
+                    </div><p class="ad-mega-note">Plugins, keys and packs arrive instantly. Templates are emailed to you as each one drops.</p>
             </div>
         </div>
     </section>
@@ -234,10 +240,10 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
 
 <div id="site-footer"></div>
 
-<script src="/components/addons-catalog.js?v=20260912-packs"></script>
-<script src="/components/nav.js?v=20260912-packs"></script>
+<script src="/components/addons-catalog.js?v=20260912-megasale"></script>
+<script src="/components/nav.js?v=20260912-megasale"></script>
 <script src="/components/footer.js?v=20260910"></script>
-<script src="/components/addons.js?v=20260912-packs"></script>
-<script src="/components/checkout-tracking.js?v=20260912-packs"></script>
+<script src="/components/addons.js?v=20260912-megasale"></script>
+<script src="/components/checkout-tracking.js?v=20260912-megasale"></script>
 </body>
 </html>

@@ -36,13 +36,32 @@
         slot.appendChild(a);
     });
 
+    // Mega Bundle launch sale: the page carries both CTAs; show one.
+    // Static default is the regular price, so a visitor without JS never sees
+    // a sale price the Stripe link might not honour.
+    var sale = cat.megaSale();
+    document.querySelectorAll('[data-mega-sale]').forEach(function (el) { el.hidden = !sale; });
+    document.querySelectorAll('[data-mega-regular]').forEach(function (el) { el.hidden = !!sale; });
+    if (sale) {
+        var pad = function (n) { return String(n).padStart(2, '0'); };
+        var tick = function () {
+            var left = Date.parse(sale.ends) - Date.now();
+            if (left <= 0) { window.location.reload(); return; }
+            var d = Math.floor(left / 86400000), h = Math.floor(left / 3600000) % 24, m = Math.floor(left / 60000) % 60;
+            document.querySelectorAll('[data-mega-sale-countdown]').forEach(function (el) {
+                el.textContent = d > 0 ? d + 'd ' + pad(h) + 'h ' + pad(m) + 'm left' : pad(h) + 'h ' + pad(m) + 'm left';
+            });
+        };
+        tick(); setInterval(tick, 30000);
+    }
+
     // Live prices wherever the page asks for them (static text is the fallback).
     document.querySelectorAll('[data-price-of]').forEach(function (el) {
         var item = cat.byId(el.getAttribute('data-price-of'));
         if (item) el.textContent = '$' + item.price;
     });
     document.querySelectorAll('[data-mega-value]').forEach(function (el) { el.textContent = '$' + cat.megaValue().toLocaleString('en-US'); });
-    document.querySelectorAll('[data-mega-save]').forEach(function (el) { el.textContent = '$' + (cat.megaValue() - cat.mega.price); });
+    document.querySelectorAll('[data-mega-save]').forEach(function (el) { el.textContent = '$' + (cat.megaValue() - (sale ? sale.price : cat.mega.price)); });
 
     // Notify-me forms.
     document.querySelectorAll('form.ad-notify').forEach(function (form) {

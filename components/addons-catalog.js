@@ -111,6 +111,19 @@
       // a live Mega Bundle with unreleased items only while preorder is true.
       status: 'live',
       preorder: true,
+      // Launch sale, 30 days from 2026-09-12 (SODA's call to start inside the
+      // last two days of the APD exclusive). Both CTAs are in the page HTML;
+      // components/addons.js and nav.js show the sale one only between starts
+      // and ends (fixed UTC instants, same idea as the APD window). The $350
+      // Stripe link is DEACTIVATED at ends by a scheduled task, so a stale
+      // page cannot sell at $350 after the window.
+      sale: {
+        price: 350,
+        paymentLink: 'https://buy.stripe.com/9B63cvbUZaxc4fn46T3oA0L',
+        starts: '2026-09-12T00:00:00Z',
+        ends: '2026-10-13T00:00:00Z',
+        label: 'Launch price, ends October 12'
+      },
       paymentLink: 'https://buy.stripe.com/5kQ3cv0chbBgbHPcDp3oA0A',
       plugins: ['carbonator', 'desipper', 'ontap', 'pour', 'octane', 'tallboy', 'still'],
       // What the 7 plugins cost bought one at a time (5 x $20 + $29, Still free).
@@ -124,6 +137,13 @@
   };
   CATALOG.inCategory = function (cat) {
     return CATALOG.items.filter(function (it) { return it.category === cat; });
+  };
+  // The Mega Bundle's sale, if one is running right now (or at `now`).
+  CATALOG.megaSale = function (now) {
+    var s = CATALOG.mega.sale;
+    if (!s || CATALOG.mega.status !== 'live') return null;
+    var t = typeof now === 'number' ? now : Date.now();
+    return (t >= Date.parse(s.starts) && t < Date.parse(s.ends)) ? s : null;
   };
   CATALOG.megaValue = function () {
     return CATALOG.items.reduce(function (sum, it) { return sum + it.price; }, CATALOG.mega.pluginsValue);
