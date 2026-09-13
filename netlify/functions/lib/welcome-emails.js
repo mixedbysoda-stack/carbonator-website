@@ -173,6 +173,11 @@ function buildDesipperWelcomeEmail(email) {
 </html>`;
 }
 
+const ONTAP_DEMO = {
+  mac: "https://github.com/mixedbysoda-stack/ontap/releases/download/v1.0.0-demo/OnTap-Demo-macOS.pkg",
+  windows: "https://github.com/mixedbysoda-stack/ontap/releases/download/v1.0.0-demo/OnTap-v1.0.0-Demo-Windows-Installer.exe",
+};
+
 function buildOnTapWelcomeEmail(contact) {
   return `<!DOCTYPE html><html><head><meta charset="utf-8"></head>
 <body style="margin:0;padding:0;background-color:#0d0a1a;font-family:Arial,Helvetica,sans-serif;">
@@ -183,7 +188,7 @@ function buildOnTapWelcomeEmail(contact) {
 <h1 style="color:#fff;font-size:24px;text-align:center;margin:0 0 8px;">Your On Tap Demo is Ready</h1>
 <p style="color:#a09bb5;font-size:16px;text-align:center;margin:0 0 32px;">Instant sidechain ducking. 16 curves. No compressor routing.</p>
 <div style="text-align:center;margin:0 0 32px;">
-<a href="https://github.com/mixedbysoda-stack/ontap/releases/download/v1.0.0/OnTap-v1.0.0-Installer.pkg" style="background:linear-gradient(135deg,#a855f7,#7c3aed);color:#fff;padding:14px 32px;border-radius:10px;text-decoration:none;font-weight:700;font-size:16px;display:inline-block;">Download On Tap Demo</a>
+<a href="${ONTAP_DEMO.mac}" style="background:linear-gradient(135deg,#a855f7,#7c3aed);color:#fff;padding:14px 32px;border-radius:10px;text-decoration:none;font-weight:700;font-size:16px;display:inline-block;">Download On Tap Demo</a>
 </div>
 <hr style="border:none;border-top:1px solid #2a2440;margin:0 0 24px;">
 <h2 style="color:#fff;font-size:18px;margin:0 0 16px;">What On Tap does:</h2>
@@ -195,6 +200,7 @@ function buildOnTapWelcomeEmail(contact) {
 </table>
 <hr style="border:none;border-top:1px solid #2a2440;margin:24px 0;">
 <p style="color:#a09bb5;font-size:14px;margin:0;text-align:center;">
+On Windows, grab the VST3 demo here: <a href="${ONTAP_DEMO.windows}" style="color:#a855f7;">OnTap-v1.0.0-Demo-Windows-Installer.exe</a><br><br>
 Demo plays full audio for 60s, then mutes for 10s.<br>
 <a href="https://carbonatedaudio.com/ontap" style="color:#a855f7;text-decoration:none;font-weight:600;">Buy On Tap ($20)</a> to remove the limitation.
 </p>

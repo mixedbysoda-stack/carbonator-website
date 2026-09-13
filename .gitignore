@@ -40,3 +40,6 @@ _tooling/
 
 # Local preview server (never deploys)
 _preview/
+
+# demo installer rebuild working dir - pkgs, logs. NEVER commit (repo is public)
+_demo-fix/
