@@ -51,33 +51,38 @@
 
     <script type="application/ld+json">
     {
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "TALLBOY",
-      "applicationCategory": "MultimediaApplication",
-      "applicationSubCategory": "Audio Plugin",
-      "operatingSystem": "macOS 10.13+, Windows 10+",
-      "description": "TALLBOY tracks the pitch and envelope of incoming audio and re-synthesises it through a four-channel handheld console sound chip, then shapes it with an algorithmic arpeggiator and a bit/rate decimator. Three cartridges, each of which can be inserted or ejected independently.",
-      "url": "https://carbonatedaudio.com/tallboy",
-      "image": "https://carbonatedaudio.com/tallboy-screenshot.png",
-      "softwareVersion": "1.0.0",
-      "offers": {
-        "@type": "Offer",
-        "price": "20.00",
-        "priceCurrency": "USD",
-        "availability": "https://schema.org/InStock",
-        "url": "https://carbonatedaudio.com/tallboy"
-      },
-      "brand": { "@type": "Brand", "name": "Carbonated Audio" },
-      "featureList": [
-        "Pitch-tracked 4-channel chip resynthesis (2 pulse, wavetable, LFSR noise)",
-        "Algorithmic arpeggiator with glide, swing and host tempo sync",
-        "Bit-depth and sample-rate decimator with jitter",
-        "Three cartridges, independently insertable",
-        "144x128 four-shade dot-matrix display",
-        "VST3, AU and AAX on macOS; VST3 on Windows"
-      ],
-      "systemRequirements": "macOS 10.13+ (Apple Silicon and Intel, universal) and Windows 10+ (64-bit, VST3). Compatible with Pro Tools, Logic Pro, Ableton Live, FL Studio, Studio One, Cubase, Reaper and all major DAWs."
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "TALLBOY",
+        "applicationCategory": "MultimediaApplication",
+        "applicationSubCategory": "Audio Plugin",
+        "operatingSystem": "macOS 10.13+, Windows 10+",
+        "description": "TALLBOY tracks the pitch and envelope of incoming audio and re-synthesises it through a four-channel handheld console sound chip, then shapes it with an algorithmic arpeggiator and a bit/rate decimator. Three cartridges, each of which can be inserted or ejected independently.",
+        "url": "https://carbonatedaudio.com/tallboy",
+        "image": "https://carbonatedaudio.com/tallboy-screenshot.png",
+        "softwareVersion": "1.0.0",
+        "offers": {
+            "@type": "Offer",
+            "price": "20.00",
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/InStock",
+            "url": "https://carbonatedaudio.com/tallboy",
+            "shippingDetails": {"@type": "OfferShippingDetails", "shippingRate": {"@type": "MonetaryAmount", "value": 0, "currency": "USD"}, "shippingDestination": [{"@type": "DefinedRegion", "addressCountry": "US"}, {"@type": "DefinedRegion", "addressCountry": "CA"}, {"@type": "DefinedRegion", "addressCountry": "GB"}, {"@type": "DefinedRegion", "addressCountry": "IE"}, {"@type": "DefinedRegion", "addressCountry": "AU"}, {"@type": "DefinedRegion", "addressCountry": "NZ"}, {"@type": "DefinedRegion", "addressCountry": "DE"}, {"@type": "DefinedRegion", "addressCountry": "FR"}, {"@type": "DefinedRegion", "addressCountry": "NL"}, {"@type": "DefinedRegion", "addressCountry": "ES"}, {"@type": "DefinedRegion", "addressCountry": "IT"}, {"@type": "DefinedRegion", "addressCountry": "SE"}, {"@type": "DefinedRegion", "addressCountry": "JP"}, {"@type": "DefinedRegion", "addressCountry": "BR"}, {"@type": "DefinedRegion", "addressCountry": "MX"}], "deliveryTime": {"@type": "ShippingDeliveryTime", "handlingTime": {"@type": "QuantitativeValue", "minValue": 0, "maxValue": 0, "unitCode": "DAY"}, "transitTime": {"@type": "QuantitativeValue", "minValue": 0, "maxValue": 0, "unitCode": "DAY"}}},
+            "hasMerchantReturnPolicy": {"@type": "MerchantReturnPolicy", "applicableCountry": ["US", "CA", "GB", "IE", "AU", "NZ", "DE", "FR", "NL", "ES", "IT", "SE", "JP", "BR", "MX"], "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow", "merchantReturnDays": 30, "returnFees": "https://schema.org/FreeReturn"}
+        },
+        "brand": {
+            "@type": "Brand",
+            "name": "Carbonated Audio"
+        },
+        "featureList": [
+            "Pitch-tracked 4-channel chip resynthesis (2 pulse, wavetable, LFSR noise)",
+            "Algorithmic arpeggiator with glide, swing and host tempo sync",
+            "Bit-depth and sample-rate decimator with jitter",
+            "Three cartridges, independently insertable",
+            "144x128 four-shade dot-matrix display",
+            "VST3, AU and AAX on macOS; VST3 on Windows"
+        ],
+        "systemRequirements": "macOS 10.13+ (Apple Silicon and Intel, universal) and Windows 10+ (64-bit, VST3). Compatible with Pro Tools, Logic Pro, Ableton Live, FL Studio, Studio One, Cubase, Reaper and all major DAWs."
     }
     </script>
 
