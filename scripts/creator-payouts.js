@@ -77,14 +77,22 @@ async function humanCode(promoId) {
 
 // Pull the creator attribution out of a session's expanded discount breakdown.
 // The coupon object carries the metadata; the promotion code id is on the
-// discount. The coupon is fetched when it comes back as a bare id (older API
-// versions), so attribution never silently drops.
+// discount. Stripe API 2025-09-30.clover removed the auto-expanded
+// discount.coupon and replaced it with discount.source.coupon (a bare id), so
+// read either shape and fetch the coupon when it is an id. Without this every
+// creator order on the new API silently attributes to nobody and pays $0.
+const couponCache = new Map();
+async function loadCoupon(ref) {
+  if (!ref) return null;
+  if (typeof ref !== "string") return ref;
+  if (!couponCache.has(ref)) couponCache.set(ref, await stripe.get(`coupons/${ref}`));
+  return couponCache.get(ref);
+}
 async function creatorDiscount(session) {
   const discounts = session.total_details?.breakdown?.discounts || [];
   for (const d of discounts) {
     const disc = d.discount || {};
-    let coupon = disc.coupon;
-    if (coupon && typeof coupon === "string") coupon = await stripe.get(`coupons/${coupon}`);
+    const coupon = await loadCoupon(disc.source?.coupon || disc.coupon);
     const md = (coupon && coupon.metadata) || {};
     if (md.program === PROGRAM) {
       return {
@@ -93,7 +101,7 @@ async function creatorDiscount(session) {
         name: md.creator_name || md.creator_slug || "unknown",
         rate: Number(md.commission_rate || 0),
         promotion_code: await humanCode(typeof disc.promotion_code === "string" ? disc.promotion_code : disc.promotion_code?.id || ""),
-        coupon_id: coupon.id,
+        coupon_id: coupon.id || "",
         discount_amount: d.amount || 0,
       };
     }

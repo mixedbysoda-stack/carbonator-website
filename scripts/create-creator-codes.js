@@ -151,6 +151,36 @@ async function resolveBundleProduct() {
   return { linkId: link.id, url: link.url, product, allowPromo: !!link.allow_promotion_codes };
 }
 
+// Stripe API 2025-09-30.clover moved promotion_code.coupon to promotion.coupon
+// (both on create and on the returned object). This account is on the new
+// shape, but the scripts pin no version, so try nested first and fall back to
+// the flat param if Stripe rejects it. Same approach as generate-apd-codes.js.
+let promoShape = null; // "nested" | "flat", sticky once one works
+async function postPromotionCode(couponId, fields, idemBase) {
+  const shapes = promoShape ? [promoShape] : ["nested", "flat"];
+  let lastErr;
+  for (const shape of shapes) {
+    const params = shape === "nested"
+      ? { promotion: { type: "coupon", coupon: couponId }, ...fields }
+      : { coupon: couponId, ...fields };
+    try {
+      const promo = await stripe.post("promotion_codes", params, { idempotencyKey: `${idemBase}-${shape}` });
+      promoShape = shape;
+      return promo;
+    } catch (err) {
+      lastErr = err;
+      const shapeRejected = err.status === 400 && /unknown parameter|promotion|coupon/i.test(err.message) && !/already exists/i.test(err.message);
+      if (promoShape || !shapeRejected) throw err;
+    }
+  }
+  throw lastErr;
+}
+
+// Coupon reference on a promotion code, whichever API shape came back.
+function promoCoupon(promo) {
+  return (promo.promotion && promo.promotion.coupon) || promo.coupon || null;
+}
+
 async function findPromotionCode(code) {
   const res = await stripe.get("promotion_codes", { code, limit: 1 });
   return res.data[0] || null;
@@ -160,7 +190,7 @@ async function createAudienceCode(c, code) {
   const existing = await findPromotionCode(code);
   if (existing) {
     console.log(`  audience code ${code} already exists (${existing.id}) - reusing`);
-    return { promo: existing, coupon: existing.coupon };
+    return { promo: existing, coupon: promoCoupon(existing) };
   }
   const coupon = await stripe.post("coupons", {
     name: `Creator ${PERCENT}%: ${c.name}`.slice(0, 40),
@@ -169,12 +199,11 @@ async function createAudienceCode(c, code) {
     redeem_by: Math.floor(Date.now() / 1000) + 365 * DAY,
     metadata: { program: PROGRAM, creator_slug: c.slug, creator_name: c.name, kind: "audience", commission_rate: COMMISSION },
   }, { idempotencyKey: `creator-audience-coupon-${c.slug}-${PERCENT}` });
-  const promo = await stripe.post("promotion_codes", {
-    coupon: coupon.id,
+  const promo = await postPromotionCode(coupon.id, {
     code,
     active: true,
     metadata: { program: PROGRAM, creator_slug: c.slug, creator_name: c.name, kind: "audience", commission_rate: COMMISSION },
-  }, { idempotencyKey: `creator-audience-promo-${c.slug}-${code}` });
+  }, `creator-audience-promo-${c.slug}-${code}`);
   return { promo, coupon };
 }
 
@@ -182,7 +211,7 @@ async function createReviewCode(c, code, bundle) {
   const existing = await findPromotionCode(code);
   if (existing) {
     console.log(`  review code ${code} already exists (${existing.id}) - reusing`);
-    return { promo: existing, coupon: existing.coupon, expires: existing.expires_at };
+    return { promo: existing, coupon: promoCoupon(existing), expires: existing.expires_at };
   }
   const expires = Math.floor(Date.now() / 1000) + 90 * DAY;
   const coupon = await stripe.post("coupons", {
@@ -194,14 +223,13 @@ async function createReviewCode(c, code, bundle) {
     applies_to: { products: [bundle.product] },
     metadata: { program: PROGRAM, creator_slug: c.slug, creator_name: c.name, kind: "review", commission_rate: "0" },
   }, { idempotencyKey: `creator-review-coupon-${c.slug}` });
-  const promo = await stripe.post("promotion_codes", {
-    coupon: coupon.id,
+  const promo = await postPromotionCode(coupon.id, {
     code,
     active: true,
     max_redemptions: 1,
     expires_at: expires,
     metadata: { program: PROGRAM, creator_slug: c.slug, creator_name: c.name, kind: "review", commission_rate: "0" },
-  }, { idempotencyKey: `creator-review-promo-${c.slug}-${code}` });
+  }, `creator-review-promo-${c.slug}-${code}`);
   return { promo, coupon, expires };
 }
 
@@ -243,9 +271,9 @@ async function createReviewCode(c, code, bundle) {
       created_at: new Date().toISOString(),
       slug: c.slug, name: c.name, email: c.email, handle: c.handle, platform: c.platform,
       audience_code: audience.promo.code, audience_promo_id: audience.promo.id,
-      audience_coupon_id: typeof audience.coupon === "string" ? audience.coupon : audience.coupon.id,
+      audience_coupon_id: typeof audience.coupon === "string" ? audience.coupon : (audience.coupon && audience.coupon.id) || "",
       review_code: review ? review.promo.code : "", review_promo_id: review ? review.promo.id : "",
-      review_coupon_id: review ? (typeof review.coupon === "string" ? review.coupon : review.coupon.id) : "",
+      review_coupon_id: review ? (typeof review.coupon === "string" ? review.coupon : (review.coupon && review.coupon.id) || "") : "",
       review_expires: review && review.expires ? new Date(review.expires * 1000).toISOString().slice(0, 10) : "",
     };
     appendLedger(row);
