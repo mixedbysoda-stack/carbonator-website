@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Partners - Carbonated Audio admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<!-- Internal tool. No analytics on purpose. All data comes from
+     /.netlify/functions/partners-admin behind LEADS_ADMIN_TOKEN; nothing
+     about any creator is in this file (the repo is public). -->
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  html, body { overflow-x: hidden; }
+  :root {
+    --bg: #0d0a1a; --bg2: #151025; --card: #1a1430; --inset: #120e22; --border: #2a2440;
+    --text: #ffffff; --text2: #a09bb5; --muted: #6b6580;
+    --orange: #ff6b2b; --pink: #ff3366; --lime: #c2d24f; --cyan: #00d4ff; --red: #e63946; --yellow: #ffd700;
+    --mono: 'JetBrains Mono', ui-monospace, monospace;
+  }
+  body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg); color: var(--text); line-height: 1.5; font-size: 14px; }
+  a { color: var(--cyan); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 20px 60px; }
+  header { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 18px 20px; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: rgba(13,10,26,.94); backdrop-filter: blur(8px); z-index: 5; }
+  header h1 { font-size: 16px; font-weight: 800; letter-spacing: -.01em; }
+  header h1 span { color: var(--orange); }
+  .hdr-actions { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+  button, .btn { font: inherit; font-size: 13px; font-weight: 600; border-radius: 8px; padding: 8px 12px; border: 1px solid var(--border); background: var(--bg2); color: var(--text); cursor: pointer; transition: border-color .2s ease, background .2s ease; }
+  button:hover { border-color: var(--text2); }
+  button.primary { background: linear-gradient(135deg, var(--orange), var(--pink)); border-color: transparent; }
+  button.danger { color: var(--red); }
+  button:disabled { opacity: .5; cursor: default; }
+  input, select, textarea { font: inherit; font-size: 13px; background: var(--inset); color: var(--text); border: 1px solid var(--border); border-radius: 8px; padding: 8px 10px; width: 100%; }
+  input:focus, select:focus, textarea:focus { outline: none; border-color: var(--orange); }
+  textarea { resize: vertical; min-height: 70px; }
+  label { display: block; font-size: 11px; color: var(--muted); margin-bottom: 4px; font-weight: 600; }
+
+  section { margin-top: 28px; }
+  section > h2 { font-size: 13px; font-weight: 800; margin-bottom: 10px; display: flex; align-items: baseline; gap: 10px; }
+  section > h2 .count { font-family: var(--mono); color: var(--muted); font-weight: 400; }
+
+  .stats { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 10px; margin-top: 22px; }
+  .stat { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; }
+  .stat .v { font-family: var(--mono); font-size: 22px; font-weight: 500; margin-top: 4px; }
+  .stat .v.owed { color: var(--lime); }
+
+  .table { width: 100%; border-collapse: collapse; background: var(--card); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+  .table th { text-align: left; font-family: var(--mono); font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 500; padding: 10px 12px; border-bottom: 1px solid var(--border); white-space: nowrap; }
+  .table td { padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .table tr:last-child td { border-bottom: 0; }
+  .table tr.click { cursor: pointer; }
+  .table tr.click:hover td { background: rgba(255,255,255,.025); }
+  .num { font-family: var(--mono); text-align: right; white-space: nowrap; }
+  .mono { font-family: var(--mono); }
+  .sub { color: var(--text2); font-size: 12px; }
+  .pill { display: inline-block; font-size: 10px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--border); color: var(--text2); white-space: nowrap; }
+  .pill.active { color: var(--lime); border-color: rgba(194,210,79,.4); }
+  .pill.paused { color: var(--yellow); border-color: rgba(255,215,0,.35); }
+  .pill.ended, .pill.declined { color: var(--muted); }
+  .pill.new { color: var(--orange); border-color: rgba(255,107,43,.45); }
+  .pill.warn { color: var(--red); border-color: rgba(230,57,70,.45); }
+  .empty { background: var(--card); border: 1px dashed var(--border); border-radius: 12px; padding: 18px; color: var(--muted); }
+
+  .app { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; display: grid; grid-template-columns: 1fr auto; gap: 12px; margin-bottom: 8px; }
+  .app .note { color: var(--text2); margin-top: 6px; white-space: pre-wrap; }
+  .app .approve { display: flex; gap: 8px; align-items: end; flex-wrap: wrap; justify-content: flex-end; }
+  .app .approve input { width: 150px; }
+
+  #drawer { position: fixed; inset: 0 0 0 auto; width: min(560px, 100%); background: var(--bg2); border-left: 1px solid var(--border); transform: translateX(100%); transition: transform .2s ease; z-index: 20; overflow-y: auto; }
+  #drawer:not(.open) { visibility: hidden; }
+  #drawer.open { transform: none; }
+  #scrim { position: fixed; inset: 0; background: rgba(0,0,0,.45); z-index: 15; display: none; }
+  #scrim.open { display: block; }
+  .d-head { padding: 18px 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; gap: 10px; align-items: start; position: sticky; top: 0; background: var(--bg2); }
+  .d-head h3 { font-size: 18px; font-weight: 800; }
+  .d-body { padding: 18px 20px; display: grid; gap: 18px; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .box { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 14px; }
+  .box h4 { font-size: 12px; font-weight: 800; margin-bottom: 10px; }
+  .kv { display: grid; grid-template-columns: 130px 1fr; gap: 6px 10px; font-size: 13px; }
+  .kv dt { color: var(--muted); }
+  .kv dd { font-family: var(--mono); word-break: break-all; }
+  pre.block { background: var(--inset); border: 1px solid var(--border); border-radius: 8px; padding: 10px; font-family: var(--mono); font-size: 12px; white-space: pre-wrap; word-break: break-all; }
+  .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .toast { position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%); background: var(--card); border: 1px solid var(--border); padding: 10px 16px; border-radius: 10px; z-index: 30; display: none; max-width: 90vw; }
+  .toast.err { border-color: var(--red); color: #ffb3b9; }
+
+  #gate { max-width: 380px; margin: 90px auto; background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 22px; display: grid; gap: 10px; }
+  @media (max-width: 760px) {
+    .stats { grid-template-columns: 1fr 1fr; }
+    .app { grid-template-columns: 1fr; }
+    .app .approve { justify-content: flex-start; }
+    .hide-sm { display: none; }
+    .grid2 { grid-template-columns: 1fr; }
+    .table { display: block; overflow-x: auto; }
+    header { flex-wrap: wrap; }
+    .wrap { padding: 0 16px 60px; }
+  }
+</style>
+</head>
+<body>
+
+<form id="gate" hidden>
+  <div class="eyebrow">Carbonated Audio admin</div>
+  <h1 style="font-size:18px;font-weight:800;">Partners</h1>
+  <label for="tok">Admin token</label>
+  <input id="tok" type="password" autocomplete="current-password" required>
+  <button class="primary" type="submit">Open board</button>
+  <p class="sub">Same token as the other admin endpoints (LEADS_ADMIN_TOKEN). Kept in this tab only.</p>
+</form>
+
+<div id="app" hidden>
+  <header>
+    <h1>Carbonated Audio <span>Partners</span></h1>
+    <div class="hdr-actions">
+      <span class="eyebrow" id="updated"></span>
+      <button id="btn-refresh" title="Recompute this month from Stripe now">Refresh numbers</button>
+      <button id="btn-sync" title="Pull every creator-2026 code from Stripe into records">Sync codes from Stripe</button>
+      <button id="btn-lock">Lock</button>
+    </div>
+  </header>
+  <div class="wrap">
+    <div class="stats">
+      <div class="stat"><div class="eyebrow">Active creators</div><div class="v" id="s-active">-</div></div>
+      <div class="stat"><div class="eyebrow">Creator orders this month</div><div class="v" id="s-orders">-</div></div>
+      <div class="stat"><div class="eyebrow">Commission this month</div><div class="v" id="s-month">-</div></div>
+      <div class="stat"><div class="eyebrow">Owed now (closed months)</div><div class="v owed" id="s-owed">-</div></div>
+    </div>
+
+    <section>
+      <h2>Applications <span class="count" id="c-apps"></span></h2>
+      <div id="apps"></div>
+    </section>
+
+    <section>
+      <h2>Creators <span class="count" id="c-creators"></span></h2>
+      <div id="creators"></div>
+    </section>
+
+    <section>
+      <h2>Orders by month</h2>
+      <div class="row" style="margin-bottom:10px;">
+        <select id="month-pick" style="width:auto;"></select>
+      </div>
+      <div id="orders"></div>
+    </section>
+
+    <section>
+      <h2>Reviewed applications <span class="count" id="c-done"></span></h2>
+      <div id="apps-done"></div>
+    </section>
+  </div>
+</div>
+
+<div id="scrim"></div>
+<aside id="drawer" aria-hidden="true"></aside>
+<div class="toast" id="toast"></div>
+
+<script>
+(function () {
+  var API = "/.netlify/functions/partners-admin";
+  var TOKEN_KEY = "ca_partners_admin";
+  var token = "";
+  var board = null;
+  var openSlug = null;
+
+  function getTok() { try { return sessionStorage.getItem(TOKEN_KEY) || ""; } catch (e) { return token; } }
+  function setTok(v) { token = v; try { if (v) sessionStorage.setItem(TOKEN_KEY, v); else sessionStorage.removeItem(TOKEN_KEY); } catch (e) {} }
+
+  var $ = function (id) { return document.getElementById(id); };
+  function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
+  function money(c) { return "$" + ((Number(c) || 0) / 100).toFixed(2); }
+  function monthLabel(m) { var p = m.split("-"); return new Date(Date.UTC(+p[0], +p[1] - 1, 1)).toLocaleString("en-US", { month: "short", year: "numeric", timeZone: "UTC" }); }
+  function toast(msg, err) { var t = $("toast"); t.textContent = msg; t.className = "toast" + (err ? " err" : ""); t.style.display = "block"; clearTimeout(toast._t); toast._t = setTimeout(function () { t.style.display = "none"; }, err ? 7000 : 3000); }
+
+  function api(method, params, body) {
+    var url = API + (params ? "?" + new URLSearchParams(params).toString() : "");
+    return fetch(url, {
+      method: method,
+      headers: Object.assign({ "x-admin-token": getTok() }, body ? { "Content-Type": "application/json" } : {}),
+      body: body ? JSON.stringify(body) : undefined,
+    }).then(function (r) {
+      return r.json().catch(function () { return {}; }).then(function (j) {
+        if (r.status === 401) { setTok(""); showGate(); throw new Error("Wrong token"); }
+        if (!r.ok) throw new Error(j.error || ("HTTP " + r.status));
+        return j;
+      });
+    });
+  }
+
+  function showGate() { $("app").hidden = true; $("gate").hidden = false; $("tok").focus(); }
+  $("gate").addEventListener("submit", function (e) { e.preventDefault(); setTok($("tok").value.trim()); $("tok").value = ""; load(); });
+  $("btn-lock").onclick = function () { setTok(""); board = null; closeDrawer(); showGate(); };
+  $("btn-refresh").onclick = function () { busy(this, api("POST", null, { action: "refresh" }).then(load).then(function () { toast("Numbers recomputed from Stripe"); })); };
+  $("btn-sync").onclick = function () {
+    busy(this, api("POST", null, { action: "sync" }).then(function (r) {
+      toast("Synced: " + r.created.length + " new, " + r.updated.length + " updated");
+      return load();
+    }));
+  };
+  function busy(btn, p) { btn.disabled = true; return p.catch(function (e) { toast(e.message, true); }).then(function () { btn.disabled = false; }); }
+
+  function load() {
+    $("gate").hidden = true; $("app").hidden = false;
+    $("updated").textContent = "loading...";
+    return api("GET", { action: "board" }).then(function (b) {
+      board = b; render();
+      $("updated").textContent = "updated " + new Date().toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
+      if (openSlug) openDrawer(openSlug);
+    }).catch(function (e) { $("updated").textContent = ""; if (e.message !== "Wrong token") toast(e.message, true); });
+  }
+
+  function render() {
+    var cur = board.current_month;
+    var active = board.creators.filter(function (c) { return c.status === "active"; });
+    var orders = 0, month = 0, owed = 0;
+    board.creators.forEach(function (c) {
+      var m = c.earnings.months[cur]; if (m) { orders += m.orders; month += m.commission_cents; }
+      owed += c.due.owed_now_cents;
+    });
+    $("s-active").textContent = active.length;
+    $("s-orders").textContent = orders;
+    $("s-month").textContent = money(month);
+    $("s-owed").textContent = money(owed);
+
+    var pending = board.applications.filter(function (a) { return a.status === "new"; });
+    var done = board.applications.filter(function (a) { return a.status !== "new"; });
+    $("c-apps").textContent = pending.length;
+    $("c-done").textContent = done.length;
+    $("apps").innerHTML = pending.length ? pending.map(appCard).join("") : '<div class="empty">No new applications.</div>';
+    $("apps-done").innerHTML = done.length ? '<table class="table"><thead><tr><th>Applicant</th><th class="hide-sm">Platform</th><th>Submitted</th><th>Status</th></tr></thead><tbody>' + done.map(function (a) {
+      return "<tr><td>" + esc(a.name) + '<div class="sub">' + esc(a.email) + '</div></td><td class="hide-sm">' + esc(a.platform) + '</td><td class="mono">' + esc((a.submitted_at || "").slice(0, 10)) + '</td><td><span class="pill ' + esc(a.status) + '">' + esc(a.status) + "</span>" + (a.creator_slug ? ' <span class="sub mono">' + esc(a.creator_slug) + "</span>" : "") + "</td></tr>";
+    }).join("") + "</tbody></table>" : '<div class="empty">None yet.</div>';
+
+    $("c-creators").textContent = board.creators.length;
+    var warn = board.unlinked_earnings.length ? '<div class="empty" style="margin-bottom:8px;color:var(--yellow);">Orders found for codes with no record: ' + board.unlinked_earnings.map(esc).join(", ") + '. Run "Sync codes from Stripe".</div>' : "";
+    $("creators").innerHTML = warn + (board.creators.length ? '<table class="table"><thead><tr><th>Creator</th><th>Status</th><th>Code</th><th class="hide-sm">Review copy</th><th class="num">' + esc(monthLabel(cur)) + '</th><th class="num hide-sm">Lifetime</th><th class="num">Owed now</th></tr></thead><tbody>' + board.creators.map(creatorRow).join("") + "</tbody></table>" : '<div class="empty">No creators yet. Approve an application or sync codes from Stripe.</div>');
+    Array.prototype.forEach.call(document.querySelectorAll("tr[data-slug]"), function (tr) { tr.onclick = function () { openDrawer(tr.getAttribute("data-slug")); }; });
+    Array.prototype.forEach.call(document.querySelectorAll("[data-approve]"), function (b) { b.onclick = function () { approve(b.getAttribute("data-approve")); }; });
+    Array.prototype.forEach.call(document.querySelectorAll("[data-decline]"), function (b) { b.onclick = function () { decline(b.getAttribute("data-decline")); }; });
+
+    var pick = $("month-pick"), prev = pick.value;
+    pick.innerHTML = board.months.slice().reverse().map(function (m) { return '<option value="' + m + '">' + esc(monthLabel(m)) + "</option>"; }).join("");
+    pick.value = prev && board.months.indexOf(prev) >= 0 ? prev : cur;
+    loadOrders();
+  }
+
+  function slugGuess(name) { return String(name || "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 24); }
+  function appCard(a) {
+    var k = esc(a.key);
+    return '<div class="app"><div>' +
+      '<div class="row"><strong>' + esc(a.name) + '</strong><span class="pill new">new</span><span class="sub mono">' + esc((a.submitted_at || "").slice(0, 16).replace("T", " ")) + "</span></div>" +
+      '<div class="sub">' + esc(a.email) + " - " + esc(a.platform) + " - claims " + esc(a.audience || "?") + " - wants " + esc(a.plugin || "-") + "</div>" +
+      '<div class="sub"><a href="' + esc(a.channel_url) + '" target="_blank" rel="noopener noreferrer">' + esc(a.channel_url) + "</a></div>" +
+      (a.note ? '<div class="note">' + esc(a.note) + "</div>" : "") +
+      '<div class="sub" style="margin-top:6px;color:var(--yellow);">Check the real subscriber count and recent views before approving. The audience number is self-reported.</div>' +
+      '</div><div class="approve">' +
+      '<div><label>Slug (code = SLUG20)</label><input id="slug-' + k + '" value="' + esc(slugGuess(a.name).split("-")[0]) + '"></div>' +
+      '<button class="primary" data-approve="' + k + '">Approve + mint codes</button>' +
+      '<button data-decline="' + k + '">Decline</button>' +
+      "</div></div>";
+  }
+
+  function creatorRow(c) {
+    var cur = board.current_month;
+    var m = c.earnings.months[cur] || { orders: 0, commission_cents: 0 };
+    var code = c.audience_code ? '<span class="mono">' + esc(c.audience_code) + "</span>" + (c.codes.audience_active === false ? ' <span class="pill warn">off</span>' : "") : '<span class="pill warn">none</span>';
+    var review = !c.review_code ? '<span class="sub">-</span>' : (c.codes.review_redeemed || c.earnings.review_redeemed_at) ? '<span class="pill active">redeemed</span>' : '<span class="pill">unused</span> <span class="sub mono">exp ' + esc(c.review_expires) + "</span>";
+    var owedCell = c.due.owed_now_cents > 0 ? '<span style="color:var(--lime);">' + money(c.due.owed_now_cents) + "</span>" + (c.paypal_email ? "" : '<div class="sub" style="color:var(--yellow);">no PayPal</div>') : money(0);
+    return '<tr class="click" data-slug="' + esc(c.slug) + '"><td><strong>' + esc(c.name) + '</strong><div class="sub">' + esc(c.platform || "") + (c.email ? " - " + esc(c.email) : "") + "</div></td>" +
+      '<td><span class="pill ' + esc(c.status) + '">' + esc(c.status) + "</span></td><td>" + code + '</td><td class="hide-sm">' + review + "</td>" +
+      '<td class="num">' + m.orders + " / " + money(m.commission_cents) + '</td><td class="num hide-sm">' + c.earnings.lifetime_orders + " / " + money(c.earnings.lifetime_commission_cents) + '</td><td class="num">' + owedCell + "</td></tr>";
+  }
+
+  function approve(key) {
+    var a = board.applications.filter(function (x) { return x.key === key; })[0];
+    var slug = ($("slug-" + key) || {}).value || "";
+    if (!slug.trim()) return toast("Enter a slug", true);
+    var code = slug.toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, 16);
+    if (!confirm("Mint " + code + "20 and REVIEW-" + code + " in LIVE Stripe for " + a.name + "?")) return;
+    api("POST", null, { action: "approve", application_key: key, slug: slug.trim() }).then(function (r) {
+      showResult("Approved " + a.name, r.welcome_block + (r.promo_codes_enabled_on_bundle_link ? "" : "\n\nWARNING: promotion codes are OFF on the All 7 link. The review code will not work until they are turned back on."), r.portal_link);
+      return load();
+    }).catch(function (e) { toast(e.message, true); });
+  }
+  function decline(key) {
+    var a = board.applications.filter(function (x) { return x.key === key; })[0];
+    if (!confirm("Mark " + a.name + " as declined? No email is sent; use template 4 in templates.md.")) return;
+    api("POST", null, { action: "decline", application_key: key }).then(load).catch(function (e) { toast(e.message, true); });
+  }
+
+  function showResult(title, text, link) {
+    openSlug = null;
+    var d = $("drawer");
+    d.innerHTML = '<div class="d-head"><div><div class="eyebrow">Done</div><h3>' + esc(title) + '</h3></div><button id="d-close">Close</button></div>' +
+      '<div class="d-body"><div class="box"><h4>Paste into the "you\'re in" email</h4><pre class="block" id="res-block">' + esc(text) + '</pre><div class="row" style="margin-top:8px;"><button id="copy-res">Copy</button></div></div>' +
+      (link ? '<div class="box"><h4>Partner page link</h4><p class="sub" style="margin-bottom:8px;">Shown once. If it is lost, rotate it from the creator panel.</p><pre class="block">' + esc(link) + "</pre></div>" : "") + "</div>";
+    $("d-close").onclick = closeDrawer;
+    $("copy-res").onclick = function () { copy($("res-block").textContent); };
+    d.classList.add("open"); d.setAttribute("aria-hidden", "false"); $("scrim").classList.add("open");
+  }
+
+  function copy(text) {
+    (navigator.clipboard ? navigator.clipboard.writeText(text) : Promise.reject()).then(function () { toast("Copied"); }, function () { toast("Copy failed, select the text manually", true); });
+  }
+
+  function openDrawer(slug) {
+    var c = board.creators.filter(function (x) { return x.slug === slug; })[0];
+    if (!c) return closeDrawer();
+    openSlug = slug;
+    var monthsRows = board.months.slice().reverse().map(function (m) {
+      var v = c.earnings.months[m] || { orders: 0, gross_cents: 0, net_cents: 0, commission_cents: 0 };
+      return "<tr><td>" + esc(monthLabel(m)) + (m === board.current_month ? ' <span class="sub">(open)</span>' : "") + '</td><td class="num">' + v.orders + '</td><td class="num">' + money(v.gross_cents) + '</td><td class="num">' + money(v.net_cents) + '</td><td class="num">' + money(v.commission_cents) + "</td></tr>";
+    }).join("");
+    var payouts = (c.payouts || []).slice().reverse().map(function (p) {
+      return '<tr><td class="mono">' + esc((p.paid_at || "").slice(0, 10)) + '</td><td class="mono">' + esc(p.period || "-") + '</td><td class="num">' + money(p.amount_cents) + '</td><td class="sub">' + esc(p.reference || "") + (p.note ? " - " + esc(p.note) : "") + '</td><td><button class="danger" data-delpay="' + esc(p.id) + '">x</button></td></tr>';
+    }).join("");
+    var lastClosed = board.months.filter(function (m) { return m < board.current_month; }).slice(-1)[0] || "";
+    var d = $("drawer");
+    d.innerHTML =
+      '<div class="d-head"><div><div class="eyebrow">' + esc(c.slug) + '</div><h3>' + esc(c.name) + '</h3><div class="sub">' + (c.channel_url ? '<a href="' + esc(c.channel_url) + '" target="_blank" rel="noopener noreferrer">' + esc(c.channel_url) + "</a>" : "no channel on file") + '</div></div><button id="d-close">Close</button></div>' +
+      '<div class="d-body">' +
+        '<div class="grid2">' +
+          '<div class="stat"><div class="eyebrow">Owed now</div><div class="v owed">' + money(c.due.owed_now_cents) + '</div><div class="sub">closed months ' + money(c.due.closed_commission_cents) + " - paid " + money(c.due.paid_cents) + "</div></div>" +
+          '<div class="stat"><div class="eyebrow">This month (open)</div><div class="v">' + money(c.due.this_month_commission_cents) + '</div><div class="sub">pays first week of next month</div></div>' +
+        "</div>" +
+        '<div class="box"><h4>Codes</h4><dl class="kv">' +
+          "<dt>Audience</dt><dd>" + esc(c.audience_code || "-") + (c.codes.audience_active === false ? " (INACTIVE)" : "") + (c.codes.audience_uses != null ? " - " + c.codes.audience_uses + " uses" : "") + "</dd>" +
+          "<dt>Review copy</dt><dd>" + esc(c.review_code || "-") + (c.codes.review_redeemed ? " - redeemed" : c.review_code ? " - unused, exp " + esc(c.review_expires) : "") + "</dd>" +
+          "<dt>Stripe ids</dt><dd>" + esc(c.audience_promo_id) + " / " + esc(c.audience_coupon_id) + "</dd>" +
+          "<dt>Partner page</dt><dd>" + (c.has_portal_link ? "link issued " + esc((c.portal_link_created_at || "").slice(0, 10)) : "none yet") + "</dd>" +
+        '</dl><div class="row" style="margin-top:10px;"><button id="d-rotate">' + (c.has_portal_link ? "Rotate partner link" : "Create partner link") + "</button></div></div>" +
+        '<div class="box"><h4>Details</h4><div class="grid2">' +
+          '<div><label>Status</label><select id="f-status">' + ["active", "paused", "ended"].map(function (s) { return "<option" + (s === c.status ? " selected" : "") + ">" + s + "</option>"; }).join("") + "</select></div>" +
+          '<div><label>Platform</label><input id="f-platform" value="' + esc(c.platform) + '"></div>' +
+          '<div><label>Email</label><input id="f-email" value="' + esc(c.email) + '"></div>' +
+          '<div><label>PayPal email</label><input id="f-paypal" value="' + esc(c.paypal_email) + '"></div>' +
+        '</div><div style="margin-top:10px;"><label>Channel URL</label><input id="f-channel" value="' + esc(c.channel_url) + '"></div>' +
+        '<div style="margin-top:10px;"><label>Notes (private)</label><textarea id="f-notes">' + esc(c.notes) + '</textarea></div>' +
+        '<div class="row" style="margin-top:10px;"><button class="primary" id="d-save">Save</button><span class="sub">Ending a creator kills their partner page. It does not deactivate the Stripe code; do that in Stripe.</span></div></div>' +
+        '<div class="box"><h4>Earnings by month</h4><table class="table"><thead><tr><th>Month</th><th class="num">Orders</th><th class="num">Gross</th><th class="num">Net</th><th class="num">Commission</th></tr></thead><tbody>' + monthsRows + "</tbody></table></div>" +
+        '<div class="box"><h4>Record a PayPal payout</h4><div class="grid2">' +
+          '<div><label>Amount (USD)</label><input id="p-amount" inputmode="decimal" value="' + (c.due.owed_now_cents > 0 ? (c.due.owed_now_cents / 100).toFixed(2) : "") + '"></div>' +
+          '<div><label>For month</label><input id="p-period" placeholder="YYYY-MM" value="' + esc(lastClosed) + '"></div>' +
+          '<div><label>PayPal transaction id</label><input id="p-ref"></div>' +
+          '<div><label>Note</label><input id="p-note"></div>' +
+        '</div><div class="row" style="margin-top:10px;"><button class="primary" id="d-pay">Record payout</button><span class="sub">Records only. Send the money in PayPal yourself.</span></div>' +
+        (payouts ? '<table class="table" style="margin-top:12px;"><thead><tr><th>Paid</th><th>For</th><th class="num">Amount</th><th>Ref</th><th></th></tr></thead><tbody>' + payouts + "</tbody></table>" : '<p class="sub" style="margin-top:10px;">No payouts recorded.</p>') +
+        "</div>" +
+      "</div>";
+    $("d-close").onclick = closeDrawer;
+    $("d-save").onclick = function () {
+      busy(this, api("POST", null, { action: "update", slug: c.slug, fields: { status: $("f-status").value, platform: $("f-platform").value, email: $("f-email").value, paypal_email: $("f-paypal").value, channel_url: $("f-channel").value, notes: $("f-notes").value } }).then(function () { toast("Saved"); return load(); }));
+    };
+    $("d-pay").onclick = function () {
+      var amt = $("p-amount").value.trim();
+      if (!confirm("Record a " + "$" + amt + " payout to " + c.name + "? Only do this after the PayPal payment has gone through.")) return;
+      busy(this, api("POST", null, { action: "payout", slug: c.slug, amount: amt, period: $("p-period").value.trim(), reference: $("p-ref").value, note: $("p-note").value }).then(function () { toast("Payout recorded"); return load(); }));
+    };
+    $("d-rotate").onclick = function () {
+      if (c.has_portal_link && !confirm("Rotate the partner link? The old link stops working immediately.")) return;
+      busy(this, api("POST", null, { action: "rotate_link", slug: c.slug }).then(function (r) { return load().then(function () { showResult("Partner link for " + c.name, "Your partner page (sales, commission, payouts): " + r.portal_link, r.portal_link); }); }));
+    };
+    Array.prototype.forEach.call(d.querySelectorAll("[data-delpay]"), function (b) {
+      b.onclick = function () { if (!confirm("Delete this payout record?")) return; busy(b, api("POST", null, { action: "delete_payout", slug: c.slug, id: b.getAttribute("data-delpay") }).then(load)); };
+    });
+    d.classList.add("open"); d.setAttribute("aria-hidden", "false"); $("scrim").classList.add("open");
+  }
+  function closeDrawer() { openSlug = null; $("drawer").classList.remove("open"); $("drawer").setAttribute("aria-hidden", "true"); $("scrim").classList.remove("open"); }
+  $("scrim").onclick = closeDrawer;
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeDrawer(); });
+
+  function loadOrders() {
+    var m = $("month-pick").value;
+    $("orders").innerHTML = '<div class="empty">Loading ' + esc(monthLabel(m)) + "...</div>";
+    api("GET", { action: "month", month: m }).then(function (r) {
+      var names = {}; board.creators.forEach(function (c) { names[c.slug] = c.name; });
+      var rows = r.orders.slice().sort(function (a, b) { return b.created.localeCompare(a.created); });
+      var reviews = r.reviews || [];
+      $("orders").innerHTML = (rows.length ? '<table class="table"><thead><tr><th>Date</th><th>Creator</th><th class="hide-sm">Product</th><th class="hide-sm">Buyer</th><th class="num">Paid</th><th class="num hide-sm">Fee</th><th class="num">Commission</th><th>Status</th></tr></thead><tbody>' + rows.map(function (o) {
+        return '<tr><td class="mono">' + esc(o.created.slice(0, 10)) + "</td><td>" + esc(names[o.slug] || o.slug) + '</td><td class="hide-sm">' + esc(o.product) + '</td><td class="hide-sm sub">' + esc(o.buyer_email) + '</td><td class="num">' + money(o.gross_cents) + '</td><td class="num hide-sm">' + money(o.fee_cents) + '</td><td class="num">' + money(o.commission_cents) + '</td><td><span class="pill' + (o.status === "paid" ? " active" : " warn") + '">' + esc(o.status) + "</span></td></tr>";
+      }).join("") + "</tbody></table>" : '<div class="empty">No creator-code orders in ' + esc(monthLabel(m)) + ".</div>") +
+      (reviews.length ? '<p class="sub" style="margin-top:8px;">Review copies redeemed: ' + reviews.map(function (v) { return esc(names[v.slug] || v.slug) + " (" + esc(v.created.slice(0, 10)) + ")"; }).join(", ") + "</p>" : "") +
+      '<p class="sub" style="margin-top:6px;">Computed ' + esc(new Date(r.computed_at).toLocaleString()) + ". Commission = rate x (paid - Stripe fee), refunds pay 0.</p>";
+    }).catch(function (e) { $("orders").innerHTML = '<div class="empty">' + esc(e.message) + "</div>"; });
+  }
+  $("month-pick").onchange = loadOrders;
+
+  if (getTok()) load(); else showGate();
+})();
+</script>
+</body>
+</html>

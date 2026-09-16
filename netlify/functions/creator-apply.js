@@ -84,7 +84,8 @@ exports.handler = async (event) => {
           <p><strong>Wants to cover:</strong> ${e(app.plugin || "-")}</p>
           <p><strong>Note:</strong><br>${e(app.note || "-").replace(/\n/g, "<br>")}</p>
           <hr style="border-color:#2a2440;">
-          <p style="color:#6b6580;font-size:12px;">To approve: node scripts/create-creator-codes.js --slug=... --name="..." --email=${e(app.email)} then send them the paste-ready block. Stored as creator-applications/${e(key)}.</p>
+          <p><a href="https://carbonatedaudio.com/partners-admin" style="display:inline-block;background:#ff6b2b;color:#fff;font-weight:bold;padding:10px 16px;border-radius:8px;text-decoration:none;">Review on the partners board</a></p>
+          <p style="color:#6b6580;font-size:12px;">Approve there to mint the codes and get the paste-ready block plus their partner page link. Terminal fallback: node scripts/create-creator-codes.js --slug=... --name="..." --email=${e(app.email)}. Stored as creator-applications/${e(key)}.</p>
         </div>`,
       });
     } catch (err) {

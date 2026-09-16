@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<title>Partner dashboard - Carbonated Audio</title>
+<link rel="icon" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<!-- Creator partner page. The ?t= token in the URL is the credential, so this
+     page deliberately loads NO analytics or pixels (they would record the
+     full URL) and sends no referrer. All data comes from partner-portal.js. -->
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  :root {
+    --bg: #0d0a1a; --bg2: #151025; --card: #1a1430; --inset: #120e22; --border: #2a2440;
+    --text: #ffffff; --text2: #a09bb5; --muted: #6b6580;
+    --orange: #ff6b2b; --pink: #ff3366; --magenta: #cc33ff; --lime: #c2d24f; --yellow: #ffd700; --red: #e63946;
+    --mono: 'JetBrains Mono', ui-monospace, monospace;
+  }
+  body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+  a { color: var(--orange); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  nav { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid var(--border); }
+  nav .brand { font-weight: 800; color: var(--text); letter-spacing: -.01em; }
+  nav .tag { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 16px 60px; }
+  .eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+  .hello { padding: 34px 0 8px; }
+  .hello h1 { font-size: clamp(28px, 5vw, 40px); font-weight: 900; letter-spacing: -.04em; line-height: 1.1; }
+  .hello h1 .grad { background: linear-gradient(90deg, #ff6b2b 0%, #cc33ff 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .hello p { color: var(--text2); margin-top: 8px; }
+
+  .code-card { margin-top: 22px; background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 22px; position: relative; overflow: hidden; }
+  .code-card::after { content: ""; position: absolute; left: -80px; bottom: -120px; width: 280px; height: 280px; background: radial-gradient(circle, rgba(255,107,43,.18), transparent 70%); pointer-events: none; }
+  .code-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 8px; }
+  .code { font-family: var(--mono); font-size: clamp(26px, 6vw, 38px); font-weight: 500; letter-spacing: .04em; }
+  button { font: inherit; font-weight: 700; font-size: 14px; border: 0; border-radius: 10px; padding: 10px 16px; color: #fff; background: linear-gradient(135deg, var(--orange), var(--pink)); cursor: pointer; transition: opacity .2s ease; }
+  button:hover { opacity: .9; }
+  button.ghost { background: var(--bg2); border: 1px solid var(--border); }
+  .code-meta { color: var(--text2); margin-top: 10px; font-size: 14px; }
+  .pill { display: inline-block; font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; padding: 3px 9px; border-radius: 999px; border: 1px solid var(--border); color: var(--text2); vertical-align: middle; }
+  .pill.on { color: var(--lime); border-color: rgba(194,210,79,.45); }
+  .pill.off { color: var(--yellow); border-color: rgba(255,215,0,.4); }
+
+  .stats { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 10px; margin-top: 12px; }
+  .stat { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 16px; }
+  .stat .v { font-family: var(--mono); font-size: 26px; font-weight: 500; margin-top: 4px; line-height: 1.2; }
+  .stat .v.lime { color: var(--lime); }
+  .stat .s { color: var(--muted); font-size: 12px; margin-top: 4px; }
+
+  section { margin-top: 30px; }
+  section h2 { font-size: 16px; font-weight: 800; margin-bottom: 10px; letter-spacing: -.01em; }
+  .table-wrap { overflow-x: auto; background: var(--card); border: 1px solid var(--border); border-radius: 14px; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th { text-align: left; font-family: var(--mono); font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 500; padding: 10px 14px; border-bottom: 1px solid var(--border); white-space: nowrap; }
+  td { padding: 10px 14px; border-bottom: 1px solid var(--border); }
+  tr:last-child td { border-bottom: 0; }
+  .num { font-family: var(--mono); text-align: right; white-space: nowrap; }
+  .muted { color: var(--muted); }
+  .empty { background: var(--card); border: 1px dashed var(--border); border-radius: 14px; padding: 18px; color: var(--text2); }
+
+  .review { margin-top: 12px; background: var(--inset); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; color: var(--text2); font-size: 14px; }
+  .review strong { color: var(--text); font-family: var(--mono); font-weight: 500; }
+  ul.tips { color: var(--text2); padding-left: 18px; }
+  ul.tips li { margin-bottom: 6px; }
+  footer { color: var(--muted); font-size: 13px; text-align: center; margin-top: 40px; }
+  .center { text-align: center; padding: 80px 16px; color: var(--text2); }
+  @media (max-width: 640px) { .stats { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<nav><a class="brand" href="https://carbonatedaudio.com" rel="noreferrer">Carbonated Audio</a><span class="tag">Partner dashboard</span></nav>
+<main class="wrap" id="root"><div class="center">Loading your numbers...</div></main>
+
+<script>
+(function () {
+  var root = document.getElementById("root");
+  var t = new URLSearchParams(location.search).get("t") || "";
+  function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
+  function money(c) { return "$" + ((Number(c) || 0) / 100).toFixed(2); }
+  function monthLabel(m) { var p = m.split("-"); return new Date(Date.UTC(+p[0], +p[1] - 1, 1)).toLocaleString("en-US", { month: "long", year: "numeric", timeZone: "UTC" }); }
+  var PRODUCT_NAMES = { carbonator: "Carbonator", desipper: "De-Sipper", ontap: "On Tap", pour: "Pour", octane: "FIZZFUEL", tallboy: "TALLBOY", september_bundle: "All 7 bundle", mega_bundle: "Mega Bundle", vocal_bundle: "Vocal bundle", mixbus_bundle: "Mix bus bundle" };
+  function productName(p) { return PRODUCT_NAMES[p] || (p ? p.replace(/^pack_/, "").replace(/_/g, " ") + (p.indexOf("pack_") === 0 ? " expansion pack" : "") : "Order"); }
+
+  if (!t) { root.innerHTML = '<div class="center">This page needs your personal partner link. Ask Soda for it: <a href="mailto:mixedbysoda@gmail.com">mixedbysoda@gmail.com</a></div>'; return; }
+
+  fetch("/.netlify/functions/partner-portal?t=" + encodeURIComponent(t), { referrerPolicy: "no-referrer" })
+    .then(function (r) { return r.json().then(function (j) { if (!r.ok) throw new Error(j.error || "Could not load"); return j; }); })
+    .then(render)
+    .catch(function (e) { root.innerHTML = '<div class="center">' + esc(e.message) + '<br><br>Questions: <a href="mailto:mixedbysoda@gmail.com">mixedbysoda@gmail.com</a></div>'; });
+
+  function render(d) {
+    var cur = d.months.filter(function (m) { return m.month === d.current_month; })[0] || { orders: 0, commission_cents: 0 };
+    var shareUrl = "https://carbonatedaudio.com";
+    var codeStatus = d.code_active === false
+      ? '<span class="pill off">paused</span>'
+      : '<span class="pill on">live</span>';
+    var reviewLine = "";
+    if (d.review_code) {
+      reviewLine = d.review_redeemed
+        ? '<div class="review">Your free All 7 license is claimed. The keys went to the email you used at checkout.</div>'
+        : '<div class="review">Your free All 7 license is waiting: go to <a href="https://carbonatedaudio.com/bundle" rel="noreferrer">the All 7 bundle</a>, check out with <strong>' + esc(d.review_code) + '</strong> and pay $0. One use, expires ' + esc(d.review_expires) + ".</div>";
+    }
+
+    var monthsRows = d.months.map(function (m) {
+      return "<tr><td>" + esc(monthLabel(m.month)) + (m.month === d.current_month ? ' <span class="muted">(so far)</span>' : "") + '</td><td class="num">' + m.orders + '</td><td class="num">' + money(m.commission_cents) + "</td></tr>";
+    }).join("");
+
+    var orders = d.orders.length ? '<div class="table-wrap"><table><thead><tr><th>Date</th><th>Product</th><th class="num">Order</th><th class="num">Your cut</th></tr></thead><tbody>' + d.orders.map(function (o) {
+      return "<tr><td>" + esc(o.date) + "</td><td>" + esc(productName(o.product)) + (o.status !== "paid" ? ' <span class="pill off">' + esc(o.status) + "</span>" : "") + '</td><td class="num">' + money(o.gross_cents) + '</td><td class="num">' + money(o.commission_cents) + "</td></tr>";
+    }).join("") + "</tbody></table></div>" : '<div class="empty">No orders with your code yet. Once someone checks out with ' + esc(d.audience_code) + " it shows up here within about 10 minutes.</div>";
+
+    var payouts = d.payouts.length ? '<div class="table-wrap"><table><thead><tr><th>Paid</th><th>For</th><th class="num">Amount</th></tr></thead><tbody>' + d.payouts.map(function (p) {
+      return "<tr><td>" + esc(p.paid_at) + "</td><td>" + (p.period ? esc(monthLabel(p.period)) : "-") + '</td><td class="num">' + money(p.amount_cents) + "</td></tr>";
+    }).join("") + "</tbody></table></div>" : '<div class="empty">No payouts yet. Commission for each month is paid by PayPal in the first week of the next month, no minimum.</div>';
+
+    root.innerHTML =
+      '<div class="hello"><div class="eyebrow">Creator program</div><h1>Hey ' + esc(d.name) + ', here is <span class="grad">your code.</span></h1>' +
+      "<p>" + d.audience_percent + "% off anything for your audience, " + d.commission_percent + "% of net on every sale it makes.</p></div>" +
+
+      '<div class="code-card"><div class="eyebrow">Your audience code ' + codeStatus + '</div>' +
+      '<div class="code-row"><div class="code" id="code">' + esc(d.audience_code) + '</div><button id="copy-code">Copy code</button><button class="ghost" id="copy-line">Copy description line</button></div>' +
+      '<div class="code-meta">' + (d.code_active === false ? "Your code is paused right now (usually during a marketplace deal week). It comes back on automatically; no need to change anything you posted." : "Put it in your description, pin it, say it out loud. Disclose it as an affiliate code.") + "</div>" +
+      reviewLine + "</div>" +
+
+      '<div class="stats">' +
+        '<div class="stat"><div class="eyebrow">This month so far</div><div class="v">' + money(cur.commission_cents) + '</div><div class="s">' + cur.orders + " order" + (cur.orders === 1 ? "" : "s") + "</div></div>" +
+        '<div class="stat"><div class="eyebrow">Ready for payout</div><div class="v lime">' + money(d.due.owed_now_cents) + '</div><div class="s">' + (d.paypal_on_file ? "PayPal on file" : 'Reply to Soda with your PayPal email') + "</div></div>" +
+        '<div class="stat"><div class="eyebrow">Lifetime earned</div><div class="v">' + money(d.lifetime_commission_cents) + '</div><div class="s">' + money(d.due.paid_cents) + " paid out</div></div>" +
+      "</div>" +
+
+      "<section><h2>By month</h2>" + '<div class="table-wrap"><table><thead><tr><th>Month</th><th class="num">Orders</th><th class="num">Your cut</th></tr></thead><tbody>' + monthsRows + "</tbody></table></div></section>" +
+      "<section><h2>Orders with your code</h2>" + orders + "</section>" +
+      "<section><h2>Payouts</h2>" + payouts + "</section>" +
+      "<section><h2>What works</h2><ul class=\"tips\">" +
+        "<li>Show the before and after on your own track. The A/B moment sells it, not the settings.</li>" +
+        "<li>Point viewers at the product page first: the sound examples and demos are there, and the code is the last step.</li>" +
+        "<li>Your code works on the plugins, bundles and expansion packs. It does not stack on limited-time sale prices.</li>" +
+        '<li>Manuals: <a href="https://carbonatedaudio.com/manual" rel="noreferrer">carbonatedaudio.com/manual</a> - press kit and screenshots: <a href="https://carbonatedaudio.com/press" rel="noreferrer">carbonatedaudio.com/press</a></li>' +
+      "</ul></section>" +
+      '<footer>Commission = ' + d.commission_percent + "% of (order total - card processing fee). Refunded orders pay 0. Numbers refresh about every 10 minutes.<br>Keep this link private, it is your login. Questions: <a href=\"mailto:mixedbysoda@gmail.com\">mixedbysoda@gmail.com</a> - <a href=\"https://carbonatedaudio.com/creators\" rel=\"noreferrer\">program terms</a></footer>";
+
+    function copy(text, btn, label) {
+      var done = function () { btn.textContent = "Copied"; setTimeout(function () { btn.textContent = label; }, 1500); };
+      if (navigator.clipboard) navigator.clipboard.writeText(text).then(done, function () {});
+    }
+    var codeBtn = document.getElementById("copy-code");
+    codeBtn.onclick = function () { copy(d.audience_code, codeBtn, "Copy code"); };
+    var lineBtn = document.getElementById("copy-line");
+    lineBtn.onclick = function () { copy("Carbonated Audio plugins - " + d.audience_percent + "% off with code " + d.audience_code + ": " + shareUrl + " (affiliate code)", lineBtn, "Copy description line"); };
+  }
+})();
+</script>
+</body>
+</html>
