@@ -19,6 +19,12 @@
 [functions."review-request"]
   schedule = "0 10 * * *"
 
+# Creator video watcher: daily at 13:30 UTC (9:30am ET summer, 8:30am winter).
+# Emails SODA only when a signed creator posts a video that mentions a product,
+# or when the watcher itself needs attention. See lib/creator-videos.js.
+[functions."creator-video-watch"]
+  schedule = "30 13 * * *"
+
 # ---------------------------------------------------------------------------
 # HEADERS
 # ---------------------------------------------------------------------------
@@ -343,31 +349,6 @@
   to = "/bundle"
   status = 301
   force = true
-# Add-ons (2026-09-11). /addons is a page (addons.html) AND a folder (addons/
-# holds the two subcategory pages), so pin the hub explicitly instead of
-# trusting pretty-URL resolution to pick the file over the folder. No
-# /addons.html -> /addons 301 on purpose: it would sit on the rewrite target.
-[[redirects]]
-  from = "/addons"
-  to = "/addons.html"
-  status = 200
-  force = true
-[[redirects]]
-  from = "/addons/expansion-packs.html"
-  to = "/addons/expansion-packs"
-  status = 301
-  force = true
-[[redirects]]
-  from = "/addons/templates.html"
-  to = "/addons/templates"
-  status = 301
-  force = true
-[[redirects]]
-  from = "/mega-bundle.html"
-  to = "/mega-bundle"
-  status = 301
-  force = true
-
 [[redirects]]
   from = "/carbonator-vs-decapitator.html"
   to = "/carbonator-vs-decapitator"

@@ -1,0 +1,14 @@
+{
+  "slug": "fizzfuel-drums-ab",
+  "product": "FIZZFUEL",
+  "accent": "0xe879f9",
+  "shot": "fizzfuel-screenshot.png",
+  "dry": "assets/fizzfuel-demos/drums-clean.wav",
+  "wet": "assets/fizzfuel-demos/drums-shifted.wav",
+  "hook": "One box. Whole chain.",
+  "line_dry": "[ CLEAN ]",
+  "line_wet": "[ FIZZFUEL ]",
+  "cta": "carbonatedaudio.com",
+  "seg": 4,
+  "start": 1
+}

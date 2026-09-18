@@ -7,8 +7,6 @@ const { generateRefCode } = require("./referral");
 const { buildEmail } = require("../../email-templates/render");
 const { decodeClientReference, reportPurchase } = require("./lib/ga4");
 const { updateSessionMetadata } = require("./lib/stripe-session");
-const { addonLine } = require("./lib/addon-links");
-const { ADDONS } = require("./config");
 
 const FROM_EMAIL = "Carbonated Audio <hello@carbonatedaudio.com>";
 
@@ -28,9 +26,7 @@ const SUBJECTS = {
   apd_bundle: "Your Carbonated Audio 3-in-1 Bundle — License Keys & Downloads",
   apd_bundle_4: "Your Carbonated Audio 4-in-1 Bundle — License Keys & Downloads",
   apd_bundle_5: "Your Carbonated Audio 5-in-1 Bundle — License Keys & Downloads",
-  mega_bundle: "Your Carbonated Audio Mega Bundle - License Keys & Downloads",
 };
-for (const item of ADDONS.items) SUBJECTS[item.id] = `Your ${item.name} - Download`;
 
 const QUICK_START = {
   tallboy: [
@@ -125,24 +121,7 @@ const QUICK_START = {
   ],
 };
 
-QUICK_START.mega_bundle = [
-  '<strong style="color:#ffffff;">Install the seven plugins</strong> using the download links below, then rescan in your DAW.',
-  '<strong style="color:#ffffff;">Activate the six paid plugins</strong> with their matching license keys. Still is free and needs no activation.',
-  '<strong style="color:#ffffff;">Download the add-ons:</strong> every expansion pack and Pro Tools template has its own download button below. Each zip has a READ ME that shows where the files go.',
-  '<strong style="color:#ffffff;">Start with a template:</strong> open one in Pro Tools and the Carbonated plugins are already in the chain.',
-];
-const ADDON_QUICK_START = [
-  '<strong style="color:#ffffff;">Download the zip</strong> with the button above and unzip it.',
-  '<strong style="color:#ffffff;">Open the READ ME</strong> inside: it shows exactly where the files go.',
-  '<strong style="color:#ffffff;">Keep this email.</strong> The download button keeps working, so you can grab it again on a new machine.',
-];
-for (const item of ADDONS.items) QUICK_START[item.id] = ADDON_QUICK_START;
-
 const BODY_COPY = {
-  mega_bundle:
-    `<p style="color:#a09bb5;font-size:15px;line-height:1.7;margin:0;">You now own everything Carbonated Audio makes: all seven plugins, every expansion pack, and every Pro Tools template. License keys, plugin downloads, and add-on downloads are below.</p>`,
-  addon: (name) =>
-    `<p style="color:#a09bb5;font-size:15px;line-height:1.7;margin:0;">Your ${name} is ready. Download it below. If anything is missing, just reply to this email.</p>`,
   single: (productName) =>
     `<p style="color:#a09bb5;font-size:15px;line-height:1.7;margin:0;">Your ${productName} license key and downloads are below. If anything breaks on install, just reply to this email.</p>`,
   bundle:
@@ -237,20 +216,12 @@ exports.handler = async (event) => {
   // depend on the Stripe metadata writeback succeeding.
   let issuedKeys = null;
 
-  // Add-ons are files, not licences, so a single add-on purchase renders
-  // through the same multi-item path as a bundle of one.
-  const isAddon = product.type === "addon";
-
-  if (product.isBundle || isAddon) {
+  if (product.isBundle) {
     const licenses = [];
     const metadataUpdate = { product: productId };
-    const includes = isAddon ? [productId] : product.includes;
+    const includes = product.includes;
     for (const includedId of includes) {
       const included = PRODUCTS[includedId];
-      if (included.type === "addon") {
-        licenses.push(addonLine(PRODUCTS, session.id, includedId));
-        continue;
-      }
       const secret = process.env[included.secretEnv];
       const licenseKey = secret
         ? generateActivationKey(email, session.created, secret)
@@ -267,13 +238,6 @@ exports.handler = async (event) => {
       });
     }
 
-    // Freeze which add-ons this order bought. download-addon.js reads this
-    // first, so an item added to the catalog later does not silently become
-    // downloadable by every past Mega Bundle buyer. Whether to gift future
-    // add-ons is a business decision, not a side effect of editing the catalog.
-    const addonIds = includes.filter((id) => PRODUCTS[id] && PRODUCTS[id].type === "addon");
-    if (addonIds.length) metadataUpdate.addons = addonIds.join(",");
-
     try {
       await updateSessionMetadata(stripe, session.id, metadataUpdate);
     } catch (err) {
@@ -289,17 +253,14 @@ exports.handler = async (event) => {
       apd_bundle: "Your 3-in-1 Bundle — 3 license keys + downloads",
       apd_bundle_4: "Your 4-in-1 Bundle — 4 license keys + downloads",
       apd_bundle_5: "Your 5-in-1 Bundle — 5 license keys + downloads",
-      mega_bundle: "Your 6 license keys, 7 plugins, and every add-on",
     };
-    if (isAddon) preheaderMap[productId] = `Your ${product.name} download`;
-
     emailHtml = buildEmail("support", {
       product: productId,
       customerEmail: email,
       amount: amountPaid,
       orderId,
       licenses,
-      body: isAddon ? BODY_COPY.addon(product.name) : (BODY_COPY[productId] || BODY_COPY.bundle),
+      body: BODY_COPY[productId] || BODY_COPY.bundle,
       quickStart: QUICK_START[productId] || QUICK_START.bundle,
       refCode,
       preheader: preheaderMap[productId] || preheaderMap.bundle,

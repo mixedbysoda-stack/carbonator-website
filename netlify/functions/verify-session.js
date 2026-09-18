@@ -6,7 +6,6 @@ const {
   generateActivationKey,
 } = require("./config");
 const { updateSessionMetadata } = require("./lib/stripe-session");
-const { addonDownloadUrl } = require("./lib/addon-links");
 
 exports.handler = async (event) => {
   const headers = {
@@ -62,22 +61,10 @@ exports.handler = async (event) => {
       // Bundle: return one item per included plugin (name, downloads, key).
       // Keys are regenerated deterministically from email + session.created, so
       // this works even if the webhook's metadata writeback failed (restricted key).
-      // Add-ons are files with no licence key; a single add-on renders through
-      // the same multi-item path as a bundle of one.
-      if (product.isBundle || product.type === "addon") {
-        const ids = product.type === "addon" ? [productId] : (product.includes || []);
+      if (product.isBundle) {
+        const ids = product.includes || [];
         const items = ids.map((id) => {
           const inc = PRODUCTS[id];
-          if (inc.type === "addon") {
-            return {
-              product: id,
-              kind: "addon",
-              category: inc.category,
-              product_name: inc.name,
-              download_url: inc.released ? addonDownloadUrl(sessionId, id) : null,
-              pending: !inc.released,
-            };
-          }
           const secret = process.env[inc.secretEnv];
           const key =
             session.metadata?.[`license_key_${id}`] ||

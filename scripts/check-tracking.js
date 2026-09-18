@@ -42,12 +42,7 @@ if (!/searchParams\.set\(\s*['"]client_reference_id['"]/.test(tracker)) {
 
 // 3. Every payment link used on the site must be mapped, and every page that
 //    sells must load GA4 and the tracker.
-// Top-level pages plus the add-ons subfolder (addons/expansion-packs.html,
-// addons/templates.html sell things too and must pass the same checks).
-const pages = [
-  ...fs.readdirSync(ROOT).filter((f) => f.endsWith(".html")),
-  ...(fs.existsSync(path.join(ROOT, "addons")) ? fs.readdirSync(path.join(ROOT, "addons")).filter((f) => f.endsWith(".html")).map((f) => "addons/" + f) : []),
-];
+const pages = fs.readdirSync(ROOT).filter((f) => f.endsWith(".html"));
 const seenLinks = new Map();
 
 for (const page of pages) {
@@ -193,81 +188,6 @@ notes.push(`${mapped.size} payment links mapped, ${seenLinks.size} in use across
           "data-apd-hide markup plus the apd-window.js include to that page."
       );
     }
-  }
-}
-
-// ---------------------------------------------------------------------------
-// 9. ADD-ONS: components/addons-catalog.js is the one source for expansion
-//    packs, Pro Tools templates and the Mega Bundle. Nothing may go on sale
-//    half-wired, and no page may show a price the catalog does not.
-// ---------------------------------------------------------------------------
-{
-  const CATALOG_PATH = path.join(ROOT, "components", "addons-catalog.js");
-  if (fs.existsSync(CATALOG_PATH)) {
-    const cat = require(CATALOG_PATH);
-    const { PRODUCTS } = require(path.join(ROOT, "netlify", "functions", "config.js"));
-
-    const sellable = [...cat.items, cat.mega];
-    for (const it of sellable) {
-      if (it.status !== "live") continue;
-      const id = (String(it.paymentLink || "").match(/buy\.stripe\.com\/(?:test\/)?([A-Za-z0-9]+)/) || [])[1];
-      if (!id) errors.push(`addons-catalog.js: ${it.id} is live but has no buy.stripe.com paymentLink.`);
-      else if (!mapped.has(id)) errors.push(`addons-catalog.js: ${it.id} payment link ${id} is missing from the products map in components/checkout-tracking.js.`);
-      if (it !== cat.mega && !it.file) errors.push(`addons-catalog.js: ${it.id} is live but names no release file to deliver.`);
-    }
-    if (cat.mega.status === "live") {
-      const notLive = cat.items.filter((it) => it.status !== "live").map((it) => it.id);
-      // A live Mega Bundle with unreleased items is a PREORDER. Allowed only
-      // when the catalog says so explicitly, and then every page that sells
-      // it must tell the buyer the add-ons arrive later.
-      if (notLive.length && !cat.mega.preorder) {
-        errors.push(`addons-catalog.js: the Mega Bundle is live but these items it promises are not: ${notLive.join(", ")}. Set mega.preorder = true only if the pages say add-ons ship later.`);
-      }
-      if (notLive.length && cat.mega.preorder) {
-        for (const f of ["mega-bundle.html", "addons.html", "addons/expansion-packs.html", "addons/templates.html"]) {
-          const full = path.join(ROOT, f);
-          if (!fs.existsSync(full)) continue;
-          const html = fs.readFileSync(full, "utf8");
-          if (html.includes(cat.mega.paymentLink) && !/as each one drops|as they drop/.test(html)) {
-            errors.push(`${f}: sells the Mega Bundle but never tells the buyer the add-ons arrive later.`);
-          }
-        }
-      }
-    }
-
-    // The "7 plugins, $129" line must equal what the plugins actually cost.
-    const pluginSum = cat.mega.plugins.reduce((sum, id) => sum + ((PRODUCTS[id] && PRODUCTS[id].price) || 0), 0);
-    if (pluginSum !== cat.mega.pluginsValue) {
-      errors.push(`addons-catalog.js: mega.pluginsValue is ${cat.mega.pluginsValue} but the plugins in config.js add up to ${pluginSum}.`);
-    }
-
-    // Static fallback prices on the pages must match the catalog.
-    const addonPages = ["addons.html", "mega-bundle.html", "addons/expansion-packs.html", "addons/templates.html"]
-      .map((f) => path.join(ROOT, f)).filter((f) => fs.existsSync(f));
-    const megaValue = cat.megaValue();
-    for (const file of addonPages) {
-      const html = fs.readFileSync(file, "utf8");
-      const rel = path.relative(ROOT, file);
-      for (const m of html.matchAll(/data-price-of="([^"]+)">\$(\d+)</g)) {
-        const it = cat.byId(m[1]);
-        if (!it) errors.push(`${rel}: data-price-of="${m[1]}" is not in the catalog.`);
-        else if (Number(m[2]) !== it.price) errors.push(`${rel}: shows $${m[2]} for ${m[1]}, catalog says $${it.price}.`);
-      }
-      for (const m of html.matchAll(/data-mega-value>\$([\d,]+)</g)) {
-        if (Number(m[1].replace(/,/g, "")) !== megaValue) errors.push(`${rel}: Mega Bundle value shows $${m[1]}, catalog adds up to $${megaValue}.`);
-      }
-      for (const m of html.matchAll(/data-mega-save>\$(\d+)</g)) {
-        if (Number(m[1]) !== megaValue - cat.mega.price) errors.push(`${rel}: Mega Bundle saving shows $${m[1]}, catalog says $${megaValue - cat.mega.price}.`);
-      }
-    }
-
-    // One cache-busting stamp for the catalog everywhere it is loaded.
-    const catStamps = new Set();
-    for (const file of [path.join(ROOT, "components", "nav.js"), ...addonPages]) {
-      for (const m of fs.readFileSync(file, "utf8").matchAll(/addons-catalog\.js\?v=([A-Za-z0-9-]+)/g)) catStamps.add(m[1]);
-    }
-    if (catStamps.size > 1) errors.push(`addons-catalog.js is loaded under ${catStamps.size} different ?v= stamps (${[...catStamps].join(", ")}). Use one.`);
-    notes.push(`add-ons: ${cat.items.filter((i) => i.status === "live").length}/${cat.items.length} live, mega ${cat.mega.status}`);
   }
 }
 

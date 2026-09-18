@@ -1,0 +1,14 @@
+{
+  "slug": "carbonator-cola-ab",
+  "product": "Carbonator",
+  "accent": "0xf59e0b",
+  "shot": "carbonator-screenshot.png",
+  "dry": "audio/dry.mp3",
+  "wet": "audio/cola-wet.mp3",
+  "hook": "Flat bus. One knob.",
+  "line_dry": "[ DRY ]",
+  "line_wet": "[ COLA MODE ]",
+  "cta": "carbonatedaudio.com",
+  "seg": 6,
+  "start": 8
+}

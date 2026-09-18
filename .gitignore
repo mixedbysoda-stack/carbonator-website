@@ -43,3 +43,6 @@ _preview/
 
 # demo installer rebuild working dir - pkgs, logs. NEVER commit (repo is public)
 _demo-fix/
+
+# Still Windows CI staging dir - scripts + apply log. Belongs in the still repo, not here. NEVER commit
+_still-windows-ci/

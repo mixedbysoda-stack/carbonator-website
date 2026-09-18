@@ -1,0 +1,22 @@
+If you grabbed one of our macOS demos this year and it did nothing, that was our build, not your setup. I found it this weekend and it is fixed.
+
+The macOS demo installers for De-Sipper, On Tap and Pour were compiled with the wrong minimum system version. They reported "requires macOS 26" and would not load or pass plugin validation on anything older. The De-Sipper demo was worse: it had no Intel build in it at all. The paid versions were always built correctly, which is how this went five months without anyone catching it.
+
+All three are rebuilt, re-signed and notarized, macOS 10.13 and later, Intel and Apple Silicon native:
+
+De-Sipper demo (dynamic de-esser): https://github.com/mixedbysoda-stack/desipper/releases/download/v1.0.0-demo/DeSipper-Demo-v1.0.0-macOS.pkg
+On Tap demo (tempo-synced sidechain ducking): https://github.com/mixedbysoda-stack/ontap/releases/download/v1.0.0-demo/OnTap-Demo-macOS.pkg
+Pour demo (stereo imaging with a live vectorscope): https://github.com/mixedbysoda-stack/pour/releases/download/v1.0.0-demo/Pour-v1.0.0-Demo-Installer.pkg
+
+The links are the same ones as before, so a bookmarked download now serves the fixed build. The demos play 60 seconds of audio and then mute for 10, on a loop. That is the trial limit, not a bug.
+
+One install note: the version number did not change, so if your DAW or macOS cached the failed validation, restart the machine before you rescan, or run "killall -9 AudioComponentRegistrar" in Terminal first.
+
+Sorry for the wasted download. If anything still misbehaves, hit reply and send me the exact error, and I will dig into it.
+
+Miguel
+Carbonated Audio
+
+PS - the Mega Bundle (every plugin, plus every expansion pack as it drops) is $350 through October 12 if you end up liking what you hear. No code needed, the price is live on the site.
+
+Unsubscribe: {{{RESEND_UNSUBSCRIBE_URL}}}

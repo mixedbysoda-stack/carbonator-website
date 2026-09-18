@@ -40,6 +40,6 @@
     document.body.appendChild(s);
 
     var checkout = document.createElement('script');
-    checkout.src = '/components/checkout-tracking.js?v=20260912-megasale';
+    checkout.src = '/components/checkout-tracking.js?v=20260918-noaddons';
     document.body.appendChild(checkout);
 })();

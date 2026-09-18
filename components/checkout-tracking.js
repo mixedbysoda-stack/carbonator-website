@@ -36,23 +36,7 @@
     // already sent point here, discounted to $45 by ALL6FOR45 until Sep 30.
     '3cI7sL2kpaxcdPX1YL3oA0h': { id: 'september_bundle', name: 'Carbonated Audio All 7 Plugins Bundle', price: 45 },
     '7sY28raQV34KeU1bzl3oA09': { id: 'vocal_bundle', name: 'Vocal Chain Bundle', price: 35 },
-    '28EeVdcZ3gVA27f1YL3oA0a': { id: 'mixbus_bundle', name: 'Mix Bus Bundle', price: 30 },
-    // Add-ons + Mega Bundle (2026-09-11). Mega is LIVE (preorder); the ten
-    // add-on links are INACTIVE in Stripe until each item ships. See
-    // components/addons-catalog.js.
-    '4gM00j2kpeNs6nv8n93oA0B': { id: 'pack_carbonator', name: 'Carbonator Expansion Pack', price: 80 },
-    '5kQ4gzgbfcFkbHP6f13oA0C': { id: 'pack_desipper', name: 'De-Sipper Expansion Pack', price: 80 },
-    '14A6oHe377l05jr0UH3oA0D': { id: 'pack_ontap', name: 'On Tap Expansion Pack', price: 80 },
-    '00w5kD9MR7l0aDL6f13oA0E': { id: 'pack_pour', name: 'Pour Expansion Pack', price: 80 },
-    'eVq8wP9MRcFk3bj1YL3oA0F': { id: 'pack_fizzfuel', name: 'FIZZFUEL Expansion Pack', price: 80 },
-    '14A9ATaQVfRw8vDavh3oA0G': { id: 'pack_tallboy', name: 'TALLBOY Expansion Pack', price: 80 },
-    '4gMaEX4sxbBgcLTfPB3oA0H': { id: 'tpl_vocal_chain', name: 'Vocal Chain Template', price: 98 },
-    'dRm9ATe37axc6nvdHt3oA0I': { id: 'tpl_mix_bus', name: 'Mix Bus Template', price: 98 },
-    '4gM8wP5wB9t84fncDp3oA0J': { id: 'tpl_beat_session', name: 'Beat Production Session', price: 98 },
-    '9B63cv9MR8p47rz46T3oA0K': { id: 'tpl_mastering', name: 'Mastering Session', price: 98 },
-    '5kQ3cv0chbBgbHPcDp3oA0A': { id: 'mega_bundle', name: 'Carbonated Audio Mega Bundle', price: 500 },
-    // Launch sale link, 2026-09-15 to 2026-10-14 (see mega.sale in addons-catalog.js)
-    '9B63cvbUZaxc4fn46T3oA0L': { id: 'mega_bundle', name: 'Carbonated Audio Mega Bundle', price: 350 }
+    '28EeVdcZ3gVA27f1YL3oA0a': { id: 'mixbus_bundle', name: 'Mix Bus Bundle', price: 30 }
   };
   function linkIdFor(url) {
     var match = String(url).match(/buy\.stripe\.com\/(?:test\/)?([A-Za-z0-9]+)/);

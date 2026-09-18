@@ -1,0 +1,14 @@
+{
+  "slug": "tallboy-vocal-ab",
+  "product": "TALLBOY",
+  "accent": "0x9bbc0f",
+  "shot": "tallboy-screenshot.png",
+  "dry": "assets/tallboy-demos/vocal-clean.mp3",
+  "wet": "assets/tallboy-demos/vocal-tallboy.mp3",
+  "hook": "Your vocal, through a sound chip.",
+  "line_dry": "[ CLEAN ]",
+  "line_wet": "[ TALLBOY ]",
+  "cta": "carbonatedaudio.com",
+  "seg": 4,
+  "start": 2
+}

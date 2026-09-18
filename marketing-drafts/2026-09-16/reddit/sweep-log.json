@@ -1,0 +1,438 @@
+{
+  "after": "2026-08-01",
+  "queries": [
+    {
+      "kind": "comments",
+      "sub": "makinghiphop",
+      "term": "carbonator",
+      "http": 200,
+      "raw_hits": 0,
+      "brand_hits": 0,
+      "url": "https://arctic-shift.photon-reddit.com/api/comments/search?subreddit=makinghiphop&body=carbonator&after=2026-08-01&limit=100"
+    },
+    {
+      "kind": "comments",
+      "sub": "audioengineering",
+      "term": "carbonator",
+      "http": 200,
+      "raw_hits": 4,
+      "brand_hits": 0,
+      "url": "https://arctic-shift.photon-reddit.com/api/comments/search?subreddit=audioengineering&body=carbonator&after=2026-08-01&limit=100"
+    },
+    {
+      "kind": "comments",
+      "sub": "edmproduction",
+      "term": "carbonator",
+      "http": 200,
+      "raw_hits": 1,
+      "brand_hits": 0,
+      "url": "https://arctic-shift.photon-reddit.com/api/comments/search?subreddit=edmproduction&body=carbonator&after=2026-08-01&limit=100"
+    },
+    {
+      "kind": "comments",
+      "sub": "WeAreTheMusicMakers",
+      "term": "carbonator",
+      "http": 200,
+      "raw_hits": 2,
+      "brand_hits": 0,
+      "url": "https://arctic-shift.photon-reddit.com/api/comments/search?subreddit=WeAreTheMusicMakers&body=carbonator&after=2026-08-01&limit=100"
+    },
+    {
+      "kind": "comments",
+      "sub": "makinghiphop",
+      "term": "carbonated audio",
+      "http": 200,
+      "raw_hits": 0,
+      "brand_hits": 0,
+      "url": "https://arctic-shift.photon-reddit.com/api/comments/search?subreddit=makinghiphop&body=carbonated+audio&after=2026-08-01&limit=100"
+    },
+    {
+      "kind": "comments",
+      "sub": "audioengineering",
+      "term": "carbonated audio",
+      "http": 200,
+      "raw_hits": 1,
+      "brand_hits": 0,
+      "url": "https://arctic-shift.photon-reddit.com/api/comments/search?subreddit=audioengineering&body=carbonated+audio&after=2026-08-01&limit=100"
+    },
+    {
+      "kind": "comments",
+      "sub": "edmproduction",
+      "term": "carbonated audio",
+      "http": 200,
+      "raw_hits": 0,
+      "brand_hits": 0,
+      "url": "https://arctic-shift.photon-reddit.com/api/comments/search?subreddit=edmproduction&body=carbonated+audio&after=2026-08-01&limit=100"
+    },
+    {
+      "kind": "comments",
+      "sub": "WeAreTheMusicMakers",
+      "term": "carbonated audio",
+      "http": 200,
+      "raw_hits": 0,
+      "brand_hits": 0,
+      "url": "https://arctic-shift.photon-reddit.com/api/comments/search?subreddit=WeAreTheMusicMakers&body=carbonated+audio&after=2026-08-01&limit=100"
+    },
+    {
+      "kind": "comments",
+      "sub": "makinghiphop",
+      "term": "carbinated audio",
+      "http": 200,
+      "raw_hits": 0,
+      "brand_hits": 0,
+      "url": "https://arctic-shift.photon-reddit.com/api/comments/search?subreddit=makinghiphop&body=carbinated+audio&after=2026-08-01&limit=100"
+    },
+    {
+      "kind": "comments",
+      "sub": "audioengineering",
+      "term": "carbinated audio",
+      "http": 200,
+      "raw_hits": 0,
+      "brand_hits": 0,
+      "url": "https://arctic-shift.photon-reddit.com/api/comments/search?subreddit=audioengineering&body=carbinated+audio&after=2026-08-01&limit=100"
+    },
+    {
+      "kind": "comments",
+      "sub": "edmproduction",
+      "term": "carbinated audio",
+      "http": 200,
+      "raw_hits": 0,
+      "brand_hits": 0,
+      "url": "https://arctic-shift.photon-reddit.com/api/comments/search?subreddit=edmproduction&body=carbinated+audio&after=2026-08-01&limit=100"
+    },
+    {
+      "kind": "comments",
+      "sub": "WeAreTheMusicMakers",
+      "term": "carbinated audio",
+      "http": 200,
+      "raw_hits": 0,
+      "brand_hits": 0,
+      "url": "https://arctic-shift.photon-reddit.com/api/comments/search?subreddit=WeAreTheMusicMakers&body=carbinated+audio&after=2026-08-01&limit=100"
+    },
+    {
+      "kind": "comments",
+      "sub": "makinghiphop",
+      "term": "de-sipper",
+      "http": 200,
+      "raw_hits": 0,
+      "brand_hits": 0,
+      "url": "https://arctic-shift.photon-reddit.com/api/comments/search?subreddit=makinghiphop&body=de-sipper&after=2026-08-01&limit=100"
+    },
+    {
+      "kind": "comments",
+      "sub": "audioengineering",
+      "term": "de-sipper",
+      "http": 200,
+      "raw_hits": 0,
+      "brand_hits": 0,
+      "url": "https://arctic-shift.photon-reddit.com/api/comments/search?subreddit=audioengineering&body=de-sipper&after=2026-08-01&limit=100"
+    },
+    {
+      "kind": "comments",
+      "sub": "edmproduction",
+      "term": "de-sipper",
+      "http": 200,
+      "raw_hits": 0,
+      "brand_hits": 0,
+      "url": "https://arctic-shift.photon-reddit.com/api/comments/search?subreddit=edmproduction&body=de-sipper&after=2026-08-01&limit=100"
+    },
+    {
+      "kind": "comments",
+      "sub": "WeAreTheMusicMakers",
+      "term": "de-sipper",
+      "http": 200,
+      "raw_hits": 0,
+      "brand_hits": 0,
+      "url": "https://arctic-shift.photon-reddit.com/api/comments/search?subreddit=WeAreTheMusicMakers&body=de-sipper&after=2026-08-01&limit=100"
+    },
+    {
+      "kind": "comments",
+      "sub": "makinghiphop",
+      "term": "fizzfuel",
+      "http": 200,
+      "raw_hits": 0,
+      "brand_hits": 0,
+      "url": "https://arctic-shift.photon-reddit.com/api/comments/search?subreddit=makinghiphop&body=fizzfuel&after=2026-08-01&limit=100"
+    },
+    {
+      "kind": "comments",
+      "sub": "audioengineering",
+      "term": "fizzfuel",
+      "http": 200,
+      "raw_hits": 0,
+      "brand_hits": 0,
+      "url": "https://arctic-shift.photon-reddit.com/api/comments/search?subreddit=audioengineering&body=fizzfuel&after=2026-08-01&limit=100"
+    },
+    {
+      "kind": "comments",
+      "sub": "edmproduction",
+      "term": "fizzfuel",
+      "http": 200,
+      "raw_hits": 0,
+      "brand_hits": 0,
+      "url": "https://arctic-shift.photon-reddit.com/api/comments/search?subreddit=edmproduction&body=fizzfuel&after=2026-08-01&limit=100"
+    },
+    {
+      "kind": "comments",
+      "sub": "WeAreTheMusicMakers",
+      "term": "fizzfuel",
+      "http": 200,
+      "raw_hits": 0,
+      "brand_hits": 0,
+      "url": "https://arctic-shift.photon-reddit.com/api/comments/search?subreddit=WeAreTheMusicMakers&body=fizzfuel&after=2026-08-01&limit=100"
+    },
+    {
+      "kind": "comments",
+      "sub": "makinghiphop",
+      "term": "tallboy",
+      "http": 200,
+      "raw_hits": 0,
+      "brand_hits": 0,
+      "url": "https://arctic-shift.photon-reddit.com/api/comments/search?subreddit=makinghiphop&body=tallboy&after=2026-08-01&limit=100"
+    },
+    {
+      "kind": "comments",
+      "sub": "audioengineering",
+      "term": "tallboy",
+      "http": 200,
+      "raw_hits": 0,
+      "brand_hits": 0,
+      "url": "https://arctic-shift.photon-reddit.com/api/comments/search?subreddit=audioengineering&body=tallboy&after=2026-08-01&limit=100"
+    },
+    {
+      "kind": "comments",
+      "sub": "edmproduction",
+      "term": "tallboy",
+      "http": 200,
+      "raw_hits": 0,
+      "brand_hits": 0,
+      "url": "https://arctic-shift.photon-reddit.com/api/comments/search?subreddit=edmproduction&body=tallboy&after=2026-08-01&limit=100"
+    },
+    {
+      "kind": "comments",
+      "sub": "WeAreTheMusicMakers",
+      "term": "tallboy",
+      "http": 200,
+      "raw_hits": 0,
+      "brand_hits": 0,
+      "url": "https://arctic-shift.photon-reddit.com/api/comments/search?subreddit=WeAreTheMusicMakers&body=tallboy&after=2026-08-01&limit=100"
+    },
+    {
+      "kind": "posts",
+      "sub": "makinghiphop",
+      "term": "carbonator",
+      "http": 200,
+      "raw_hits": 0,
+      "brand_hits": 0,
+      "url": "https://arctic-shift.photon-reddit.com/api/posts/search?subreddit=makinghiphop&query=carbonator&after=2026-08-01&limit=100"
+    },
+    {
+      "kind": "posts",
+      "sub": "audioengineering",
+      "term": "carbonator",
+      "http": 200,
+      "raw_hits": 0,
+      "brand_hits": 0,
+      "url": "https://arctic-shift.photon-reddit.com/api/posts/search?subreddit=audioengineering&query=carbonator&after=2026-08-01&limit=100"
+    },
+    {
+      "kind": "posts",
+      "sub": "edmproduction",
+      "term": "carbonator",
+      "http": 200,
+      "raw_hits": 0,
+      "brand_hits": 0,
+      "url": "https://arctic-shift.photon-reddit.com/api/posts/search?subreddit=edmproduction&query=carbonator&after=2026-08-01&limit=100"
+    },
+    {
+      "kind": "posts",
+      "sub": "WeAreTheMusicMakers",
+      "term": "carbonator",
+      "http": 422,
+      "raw_hits": -1,
+      "brand_hits": 0,
+      "url": "https://arctic-shift.photon-reddit.com/api/posts/search?subreddit=WeAreTheMusicMakers&query=carbonator&after=2026-08-01&limit=100"
+    },
+    {
+      "kind": "posts",
+      "sub": "makinghiphop",
+      "term": "carbonated audio",
+      "http": 200,
+      "raw_hits": 0,
+      "brand_hits": 0,
+      "url": "https://arctic-shift.photon-reddit.com/api/posts/search?subreddit=makinghiphop&query=carbonated+audio&after=2026-08-01&limit=100"
+    },
+    {
+      "kind": "posts",
+      "sub": "audioengineering",
+      "term": "carbonated audio",
+      "http": 200,
+      "raw_hits": 0,
+      "brand_hits": 0,
+      "url": "https://arctic-shift.photon-reddit.com/api/posts/search?subreddit=audioengineering&query=carbonated+audio&after=2026-08-01&limit=100"
+    },
+    {
+      "kind": "posts",
+      "sub": "edmproduction",
+      "term": "carbonated audio",
+      "http": 200,
+      "raw_hits": 0,
+      "brand_hits": 0,
+      "url": "https://arctic-shift.photon-reddit.com/api/posts/search?subreddit=edmproduction&query=carbonated+audio&after=2026-08-01&limit=100"
+    },
+    {
+      "kind": "posts",
+      "sub": "WeAreTheMusicMakers",
+      "term": "carbonated audio",
+      "http": 200,
+      "raw_hits": 0,
+      "brand_hits": 0,
+      "url": "https://arctic-shift.photon-reddit.com/api/posts/search?subreddit=WeAreTheMusicMakers&query=carbonated+audio&after=2026-08-01&limit=100"
+    },
+    {
+      "kind": "posts",
+      "sub": "makinghiphop",
+      "term": "carbinated audio",
+      "http": 200,
+      "raw_hits": 0,
+      "brand_hits": 0,
+      "url": "https://arctic-shift.photon-reddit.com/api/posts/search?subreddit=makinghiphop&query=carbinated+audio&after=2026-08-01&limit=100"
+    },
+    {
+      "kind": "posts",
+      "sub": "audioengineering",
+      "term": "carbinated audio",
+      "http": 422,
+      "raw_hits": -1,
+      "brand_hits": 0,
+      "url": "https://arctic-shift.photon-reddit.com/api/posts/search?subreddit=audioengineering&query=carbinated+audio&after=2026-08-01&limit=100"
+    },
+    {
+      "kind": "posts",
+      "sub": "edmproduction",
+      "term": "carbinated audio",
+      "http": 200,
+      "raw_hits": 0,
+      "brand_hits": 0,
+      "url": "https://arctic-shift.photon-reddit.com/api/posts/search?subreddit=edmproduction&query=carbinated+audio&after=2026-08-01&limit=100"
+    },
+    {
+      "kind": "posts",
+      "sub": "WeAreTheMusicMakers",
+      "term": "carbinated audio",
+      "http": 200,
+      "raw_hits": 0,
+      "brand_hits": 0,
+      "url": "https://arctic-shift.photon-reddit.com/api/posts/search?subreddit=WeAreTheMusicMakers&query=carbinated+audio&after=2026-08-01&limit=100"
+    },
+    {
+      "kind": "posts",
+      "sub": "makinghiphop",
+      "term": "de-sipper",
+      "http": 200,
+      "raw_hits": 0,
+      "brand_hits": 0,
+      "url": "https://arctic-shift.photon-reddit.com/api/posts/search?subreddit=makinghiphop&query=de-sipper&after=2026-08-01&limit=100"
+    },
+    {
+      "kind": "posts",
+      "sub": "audioengineering",
+      "term": "de-sipper",
+      "http": 200,
+      "raw_hits": 0,
+      "brand_hits": 0,
+      "url": "https://arctic-shift.photon-reddit.com/api/posts/search?subreddit=audioengineering&query=de-sipper&after=2026-08-01&limit=100"
+    },
+    {
+      "kind": "posts",
+      "sub": "edmproduction",
+      "term": "de-sipper",
+      "http": 200,
+      "raw_hits": 0,
+      "brand_hits": 0,
+      "url": "https://arctic-shift.photon-reddit.com/api/posts/search?subreddit=edmproduction&query=de-sipper&after=2026-08-01&limit=100"
+    },
+    {
+      "kind": "posts",
+      "sub": "WeAreTheMusicMakers",
+      "term": "de-sipper",
+      "http": 200,
+      "raw_hits": 0,
+      "brand_hits": 0,
+      "url": "https://arctic-shift.photon-reddit.com/api/posts/search?subreddit=WeAreTheMusicMakers&query=de-sipper&after=2026-08-01&limit=100"
+    },
+    {
+      "kind": "posts",
+      "sub": "makinghiphop",
+      "term": "fizzfuel",
+      "http": 200,
+      "raw_hits": 0,
+      "brand_hits": 0,
+      "url": "https://arctic-shift.photon-reddit.com/api/posts/search?subreddit=makinghiphop&query=fizzfuel&after=2026-08-01&limit=100"
+    },
+    {
+      "kind": "posts",
+      "sub": "audioengineering",
+      "term": "fizzfuel",
+      "http": 200,
+      "raw_hits": 0,
+      "brand_hits": 0,
+      "url": "https://arctic-shift.photon-reddit.com/api/posts/search?subreddit=audioengineering&query=fizzfuel&after=2026-08-01&limit=100"
+    },
+    {
+      "kind": "posts",
+      "sub": "edmproduction",
+      "term": "fizzfuel",
+      "http": 200,
+      "raw_hits": 0,
+      "brand_hits": 0,
+      "url": "https://arctic-shift.photon-reddit.com/api/posts/search?subreddit=edmproduction&query=fizzfuel&after=2026-08-01&limit=100"
+    },
+    {
+      "kind": "posts",
+      "sub": "WeAreTheMusicMakers",
+      "term": "fizzfuel",
+      "http": 200,
+      "raw_hits": 0,
+      "brand_hits": 0,
+      "url": "https://arctic-shift.photon-reddit.com/api/posts/search?subreddit=WeAreTheMusicMakers&query=fizzfuel&after=2026-08-01&limit=100"
+    },
+    {
+      "kind": "posts",
+      "sub": "makinghiphop",
+      "term": "tallboy",
+      "http": 422,
+      "raw_hits": -1,
+      "brand_hits": 0,
+      "url": "https://arctic-shift.photon-reddit.com/api/posts/search?subreddit=makinghiphop&query=tallboy&after=2026-08-01&limit=100"
+    },
+    {
+      "kind": "posts",
+      "sub": "audioengineering",
+      "term": "tallboy",
+      "http": 200,
+      "raw_hits": 0,
+      "brand_hits": 0,
+      "url": "https://arctic-shift.photon-reddit.com/api/posts/search?subreddit=audioengineering&query=tallboy&after=2026-08-01&limit=100"
+    },
+    {
+      "kind": "posts",
+      "sub": "edmproduction",
+      "term": "tallboy",
+      "http": 422,
+      "raw_hits": -1,
+      "brand_hits": 0,
+      "url": "https://arctic-shift.photon-reddit.com/api/posts/search?subreddit=edmproduction&query=tallboy&after=2026-08-01&limit=100"
+    },
+    {
+      "kind": "posts",
+      "sub": "WeAreTheMusicMakers",
+      "term": "tallboy",
+      "http": 200,
+      "raw_hits": 0,
+      "brand_hits": 0,
+      "url": "https://arctic-shift.photon-reddit.com/api/posts/search?subreddit=WeAreTheMusicMakers&query=tallboy&after=2026-08-01&limit=100"
+    }
+  ],
+  "brand_hits": []
+}

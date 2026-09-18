@@ -84,8 +84,8 @@
   function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
   function money(c) { return "$" + ((Number(c) || 0) / 100).toFixed(2); }
   function monthLabel(m) { var p = m.split("-"); return new Date(Date.UTC(+p[0], +p[1] - 1, 1)).toLocaleString("en-US", { month: "long", year: "numeric", timeZone: "UTC" }); }
-  var PRODUCT_NAMES = { carbonator: "Carbonator", desipper: "De-Sipper", ontap: "On Tap", pour: "Pour", octane: "FIZZFUEL", tallboy: "TALLBOY", september_bundle: "All 7 bundle", mega_bundle: "Mega Bundle", vocal_bundle: "Vocal bundle", mixbus_bundle: "Mix bus bundle" };
-  function productName(p) { return PRODUCT_NAMES[p] || (p ? p.replace(/^pack_/, "").replace(/_/g, " ") + (p.indexOf("pack_") === 0 ? " expansion pack" : "") : "Order"); }
+  var PRODUCT_NAMES = { carbonator: "Carbonator", desipper: "De-Sipper", ontap: "On Tap", pour: "Pour", octane: "FIZZFUEL", tallboy: "TALLBOY", september_bundle: "All 7 bundle", vocal_bundle: "Vocal bundle", mixbus_bundle: "Mix bus bundle" };
+  function productName(p) { return PRODUCT_NAMES[p] || (p ? p.replace(/_/g, " ") : "Order"); }
 
   if (!t) { root.innerHTML = '<div class="center">This page needs your personal partner link. Ask Soda for it: <a href="mailto:mixedbysoda@gmail.com">mixedbysoda@gmail.com</a></div>'; return; }
 

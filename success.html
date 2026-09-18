@@ -670,24 +670,10 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
 
                         const dlSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>';
                         const esc = function(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); };
-                        const pluginCount = data.items.filter(function(it) { return it.kind !== 'addon'; }).length;
-                        const addonCount = data.items.length - pluginCount;
-                        const countLabel = [pluginCount ? pluginCount + (pluginCount === 1 ? ' plugin' : ' plugins') : '', addonCount ? addonCount + (addonCount === 1 ? ' add-on' : ' add-ons') : ''].filter(Boolean).join(' + ');
+                        const pluginCount = data.items.length;
+                        const countLabel = pluginCount + (pluginCount === 1 ? ' plugin' : ' plugins');
                         let html = '<div class="download-section"><h2>Your ' + countLabel + '</h2>';
                         data.items.forEach(function(it, i) {
-                            // Add-ons (expansion packs, Pro Tools templates) are one zip,
-                            // no licence key. Unreleased ones say so instead of linking.
-                            if (it.kind === 'addon') {
-                                html += '<div class="license-section" style="margin-bottom:20px;">';
-                                html += '<h2 style="margin-top:0;">' + esc(it.product_name) + '</h2>';
-                                if (it.download_url) {
-                                    html += '<div class="download-grid"><div class="download-card"><div class="os-icon">&#9660;</div><div class="os-name">Mac + Windows</div><div class="os-detail">.zip with a READ ME inside</div><a class="download-btn" href="' + esc(it.download_url) + '">' + dlSvg + ' Download .zip</a></div></div>';
-                                } else {
-                                    html += '<p class="license-note">Not released yet. We email you the download the day it drops.</p>';
-                                }
-                                html += '</div>';
-                                return;
-                            }
                             html += '<div class="license-section" style="margin-bottom:20px;">';
                             html += '<h2 style="margin-top:0;">' + esc(it.product_name) + '</h2>';
                             if (it.license_key) {

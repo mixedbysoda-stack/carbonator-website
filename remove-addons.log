@@ -1,0 +1,77 @@
+=== remove-addons Fri Sep 18 15:51:32 EDT 2026 ===
+--- git state before ---
+ M .DS_Store
+ M .gitignore
+ M 8-bit-vocal-effect.html
+ M best-cheap-saturation-plugins.html
+ M best-chiptune-plugins.html
+ M bitcrusher-vs-decimator.html
+ M bundle.html
+ M carbonator-vs-decapitator.html
+ M carbonator-vs-free-saturation.html
+ M carbonator-vs-saturn.html
+ M carbonator.html
+ M chiptune-vst.html
+ M components/checkout-tracking.js
+ M components/footer.js
+ M components/nav.js
+ M desipper-vs-soothe.html
+ M desipper-vs-spitfish.html
+ M desipper.html
+ M email-templates/render.js
+ M fizzfuel.html
+ M handheld-chiptune-daw.html
+ M index.html
+ M manual-desipper.html
+ M manual-ontap.html
+ M manual-pour.html
+ M manual-tallboy.html
+ M manual.html
+ M netlify.toml
+ M netlify/functions/config.js
+ M netlify/functions/stripe-webhook.js
+ M netlify/functions/verify-session.js
+ M ontap-vs-kickstart.html
+ M ontap.html
+ M partner.html
+ M pour-vs-ozone-imager.html
+ M pour.html
+ M scripts/check-tracking.js
+ M sitemap.xml
+ M still.html
+ M success.html
+ M tallboy-vs-decimort.html
+ M tallboy-vs-lofi-plugins.html
+ M tallboy.html
+?? .claude/
+?? "Claude outputs/"
+?? _to_delete/
+?? ads/
+?? content-engine/
+?? email-templates/demo-fix-2026-09-13.build.js
+?? email-templates/out/demo-fix-2026-09-13.html
+?? email-templates/out/demo-fix-2026-09-13.txt
+?? email-templates/out/tallboy-still-blast-2026-09-01.html
+?? email-templates/out/tallboy-still-blast-preview-embedded.html
+?? marketing-drafts/
+?? netlify/functions/creator-video-watch.js
+?? netlify/functions/lib/creator-videos.js
+?? remove-addons.command
+?? remove-addons.log
+?? scripts/reddit-brand-sweep.py
+--- deleting add-on files ---
+rm 'addons.css'
+rm 'addons.html'
+rm 'components/addons-catalog.js'
+rm 'components/addons.js'
+rm 'mega-bundle.html'
+rm 'netlify/functions/addon-waitlist.js'
+rm 'netlify/functions/download-addon.js'
+rm 'netlify/functions/lib/addon-links.js'
+rm 'netlify/functions/upload-addon-file.js'
+rm 'scripts/upload-addons.js'
+rm 'addons/expansion-packs.html'
+rm 'addons/templates.html'
+--- build guard ---
+Tracking check passed (tracker version: 20260918-noaddons; 11 payment links mapped, 10 in use across 42 pages)
+--- committing ---
